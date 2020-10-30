@@ -19,6 +19,7 @@ function App() {
    
 
   <br />
+  
   <Navbar bg="light" variant="light">
     <Navbar.Brand href="#home">ArtQ</Navbar.Brand>
     <Nav className="mr-auto">
@@ -34,8 +35,13 @@ function App() {
   </Navbar>
       <Route exact path='/' component={Home} exact />
       <Route exact path='/callback' component={Callback} exact />
+
+    </div>
+    <div>
+      
     </div>
     </BrowserRouter>
+    
     
   )
 }
