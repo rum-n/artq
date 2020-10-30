@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Callback from './Callback';
 import Home from './pages/Home';
 import About from './pages/About';
+import paypal from "./pages/paypal";
 
 import Navigation from './components/Nav';
 
