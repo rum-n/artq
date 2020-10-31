@@ -1,3 +1,4 @@
+{/* This file is used by Home.js */}
 export default {
     FAKE: 0,
     REAL: 0,

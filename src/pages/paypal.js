@@ -86,7 +86,7 @@ class PaypalButton extends React.Component {
         {showButtons && (
           <div>
             <div>
-              <h2>City</h2>
+              <h2>Purchase Art</h2>
               <h2>Total checkout Amount $200</h2>
             </div>
 
