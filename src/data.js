@@ -1,10 +1,7 @@
 export default {
-    FAKE: 0,
-    REAL: 0,
-    author: 'USER',
-    caption: 'CAPTION',
-    photoId: '47d5-9420-c99a-7459-640d',
     posted: '72 minutes ago',
+    location: '20 W 34th St, New York, NY 10001',
+    
     url: [
       {
         url:
