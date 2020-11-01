@@ -18,7 +18,7 @@ const Navigation = () => {
     }
   return (
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="#home">ArtQ</Navbar.Brand>
+        <Link className='nav-links' to='/'><Navbar.Brand>ArtQ</Navbar.Brand></Link>
         <Nav className="mr-auto">
           <Link className='nav-links' to='/'>My Feed</Link>
           <Link className='nav-links' to='/latest'>Latest and Popular</Link>

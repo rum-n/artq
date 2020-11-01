@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import scriptLoader from "react-async-script-loader";
 
-
 const CLIENT = {
   sandbox:"EAYTjn2InHVhytljDzfVxl6Vvi8IHIOUBkkufCu1bPdYctYvW2h2qCsgujEcckWabJVyO6oCkj3wl_6O",
   production:"AbzYJlETb0M8Tj7qkTtqqlZFa6FoCe4l27B807JPO24-wtap8p_-KfU2q2fkUQS4Xj9e0tgCnfoY1I6Y"

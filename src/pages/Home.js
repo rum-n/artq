@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import PaypalButtons from "./paypal";
 
 
-
-
 class Home extends Component {
   state = {
     showPaypal: false
