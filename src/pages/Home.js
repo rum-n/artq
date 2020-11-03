@@ -12,38 +12,34 @@
 import React, { useState } from "react";
 import PaypalButtons from "./paypal";
 import data from "./data";
-import { render } from "@testing-library/react";
-
+import './styles.css';
 
 const Home = () => {
   const [showPaypal, setShowPaypal] = useState(false); 
-  const [images, setImages] = useState(data.url);
-
-  
+  const [images, setImages] = useState(data);
 
   const showPaypalButtons = () => {
     setShowPaypal(true);
   }
  
+  console.log(images)
+
   return (
    
     //I don't think it is entering this return loop 
     
-    
-    showPaypal ? <PaypalButtons /> : images.map((anObjectMapped, index) => { //ternary operator - similar to if/else, but shorter. 
-    <div>
-      
-      <p key={`${anObjectMapped.cost}_{anObjectMapped.email}`}>
-        {anObjectMapped.name}  {anObjectMapped.cost} 
+    showPaypal ? <PaypalButtons /> : images.map(painting => (
+    <div key={painting.title} className="artwork-wrapper">
+        <img src={painting.url} alt={painting.title}/>
+        <p>Title: {painting.title}</p>  
+        <p>Author: {painting.author}</p>  
+        <p>Cost: {painting.cost}</p>
         <button onClick={showPaypalButtons}> Pay </button>
-      </p>
-      <img src={anObjectMapped.email} alt="Logo" />
       <br></br>
-    </div>})
+    </div>))
     );
  
   }
-
 
 export default Home;
 

@@ -9,3 +9,13 @@
     margin-right: 500px;
     display: flex;
 }
+
+.artwork-wrapper {
+    margin: auto;
+    width: 40%;
+    justify-content: center;
+}
+
+.artwork-wrapper img {
+    width: 100%;
+}

@@ -1,9 +1,9 @@
-import React,{Component} from 'react';
+import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import { Button,Nav,FormControl,Form,Dropdown } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Auth0Provider } from "@auth0/auth0-react";
+// import { Auth0Provider } from "@auth0/auth0-react";
 import auth0Client from './../Auth';
 import './styles.css'
 import logo from "./logo.PNG";
