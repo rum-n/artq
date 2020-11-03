@@ -6,8 +6,7 @@
 // However, the way data.js is set up, I'm not sure there's anything to map through right now.
 
 
-//I made a change to the useState, by saying "data.url". It was giving me an undefined map error 
-//without the .url
+
 
 import React, { useState } from "react";
 import PaypalButtons from "./paypal";
@@ -26,7 +25,7 @@ const Home = () => {
 
   return (
    
-    //I don't think it is entering this return loop 
+   
     
     showPaypal ? <PaypalButtons /> : images.map(painting => (
     <div key={painting.title} className="artwork-wrapper">
