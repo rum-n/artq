@@ -5,21 +5,34 @@
 // to map through it in the return part. 
 // However, the way data.js is set up, I'm not sure there's anything to map through right now.
 
+
+//I made a change to the useState, by saying "data.url". It was giving me an undefined map error 
+//without the .url
+
 import React, { useState } from "react";
 import PaypalButtons from "./paypal";
 import data from "./data";
+import { render } from "@testing-library/react";
+
 
 const Home = () => {
   const [showPaypal, setShowPaypal] = useState(false); 
-  const [images, setImages] = useState(data);
+  const [images, setImages] = useState(data.url);
+
+  
 
   const showPaypalButtons = () => {
     setShowPaypal(true);
-  };
-  
+  }
+ 
   return (
+   
+    //I don't think it is entering this return loop 
+    
+    
     showPaypal ? <PaypalButtons /> : images.map((anObjectMapped, index) => { //ternary operator - similar to if/else, but shorter. 
     <div>
+      
       <p key={`${anObjectMapped.cost}_{anObjectMapped.email}`}>
         {anObjectMapped.name}  {anObjectMapped.cost} 
         <button onClick={showPaypalButtons}> Pay </button>
@@ -28,7 +41,9 @@ const Home = () => {
       <br></br>
     </div>})
     );
+ 
   }
+
 
 export default Home;
 
