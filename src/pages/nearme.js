@@ -1,6 +1,6 @@
 import React from 'react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
-import data from "./data"
+import data from "../components/data"
 
 const mapStyles = {
   width: '100%',
