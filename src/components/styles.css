@@ -1,3 +1,17 @@
 .nav-links {
     margin-left: 1rem;
 }
+
+.artwork-card:hover {
+    opacity: 0.8;
+}
+
+.feed-title {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.outer-artwork {
+    width: 30%;
+}
