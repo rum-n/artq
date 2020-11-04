@@ -4,8 +4,6 @@ import Callback from './Callback';
 import Home from './pages/Home';
 import About from './pages/About';
 import NearMe from './pages/nearme';
-
-
 import Navigation from './components/Nav';
 
 function App() { 
