@@ -26,8 +26,8 @@ const Navigation = () => {
 
    
 
-    
-  return (
+  
+return(
       <Navbar style = {{backgroundColor: "rgb(36,38,54)"}}  variant="light">
   <Dropdown>
   <Dropdown.Toggle style = {{borderColor: "rgb(36,38,54)", backgroundColor: "rgb(36,38,54)"}}  variant="success" >
@@ -35,7 +35,7 @@ const Navigation = () => {
   </Dropdown.Toggle>
 
   <Dropdown.Menu  style = {{borderColor: "rgb(36,38,54)", backgroundColor: "rgb(36,38,54)"}}>
-    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>My profile</Link></Dropdown.Item>
+    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/profile'>My profile</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Messages</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Notifications</Link></Dropdown.Item>
     <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/about'>Purchase history</Link></Dropdown.Item>
@@ -53,7 +53,8 @@ const Navigation = () => {
           {!auth0Client.isAuthenticated() && <Button className="btn btn-dark" onClick={() => { signinButton() }}>Sign In</Button>}
           {auth0Client.isAuthenticated() && <label className="mr-2 text-white">Welcome {auth0Client.getProfile().name}</label>}
           <br></br>
-          {auth0Client.isAuthenticated() && <Button className="btn btn-dark" onClick={() => { signOut() }}>Sign Out</Button>}
+           {auth0Client.isAuthenticated() && <Button className="btn btn-dark" onClick={() => { signOut() }}>Sign Out</Button>}
+           {auth0Client.isAuthenticated() &&<img src={auth0Client.getProfile().picture} alt={auth0Client.getProfile().name} />}
        </Dropdown.Item>
        
     
@@ -75,8 +76,8 @@ const Navigation = () => {
           
         </Form>
       </Navbar>
-      
-  )
+)
+  
 }
 
 export default Navigation;

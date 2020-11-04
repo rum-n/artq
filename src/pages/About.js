@@ -11,6 +11,6 @@ const About = () => {
             <p className='about'>As Chui likes to say, “It’s a very American concept; ArtQ is of the artist, for the artist and by the artist.” And finally, ArtQ makes loving art more fun and accessible for all. ArtQ is simply an art idea whose time has come!</p>
         </div>
     )
-}
+} 
 
 export default About;
