@@ -50,6 +50,7 @@ onClose = props => {
 };
 
   render() {
+    
       
     console.log(this.state.userLocation.lat)
     console.log(this.state.userLocation.lng)
@@ -90,6 +91,7 @@ onClose = props => {
       </Map>
       );
     }
+    
 }
 
 export default GoogleApiWrapper({
