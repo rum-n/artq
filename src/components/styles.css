@@ -14,4 +14,26 @@
 
 .outer-artwork {
     width: 30%;
+    cursor: pointer;
 }
+
+.modal-content {
+    /* display: flex;
+    flex-direction: row !important; */
+    display: inline;
+}
+
+.modal-img {
+    width: 45%;
+    float: left;
+}
+
+.modal-img img {
+    width: 10rem;
+}
+
+.modal-info {
+    width: 45%;
+    float: right;
+}
+
