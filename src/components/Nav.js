@@ -40,7 +40,7 @@ return(
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Notifications</Link></Dropdown.Item>
     <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/about'>Purchase history</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Selling center</Link></Dropdown.Item>
-    <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/about'>Settings</Link></Dropdown.Item>
+    <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/settings'>Settings</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>About</Link></Dropdown.Item>
     
     <br></br>

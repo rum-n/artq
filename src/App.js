@@ -5,6 +5,7 @@ import Home from './pages/homepage';
 import About from './pages/About';
 import NearMe from './pages/nearme';
 import Profile from './pages/profile';
+import Settings from './pages/settings';
 import Navigation from './components/Nav';
 
 function App() { 
@@ -17,6 +18,7 @@ function App() {
         <Route exact path='/' component={Home}  />
         <Route path='/about' component={About} />
         <Route path='/profile' component={Profile} />
+        <Route path='/settings' component={Settings} />
         <Route path='/nearme' component={NearMe} />
         <Route path='/callback' component={Callback} />
       </div>
