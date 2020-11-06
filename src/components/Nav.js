@@ -38,8 +38,8 @@ return(
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/profile'>My profile</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Messages</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Notifications</Link></Dropdown.Item>
-    <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/about'>Purchase history</Link></Dropdown.Item>
-    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>Selling center</Link></Dropdown.Item>
+    <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/purchases'>Purchase history</Link></Dropdown.Item>
+    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/sellingcenter'>Selling center</Link></Dropdown.Item>
     <Dropdown.Item><Link style = {{color: "white"}} className='nav-links' to='/settings'>Settings</Link></Dropdown.Item>
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/about'>About</Link></Dropdown.Item>
     
