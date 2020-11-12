@@ -10,6 +10,7 @@
     text-align: center;
     margin-top: 3rem;
     margin-bottom: 2rem;
+    font-size: 2rem;
 }
 
 .outer-artwork {
@@ -18,22 +19,37 @@
 }
 
 .modal-content {
-    /* display: flex;
-    flex-direction: row !important; */
     display: inline;
 }
 
 .modal-img {
-    width: 45%;
-    float: left;
+    width: 100%;
 }
 
-.modal-img img {
-    width: 10rem;
+.add-to-cart {
+    background-color: #EE2A7B!important;
+    font-family: "Roboto", sans-serif!important;
+    border: none!important;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
-.modal-info {
-    width: 45%;
-    float: right;
+.save-for-later {
+    background-color: transparent!important;
+    font-family: "Roboto", sans-serif!important;
+    border: 1px solid #EE2A7B!important;
+    width: 100%;
+    color: #EE2A7B!important;
+    margin-bottom: 1rem;
 }
 
+.see-more {
+    text-align: center!important;
+    margin: auto;
+    text-decoration: underline;
+    color: #000;
+}
+
+.modal-footer {
+    justify-content: center!important;
+}
