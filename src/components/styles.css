@@ -18,6 +18,10 @@
     cursor: pointer;
 }
 
+.hover-info {
+    position: relative;
+}
+
 .modal-content {
     display: inline;
 }

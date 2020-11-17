@@ -12,9 +12,11 @@ const Feed = () => {
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleMouseHover = () => setIsHovering(true);
 
   const showPaypalButtons = () => {
     setShowPaypal(true);
@@ -24,11 +26,17 @@ const Feed = () => {
     <>
     {showPaypal ? <PaypalButtons /> : images.map(painting => (
       <div className='outer-artwork' onClick={handleShow}>
-        <div key={painting.title} className="artwork-card">
+        <div 
+          key={painting.title} 
+          className="artwork-card"
+          onMouseEnter={handleMouseHover}
+          onMouseLeave={()=>setIsHovering(false)}>
             <img src={painting.url} alt={painting.title}/>
-            <p>Title: {painting.title}</p>  
-            <p>Author: {painting.author}</p>  
-            <p>Cost: {painting.cost}</p>
+            {isHovering && <div className="hover-info">
+              <p>{painting.author}</p>  
+              <p>{painting.title}</p>  
+              <p>{painting.dimensions}</p>
+            </div>}
             <button onClick={showPaypalButtons}> Pay </button>
         </div>
 
@@ -64,7 +72,6 @@ const Feed = () => {
       </div>))}
 
       </>
-    ); 
-  }
-
+  )}
+  
 export default Feed;
