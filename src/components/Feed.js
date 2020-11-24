@@ -24,10 +24,9 @@ const Feed = () => {
         <div key={painting.title} className="artwork-card">
             <img src={painting.url} alt={painting.title}/>
             <p>Title: {painting.title}</p>  
-            <p>Author: {painting.author}</p>  
+            <p>Author: {painting.author}</p>
             <p>Cost: {painting.cost}</p>
             <button onClick={showPaypalButtons}> Pay </button>
-        </div>
         <Modal dialogClassName="modal-100w" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>{painting.author}</Modal.Title>
@@ -53,9 +52,10 @@ const Feed = () => {
         <Modal.Footer>
         </Modal.Footer>
       </Modal>
+        </div>
       </div>))}
 
-      </>
+    </>
     ); 
   }
 
