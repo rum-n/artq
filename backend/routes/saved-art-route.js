@@ -1,12 +1,10 @@
 const express = require('express');
+const savedartcontrollers = require("../controllers/saved-art-controllers")
 const router = express.Router();
 
-router.get('/',(req,res,next) => {
-    console.log('GET Request in Places');
-    res.json({message:'It works!'});
-}
+router.get('/:imgid',savedartcontrollers.getArtById);
 
 
-);
+router.get('/user/:uid',savedartcontrollers.getUserById);
 
 module.exports = router;

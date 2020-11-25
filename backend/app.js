@@ -4,6 +4,6 @@ const bodyParser = require('body-parser');
 const imagesRoutes = require('./routes/saved-art-route');
 const app = express();
 
-app.use(imagesRoutes);
+app.use('/api/saved',imagesRoutes);
 
 app.listen(5000)
