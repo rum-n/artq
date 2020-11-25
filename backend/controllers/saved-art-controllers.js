@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
+const {validationResult} = require('express-validator')
 const HttpError = require('../models/http-error');
+const getCoordsForAddress = require("../util/location")
 let Dummy_Images = [
     {
     "id": "1",   
@@ -7,6 +9,7 @@ let Dummy_Images = [
     "url":"https://s3.imgcdn.dev/cSCIB.png",
     "cost": 400,
     "author": "USER",
+    "address": "421 Amsterdam Ave New York USA",
     "location": { 
       lat: 41.3954,
       lng: 2.162 
@@ -37,14 +40,28 @@ const getArtByUser = (req,res,next)=>{
     res.json({images})
 
 }
-const saveArt = (req,res,next) => {
-    const {title,url,cost,author} = req.body;
+const saveArt = async (req,res,next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        console.log(errors)
+        return next (new HttpError("Invalid inputs passed, please check your data",422))
+
+    }
+    const {title,url,cost,author,address} = req.body;
+    let coordinates;
+    try{
+      coordinates = await getCoordsForAddress(address)
+    } catch(error){
+        return next(error)
+    }
     const savedArt = {
         id: uuidv4(),
         title,
         url, 
         cost,
-        author
+        author,
+        address,
+        location: coordinates,
     };
     Dummy_Images.push(savedArt)
     res.status(201).json({art:savedArt});
@@ -52,6 +69,12 @@ const saveArt = (req,res,next) => {
 };
 
 const updateImage = (req,res,next) =>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        console.log(errors)
+        throw new HttpError("Invalid inputs passed, please check your data",422)
+
+    }
     const {title,url,cost} = req.body;
     const imageId = req.params.imgid;
     const updatedImage = {...Dummy_Images.find(i => i.id === imageId)};
@@ -66,6 +89,9 @@ const updateImage = (req,res,next) =>{
 };
 const deleteImage = (req,res,next) =>{
     const imageId = req.params.imgid;
+    if(!Dummy_Images.find(i => i.id === imageId)){
+        throw new HttpError("Could not find place for that id.",404)
+    }
     Dummy_Images = Dummy_Images.filter(p=> p.id!==imageId);
     res.status(200).json({message:'Deleted place'})
 
