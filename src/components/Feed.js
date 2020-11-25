@@ -23,12 +23,8 @@ const Feed = props => {
     setActiveItem(item)
     setShow(true)
  };
-
- 
-  
-
   return (
-    <React.Fragment>
+    <div className='main'>
       
       {showPaypal ? <PaypalButtons /> : <CardDeck>
         {images.map(painting => 
@@ -63,7 +59,7 @@ const Feed = props => {
                       <a className='see-more'>See more</a>
                     </Modal.Footer>
                 </Modal>
-      </React.Fragment>
+      </div>
   )}
 
   

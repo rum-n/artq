@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Auth0Provider } from "@auth0/auth0-react";
 import auth0Client from './../Auth';
 import './styles.css'
-import logo from "./logo.PNG";
-import sidebar from "./sidebar.PNG";
+import logo from "../assets/logo.PNG";
+import sidebar from "../assets/sidebar.PNG";
 
 const Navigation = () => { 
 
