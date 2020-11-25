@@ -10,7 +10,8 @@ import CardDeck from 'react-bootstrap/CardDeck';
 import data from "./data";
 import './styles.css';
 
-const Feed = () => {
+const Feed = props => {
+  
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
@@ -23,9 +24,8 @@ const Feed = () => {
     setShow(true)
  };
 
-  const showPaypalButtons = () => {
-    setShowPaypal(true);
-  }
+ 
+  
 
   return (
     <React.Fragment>
@@ -54,7 +54,7 @@ const Feed = () => {
                           <p><b>Description</b></p>
                           <p>{activeItem.description}</p>              
                           <Button className="add-to-cart" variant="secondary">Add to cart</Button>
-                          <Button className="save-for-later" variant="primary">Save for later</Button>
+                          <Button className="save-for-later" variant="primary" >Save for later</Button>
                         </Col>
                       </Row>
                     </Container>
@@ -65,5 +65,7 @@ const Feed = () => {
                 </Modal>
       </React.Fragment>
   )}
+
+  
   
 export default Feed;

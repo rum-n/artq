@@ -12,6 +12,10 @@
     "@testing-library/user-event": "^12.1.10",
     "auth0-js": "^9.14.0",
     "bootstrap": "^4.5.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15",
     "react": "^17.0.1",
     "react-alert": "^7.0.2",
     "react-async-script-loader": "^0.3.0",
@@ -52,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-dev-utils": "^11.0.0"
   }
 }

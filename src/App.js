@@ -9,6 +9,7 @@ import Settings from './pages/settings';
 import Purchases from './pages/purchases';
 import Navigation from './components/Nav';
 import Sellingcenter from './pages/sellingcenter';
+import Saved from "./pages/Saved";
 
 function App() { 
 
@@ -18,6 +19,7 @@ function App() {
       <div className="main">
       <Switch>
         <Route exact path='/' component={Home}  />
+        <Route exact path='/saved' component={Saved}  />
         <Route path='/about' component={About} />
         <Route path='/profile' component={Profile} />
         <Route path='/settings' component={Settings} />
