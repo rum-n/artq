@@ -11,4 +11,8 @@ router.get('/user/:uid',savedartcontrollers.getArtByUser);
 
 router.post('/',savedartcontrollers.saveArt);
 
+router.patch('/:imgid',savedartcontrollers.updateImage);
+
+router.delete('/:imgid',savedartcontrollers.deleteImage)
+
 module.exports = router;

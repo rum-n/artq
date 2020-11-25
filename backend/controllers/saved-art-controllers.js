@@ -1,6 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const HttpError = require('../models/http-error');
-const Dummy_Images = [
+let Dummy_Images = [
     {
     "id": "1",   
     "title": "PaintingTitle1",
@@ -26,15 +26,15 @@ const getArtById = (req,res,next) => {
 }
 const getArtByUser = (req,res,next)=>{
     const userId = req.params.uid;
-    const image = Dummy_Images.find(p=>{
+    const images = Dummy_Images.filter(p=>{
         return p.author === userId;
     });
-    if (!image){
+    if (!images || images.length === 0){
         return next(
             new HttpError("Could not find a user for the provided user id",404)
         );
     }
-    res.json({image})
+    res.json({images})
 
 }
 const saveArt = (req,res,next) => {
@@ -51,6 +51,28 @@ const saveArt = (req,res,next) => {
 
 };
 
+const updateImage = (req,res,next) =>{
+    const {title,url,cost} = req.body;
+    const imageId = req.params.imgid;
+    const updatedImage = {...Dummy_Images.find(i => i.id === imageId)};
+    const imgIndex = Dummy_Images.findIndex(i => i.id === imageId);
+    updatedImage.title = title;
+    updatedImage.url = url;
+    updatedImage.cost = cost;
+
+    Dummy_Images[imgIndex] = updatedImage;
+    res.status(200).json({image:updatedImage});
+
+};
+const deleteImage = (req,res,next) =>{
+    const imageId = req.params.imgid;
+    Dummy_Images = Dummy_Images.filter(p=> p.id!==imageId);
+    res.status(200).json({message:'Deleted place'})
+
+};
+
 exports.getArtById = getArtById;
 exports.getArtByUser = getArtByUser;
 exports.saveArt = saveArt;
+exports.updateImage = updateImage;
+exports.deleteImage = deleteImage;
