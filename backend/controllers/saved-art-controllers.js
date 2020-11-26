@@ -3,22 +3,11 @@ const {validationResult} = require('express-validator')
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require("../util/location")
 const Image = require('../models/image');
-const image = require('../models/image');
+const User = require("../models/user")
+const mongoose = require("mongoose")
 const { findAllByPlaceholderText } = require('@testing-library/react');
-let Dummy_Images = [
-    {
-    "id": "1",   
-    "title": "PaintingTitle1",
-    "url":"https://s3.imgcdn.dev/cSCIB.png",
-    "cost": 400,
-    "author": "USER",
-    "address": "421 Amsterdam Ave New York USA",
-    "location": { 
-      lat: 41.3954,
-      lng: 2.162 
-    }
-}
-];
+
+
 const getArtById = async (req,res,next) => {
     const imageId = req.params.imgid
     let image;
@@ -38,9 +27,9 @@ const getArtById = async (req,res,next) => {
 };
 const getArtByUser = async (req,res,next)=>{
     const userId = req.params.uid;
-    let images;
+    let userWithImages
     try{
-    images = await Image.find({author: userId});
+        userWithImages = await User.findById(userId).populate('image')
     } catch(err){
         const error = new HttpError(
             "Something went wrong, could not find image from provided user id", 500
@@ -49,12 +38,12 @@ const getArtByUser = async (req,res,next)=>{
 
 
 
-    if (!images || images.length === 0){
+    if (!userWithImages || userWithImages.image.length === 0){
         return next(
             new HttpError("Could not find a user for the provided user id",404)
         );
     }
-    res.json({images: images.map(image => image.toObject({getters:true}))})
+    res.json({images: userWithImages.image.map(image => image.toObject({getters:true}))})
 
 }
 const saveArt = async (req,res,next) => {
@@ -79,8 +68,28 @@ const saveArt = async (req,res,next) => {
         url:"https://s3.imgcdn.dev/cSCIB.png",
         author
     });
+    let user;
     try{
-    await savedArt.save();
+      user =  await User.findById(author)
+    }catch(err){
+        const error = new HttpError(
+            "Creating place failed",500
+        );
+        return next(error);
+    }
+    if (!user){
+        console.log("error dawg")
+        const error = new HttpError("Could not find user for provided id",404)
+        return next(error)
+    }
+
+    try{
+     const sess = await mongoose.startSession();
+     sess.startTransaction();
+     await savedArt.save({session:sess});
+     user.image.push(savedArt);
+     await user.save({session:sess});
+     await sess.commitTransaction();
     } catch(err){
         const error = new HttpError("Saving Image failed",500);
     
@@ -130,18 +139,30 @@ const deleteImage = async (req,res,next) =>{
     const imageId = req.params.imgid;
     let image;
     try{
-        image = await Image.findById(imageId)
+        image = await Image.findById(imageId).populate("author");
     }catch(err){
         const error = new HttpError(
             "Something went wrong, could not delete art", 500
         );
         return next(error);
     }
+    if (!image){
+        const error = new HttpError("Could not find image for this id",404);
+        return next(error);
+    }
+
+
     try{
-        await image.remove();
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await image.remove({session:sess});
+        image.author.image.pull(image);
+        await image.author.save({session:sess});
+        await sess.commitTransaction();
+      
     }catch(err){
         const error = new HttpError(
-            "Something went wrong, could not update art", 500
+            "Something went wrong, could not delete art", 500
         );
         return next(error);
     }

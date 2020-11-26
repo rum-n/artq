@@ -27,6 +27,6 @@ app.use((error,req,res,next) =>{
 
 });
 
-mongoose.connect('mongodb+srv://artq:artqwebsitepassword@cluster0.d2zqd.mongodb.net/images?retryWrites=true&w=majority').then(() => {app.listen(5000);}).catch(err =>{
+mongoose.connect('mongodb+srv://artq:artqwebsitepassword@cluster0.d2zqd.mongodb.net/mern?retryWrites=true&w=majority').then(() => {app.listen(5000);}).catch(err =>{
     console.log(err);
 });
