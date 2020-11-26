@@ -28,7 +28,7 @@ const signup = async (req,res,next) =>{
     existingUser = await User.findOne({email:email})
     } catch (err){
         const error = new HttpError(
-            "Signin uou failed",500
+            "Signing in failed",500
         );
         return next(error);
     }
