@@ -5,6 +5,7 @@ import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
+import plus from '../assets/plus.png';
 
 const Signup = () => {
 
@@ -13,16 +14,23 @@ const Signup = () => {
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <img src={artist} alt='Painter'/>
-                    <p>Join as an artist</p>
+                    <div className='label-wrapper'>
+                        <p>Join as an artist</p>
+                        <div className='profile-type-selector'></div>
+                    </div>
                 </div>
                 <div className='white-rectangle'>
                     <img src={buyer} alt='Art Collector'/>
-                    <p>Join as a collector</p>
+                    <div className='label-wrapper'>
+                        <p>Join as a collector</p>
+                        <div className='profile-type-selector'></div>
+                    </div>
                 </div>
             </div>
 
             <div className='right-wrapper'>
             <Form className='signup-form-wrapper'>
+                <img className='add-profile-pic' src={plus} alt="Plus in circle" />
             <Form.Row>
                 <Col>
                 <Form.Control type="text" placeholder="First name" />
