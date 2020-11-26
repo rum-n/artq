@@ -2,6 +2,9 @@ const { v4: uuidv4 } = require('uuid');
 const {validationResult} = require('express-validator')
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require("../util/location")
+const Image = require('../models/image');
+const image = require('../models/image');
+const { findAllByPlaceholderText } = require('@testing-library/react');
 let Dummy_Images = [
     {
     "id": "1",   
@@ -16,28 +19,42 @@ let Dummy_Images = [
     }
 }
 ];
-const getArtById = (req,res,next) => {
+const getArtById = async (req,res,next) => {
     const imageId = req.params.imgid
-    const image = Dummy_Images.find(i =>{
-        return i.id = imageId;
-    });
-    if (!image){
-        throw new HttpError("Could not find image of provided id",400);
-        
+    let image;
+    try{
+    image = await Image.findById(imageId);
+    } catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not find image", 500
+        );
+        return next(error);
     }
-    res.json({image});
-}
-const getArtByUser = (req,res,next)=>{
+    if (!image){
+        const error =  new HttpError("Could not find image of provided id",400);
+    return next(error);
+    }
+    res.json({image:image.toObject({getters:true})});
+};
+const getArtByUser = async (req,res,next)=>{
     const userId = req.params.uid;
-    const images = Dummy_Images.filter(p=>{
-        return p.author === userId;
-    });
+    let images;
+    try{
+    images = await Image.find({author: userId});
+    } catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not find image from provided user id", 500
+        );
+        return next(error);}
+
+
+
     if (!images || images.length === 0){
         return next(
             new HttpError("Could not find a user for the provided user id",404)
         );
     }
-    res.json({images})
+    res.json({images: images.map(image => image.toObject({getters:true}))})
 
 }
 const saveArt = async (req,res,next) => {
@@ -47,53 +64,88 @@ const saveArt = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,cost,author,address} = req.body;
+    const {title,url,description,cost,author,address} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
     } catch(error){
         return next(error)
     }
-    const savedArt = {
-        id: uuidv4(),
+    const savedArt = new Image({
         title,
-        url, 
-        cost,
-        author,
+        description,
         address,
-        location: coordinates,
-    };
-    Dummy_Images.push(savedArt)
+        location:coordinates,
+        url:"https://s3.imgcdn.dev/cSCIB.png",
+        author
+    });
+    try{
+    await savedArt.save();
+    } catch(err){
+        const error = new HttpError("Saving Image failed",500);
+    
+    return next(error)
+    }
     res.status(201).json({art:savedArt});
+
 
 };
 
-const updateImage = (req,res,next) =>{
+const updateImage = async (req,res,next) =>{
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         console.log(errors)
-        throw new HttpError("Invalid inputs passed, please check your data",422)
+        return next(new HttpError("Invalid inputs passed, please check your data",422))
 
     }
     const {title,url,cost} = req.body;
     const imageId = req.params.imgid;
-    const updatedImage = {...Dummy_Images.find(i => i.id === imageId)};
-    const imgIndex = Dummy_Images.findIndex(i => i.id === imageId);
-    updatedImage.title = title;
-    updatedImage.url = url;
-    updatedImage.cost = cost;
+    let image;
+    try{
+        image = await Image.findById(imageId)
+        
+    } catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not update art", 500
+        );
+        return next(error)
+    }
 
-    Dummy_Images[imgIndex] = updatedImage;
-    res.status(200).json({image:updatedImage});
+    image.title = title;
+    image.url = url;
+    image.cost = cost;
+
+   try{
+       await image.save();
+   }catch(err){
+       const error = new HttpError(
+           "Something went wrong, could not update art", 500
+       );
+       return next(error);
+   }
+    res.status(200).json({image:image.toObject({getters:true})});
 
 };
-const deleteImage = (req,res,next) =>{
+const deleteImage = async (req,res,next) =>{
     const imageId = req.params.imgid;
-    if(!Dummy_Images.find(i => i.id === imageId)){
-        throw new HttpError("Could not find place for that id.",404)
+    let image;
+    try{
+        image = await Image.findById(imageId)
+    }catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not delete art", 500
+        );
+        return next(error);
     }
-    Dummy_Images = Dummy_Images.filter(p=> p.id!==imageId);
-    res.status(200).json({message:'Deleted place'})
+    try{
+        await image.remove();
+    }catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not update art", 500
+        );
+        return next(error);
+    }
+    res.status(200).json({message:'Deleted art'})
 
 };
 

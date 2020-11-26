@@ -13,7 +13,7 @@ router.get('/user/:uid',savedartcontrollers.getArtByUser);
 router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
 
 
-router.patch('/:imgid',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.updateImage);
+router.patch('/:imgid',check('title').not().isEmpty(),check('url').isURL(),check('cost').not().isEmpty(),savedartcontrollers.updateImage);
 
 router.delete('/:imgid',savedartcontrollers.deleteImage)
 

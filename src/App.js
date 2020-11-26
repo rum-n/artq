@@ -2,14 +2,14 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Callback from './Callback';
 import Home from './pages/homepage';
-import About from './pages/about';
+import About from './pages/About';
 import NearMe from './pages/nearme';
 import Profile from './pages/profile';
 import Settings from './pages/settings';
 import Purchases from './pages/purchases';
 import Navigation from './components/Nav';
 import Sellingcenter from './pages/sellingcenter';
-import Saved from "./pages/saved";
+import Saved from "./pages/Saved";
 import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
 

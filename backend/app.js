@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
 const imagesRoutes = require('./routes/saved-art-route');
 const usersRoutes = require('./routes/users-route')
@@ -26,4 +27,6 @@ app.use((error,req,res,next) =>{
 
 });
 
-app.listen(5000)
+mongoose.connect('mongodb+srv://artq:artqwebsitepassword@cluster0.d2zqd.mongodb.net/images?retryWrites=true&w=majority').then(() => {app.listen(5000);}).catch(err =>{
+    console.log(err);
+});
