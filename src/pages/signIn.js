@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Redirect } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
@@ -21,6 +21,7 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 const SignIn =  () => {
     const history = useHistory();
     const[error,setError] = useState(false);
+    const[redirect,setRedirect] = useState(false)
 
     const [account, setAccount] = useState({
         firstname:'',
@@ -44,39 +45,46 @@ let handleChange = (e) => {
     e.preventDefault();
     try{
    
+   
     
-    const response = await fetch('http://localhost:5000/api/users/signup', {  
+    const response = await fetch('http://localhost:5000/api/users/login', {  
         method: 'POST',  
         headers: {  
           'Accept': 'application/json',  
           'Content-Type': 'application/json'  
         },  
         body: JSON.stringify({  
-            "name":account.firstname,
             "email":account.email,
-            "password":account.password,
-            "phone": account.phone,
-            "image": "hii.png" 
+            "password":account.password,   
         })  
       });
       const responseData = await response.json();
       if (!response.ok){
           throw new Error(responseData.message)
       }
+      else{
+          setRedirect(true)
+      }
     }catch(err){
         alert(err)
         setError(err.message || "Something went wrong")
      
     }
+
+
 }
 
     const errorHandler = () =>{
         setError(null);
     }
-
+    const shouldRedirect = redirect =>{
+        if (redirect){
+            return <Redirect to = "/"/>
+        }
+    }
     return (
         <React.Fragment>
-       
+        {shouldRedirect(redirect)}
         <div className='signup-wrapper'>
        
             <div className='left-wrapper'>
