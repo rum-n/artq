@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
@@ -17,15 +18,16 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
 const Signup = () => {
-   const [account, setAccount] = useState({
-       firstname:'',
-       lastname:'',
-       email:'',
-       password:'',
-       phone:'',
-       image:'default.png'
-       
-   })
+    const history = useHistory();
+    const [account, setAccount] = useState({
+        firstname:'',
+        lastname:'',
+        email:'',
+        password:'',
+        phone:'',
+        image:'default.png'
+    })
+
 let handleChange = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -35,8 +37,29 @@ let handleChange = (e) => {
 
   let save = (e) => {
     e.preventDefault();
-    console.log(account);
-  }
+    fetch('http://localhost:5000/api/users/signup', {  
+        method: 'POST',  
+        headers: {  
+          'Accept': 'application/json',  
+          'Content-Type': 'application/json'  
+        },  
+        body: JSON.stringify({  
+          firstname: this.firstname,  
+          lastname: this.lastname,  
+          email: this.email,
+          password: this.password,  
+          phone: this.phone,
+          image: this.image  
+        })  
+      }).then((response) => response.json())  
+        .then((result) => {  
+          if (result.Status === 'Success')  
+                  history.push("/profile");  
+          else  
+            alert('Registration failed')  
+        })  
+    }
+
     return (
         <div className='signup-wrapper'>
             <div className='left-wrapper'>
