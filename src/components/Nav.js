@@ -45,14 +45,14 @@ return(
     <br></br>
     <br></br>
     <br></br>
+    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/signup'>Sign Up</Link></Dropdown.Item>
+    <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/login'>Sign In</Link></Dropdown.Item>
+    <br></br>
+    <br></br>
+    
     <Dropdown.Item > 
          
-          
-          {!auth0Client.isAuthenticated() && <Button className="btn btn-dark" onClick={() => { signinButton() }}>Sign In</Button>}
-          {auth0Client.isAuthenticated() && <label className="mr-2 text-white">Welcome {auth0Client.getProfile().name}</label>}
-          <br></br>
-           {auth0Client.isAuthenticated() && <Button className="btn btn-dark" onClick={() => { signOut() }}>Sign Out</Button>}
-           {auth0Client.isAuthenticated() &&<img src={auth0Client.getProfile().picture} alt={auth0Client.getProfile().name} />}
+         
        </Dropdown.Item>
        
     

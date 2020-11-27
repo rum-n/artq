@@ -9,7 +9,7 @@ import plus from '../assets/plus.png';
 import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 
 //sending http request
-
+//
 // fetch('http://localhost:5000/api/users/signup',{method:"POST",headers:{
 //                     "Content-Type":'application/json'},body:JSON.stringify({"name":"naan",
 //                     "email":"hiiiiio@gmail.com",

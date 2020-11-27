@@ -12,6 +12,7 @@ import './styles.css';
 
 const Feed = props => {
   
+  
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
