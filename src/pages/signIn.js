@@ -18,7 +18,7 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                    "password":"hiiiii",
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
-const Signup =  () => {
+const SignIn =  () => {
     const history = useHistory();
     const[error,setError] = useState(false);
 
@@ -83,14 +83,14 @@ let handleChange = (e) => {
                 <div className='white-rectangle'>
                     <img src={artist} alt='Painter'/>
                     <div className='label-wrapper'>
-                        <p>Join as an artist</p>
+                        <p>Sign in as an artist</p>
                         <div className='profile-type-selector'></div>
                     </div>
                 </div>
                 <div className='white-rectangle'>
                     <img src={buyer} alt='Art Collector'/>
                     <div className='label-wrapper'>
-                        <p>Join as a collector</p>
+                        <p>Sign in as a collector</p>
                         <div className='profile-type-selector'></div>
                     </div>
                 </div>
@@ -100,24 +100,19 @@ let handleChange = (e) => {
                 
             <Form className='signup-form-wrapper'>
           
-                <img className='add-profile-pic' src={plus} alt="Plus in circle" />
+              
             <Form.Row>
-                <Col>
-                <Form.Control type="text" name="firstname" placeholder="First name" onChange={handleChange}/>
-                </Col>
-                <Col>
-                <Form.Control type="text" placeholder="Last name" />
-                </Col>
+               
             </Form.Row>
             <Form.Row>
                 <Col>
                     <Form.Control type="email" name="email"placeholder="Email" onChange={handleChange}/>
-                    <Form.Control placeholder="Phone" name="phone" onChange={handleChange}/>
+                   
                     <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} />
-                    <Form.Control type="password" placeholder="Confirm Password" />
+                   
                 </Col>
             </Form.Row>
-                <Button onClick= {save}>Next <span>→</span></Button>
+                <Button onClick= {save}>Login <span>→</span></Button>
                 
             </Form>          
             </div>
@@ -127,4 +122,4 @@ let handleChange = (e) => {
 } 
 
 
-export default Signup;
+export default SignIn;

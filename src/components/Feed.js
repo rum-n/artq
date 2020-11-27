@@ -8,11 +8,15 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import data from "./data";
+import {addItem} from "./cartHelpers"
 import './styles.css';
+import { Redirect } from "react-router";
 
-const Feed = props => {
+
+const Feed = (product = true) => {
+  const [redirect,setRedirect] = useState(false)
   
-  
+
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
@@ -24,6 +28,21 @@ const Feed = props => {
     setActiveItem(item)
     setShow(true)
  };
+
+ const addToCart = () =>{
+   addItem("item1",() => {
+     console.log(activeItem.title)
+    
+
+   })
+ }
+
+ const shouldRedirect = redirect =>{
+   if (redirect){
+     return <Redirect to ="./cart"/>
+   }
+ }
+
   return (
     <div className='main'>
       
@@ -32,8 +51,10 @@ const Feed = props => {
           <Col key={painting.id} xs={1} md={4}>
             <Card style={{ width: '25rem', marginBottom: '2rem' }} onClick={() => handleShow(painting)}>
               <Card.Img src={painting.url} /> 
+            
             </Card>
           </Col>)}
+          {shouldRedirect(redirect)}
         </CardDeck>}
             <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -50,7 +71,9 @@ const Feed = props => {
                           <p>{activeItem.dimensions}</p>
                           <p><b>Description</b></p>
                           <p>{activeItem.description}</p>              
-                          <Button className="add-to-cart" variant="secondary">Add to cart</Button>
+                          <Button className="add-to-cart" variant="secondary" onClick={addToCart(activeItem.title)}>Add to cart</Button>
+
+
                           <Button className="save-for-later" variant="primary" >Save for later</Button>
                         </Col>
                       </Row>
