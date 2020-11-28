@@ -13,6 +13,7 @@ import Saved from "./pages/Saved";
 import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
 import Signin from "./pages/signIn"
+import Explore from "./pages/Users"
 
 function App() { 
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/nearme' component={NearMe} />
         <Route path='/purchases' component={Purchases} />
         <Route path='/callback' component={Callback} />
+        <Route path='/explore' component={Explore} />
       </Switch>
     </Router>
   )

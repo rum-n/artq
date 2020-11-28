@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,Redirect } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
@@ -7,7 +7,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import plus from '../assets/plus.png'; 
-import ErrorModal from "./util/ErrorModal"
+import {useHttpClient} from "../components/hooks/http-hook"
 import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 
 //sending http request
@@ -20,8 +20,8 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "image": "hii.png"})})
 const Signup =  () => {
     const history = useHistory();
-    const[error,setError] = useState(false);
-
+    const{error,sendRequest,clearError,theresponse} = useHttpClient();
+    const[redirect,setRedirect] = useState(false)
     const [account, setAccount] = useState({
         firstname:'',
         lastname:'',
@@ -42,41 +42,46 @@ let handleChange = (e) => {
   let save = async(e) => {
     console.log()
     e.preventDefault();
-    try{
-   
     
-    const response = await fetch('http://localhost:5000/api/users/signup', {  
-        method: 'POST',  
-        headers: {  
+   
+    try{
+    await sendRequest('http://localhost:5000/api/users/signup', 'POST', JSON.stringify({  
+        "name":account.firstname,
+        "email":account.email,
+        "password":account.password,
+        "phone": account.phone,
+        "image": "hii.png" 
+    }),  
+     {  
           'Accept': 'application/json',  
           'Content-Type': 'application/json'  
-        },  
-        body: JSON.stringify({  
-            "name":account.firstname,
-            "email":account.email,
-            "password":account.password,
-            "phone": account.phone,
-            "image": "hii.png" 
-        })  
-      });
-      const responseData = await response.json();
-      if (!response.ok){
-          throw new Error(responseData.message)
-      }
-    }catch(err){
-        alert(err)
-        setError(err.message || "Something went wrong")
+        }, 
      
+      );
+      setRedirect(true)
+    }catch(err){
+        setRedirect(false)
+
     }
+    
+   
+       
+         
+        
+   
 }
 
-    const errorHandler = () =>{
-        setError(null);
+
+    
+    const shouldRedirect = redirect =>{
+        if (redirect){
+            return <Redirect to = "/"/>
+        }
     }
 
     return (
         <React.Fragment>
-       
+       {shouldRedirect(redirect)}
         <div className='signup-wrapper'>
        
             <div className='left-wrapper'>

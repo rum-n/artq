@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import plus from '../assets/plus.png'; 
 import ErrorModal from "./util/ErrorModal"
+import {useHttpClient} from "../components/hooks/http-hook"
 import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 
 //sending http request
@@ -19,8 +20,9 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
 const SignIn =  () => {
+    const{error,sendRequest,clearError,theresponse} = useHttpClient();
     const history = useHistory();
-    const[error,setError] = useState(false);
+   
     const[redirect,setRedirect] = useState(false)
 
     const [account, setAccount] = useState({
@@ -47,36 +49,38 @@ let handleChange = (e) => {
    
    
     
-    const response = await fetch('http://localhost:5000/api/users/login', {  
-        method: 'POST',  
-        headers: {  
+    await sendRequest('http://localhost:5000/api/users/login','POST',  JSON.stringify({  
+        "email":account.email,
+        "password":account.password,   
+    }),   
+       {  
           'Accept': 'application/json',  
           'Content-Type': 'application/json'  
-        },  
-        body: JSON.stringify({  
-            "email":account.email,
-            "password":account.password,   
-        })  
-      });
-      const responseData = await response.json();
-      if (!response.ok){
-          throw new Error(responseData.message)
-      }
-      else{
-          setRedirect(true)
-      }
+        },
+        
+      );
+      const responseData = await theresponse.json();
+      
+     
+  
     }catch(err){
-        alert(err)
-        setError(err.message || "Something went wrong")
+       
      
     }
+    try{
+    if (theresponse.ok){
+        console.log("its a ok")
+      setRedirect(true)
+    }
+}catch(err){
+    setRedirect(false)
+
+}
 
 
 }
 
-    const errorHandler = () =>{
-        setError(null);
-    }
+   
     const shouldRedirect = redirect =>{
         if (redirect){
             return <Redirect to = "/"/>
