@@ -3,9 +3,12 @@ import auth0Client from './../Auth';
 import { useAuth0 } from "@auth0/auth0-react";
 import {AuthContext} from "../context/auth-context";
 import UsersList from '../components/UsersList';
-
+import {useHttpClient} from "../components/hooks/http-hook"
+import MyArt from "./MyArt"
 
 const Profile = () => {
+  const{error,sendRequest,clearError,theresponse} = useHttpClient();
+  const [loadedImages, setLoadedImages] = useState();
   const [loadedName, setLoadedName] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
   const [loadedId, setLoadedId] = useState();
@@ -17,8 +20,7 @@ const Profile = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch('http://localhost:5000/api/users/5fc07736e27c0c6e35dbb8d1');
-       
+        const response = await fetch('http://localhost:5000/api/users/'+auth.userId);
         const responseData = await response.json();
         
         if (!response.ok) {
@@ -41,6 +43,8 @@ const Profile = () => {
     sendRequest();
     
   }, []);
+
+  
    return(
      
      <div>
@@ -57,12 +61,15 @@ const Profile = () => {
      <text>Phone: </text>
      <text>{loadedPhone}</text>
      <br></br>
-     <text>Profile Pic: </text>
+     <text>My Profile Pic: </text>
      <img 
       src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
       alt="new"
       />
      <br></br>
+     <text></text>
+     <h1>MY ARTWORK IS BELOW</h1>
+     <MyArt/>
      <button>Add Art</button>
      </div>
     

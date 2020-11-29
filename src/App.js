@@ -14,7 +14,9 @@ import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
 import Signin from "./pages/signIn"
 import Explore from "./pages/Users"
+import NewArt from './pages/NewArtForm'
 import {AuthContext} from "./context/auth-context"
+import MyArt from "./pages/MyArt"
 
 function App() { 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,6 +52,8 @@ function App() {
         <Route path='/purchases' component={Purchases} />
         <Route path='/callback' component={Callback} />
         <Route path='/explore' component={Explore} />
+        <Route path='/addart' component={NewArt} />
+        <Route path='/myart' component={MyArt} />
       </Switch>
     </Router>
     </AuthContext.Provider>

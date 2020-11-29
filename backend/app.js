@@ -16,7 +16,7 @@ app.use((req,res,next) =>{
     next();
 });
 
-app.use('/api/saved',imagesRoutes);
+app.use('/api/images',imagesRoutes);
 app.use('/api/users',usersRoutes);
 
 app.use((req,res,next)=>{

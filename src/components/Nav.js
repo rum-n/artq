@@ -87,7 +87,7 @@ return(
           <Link style = {{color: "white"}} className='nav-links' to='/login'>My Feed</Link>
         )}
           <Link style = {{color: "white"}} className='nav-links' to='/explore'>Explore</Link>
-          <Link style = {{color: "white"}} className='nav-links' to='/currentbids'>Current Bids</Link>
+          <Link style = {{color: "white"}} className='nav-links' to='/currentbid'>Current Bids</Link>
           {auth.isLoggedIn && (
           <Link style = {{color: "white"}} className='nav-links' to='/saved'>Saved</Link>
           )}
@@ -99,6 +99,12 @@ return(
           )}
            {!auth.isLoggedIn && (
           <Link style = {{color: "white"}} className='nav-links' to='/login'>Near Me</Link>
+          )}
+            {auth.isLoggedIn && (
+          <Link style = {{color: "white"}} className='nav-links' to='/addart'>Add Art</Link>
+          )}
+            {!auth.isLoggedIn && (
+          <Link style = {{color: "white"}} className='nav-links' to='/login'>Add Art</Link>
           )}
           
         </Nav>

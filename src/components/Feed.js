@@ -37,11 +37,7 @@ const Feed = (product = true) => {
    })
  }
 
- const shouldRedirect = redirect =>{
-   if (redirect){
-     return <Redirect to ="./cart"/>
-   }
- }
+
 
   return (
     <div className='main'>
@@ -54,7 +50,7 @@ const Feed = (product = true) => {
             
             </Card>
           </Col>)}
-          {shouldRedirect(redirect)}
+        
         </CardDeck>}
             <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
