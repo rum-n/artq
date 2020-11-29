@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useCallback} from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Callback from './Callback';
 import Home from './pages/homepage';
@@ -14,10 +14,26 @@ import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
 import Signin from "./pages/signIn"
 import Explore from "./pages/Users"
+import {AuthContext} from "./context/auth-context"
 
 function App() { 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(false);
 
-  return (
+  const login = useCallback(uid => {
+    setIsLoggedIn(true);
+    setUserId(uid);
+  }, []);
+
+  const logout = useCallback(() => {
+    setIsLoggedIn(false);
+    setUserId(null);
+  }, []);
+  let routes;
+
+ 
+  return(
+    <AuthContext.Provider value={{isLoggedIn:isLoggedIn,userId:userId,login:login,logout:logout}}>
     <Router>
       <Navigation/>
       <Switch>
@@ -36,7 +52,10 @@ function App() {
         <Route path='/explore' component={Explore} />
       </Switch>
     </Router>
+    </AuthContext.Provider>
+  
   )
+  
 }
 
 export default App;

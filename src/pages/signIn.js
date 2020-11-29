@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext} from 'react';
 import { useHistory,Redirect } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
@@ -10,6 +10,7 @@ import plus from '../assets/plus.png';
 import ErrorModal from "./util/ErrorModal"
 import {useHttpClient} from "../components/hooks/http-hook"
 import {VALIDATOR_REQUIRE} from "../pages/util/validators"
+import {AuthContext} from "../context/auth-context"
 
 //sending http request
 //
@@ -20,6 +21,7 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
 const SignIn =  () => {
+    const auth = useContext(AuthContext);
     const{error,sendRequest,clearError,theresponse} = useHttpClient();
     const history = useHistory();
    
@@ -45,23 +47,25 @@ let handleChange = (e) => {
   let save = async(e) => {
     console.log()
     e.preventDefault();
+   
     try{
    
    
-    
-    await sendRequest('http://localhost:5000/api/users/login','POST',  JSON.stringify({  
+        
+    const responseData = await sendRequest('http://localhost:5000/api/users/login','POST',  JSON.stringify({  
         "email":account.email,
         "password":account.password,   
-    }),   
+    }) ,   
        {  
           'Accept': 'application/json',  
           'Content-Type': 'application/json'  
         },
         
       );
-      const responseData = await theresponse.json();
+      auth.login(responseData.user.id)
+       responseData = await theresponse.json();
       
-     
+    
   
     }catch(err){
        
