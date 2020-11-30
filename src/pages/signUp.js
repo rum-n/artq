@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useHistory,Redirect } from 'react-router-dom';
-import './styles.css';
+import { useHistory, Redirect } from 'react-router-dom';
+import './signUp.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
@@ -19,8 +19,8 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
 const Signup =  () => {
-    const history = useHistory();
-    const{error,sendRequest,clearError,theresponse} = useHttpClient();
+    // const history = useHistory();
+    const { error, sendRequest, clearError, theresponse } = useHttpClient();
     const[redirect,setRedirect] = useState(false)
     const [account, setAccount] = useState({
         firstname:'',
@@ -42,8 +42,6 @@ let handleChange = (e) => {
   let save = async(e) => {
     console.log()
     e.preventDefault();
-    
-   
     try{
     await sendRequest('http://localhost:5000/api/users/signup', 'POST', JSON.stringify({  
         "name":account.firstname,
@@ -51,28 +49,17 @@ let handleChange = (e) => {
         "password":account.password,
         "phone": account.phone,
         "image": "hii.png" 
-    }),  
-     {  
-          'Accept': 'application/json',  
-          'Content-Type': 'application/json'  
-        }, 
-     
+    }),
+    {
+        'Accept': 'application/json',  
+        'Content-Type': 'application/json'
+    },
       );
       setRedirect(true)
-    }catch(err){
+    } catch(err){
         setRedirect(false)
-
     }
-    
-   
-       
-         
-        
-   
 }
-
-
-    
     const shouldRedirect = redirect =>{
         if (redirect){
             return <Redirect to = "/"/>
@@ -83,7 +70,6 @@ let handleChange = (e) => {
         <React.Fragment>
        {shouldRedirect(redirect)}
         <div className='signup-wrapper'>
-       
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <img src={artist} alt='Painter'/>
@@ -123,7 +109,6 @@ let handleChange = (e) => {
                 </Col>
             </Form.Row>
                 <Button onClick= {save}>Next <span>→</span></Button>
-                
             </Form>          
             </div>
         </div>

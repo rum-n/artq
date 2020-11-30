@@ -10,7 +10,6 @@ import {
 } from './util/validators';
 import './NewArtForm.css';
 
-
 const formReducer = (state, action) => {
   switch (action.type) {
     case 'INPUT_CHANGE':
