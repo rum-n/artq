@@ -71,14 +71,9 @@ const Profile = () => {
         </div>
       </div>
      <hr/>
-     {/* <MyArt/> */}
+     <MyArt/>
      </div>
-    
-
    )
-
-
 };
-
 
 export default Profile;
