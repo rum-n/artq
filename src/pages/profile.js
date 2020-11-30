@@ -50,7 +50,8 @@ const Profile = () => {
         <div className='flex-c'>
           <div className='personal-info-text'>
             <div className='col-1'>
-              <h2>Curtis Bryant</h2>
+              <h2>{loadedName}</h2>
+              {loadedEmail}
               <p>Painter</p>
             </div>
             <div className='col-2'>
@@ -67,11 +68,12 @@ const Profile = () => {
           <div className='profile-btn-wrapper'>
             <button className='edit-profile-btn'>Edit profile</button>
             <button className='add-new-post-btn'>Add new post</button>
+           {<MyArt/>}
           </div>
         </div>
       </div>
      <hr/>
-     {/* <MyArt/> */}
+     
      </div>
     
 

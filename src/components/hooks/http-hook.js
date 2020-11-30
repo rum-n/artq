@@ -43,7 +43,7 @@ export const useHttpClient = () => {
         return responseData;
       } catch (err) {
         setError(err.message);
-        alert(err)
+     
         throw err;
       }
 

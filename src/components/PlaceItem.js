@@ -17,7 +17,7 @@ const PlaceItem = props => {
   const showDeleteWarningHandler = () => {
     setShowActualConfirmModal(true)
     return(
-      alert("are you sure bruh?"))    
+      alert("Are you sure? It will be permanently deleted"))    
   };
 
   const cancelDeleteHandler = () => {
