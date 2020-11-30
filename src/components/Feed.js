@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import data from "./data";
-import {addItem} from "./cartHelpers"
+
 import './styles.css';
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
@@ -31,11 +31,6 @@ const Feed = (product = true) => {
     setShow(true)
  };
 
- const addToCart = () =>{
-   addItem("item1",() => {
-     console.log(activeItem.title)
-   })
- }
 
   return (
     <div className='main'>
@@ -65,7 +60,7 @@ const Feed = (product = true) => {
                           <p>{activeItem.dimensions}</p>
                           <p><b>Description</b></p>
                           <p>{activeItem.description}</p>              
-                          <Button className="add-to-cart" variant="secondary" onClick={addToCart(activeItem.title)}>Add to cart</Button>
+                          <Button className="add-to-cart" variant="secondary" >Add to cart</Button>
 
 
                           <Button className="save-for-later" variant="primary" >Save for later</Button>

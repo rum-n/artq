@@ -7,7 +7,6 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import plus from '../assets/plus.png'; 
-import ErrorModal from "./util/ErrorModal"
 import {useHttpClient} from "../components/hooks/http-hook"
 import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 import {AuthContext} from "../context/auth-context"

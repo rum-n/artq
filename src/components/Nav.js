@@ -78,7 +78,7 @@ return(
   </Dropdown.Menu>
 </Dropdown>
          
-        <Link className='nav-links' to='/explore'> <img style={{height:50, width:50}} src={logo} alt="Logo" /></Link>
+        <Link className='nav-links' to='/'> <img style={{height:50, width:50}} src={logo} alt="Logo" /></Link>
         <Nav className="mr-auto">
         {auth.isLoggedIn && (
           <Link style = {{color: "white"}} className='nav-links' to='/'>My Feed</Link>
