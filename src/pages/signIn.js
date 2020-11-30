@@ -111,25 +111,18 @@ let handleChange = (e) => {
                     </div>
                 </div>
             </div>
-
             <div className='right-wrapper'>
-                
-            <Form className='signup-form-wrapper'>
-          
-              
+            <Form className='signup-form-wrapper'>       
             <Form.Row>
                
             </Form.Row>
             <Form.Row>
                 <Col>
                     <Form.Control type="email" name="email"placeholder="Email" onChange={handleChange}/>
-                   
                     <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} />
-                   
                 </Col>
             </Form.Row>
                 <Button onClick= {save}>Login <span>→</span></Button>
-                
             </Form>          
             </div>
         </div>

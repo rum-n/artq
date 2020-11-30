@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles.css';
+import './introSignUp.css';
 import introImg from '../assets/ART_WALL_1.png';
 import introElipse from '../assets/Ellipse_1.svg';
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useHistory,Redirect } from 'react-router-dom';
-import './styles.css';
+import { useHistory, Redirect } from 'react-router-dom';
+import './signUp.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
@@ -19,7 +19,7 @@ import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 //                     "phone": 85098409,
 //                     "image": "hii.png"})})
 const Signup =  () => {
-    const history = useHistory();
+    // const history = useHistory();
     const { error, sendRequest, clearError, theresponse } = useHttpClient();
     const[redirect,setRedirect] = useState(false)
     const [account, setAccount] = useState({
@@ -49,17 +49,15 @@ let handleChange = (e) => {
         "password":account.password,
         "phone": account.phone,
         "image": "hii.png" 
-    }),  
-     {  
-          'Accept': 'application/json',  
-          'Content-Type': 'application/json'  
-        }, 
-     
+    }),
+    {
+        'Accept': 'application/json',  
+        'Content-Type': 'application/json'
+    },
       );
       setRedirect(true)
-    }catch(err){
+    } catch(err){
         setRedirect(false)
-
     }
 }
     const shouldRedirect = redirect =>{
@@ -72,7 +70,6 @@ let handleChange = (e) => {
         <React.Fragment>
        {shouldRedirect(redirect)}
         <div className='signup-wrapper'>
-       
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <img src={artist} alt='Painter'/>

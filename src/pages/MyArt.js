@@ -29,8 +29,6 @@ const UserPlaces = () => {
 
   return (
     <React.Fragment>
-  
-    
       {loadedPlaces && <PlaceList items={loadedPlaces} onDeleteImage={imageDeletedHandler}/>}
     </React.Fragment>
   );

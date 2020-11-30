@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 
 import Card from './Card';
 import Button from './Button';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
+import Modal from 'react-bootstrap/Modal';
 import { AuthContext } from '../context/auth-context';
 import './PlaceItem.css';
 import { useHttpClient } from '../components/hooks/http-hook';
@@ -14,14 +15,10 @@ const PlaceItem = props => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showActualConfirmModal, setShowActualConfirmModal] = useState(false);
 
- 
-
   const showDeleteWarningHandler = () => {
     setShowActualConfirmModal(true)
     return(
-      alert("are you sure bruh?"))
-      
-    
+      alert("are you sure bruh?"))    
   };
 
   const cancelDeleteHandler = () => {
@@ -30,20 +27,15 @@ const PlaceItem = props => {
   }
   const confirmDeleteHandler = async() => {
     setShowConfirmModal(false);
-    try{
-      
+    try {
     await sendRequest(`http://localhost:5000/api/images/${props.id}`,'DELETE');
     props.onDelete(props.id);
-  
-    }catch(err){
-     
+    } catch (err) {     
     }
-    
   };
 
   return (
     <React.Fragment>
-     
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}

@@ -1,0 +1,11 @@
+.about {
+    text-align: justify;
+    margin-left: 50px;
+    margin-right: 50px;
+    display: flex;
+}
+
+.paragraphs {
+    margin-top: 100px;
+    margin-bottom: 200px;
+}

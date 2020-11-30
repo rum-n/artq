@@ -1,10 +1,8 @@
 import React from 'react';
-
 import Card from './Card';
 import PlaceItem from './PlaceItem';
 import Button from './Button';
 import './PlaceList.css';
-
 
 const PlaceList = props => {
   if (props.items.length === 0) {
