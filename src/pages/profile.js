@@ -75,12 +75,7 @@ const Profile = () => {
      <hr/>
      
      </div>
-    
-
    )
-
-
 };
-
 
 export default Profile;

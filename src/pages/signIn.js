@@ -47,10 +47,7 @@ let handleChange = (e) => {
     console.log()
     e.preventDefault();
    
-    try{
-   
-   
-        
+    try {
     const responseData = await sendRequest('http://localhost:5000/api/users/login','POST',  JSON.stringify({  
         "email":account.email,
         "password":account.password,   

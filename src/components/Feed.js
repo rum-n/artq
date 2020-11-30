@@ -11,6 +11,8 @@ import data from "./data";
 
 import './styles.css';
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+
 
 
 const Feed = (product = true) => {
@@ -28,9 +30,6 @@ const Feed = (product = true) => {
     setActiveItem(item)
     setShow(true)
  };
-
-
-
 
 
   return (
@@ -70,12 +69,10 @@ const Feed = (product = true) => {
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <a className='see-more'>See more</a>
+                      <Link to='' className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>
   )}
 
-  
-  
 export default Feed;
