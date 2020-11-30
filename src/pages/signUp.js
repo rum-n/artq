@@ -44,12 +44,12 @@ let handleChange = (e) => {
           'Content-Type': 'application/json'  
         },  
         body: JSON.stringify({  
-          firstname: this.firstname,  
-          lastname: this.lastname,  
-          email: this.email,
-          password: this.password,  
-          phone: this.phone,
-          image: this.image  
+          firstname: account.firstname,  
+          lastname: account.lastname,  
+          email: account.email,
+          password: account.password,  
+          phone: account.phone,
+          image: account.image  
         })  
       }).then((response) => response.json())  
         .then((result) => {  
@@ -81,25 +81,25 @@ let handleChange = (e) => {
 
             <div className='right-wrapper'>
                 
-            <Form className='signup-form-wrapper'>
+            <Form className='signup-form-wrapper' onSubmit={save}>
                 <img className='add-profile-pic' src={plus} alt="Plus in circle" />
             <Form.Row>
                 <Col>
-                <Form.Control type="text" placeholder="First name" onChange={handleChange}/>
+                <Form.Control type="text" name='firstname' placeholder="First name" onChange={handleChange}/>
                 </Col>
                 <Col>
-                <Form.Control type="text" placeholder="Last name"  onChange={handleChange}/>
+                <Form.Control type="text" name='lastname' placeholder="Last name"  onChange={handleChange}/>
                 </Col>
             </Form.Row>
             <Form.Row>
                 <Col>
-                    <Form.Control type="email" placeholder="Email" onChange={handleChange}/>
-                    <Form.Control placeholder="Phone" onChange={handleChange}/>
-                    <Form.Control type="password" placeholder="Password" onChange={handleChange} />
-                    <Form.Control type="password" placeholder="Confirm Password" onChange={handleChange}/>
+                    <Form.Control type="email" name='email' placeholder="Email" onChange={handleChange}/>
+                    <Form.Control placeholder="Phone" name='phone' onChange={handleChange}/>
+                    <Form.Control type="password" name='password' placeholder="Password" onChange={handleChange} />
+                    <Form.Control type="password" name='password' placeholder="Confirm Password" onChange={handleChange}/>
                 </Col>
             </Form.Row>
-                <Button type='submit' onSubmit={save}>Next <span>→</span></Button>
+                <Button type='submit'>Next <span>→</span></Button>
             </Form>          
             </div>
         </div>
