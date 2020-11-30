@@ -38,7 +38,7 @@ const Feed = (product = true) => {
       {showPaypal ? <PaypalButtons /> : <CardDeck>
         {images.map(painting => 
           <Col key={painting.id} xs={1} md={4}>
-            <Card style={{ width: '25rem', marginBottom: '2rem' }} onClick={() => handleShow(painting)}>
+            <Card style={{ width: '25rem', marginBottom: '2rem'}} onClick={() => handleShow(painting)}>
               <Card.Img src={painting.url} /> 
             
             </Card>

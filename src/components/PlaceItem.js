@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 
-import Card from './Card';
+import CardModel from './CardModel';
 import Button from './Button';
 // import Modal from 'react-modal';
 import { AuthContext } from '../context/auth-context';
@@ -38,7 +38,7 @@ const PlaceItem = props => {
      
      
       <li className="place-item">
-        <Card className="place-item__content">
+        <CardModel className="place-item__content">
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />
           </div>
@@ -66,7 +66,7 @@ const PlaceItem = props => {
              
             )}
           </div>
-        </Card>
+        </CardModel>
       </li>
     </React.Fragment>
   );

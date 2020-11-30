@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from './Card';
+import CardModel from './CardModel';
 import PlaceItem from './PlaceItem';
 import Button from './Button';
 import './PlaceList.css';
@@ -8,10 +8,10 @@ const PlaceList = props => {
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
-        <Card>
+        <CardModel>
           <h2>You have no art. Maybe add one?</h2>
           <Button to="/addart">Add Art</Button>
-        </Card>
+        </CardModel>
       </div>
     );
   }
