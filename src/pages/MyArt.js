@@ -22,12 +22,16 @@ const UserPlaces = () => {
     };
     fetchImages();
   }, [sendRequest, userId]);
+  
+  const imageDeletedHandler = deletedImageId =>{
+      setLoadedPlaces(prevImages => prevImages.filter(image =>image.id != deletedImageId))
+  }
 
   return (
     <React.Fragment>
   
     
-      {loadedPlaces && <PlaceList items={loadedPlaces} />}
+      {loadedPlaces && <PlaceList items={loadedPlaces} onDeleteImage={imageDeletedHandler}/>}
     </React.Fragment>
   );
 };

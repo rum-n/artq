@@ -65,7 +65,7 @@ const saveArt = async (req,res,next) => {
         description,
         address,
         location:coordinates,
-        url:"https://s3.imgcdn.dev/cSCIB.png",
+        url,
         author
     });
    
@@ -109,11 +109,12 @@ const updateImage = async (req,res,next) =>{
         return next(new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,cost} = req.body;
+    const {title,url,description,cost,author,address} = req.body;
     const imageId = req.params.imgid;
     let image;
     try{
         image = await Image.findById(imageId)
+        console.log("THE IMAGE ID "+ imageId)
         
     } catch(err){
         const error = new HttpError(
@@ -124,7 +125,11 @@ const updateImage = async (req,res,next) =>{
 
     image.title = title;
     image.url = url;
+    image.description = description;
     image.cost = cost;
+    image.author = author;
+    image.address = address;
+
 
    try{
        await image.save();
@@ -141,7 +146,7 @@ const deleteImage = async (req,res,next) =>{
     const imageId = req.params.imgid;
     let image;
     try{
-        image = await  Image.findById(imageId).populate("author");
+        image = await Image.findById(imageId).populate("author");
     }catch(err){
         const error = new HttpError(
             "Something went wrong, could not delete art", 500

@@ -5,31 +5,36 @@ import PlaceItem from './PlaceItem';
 import Button from './Button';
 import './PlaceList.css';
 
+
 const PlaceList = props => {
   if (props.items.length === 0) {
     return (
       <div className="place-list center">
         <Card>
-          <h2>No places found. Maybe create one?</h2>
-          <Button to="/places/new">Share Place</Button>
+          <h2>You have no art. Maybe add one?</h2>
+          <Button to="/addart">Add Art</Button>
         </Card>
       </div>
     );
   }
 
   return (
+    
     <ul className="place-list">
-      {props.items.map(place => (
+      
+      {props.items.map(image => (
         <PlaceItem
-          key={place.id}
-          id={place.id}
-          image={place.url}
-          title={place.title}
-          description={place.description}
-          address={place.address}
-          creatorId={place.author}
-          coordinates={place.location}
+          key={image.id}
+          id={image.id}
+          image={image.url}
+          title={image.title}
+          description={image.description}
+          address={image.address}
+          creatorId={image.author}
+          coordinates={image.location}
+          onDelete = {props.onDeleteImage}
         />
+        
       ))}
     </ul>
   );

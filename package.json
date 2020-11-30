@@ -24,6 +24,7 @@
     "react-dom": "^17.0.1",
     "react-google-maps": "^9.4.5",
     "react-input-switch": "^2.2.2",
+    "react-modal": "^3.12.1",
     "react-native": "^0.63.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

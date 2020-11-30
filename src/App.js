@@ -17,6 +17,7 @@ import Explore from "./pages/Users"
 import NewArt from './pages/NewArtForm'
 import {AuthContext} from "./context/auth-context"
 import MyArt from "./pages/MyArt"
+import UpdatePlace from "./pages/UpdatePlace"
 
 function App() { 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,6 +26,7 @@ function App() {
   const login = useCallback(uid => {
     setIsLoggedIn(true);
     setUserId(uid);
+   
   }, []);
 
   const logout = useCallback(() => {
@@ -54,6 +56,11 @@ function App() {
         <Route path='/explore' component={Explore} />
         <Route path='/addart' component={NewArt} />
         <Route path='/myart' component={MyArt} />
+        <Route path='/edit' component={UpdatePlace} />
+        <Route path="/images/:imageId">
+          <UpdatePlace />
+        </Route>
+        
       </Switch>
     </Router>
     </AuthContext.Provider>

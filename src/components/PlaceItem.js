@@ -2,27 +2,43 @@ import React, { useState, useContext } from 'react';
 
 import Card from './Card';
 import Button from './Button';
-import Modal from './Modal';
+import Modal from 'react-modal';
 import { AuthContext } from '../context/auth-context';
 import './PlaceItem.css';
+import { useHttpClient } from '../components/hooks/http-hook';
 
 const PlaceItem = props => {
+  console.log(props.id)
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showActualConfirmModal, setShowActualConfirmModal] = useState(false);
 
  
 
   const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
+    setShowActualConfirmModal(true)
+    return(
+      alert("are you sure bruh?"))
+      
+    
   };
 
   const cancelDeleteHandler = () => {
     setShowConfirmModal(false);
-  };
-
-  const confirmDeleteHandler = () => {
+    
+  }
+  const confirmDeleteHandler = async() => {
     setShowConfirmModal(false);
-    console.log('DELETING...');
+    try{
+      
+    await sendRequest(`http://localhost:5000/api/images/${props.id}`,'DELETE');
+    props.onDelete(props.id);
+  
+    }catch(err){
+     
+    }
+    
   };
 
   return (
@@ -62,13 +78,20 @@ const PlaceItem = props => {
           <div className="place-item__actions">
            
             {auth.isLoggedIn && (
-              <Button to={`/places/${props.id}`}>EDIT</Button>
+              <Button to={`/images/${props.id}`}>EDIT</Button>
             )}
 
             {auth.isLoggedIn && (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>
+             
+            )}
+            {auth.isLoggedIn && showActualConfirmModal && (
+              <Button danger onClick={confirmDeleteHandler}>
+                CONFIRM DELETE
+              </Button>
+             
             )}
           </div>
         </Card>

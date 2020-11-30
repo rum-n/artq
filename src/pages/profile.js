@@ -70,7 +70,7 @@ const Profile = () => {
      <text></text>
      <h1>MY ARTWORK IS BELOW</h1>
      <MyArt/>
-     <button>Add Art</button>
+     
      </div>
     
 
