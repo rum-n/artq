@@ -8,9 +8,17 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import data from "./data";
-import './styles.css';
 
-const Feed = () => {
+import './styles.css';
+import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+
+
+
+const Feed = (product = true) => {
+  const [redirect,setRedirect] = useState(false)
+  
+
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
@@ -23,20 +31,19 @@ const Feed = () => {
     setShow(true)
  };
 
-  const showPaypalButtons = () => {
-    setShowPaypal(true);
-  }
 
   return (
-    <React.Fragment>
+    <div className='main'>
       
       {showPaypal ? <PaypalButtons /> : <CardDeck>
         {images.map(painting => 
           <Col key={painting.id} xs={1} md={4}>
-            <Card style={{ width: '25rem', marginBottom: '2rem' }} onClick={() => handleShow(painting)}>
+            <Card style={{ width: '25rem', marginBottom: '2rem'}} onClick={() => handleShow(painting)}>
               <Card.Img src={painting.url} /> 
+            
             </Card>
           </Col>)}
+        
         </CardDeck>}
             <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
@@ -53,17 +60,19 @@ const Feed = () => {
                           <p>{activeItem.dimensions}</p>
                           <p><b>Description</b></p>
                           <p>{activeItem.description}</p>              
-                          <Button className="add-to-cart" variant="secondary">Add to cart</Button>
-                          <Button className="save-for-later" variant="primary">Save for later</Button>
+                          <Button className="add-to-cart" variant="secondary" >Add to cart</Button>
+
+
+                          <Button className="save-for-later" variant="primary" >Save for later</Button>
                         </Col>
                       </Row>
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <a className='see-more'>See more</a>
+                      <Link to='' className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
-      </React.Fragment>
+      </div>
   )}
-  
+
 export default Feed;

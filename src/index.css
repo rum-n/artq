@@ -5,6 +5,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p, a {
+p, a, button {
   font-family: "Roboto", sans-serif;
 }
