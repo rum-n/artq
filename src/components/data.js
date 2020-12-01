@@ -1,7 +1,8 @@
 export default [
-  {
+  { 
+    "id": "1",   
     "title": "PaintingTitle1",
-    "url":"https://cdn.pixabay.com/photo/2016/12/13/05/15/puppy-1903313__340.jpg",
+    "url":"https://s3.imgcdn.dev/cSCIB.png",
     "cost": 400,
     "author": "USER",
     "location": { 
@@ -12,8 +13,9 @@ export default [
     "description": "A cute puppy"
   },
   {
+    "id": "2",
     "title": "PaintingTitle2",
-    "url":"https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "url":"https://s3.imgcdn.dev/cSuHq.png",
     "cost": 500,
     "author": "USER",
     "location": { 
@@ -24,8 +26,9 @@ export default [
     "description": "Two puppies."
   },
   {
+    "id": "3",
     "title": "PaintingTitle3",
-    "url":"https://3c1703fe8d.site.internapcdn.net/newman/gfx/news/hires/2018/2-dog.jpg",
+    "url":"https://s3.imgcdn.dev/cSNLL.png",
     "cost": 100,
     "author": "USER",
     "location": { 
@@ -36,8 +39,35 @@ export default [
     "description": "Older dog."
   },
   {
+    "id": "4",
     "title": "PaintingTitle4",
-    "url":"https://www.guidedogs.org/wp-content/uploads/2018/01/Mobile.jpg",
+    "url":"https://s3.imgcdn.dev/cSi6a.png",
+    "cost": 420,
+    "author": "USER",
+    "location": { 
+      lat: 20.3954,
+      lng: 2.162 
+    },
+    "dimensions": "H 200 cm x W 125 cm",
+    "description": "A cute puppy, again."
+  },
+  {
+    "id": "5",
+    "title": "PaintingTitle5",
+    "url":"https://s3.imgcdn.dev/cSklw.png",
+    "cost": 420,
+    "author": "USER",
+    "location": { 
+      lat: 20.3954,
+      lng: 2.162 
+    },
+    "dimensions": "H 200 cm x W 125 cm",
+    "description": "A cute puppy, again."
+  },
+  {
+    "id": "6",
+    "title": "PaintingTitle6",
+    "url":"https://s3.imgcdn.dev/cSIBu.png",
     "cost": 420,
     "author": "USER",
     "location": { 

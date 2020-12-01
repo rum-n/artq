@@ -15,8 +15,8 @@ function App() {
   return (
     <Router>
       <Navigation/>
-      <Switch>
       <div className="main">
+      <Switch>
         <Route exact path='/' component={Home}  />
         <Route path='/about' component={About} />
         <Route path='/profile' component={Profile} />
@@ -25,8 +25,8 @@ function App() {
         <Route path='/nearme' component={NearMe} />
         <Route path='/purchases' component={Purchases} />
         <Route path='/callback' component={Callback} />
-      </div>
       </Switch>
+      </div>
     </Router>
   )
 }

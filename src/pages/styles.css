@@ -10,20 +10,19 @@
     display: flex;
 }
 
-.artwork-wrapper {
+/* .artwork-wrapper {
     justify-content: center;
     text-align: center;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    /* width: 60%; */
     margin: auto;
 }
 
 .artwork-wrapper img {
     width: 100%;
-}
+} */
 
 .main {
     width: 90%;

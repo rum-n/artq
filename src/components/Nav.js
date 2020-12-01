@@ -25,10 +25,8 @@ const Navigation = () => {
     }
 
    
-
-  
 return(
-      <Navbar style = {{backgroundColor: "rgb(36,38,54)"}}  variant="light">
+      <Navbar style = {{backgroundColor: "rgb(36,38,54)", fontFamily: "Roboto, sans-serif"}}  variant="light">
   <Dropdown>
   <Dropdown.Toggle style = {{borderColor: "rgb(36,38,54)", backgroundColor: "rgb(36,38,54)"}}  variant="success" >
   <img style={{height:40, width:40}} src={sidebar} alt="Logo" />
