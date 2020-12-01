@@ -1,4 +1,11 @@
 .main {
-    width: 100%;
-    margin: 0;
+    width: 80%;
+    margin: auto;
+}
+
+.feed-title {
+    text-align: center;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
 }

@@ -57,9 +57,8 @@ function App() {
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
         <Route path="/images/:imageId">
-          <UpdatePlace />
+        <UpdatePlace />
         </Route>
-        
       </Switch>
     </Router>
     </AuthContext.Provider>

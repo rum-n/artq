@@ -27,14 +27,13 @@ const Feed = (product = true) => {
     setShow(true)
  };
 
-
   return (
     <div className='main'>
       
       {showPaypal ? <PaypalButtons /> : <CardDeck>
         {images.map(painting => 
-          <Col key={painting.id} xs={1} md={4}>
-            <Card style={{ width: '25rem', marginBottom: '2rem'}} onClick={() => handleShow(painting)}>
+          <Col key={painting.id} xs={3} md={4}>
+            <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(painting)}>
               <Card.Img src={painting.url} /> 
             </Card>
           </Col>)}
@@ -56,8 +55,6 @@ const Feed = (product = true) => {
                           <p><b>Description</b></p>
                           <p>{activeItem.description}</p>              
                           <Button className="add-to-cart" variant="secondary" >Add to cart</Button>
-
-
                           <Button className="save-for-later" variant="primary" >Save for later</Button>
                         </Col>
                       </Row>

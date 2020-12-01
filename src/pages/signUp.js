@@ -72,14 +72,18 @@ let handleChange = (e) => {
         <div className='signup-wrapper'>
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
-                    <img src={artist} alt='Painter'/>
+                    <div className='img-div'>
+                        <img src={artist} alt='Painter'/>
+                    </div>
                     <div className='label-wrapper'>
                         <p>Join as an artist</p>
                         <div className='profile-type-selector'></div>
                     </div>
                 </div>
                 <div className='white-rectangle'>
+                <div className='img-div'>
                     <img src={buyer} alt='Art Collector'/>
+                </div>
                     <div className='label-wrapper'>
                         <p>Join as a collector</p>
                         <div className='profile-type-selector'></div>

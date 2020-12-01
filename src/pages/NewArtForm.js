@@ -3,6 +3,9 @@ import {useHistory} from "react-router-dom"
 import {useHttpClient} from "../components/hooks/http-hook"
 import Input from '../components/Input';
 import Button from '../components/Button';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 import {AuthContext} from "../context/auth-context";
 import {
   VALIDATOR_REQUIRE,
@@ -78,61 +81,120 @@ const NewPlace = () => {
       address:formState.inputs.address.value,
       url:formState.inputs.url.value,
       author: auth.userId
-
     }),{
       'Content-Type':'application/json'
     })
     history.push('/');
-    
-  }catch(err){
-
-  }
-
-
-  };
+  } catch(err){}
+};
 
   return (
-    
-    <form className="place-form" onSubmit={placeSubmitHandler}>
-      <Input 
-        id="title"
-        element="input"
-        type="text"
-        label="Title"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid title."
-        onInput={inputHandler}
-      />
-  
-      <Input
-        id="description"
-        element="textarea"
-        label="Description"
-        validators={[VALIDATOR_MINLENGTH(5)]}
-        errorText="Please enter a valid description (at least 5 characters)."
-        onInput={inputHandler}
-      />
-      <Input
-        id="address"
-        element="input"
-        label="Address"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid address."
-        onInput={inputHandler}
-      />
-       <Input 
-        id="url"
-        element="input"
-        label="Url"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid url."
-        onInput={inputHandler}
-      />
-     
-      <Button type="submit" disabled={!formState.isValid}>
-        ADD PLACE
-      </Button>
-    </form>
+    <div className='signup-wrapper'>
+      <div className='left-wrapper'>
+        <div className='upload-white-rectangle'>
+          <p>FIRST NAME: <span>Curtis Bryant</span></p>
+          <p>E-MAIL: <span>curtis11@gmail.com</span></p>
+          <p>PHONE: <span>415-768-9987</span></p>
+        </div>
+      </div>
+    <div className='right-wrapper'>
+      
+      <Form className='add-art-form-wrapper' onSubmit={placeSubmitHandler}>
+        <Form.Group as={Row} controlId="title">
+          <Form.Label column sm="2">Artwork Title</Form.Label>
+          <Col sm="6">
+            <Input 
+              id="title"
+              element="input"
+              type="text"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a valid title."
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="description">
+          <Form.Label column sm="2">Description</Form.Label>
+          <Col sm="6">
+            <Input
+              id="description"
+              element="textarea"
+              validators={[VALIDATOR_MINLENGTH(5)]}
+              errorText="Please enter a valid description (at least 5 characters)."
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="dimensions">
+          <Form.Label column sm="2">Dimensions</Form.Label>
+          <Col sm="6">
+            <Input
+              id="dimensions"
+              element="text"
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="price">
+          <Form.Label column sm="2">Price</Form.Label>
+          <Col sm="6">
+            <Input
+              id="price"
+              element="number"
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="price">
+          <Form.Label column sm="2">Artwork Category</Form.Label>
+          <Col sm="3">
+            <Form.Control as="select" custom>
+              <option>1</option>
+              <option>2</option>
+            </Form.Control>
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="auction">
+          <Form.Label column sm="2">Type of sale</Form.Label>
+          <Col sm="4">
+            <Form.Check 
+              custom
+              type="checkbox"
+              id="auction"
+              label="Auction"
+            />
+          </Col>
+          <Col sm="4">
+            <Form.Check 
+              custom
+              type="checkbox"
+              id="buynow"
+              label="Buy Now"
+            />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} controlId="auctionEnd">
+          <Form.Label column sm="2">Auction ends in:</Form.Label>
+          <Col sm="3">
+            <Form.Control as="select" custom>
+              <option>1</option>
+              <option>2</option>
+            </Form.Control>
+          </Col>
+        </Form.Group>
+
+        <Button type="submit" disabled={!formState.isValid}>
+          Publish
+        </Button>
+      </Form>
+    </div>
+    </div>
   );
 };
 

@@ -56,16 +56,11 @@ let handleChange = (e) => {
           'Accept': 'application/json',  
           'Content-Type': 'application/json'  
         },
-        
       );
       auth.login(responseData.user.id)
        responseData = await theresponse.json();
-      
-    
   
-    }catch(err){
-       
-     
+    }catch(err){     
     }
     try{
     if (theresponse.ok){
@@ -74,13 +69,8 @@ let handleChange = (e) => {
     }
 }catch(err){
     setRedirect(false)
-
 }
-
-
 }
-
-   
     const shouldRedirect = redirect =>{
         if (redirect){
             return <Redirect to = "/"/>
@@ -93,14 +83,18 @@ let handleChange = (e) => {
        
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
-                    <img src={artist} alt='Painter'/>
+                    <div className='img-div'>
+                        <img src={artist} alt='Painter'/>
+                    </div>
                     <div className='label-wrapper'>
                         <p>Sign in as an artist</p>
                         <div className='profile-type-selector'></div>
                     </div>
                 </div>
                 <div className='white-rectangle'>
+                <div className='img-div'>
                     <img src={buyer} alt='Art Collector'/>
+                </div>
                     <div className='label-wrapper'>
                         <p>Sign in as a collector</p>
                         <div className='profile-type-selector'></div>

@@ -1,11 +1,41 @@
-.place-form {
-    list-style: none;
-    margin: 0 auto;
-    padding: 0rem;
-    width: 90%;
-    max-width: 40rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-    border-radius: 6px;
-    background: white;
-  }
-  
+.upload-white-rectangle {
+  background-color: white;
+  width: 70%;
+  height: 40%;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px hsla(0, 0%, 0%, 0.1);
+  margin: 10rem auto;
+  cursor: pointer;
+}
+
+.upload-white-rectangle p {
+  font-weight: 300;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  font-size: 0.8rem;
+}
+
+.upload-white-rectangle span {
+  margin-left: 4rem;
+  font-size: 1.2rem;
+}
+
+.add-art-form-wrapper {
+  width: 80%;
+  margin: auto;
+  margin-top: 8rem;
+}
+
+.add-art-form-wrapper .form-control {
+  background: none;
+}
+
+.add-art-form-wrapper input {
+  border-bottom: 1px solid #000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background: transparent;
+  margin-left: 2rem;
+}
+
