@@ -13,12 +13,8 @@ import './styles.css';
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
-
-
 const Feed = (product = true) => {
   const [redirect,setRedirect] = useState(false)
-  
-
   const [showPaypal, setShowPaypal] = useState(false); 
   const [images] = useState(data);
   const [show, setShow] = useState(false);
@@ -40,7 +36,6 @@ const Feed = (product = true) => {
           <Col key={painting.id} xs={1} md={4}>
             <Card style={{ width: '25rem', marginBottom: '2rem' }} onClick={() => handleShow(painting)}>
               <Card.Img src={painting.url} /> 
-            
             </Card>
           </Col>)}
         
