@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import Avatar from '../components/Avatar';
-import Card from '../components/Card';
+import Card from './CardModel';
 import './UserItem.css';
 
 const UserItem = props => {

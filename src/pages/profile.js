@@ -50,7 +50,8 @@ const Profile = () => {
         <div className='flex-c'>
           <div className='personal-info-text'>
             <div className='col-1'>
-              <h2>Curtis Bryant</h2>
+              <h2>{loadedName}</h2>
+              {loadedEmail}
               <p>Painter</p>
             </div>
             <div className='col-2'>
@@ -71,7 +72,8 @@ const Profile = () => {
         </div>
       </div>
      <hr/>
-     <MyArt/>
+           {<MyArt/>}
+     
      </div>
    )
 };

@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom';
 
 import Input from '../components/Input';
 import Button from '../components/Button';
-import Card from '../components/Card';
+import Card from '../components/CardModel';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
