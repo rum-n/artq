@@ -3,6 +3,9 @@ import { useParams } from 'react-router-dom';
 import {AuthContext} from "../context/auth-context";
 import PlaceList from '../components/PlaceList';
 import { useHttpClient } from '../components/hooks/http-hook';
+import Card from 'react-bootstrap/Card';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Col from 'react-bootstrap/Col';
 
 const UserPlaces = () => {
   const [loadedPlaces, setLoadedPlaces] = useState();
@@ -27,9 +30,11 @@ const UserPlaces = () => {
   }
 
   return (
-    <React.Fragment>
-      {loadedPlaces && <PlaceList items={loadedPlaces} onDeleteImage={imageDeletedHandler}/>}
-    </React.Fragment>
+    <CardDeck>
+      <Col xs={1} md={4}>
+        {loadedPlaces && <PlaceList items={loadedPlaces} onDeleteImage={imageDeletedHandler}/>}
+      </Col>
+    </CardDeck>
   );
 };
 

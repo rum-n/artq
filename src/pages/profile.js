@@ -68,11 +68,11 @@ const Profile = () => {
           <div className='profile-btn-wrapper'>
             <button className='edit-profile-btn'>Edit profile</button>
             <button className='add-new-post-btn'>Add new post</button>
-           {<MyArt/>}
           </div>
         </div>
       </div>
      <hr/>
+           {<MyArt/>}
      
      </div>
    )
