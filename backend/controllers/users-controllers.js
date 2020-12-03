@@ -63,7 +63,8 @@ const signup = async (req,res,next) =>{
         email,
         password,
         phone,
-        image:[]
+        image:[],
+        savedimages:[]
     });
     try{
         await createdUser.save();

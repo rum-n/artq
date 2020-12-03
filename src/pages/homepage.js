@@ -1,6 +1,7 @@
 import React from "react";
 import './styles.css';
 import Feed from "../components/Feed";
+import GetRealImages from "../components/OtherPeople'sArt/getRealImages";
 
 const Home = () => {
 
@@ -8,7 +9,7 @@ const Home = () => {
     <React.Fragment>
         <h1 className='feed-title'>Welcome back! Here's the latest posts from <br/> the artists you currently follow.</h1>
         <div className="artwork-wrapper">
-            <Feed/>
+            <GetRealImages/>
         </div>
     </React.Fragment>
     );

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/:imgid',savedartcontrollers.getArtById);
 
-
+router.get('/',savedartcontrollers.getAllArt);
 router.get('/user/:uid',savedartcontrollers.getArtByUser);
 
 router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
