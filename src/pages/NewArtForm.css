@@ -23,7 +23,8 @@
 .add-art-form-wrapper {
   width: 80%;
   margin: auto;
-  margin-top: 8rem;
+  margin-top: 3rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .add-art-form-wrapper .form-control {
@@ -37,5 +38,10 @@
   border-right: none;
   background: transparent;
   margin-left: 2rem;
+  margin-top: -2rem;
 }
 
+.add-art-form-wrapper .form-control p {
+  margin-left: 3rem;
+  font-size: 0.8rem;
+}

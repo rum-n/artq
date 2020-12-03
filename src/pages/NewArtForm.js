@@ -101,7 +101,7 @@ const NewPlace = () => {
       
       <Form className='add-art-form-wrapper' onSubmit={placeSubmitHandler}>
         <Form.Group as={Row} controlId="title">
-          <Form.Label column sm="2">Artwork Title</Form.Label>
+          <Form.Label column sm="4">Artwork Title</Form.Label>
           <Col sm="6">
             <Input 
               id="title"
@@ -115,11 +115,12 @@ const NewPlace = () => {
         </Form.Group>
 
         <Form.Group as={Row} controlId="description">
-          <Form.Label column sm="2">Description</Form.Label>
+          <Form.Label column sm="4">Description</Form.Label>
           <Col sm="6">
             <Input
               id="description"
-              element="textarea"
+              element="input"
+              type="text"              
               validators={[VALIDATOR_MINLENGTH(5)]}
               errorText="Please enter a valid description (at least 5 characters)."
               onInput={inputHandler}
@@ -128,29 +129,31 @@ const NewPlace = () => {
         </Form.Group>
 
         <Form.Group as={Row} controlId="dimensions">
-          <Form.Label column sm="2">Dimensions</Form.Label>
+          <Form.Label column sm="4">Dimensions</Form.Label>
           <Col sm="6">
             <Input
               id="dimensions"
-              element="text"
+              element="input"
+              type="text"
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} controlId="price">
-          <Form.Label column sm="2">Price</Form.Label>
+          <Form.Label column sm="4">Price</Form.Label>
           <Col sm="6">
             <Input
               id="price"
-              element="number"
+              type="number"
+              element="input"
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
 
         <Form.Group as={Row} controlId="price">
-          <Form.Label column sm="2">Artwork Category</Form.Label>
+          <Form.Label column sm="4">Artwork Category</Form.Label>
           <Col sm="3">
             <Form.Control as="select" custom>
               <option>1</option>
@@ -160,7 +163,7 @@ const NewPlace = () => {
         </Form.Group>
 
         <Form.Group as={Row} controlId="auction">
-          <Form.Label column sm="2">Type of sale</Form.Label>
+          <Form.Label column sm="4">Type of sale</Form.Label>
           <Col sm="4">
             <Form.Check 
               custom
@@ -180,7 +183,7 @@ const NewPlace = () => {
         </Form.Group>
 
         <Form.Group as={Row} controlId="auctionEnd">
-          <Form.Label column sm="2">Auction ends in:</Form.Label>
+          <Form.Label column sm="4">Auction ends in:</Form.Label>
           <Col sm="3">
             <Form.Control as="select" custom>
               <option>1</option>
