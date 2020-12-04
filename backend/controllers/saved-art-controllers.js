@@ -65,19 +65,31 @@ const saveArt = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,cost,author,address} = req.body;
+    const {title,url,description,dimentions,price,author,type,duration,medium,address} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
+     
+      console.log("rhe cooordinates"+coordinates)
     } catch(error){
         return next(error)
     }
     const savedArt = new Image({
         title,
         description,
+        dimentions,
+        price,
         address,
-        location:coordinates,
+        location: {
+        
+            lat:(coordinates.lat),
+            long: (coordinates.lng) //it works when you put in actual coordinates
+            },
+         
         url,
+        type,
+        duration,
+        medium,
         author
     });
    
@@ -100,11 +112,17 @@ const saveArt = async (req,res,next) => {
 
      try{
       const sess = await mongoose.startSession();
+      console.log("hi")
       sess.startTransaction();
+      console.log("hi")
       await savedArt.save({session:sess});
+      console.log("hi")
       user.image.push(savedArt);
+      console.log("hi")
      await user.save({session:sess});
+     console.log("hi")
       await sess.commitTransaction();
+      console.log("hi")
      } catch(err){
          const error = new HttpError("Saving Image failed",500);
     
@@ -122,7 +140,7 @@ const updateImage = async (req,res,next) =>{
         return next(new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,cost,author,address} = req.body;
+    const {title,url,description,dimentions,price,type,duration,medium,author,address} = req.body;
     const imageId = req.params.imgid;
     let image;
     try{
@@ -139,8 +157,11 @@ const updateImage = async (req,res,next) =>{
     image.title = title;
     image.url = url;
     image.description = description;
-    image.cost = cost;
+    image.price = price;
     image.author = author;
+    image.duration = duration;
+    image.type = type;
+    image.medium = medium;
     image.address = address;
 
 

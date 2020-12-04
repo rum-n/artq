@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Callback from './Callback';
 import Home from './pages/homepage';
 import About from './pages/About';
-import NearMe from './pages/nearme';
+import NearMe from './pages/Map/getimagelocations';
 import Profile from './pages/profile';
 import Settings from './pages/settings';
 import Purchases from './pages/purchases';
@@ -23,9 +23,12 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
+
+
   const login = useCallback(uid => {
     setIsLoggedIn(true);
     setUserId(uid);
+    
    
   }, []);
 

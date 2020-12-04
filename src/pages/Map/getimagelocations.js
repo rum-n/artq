@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import UsersList from '../components/UsersList';
+import NearMe from '../nearme';
 
 
 const Users = () => {
@@ -11,7 +11,7 @@ const Users = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch('http://localhost:5000/api/users');
+        const response = await fetch('http://localhost:5000/api/images');
         
         const responseData = await response.json();
         
@@ -20,9 +20,8 @@ const Users = () => {
           throw new Error(responseData.message);
         }
         
-        setLoadedUsers(responseData.users);
-        console.log(responseData.users)
-       
+        setLoadedUsers(responseData.image);
+        console.log(responseData.image)
       } catch (err) {
         alert(err)
       }
@@ -36,7 +35,7 @@ const Users = () => {
     <React.Fragment>
     
     
-      {loadedUsers && <UsersList items={loadedUsers} />}
+      {loadedUsers && <NearMe items={loadedUsers} />}
     </React.Fragment>
   );
 };

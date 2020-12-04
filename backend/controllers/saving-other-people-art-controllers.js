@@ -50,7 +50,12 @@ const saveArt = async (req,res,next) => {
         title,
         description,
         address,
-        location:coordinates,
+        location: {
+        
+            lat:(0),
+            lng: (0) //it works when you put in actual coordinates
+            },
+         
         url,
         author,
         user1

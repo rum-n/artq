@@ -58,6 +58,7 @@ let handleChange = (e) => {
         },
       );
       auth.login(responseData.user.id)
+     
        responseData = await theresponse.json();
   
     }catch(err){     

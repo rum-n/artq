@@ -12,6 +12,7 @@ import { useForm } from '../components/hooks/form-hook';
 import { useHttpClient } from '../components/hooks/http-hook';
 import { AuthContext } from '../context/auth-context';
 import '../components/PlaceItem.css';
+import { duration } from '@material-ui/core';
 
 const UpdateImage = () => {
   const auth = useContext(AuthContext);
@@ -83,14 +84,20 @@ const UpdateImage = () => {
   const placeUpdateSubmitHandler = async event => {
     event.preventDefault();
     try {
+      console.log(loadedImage.address)
       await sendRequest(
         `http://localhost:5000/api/images/${imageId}`,
         'PATCH',
         JSON.stringify({
-          title: formState.inputs.title.value,
+          title: loadedImage.title,
           description: formState.inputs.description.value,
-          address:formState.inputs.address.value,
-          url:formState.inputs.url.value,
+          dimentions: formState.inputs.dimentions.value,
+          price:loadedImage.price,
+          address:loadedImage.address,
+          type:loadedImage.type,
+          duration:loadedImage.duration,
+          medium: formState.inputs.medium.value,
+          url:loadedImage.url,
           author: auth.userId
     }),
         {
@@ -119,10 +126,10 @@ const UpdateImage = () => {
       {loadedImage && (
         <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
           <Input
-            id="title"
+            id="description"
             element="input"
             type="text"
-            label="Title"
+            label="Description"
             validators={[VALIDATOR_REQUIRE()]}
             errorText="Please enter a valid title."
             onInput={inputHandler}
@@ -130,9 +137,9 @@ const UpdateImage = () => {
             initialValid={true}
           />
           <Input
-            id="description"
+            id="dimentions"
             element="textarea"
-            label="Description"
+            label="Dimentions"
             validators={[VALIDATOR_MINLENGTH(5)]}
             errorText="Please enter a valid description (min. 5 characters)."
             onInput={inputHandler}
@@ -140,19 +147,11 @@ const UpdateImage = () => {
             initialValid={true}
           />
            <Input
-        id="address"
+        id="medium"
         element="input"
-        label="Address"
+        label="Medium"
         validators={[VALIDATOR_REQUIRE()]}
         errorText="Please enter a valid address."
-        onInput={inputHandler}
-      />
-       <Input 
-        id="url"
-        element="input"
-        label="Url"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid url."
         onInput={inputHandler}
       />
           <Button type="submit" disabled={!formState.isValid}>

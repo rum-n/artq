@@ -7,7 +7,7 @@ const saveimageSchema = new Schema({
     address:{type:String,required:true},
     location:{
         lat:{type:Number, required:true},
-        lat:{type:Number, required:true}
+        long:{type:Number, required:true}
     },
     author:{type:mongoose.Types.ObjectId,required:true,ref:"User"},
     user1:{type:String,required:true},

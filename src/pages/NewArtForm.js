@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer,useContext } from 'react';
+import React, { useCallback, useReducer,useContext,useState } from 'react';
 import {useHistory} from "react-router-dom"
 import {useHttpClient} from "../components/hooks/http-hook"
 import Input from '../components/Input';
@@ -40,6 +40,8 @@ const formReducer = (state, action) => {
 const NewPlace = () => {
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
+  const[duration,setduration] = useState(0)
+  const[type,settype] = useState("")
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
@@ -50,13 +52,26 @@ const NewPlace = () => {
         value: '',
         isValid: false
       },
-      address: {
+      dimentions: {
         value: '',
         isValid: false
       },
       url: {
         value: '',
         isValid: false
+      },
+      address: {
+        value: '',
+        isValid: false
+      },
+      price: {
+        value: 0,
+        isValid: false
+      },
+      medium: {
+        value: '',
+        isValid: false
+       
       }
     },
     isValid: false
@@ -72,12 +87,22 @@ const NewPlace = () => {
     });
   }, []);
 
+
+
   const placeSubmitHandler = async event => {
     event.preventDefault();
     try{
+    
+      console.log(auth.userId)
     await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
       title:formState.inputs.title.value,
+      
       description:formState.inputs.description.value,
+      dimentions:formState.inputs.dimentions.value,
+      duration: 3, //change this to use what user clicked
+      medium: formState.inputs.medium.value,
+      price: formState.inputs.price.value,
+      type: "Auction", //change this to use what user clicked
       address:formState.inputs.address.value,
       url:formState.inputs.url.value,
       author: auth.userId
@@ -85,7 +110,10 @@ const NewPlace = () => {
       'Content-Type':'application/json'
     })
     history.push('/');
-  } catch(err){}
+  } catch(err){
+  
+    console.log(err)
+  }
 };
 
   return (
@@ -127,16 +155,29 @@ const NewPlace = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="dimensions">
-          <Form.Label column sm="2">Dimensions</Form.Label>
+        <Form.Group as={Row} controlId="dimentions">
+          <Form.Label column sm="2">Dimentions</Form.Label>
           <Col sm="6">
             <Input
-              id="dimensions"
+              id="dimentions"
+              validators={[VALIDATOR_REQUIRE()]}
               element="text"
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
+        <Form.Group as={Row} controlId="url">
+          <Form.Label column sm="2">Url</Form.Label>
+          <Col sm="6">
+            <Input
+              id="url"
+              validators={[VALIDATOR_REQUIRE()]}
+              element="text"
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+        
 
         <Form.Group as={Row} controlId="price">
           <Form.Label column sm="2">Price</Form.Label>
@@ -144,22 +185,38 @@ const NewPlace = () => {
             <Input
               id="price"
               element="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row} controlId="address">
+          <Form.Label column sm="2">Address</Form.Label>
+          <Col sm="6">
+            <Input
+              id="address"
+              element="text"
+              validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="price">
-          <Form.Label column sm="2">Artwork Category</Form.Label>
-          <Col sm="3">
-            <Form.Control as="select" custom>
-              <option>1</option>
-              <option>2</option>
-            </Form.Control>
+        <Form.Group as={Row} controlId="medium">
+          <Form.Label column sm="2">Medium</Form.Label>
+          <Col sm="6">
+            <Input
+              id="medium"
+              validators={[VALIDATOR_REQUIRE()]}
+              element="text"
+              onInput={inputHandler}
+            />
           </Col>
         </Form.Group>
+        
+        
 
-        <Form.Group as={Row} controlId="auction">
+        <Form.Group as={Row} controlId="type">
           <Form.Label column sm="2">Type of sale</Form.Label>
           <Col sm="4">
             <Form.Check 
@@ -167,6 +224,7 @@ const NewPlace = () => {
               type="checkbox"
               id="auction"
               label="Auction"
+            
             />
           </Col>
           <Col sm="4">
@@ -179,7 +237,7 @@ const NewPlace = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="auctionEnd">
+        <Form.Group as={Row} controlId="duration">
           <Form.Label column sm="2">Auction ends in:</Form.Label>
           <Col sm="3">
             <Form.Control as="select" custom>
