@@ -34,7 +34,7 @@ const Profile = () => {
         setLoadedId(responseData.userWithImages.id)
         setLoadedImage(responseData.userWithImages.image)
       } catch (err) {
-        alert(err)
+       
       }
     
     };
