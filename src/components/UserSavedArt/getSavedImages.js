@@ -7,7 +7,7 @@ import {AuthContext} from "../../context/auth-context";
 const GetSavedImages = () => {
 
   const auth = useContext(AuthContext);
-console.log(auth.userId)
+
     const [loadedUsers, setLoadedUsers] = useState();
   
     useEffect(() => {
@@ -24,7 +24,7 @@ console.log(auth.userId)
           }
           
           setLoadedUsers(responseData.userWithImages);
-          console.log(responseData.userWithImages)
+         
         } catch (err) {
           alert(err)
         }

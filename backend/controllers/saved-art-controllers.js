@@ -154,6 +154,13 @@ const updateImage = async (req,res,next) =>{
         return next(error)
     }
 
+    if (image.author.toString()!== req.userData.userId){
+        const error = new HttpError(
+            'You are not allowed to edit this place',401
+        );
+        return next(error)
+    }
+
     image.title = title;
     image.url = url;
     image.description = description;
@@ -190,6 +197,14 @@ const deleteImage = async (req,res,next) =>{
      if (!image){
         const error = new HttpError("Could not find image for this id",404);
         return next(error);
+     }
+
+     if (image.author.id !== req.userData.userId){
+        const error = new HttpError(
+            'You are not allowed to edit this place',401
+        );
+        return next(error)
+
      }
 
 

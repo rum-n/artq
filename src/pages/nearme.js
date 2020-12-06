@@ -20,7 +20,7 @@ const GoogleMaps =  (props,{ latitude, longitude }) => {
       props.items.map(markerJson => dataArrayLat.push(markerJson.location.lat));
       props.items.map(markerJson => dataArrayLong.push(markerJson.location.long));
     }
-    console.log("data array"+dataArrayTitle)
+   
 
     //Loop through the dataArray to create a marker per data using the coordinates in the json
     for (let i = 0; i < dataArrayLat.length; i++) {

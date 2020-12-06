@@ -101,7 +101,7 @@ const UpdateImage = () => {
           author: auth.userId
     }),
         {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
         }
       );
       history.push('/' + auth.userId + '/images');

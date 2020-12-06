@@ -21,7 +21,7 @@ const Users = () => {
         }
         
         setLoadedUsers(responseData.users);
-        console.log(responseData.users)
+       
        
       } catch (err) {
         alert(err)

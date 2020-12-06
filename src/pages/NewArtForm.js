@@ -107,7 +107,7 @@ const NewPlace = () => {
       url:formState.inputs.url.value,
       author: auth.userId
     }),{
-      'Content-Type':'application/json'
+      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
     })
     history.push('/');
   } catch(err){

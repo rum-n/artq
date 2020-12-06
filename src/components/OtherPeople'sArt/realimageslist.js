@@ -17,6 +17,11 @@ const realimageslist = props => {
           address={user.address}
           title={user.title}
           author={user.author}
+          duration={user.duration}
+          dimentions={user.dimentions}
+          type={user.type}
+          price={user.price}
+          medium={user.medium}
         />
       ))}
     </ul>

@@ -21,7 +21,7 @@ const Users = () => {
         }
         
         setLoadedUsers(responseData.image);
-        console.log(responseData.image)
+      
       } catch (err) {
         alert(err)
       }

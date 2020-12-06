@@ -21,7 +21,7 @@ const GetRealImages = () => {
           }
           
           setLoadedUsers(responseData.image);
-          console.log(responseData.image)
+         
         } catch (err) {
          
         }
@@ -44,7 +44,7 @@ const GetRealImages = () => {
           }
           
           setLoadedUsers(responseData.image);
-          console.log(responseData.image)
+         
         } catch (err) {
          
         }

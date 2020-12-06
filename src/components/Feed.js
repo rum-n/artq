@@ -33,6 +33,11 @@ const Feed = (props) => {
   const [activeurl, setActiveurl] = useState('');
   const [activeaddress, setActiveaddress] = useState('');
   const [activeauthor, setActiveauthor] = useState('');
+  const [activeprice, setActiveprice] = useState('');
+  const [activedimentions, setActivedimentions] = useState('');
+  const [activetype, setActivetype] = useState('');
+  const [activeduration, setActiveduration] = useState('');
+  const [activemedium, setActivemedium] = useState('');
   
 
   const handleClose = () => setShow(false);
@@ -45,6 +50,11 @@ const Feed = (props) => {
     setActiveurl(item.image)
     setActiveaddress(item.address)
     setActiveauthor(item.author)
+    setActiveprice(item.price)
+    setActivedimentions(item.dimentions)
+    setActivetype(item.type)
+    setActiveduration(item.duration)
+    setActivemedium(item.medium)
     setShow(true)
    
  };
@@ -59,8 +69,20 @@ const Feed = (props) => {
     console.log(activeurl)
     console.log(activeaddress)
     console.log(activeauthor)
+    console.log(activeauthor)
+      console.log(activeprice)
+      console.log(activedimentions)
+      console.log(activetype)
+      console.log(activemedium)
+
    
   await sendRequest('http://localhost:5000/api/saved','POST',JSON.stringify({
+   
+    dimentions: activedimentions,
+    price: activeprice,
+    type:activetype,
+    duration:activeduration,
+    medium:activemedium,
     title:activetitle,
     description:activedescription,
     address:activeaddress,
