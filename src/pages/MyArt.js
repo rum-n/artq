@@ -15,11 +15,12 @@ const UserPlaces = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const responseData = await sendRequest(
-          `http://localhost:5000/api/images/user/${auth.userId}`
+        const response = await fetch(
+          `http://localhost:5000/api/images/user/5fcbeaa8c23a55c20c240d5e`
         );
+        const responseData = await response.json();
         setLoadedPlaces(responseData.userWithImages);
-        console.log(loadedPlaces)
+        console.log(responseData)
       } catch (err) {}
     };
     fetchImages();

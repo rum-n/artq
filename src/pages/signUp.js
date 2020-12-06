@@ -40,7 +40,7 @@ let handleChange = (e) => {
   }
 
   let save = async(e) => {
-    console.log()
+
     e.preventDefault();
     try{
     await sendRequest('http://localhost:5000/api/users/signup', 'POST', JSON.stringify({  

@@ -44,7 +44,7 @@ let handleChange = (e) => {
   }
 
   let save = async(e) => {
-    console.log()
+  
     e.preventDefault();
    
     try {
@@ -57,18 +57,21 @@ let handleChange = (e) => {
           'Content-Type': 'application/json'  
         },
       );
-      auth.login(responseData.user.id)
+      auth.login(responseData.userId,responseData.token)
+     
        responseData = await theresponse.json();
   
-    }catch(err){     
+    }catch(err){   
+    
     }
     try{
     if (theresponse.ok){
-        console.log("its a ok")
+       
       setRedirect(true)
     }
 }catch(err){
     setRedirect(false)
+    
 }
 }
     const shouldRedirect = redirect =>{

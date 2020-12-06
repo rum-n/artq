@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext } from 'react';
-
+import { useHttpClient } from '../../components/hooks/http-hook';
 import Savedimageslist from "./savedimageslist";
 import {AuthContext} from "../../context/auth-context";
 
@@ -7,7 +7,7 @@ import {AuthContext} from "../../context/auth-context";
 const GetSavedImages = () => {
 
   const auth = useContext(AuthContext);
-console.log(auth.userId)
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
   
     useEffect(() => {
@@ -24,14 +24,14 @@ console.log(auth.userId)
           }
           
           setLoadedUsers(responseData.userWithImages);
-          console.log(responseData.userWithImages)
+         
         } catch (err) {
-          alert(err)
+         
         }
       
       };
       sendRequest();
-    }, []);
+    }, [sendRequest, auth.userId]);
 
   
   

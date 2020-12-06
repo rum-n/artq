@@ -1,65 +1,64 @@
-import React, { Component } from 'react';
-import { Map, GoogleApiWrapper,InfoWindow,Marker } from 'google-maps-react';
+import React,{useState} from "react";
+import GoogleMapReact,{infowindow,google} from "google-map-react";
+//import Json Data
 
-const mapStyles = {
-  width: '100%',
-  height: '100%'
+
+const GoogleMaps =  (props,{ latitude, longitude }) => {
+  const [loadedTitle, setLoadedTitle] = useState();
+  const [loadedDescription, setLoadedDescription] = useState();
+  const ModelsMap = (map, maps) => {
+    //instantiate array that will hold your Json Data
+    let dataArrayLat = [];
+    let dataArrayLong = [];
+    let dataArrayTitle = [];
+    let dataArrayDescription = [];
+   
+    //push your Json Data in the array
+    {
+      props.items.map(markerJson => dataArrayTitle.push(markerJson.title));
+      props.items.map(markerJson => dataArrayDescription.push(markerJson.description));
+      props.items.map(markerJson => dataArrayLat.push(markerJson.location.lat));
+      props.items.map(markerJson => dataArrayLong.push(markerJson.location.long));
+    }
+   
+
+    //Loop through the dataArray to create a marker per data using the coordinates in the json
+    for (let i = 0; i < dataArrayLat.length; i++) {
+      let marker = new maps.Marker({
+        position: { lat: dataArrayLat[i], lng: dataArrayLong[i] },
+        map,
+        label: dataArrayLat.id,
+        infowindow:dataArrayTitle[i]
+       
+      });
+      setLoadedTitle(dataArrayTitle[i])
+      setLoadedDescription(dataArrayDescription[i])
+      const contentString =
+      dataArrayTitle[i]+" "+ dataArrayDescription[i]
+    let infowindow = new maps.InfoWindow({
+      content: contentString,
+    });
+    marker.addListener("click", () => {
+      infowindow.open(map, marker);
+    });
+    
+      
+    }
+    
+  };
+
+  return (
+    <div style={{ height: "600px", width: "100%" }}>
+      
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
+        defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
+        defaultZoom={10}
+        yesIWantToUseGoogleMapApiInternals
+        onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
+      />
+    </div>
+  );
 };
 
-
-export class MapContainer extends Component {
-  state = {
-    showingInfoWindow: false,  // Hides or shows the InfoWindow
-    activeMarker: {},          // Shows the active marker upon click
-    selectedPlace: {}          // Shows the InfoWindow to the selected place upon a marker
-  };
-  onMarkerClick = (props, marker, e) =>
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-      showingInfoWindow: true
-    });
-
-  onClose = props => {
-    if (this.state.showingInfoWindow) {
-      this.setState({
-        showingInfoWindow: false,
-        activeMarker: null
-      });
-    }
-  };
-  render() {
-    return (
-      <Map
-        google={this.props.google}
-        zoom={14}
-        style={mapStyles}
-        initialCenter={
-          {
-            lat: -1.2884,
-            lng: 36.8233
-          }
-        }
-      > 
-      <Marker
-          onClick={this.onMarkerClick}
-          name={'Kenyatta International Convention Centre'}
-        />
-        <InfoWindow
-          marker={this.state.activeMarker}
-          visible={this.state.showingInfoWindow}
-          onClose={this.onClose}
-        >
-          <div>
-            <h4>{this.state.selectedPlace.name}</h4>
-          </div>
-        </InfoWindow>
-      </Map>
-      
-    );
-  }
-}
-
-export default GoogleApiWrapper({
-  apiKey: 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
-})(MapContainer);
+export default GoogleMaps;
