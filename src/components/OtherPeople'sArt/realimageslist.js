@@ -1,11 +1,7 @@
 import React from 'react';
-
 import Feed from '../Feed';
 
 const realimageslist = props => {
-
-  
-
   return (
     <ul className="users-list">
       {props.items.map(user => (

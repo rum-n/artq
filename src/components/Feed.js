@@ -7,25 +7,18 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
-import data from "./data";
+// import data from "./data";
 import {AuthContext} from "../context/auth-context";
 import {useHttpClient} from "../components/hooks/http-hook"
-
-
-import { Redirect } from "react-router";
+// import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
 const Feed = (props) => {
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
-  
-
   const [loadedUsers, setLoadedUsers] = useState();
-
- 
   const [redirect,setRedirect] = useState(false)
   const [showPaypal, setShowPaypal] = useState(false); 
-  const [images] = useState(data);
   const [show, setShow] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const [activetitle, setActivetitle] = useState('');
@@ -34,11 +27,8 @@ const Feed = (props) => {
   const [activeaddress, setActiveaddress] = useState('');
   const [activeauthor, setActiveauthor] = useState('');
   
-
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
-    
-
     setActiveItem(item)
     setActivetitle(item.title)
     setActivedescription(item.description)
@@ -46,7 +36,6 @@ const Feed = (props) => {
     setActiveaddress(item.address)
     setActiveauthor(item.author)
     setShow(true)
-   
  };
  
  const placeSubmitHandler = async event => {
@@ -67,29 +56,25 @@ const Feed = (props) => {
     url:activeurl,
     author: activeauthor,
     user1:auth.userId
-    
-   
+
   }),{
     'Content-Type':'application/json'
   })
-  
-  
-
 } catch(err){}
 };
 
   return (
-    <div className='main'>
+    <div>
       
-      {showPaypal ? <PaypalButtons /> : <CardDeck>
+      {showPaypal ? <PaypalButtons /> : 
            
-          <Col key={props.id} xs={3} md={4}>
+          <Col key={props.id} xs={3} md={4} className='art-cards'>
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
               <Card.Img src={props.image} /> 
             </Card>
           </Col>
         
-        </CardDeck>}
+        }
             <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>{activeItem.author}</Modal.Title>

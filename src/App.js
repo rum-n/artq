@@ -33,7 +33,6 @@ function App() {
     setIsLoggedIn(false);
     setUserId(null);
   }, []);
-  let routes;
 
   return(
     <AuthContext.Provider value={{isLoggedIn:isLoggedIn,userId:userId,login:login,logout:logout}}>
