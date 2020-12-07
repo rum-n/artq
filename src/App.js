@@ -19,6 +19,7 @@ import {AuthContext} from "./context/auth-context"
 import MyArt from "./pages/MyArt"
 import UpdatePlace from "./pages/UpdatePlace"
 import SeeMore from "./pages/SeeMore"
+import Cart from "./components/Cart"
 
 let logoutTimer;
 function App() { 
@@ -87,6 +88,7 @@ function App() {
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
         <Route path='/seemore' component={SeeMore} />
+        <Route path='/cart' component={Cart} />
         <Route path="/images/:imageId">
         <UpdatePlace />
         </Route>
