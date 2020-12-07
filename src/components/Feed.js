@@ -133,7 +133,7 @@ const Feed = (props) => {
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <Link to='' className='see-more'>See more</Link>
+                      <Link to='/seemore' className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>

@@ -16,7 +16,7 @@ const UserPlaces = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/images/user/5fcbeaa8c23a55c20c240d5e`
+          `http://localhost:5000/api/images/user/${auth.userId}`
         );
         const responseData = await response.json();
         setLoadedPlaces(responseData.userWithImages);
