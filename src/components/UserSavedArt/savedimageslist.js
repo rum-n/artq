@@ -3,9 +3,6 @@ import React from 'react';
 import Feed from '../Feed';
 
 const Savedimageslist = props => {
-
-  
-
   return (
     <ul className="users-list">
       {props.items.map(user => (

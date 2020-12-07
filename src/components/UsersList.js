@@ -1,13 +1,9 @@
 import React from 'react';
-
 import UserItem from './UserItem';
 import Card from './CardModel';
 import './UsersList.css';
 
 const UsersList = props => {
-
-  
-
   return (
     <ul className="users-list">
       {props.items.map(user => (
