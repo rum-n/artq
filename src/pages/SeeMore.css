@@ -8,6 +8,11 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.seemore-img {
+    margin: 3rem auto;
+    text-align: center;
+}
+
 .seemore-details-table {
     display: flex;
     width: 100%;
@@ -22,7 +27,30 @@
     text-align: right;
 }
 
-.seemore-details-table-left p {
-    
+.seemore-btn-wrapper {
+    margin: 3rem auto;
+    width: 40%;
+    text-align: center;
 }
+
+.seemore-btn-wrapper .input-group {
+    font-family: 'Roboto', sans-serif;
+}
+
+.seemore-btn-wrapper .input-group button {
+    margin-top: 1rem;
+}
+
+.seemore-add {
+    color: white;
+    background: #F04B72;
+    border: none;
+    padding: 0.2rem 3rem;
+    border-radius: 6px;
+}
+
+.seemore-add:hover {
+    background: #f04b72bb;
+}
+
 

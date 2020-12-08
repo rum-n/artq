@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './SeeMore.css';
 import { useLocation } from "react-router-dom";
+import InputGroup from 'react-bootstrap/InputGroup'
+import Button from 'react-bootstrap/Button'
+import FormControl from 'react-bootstrap/FormControl'
 
 const SeeMore = ({match}) => {
   let data = useLocation();
   let theid = data.state.theid
-  console.log(data.state.theid);
-  console.log(useLocation())
   const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
 
@@ -15,27 +16,25 @@ const SeeMore = ({match}) => {
 
       try {
         const response = await fetch(`http://localhost:5000/api/images/${theid}`);
-        console.log(response)
         const responseData = await response.json();
         
-
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-        
         setState(responseData.image);
-       console.log(responseData.image)
-       
+
       } catch (err) {
         alert(err)
       }
-    
     };
     sendRequest();
   }, []);
-  console.log(state)
 
   return (
+    <React.Fragment>
+      <div className='seemore-img'>
+        <img src={state.url} alt={state.title} />
+      </div>
       <div className="seemore-details">
         <h1>{state.title}</h1>
         <div className="seemore-details-table">
@@ -50,17 +49,29 @@ const SeeMore = ({match}) => {
           <div div className="seemore-details-table-right">
             <h2>{state.address}</h2>
             <p>{state.price}</p>
-            <p>{Date.now - state.duration}</p> 
-            {/* this should be something like that but I'll figure it out later */}
+            <p>{counter}</p> 
             <p>11 bids</p>
             {/* we don't have number of bids right now */}
             <p>{state.medium}</p>
             <p>{state.dimentions}</p>
           </div>
         </div>
-        <h2></h2>
-        {/* <div>Countdown: {counter}</div> */}
       </div>
+      <div className='seemore-btn-wrapper'>
+        <button className='seemore-add'>Add to cart</button>
+        <p>Save for later</p>
+        <InputGroup className="mb-3">
+          <FormControl
+            placeholder="Place bid"
+            aria-label="bid"
+            aria-describedby="bid"
+          />
+          <InputGroup.Append>
+            <Button className='seemore-add'>Place bid</Button>
+          </InputGroup.Append>
+        </InputGroup>
+      </div>
+    </React.Fragment>
   )
 }
 
