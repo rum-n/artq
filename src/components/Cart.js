@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState}from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import {getCart} from "./cartHelpers"
+import {getCart,removeItem} from "./cartHelpers"
 import Feed from '../components/Feed'
 
 const Cart =() =>{ 
@@ -11,14 +11,15 @@ const Cart =() =>{
     useEffect(() =>{
         setItems(getCart())
 
-    },[])
+    },[items])
     const showItems = props =>{
         return(
            
             <ul className="users-list">
                 
             {props.map(user => (
-              <Feed
+              <Feed showAddToCartButton={false}
+              showRemoveProductButton = {true}
                 key={user.id}
                 id={user.id}
                 image={user.image}

@@ -8,14 +8,15 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
-import {addItem, AddItem} from "./cartHelpers"
+import {addItem, removeItem} from "./cartHelpers"
 // import data from "./data";
 import {AuthContext} from "../context/auth-context";
 import {useHttpClient} from "../components/hooks/http-hook"
 // import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
-const Feed = (props) => {
+const Feed = (props,{showAddToCartButton = true}) => {
+  const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
   const [loadedUsers, setLoadedUsers] = useState();
@@ -98,6 +99,18 @@ const Feed = (props) => {
 } catch(err){}
 };
 console.log("the image id"+props.id)
+
+const showAddToCart = (showAddToCartButton) =>{
+  return showAddToCartButton && (
+    <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
+  )
+}
+
+const showRemoveButton = (showRemoveProductButton) =>{
+  return showRemoveProductButton && (
+    <Button  onClick={() => removeItem(props.id)}>Remove</Button>
+  )
+}
   return (
     <div>
 
@@ -126,8 +139,10 @@ console.log("the image id"+props.id)
                         <Col xs={12} md={6}>
                           <h3>{props.title}</h3>
                           <p><b>Dimentions</b></p>
-                          <p>{props.description}</p>              
-                          <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
+                          <p>{props.description}</p>  
+                          {showAddToCart(props.showAddToCartButton)}  
+                          {showRemoveButton(props.showRemoveProductButton)}            
+                          
                           <Button className="save-for-later" variant="primary" onClick={placeSubmitHandler}>Save for later</Button>
                         </Col>
                       </Row>
@@ -135,6 +150,7 @@ console.log("the image id"+props.id)
                   </Modal.Body>
                     <Modal.Footer>
                       <Link to='/seemore' className='see-more'>See more</Link>
+                      
                     </Modal.Footer>
                 </Modal>
       </div>
