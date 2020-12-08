@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams, useHistory } from "react-router-dom";
+import './SeeMore.css';
 
 
 const SeeMore = () => {
+    const { id } = useParams();
+    const [art, setArt] = useState(null);
+    const [content, setContent] = useState("");
+
+    useEffect(() => {
+        function loadArt() {
+          return `http://localhost:5000/api/images/${id}`;
+        }
+        async function onLoad() {
+          try {
+            const artwork = await loadArt();
+            const { content } = artwork;
+    
+            setContent(content);
+            setArt(artwork);
+          } catch (err) {
+            console.log(err);
+          }
+        }
+        onLoad();
+      }, [id]);
 
     return (
         <div className="paragraphs">
-            <p className='about'>At one time artist Chui Faising didn’t worry about galleries or museums. Almost every sculpture and drawing he made was sold to selected patrons, and sometimes before he finished it. However, he saw that the art world was changing with the internet and social media.</p>
-            
-            <p className='about'>As Chui likes to say, “It’s a very American concept; ArtQ is of the artist, for the artist and by the artist.” And finally, ArtQ makes loving art more fun and accessible for all. ArtQ is simply an art idea whose time has come!</p>
+            <h2 src={art.title}></h2>
         </div>
     )
 } 

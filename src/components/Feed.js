@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useReducer,useContext} from "react";
+import React, { useState, useContext } from "react";
 import PaypalButtons from "../pages/paypal";
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
@@ -6,11 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
-// import data from "./data";
 import {AuthContext} from "../context/auth-context";
 import {useHttpClient} from "../components/hooks/http-hook"
-// import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
 const Feed = (props) => {
@@ -118,7 +115,7 @@ const Feed = (props) => {
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <Link to='/seemore' className='see-more'>See more</Link>
+                    <Link to={`/artwork/${props.id}`} className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>

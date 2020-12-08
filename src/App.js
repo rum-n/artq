@@ -88,6 +88,7 @@ function App() {
         <Route path='/edit' component={UpdatePlace} />
         <Route path='/seemore' component={SeeMore} />
         <Route path="/images/:imageId">
+        <Route path='/artwork/:id' component={SeeMore}/>
         <UpdatePlace />
         </Route>
       </Switch>
