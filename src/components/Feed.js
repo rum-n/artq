@@ -12,7 +12,6 @@ import {addItem, removeItem} from "./cartHelpers"
 // import data from "./data";
 import {AuthContext} from "../context/auth-context";
 import {useHttpClient} from "../components/hooks/http-hook"
-// import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
 const Feed = (props,{showAddToCartButton = true}) => {
@@ -149,8 +148,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <Link to='/seemore' className='see-more'>See more</Link>
-                      
+                    <Link to={`/artwork/${props.id}`} className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>

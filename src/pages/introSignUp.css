@@ -54,6 +54,11 @@
     font-size: 1.3rem;
 }
 
+.intro-btn-wrapper a{
+    text-decoration: none;
+    color: white;
+}
+
 .intro-signup-btn {
     background: #F04B72;
     border: none;
@@ -63,3 +68,31 @@
     border: 1px solid white;
     background: transparent;
 }
+
+@media only screen and (max-width: 768px) {
+    .intro-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+    .abstract-art {
+        display: none;
+    }
+    .signup-title {
+        text-align: center;
+        font-size: 3rem;
+    }
+    .signup-subtitle {
+        text-align: center;
+    }
+    .intro-text-wrapper {
+        width: 80%;
+        margin: 3rem auto;
+    }
+    .intro-btn-wrapper {
+        margin: 2rem auto;   
+    }
+    .pink-elipse {
+        height: 80%;
+    }
+  }
+  
