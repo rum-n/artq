@@ -1,6 +1,7 @@
 import React, {useContext}from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import { Button,Nav,FormControl,Form,Dropdown } from "react-bootstrap";
+import {itemTotal} from "./cartHelpers"
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import { Auth0Provider } from "@auth0/auth0-react";
@@ -113,6 +114,10 @@ return(
           <Button style = {{color: "white"}}variant="outline-primary">Search</Button>
           
         </Form>
+        {auth.isLoggedIn && (
+          <Link style = {{color: "white"}} className='nav-links' to='/cart'>Cart <sup><small className="cart-badge">{itemTotal()}</small></sup></Link>
+          )}
+
       </Navbar>
 )
   
