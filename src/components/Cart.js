@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {getCart,removeItem} from "./cartHelpers"
 import Feed from '../components/Feed'
-
+import Checkout from "./Checkout"
 const Cart =() =>{ 
     const [items,setItems] = useState([])
     useEffect(() =>{
@@ -56,8 +56,10 @@ const Cart =() =>{
         {items.length > 0 ? showItems(items): noItemsMessage()}
 
     </div>
-    <div className="row">
-        <p>show checkout optioms/shipping address/total</p>
+    <div className="col-6">
+        <h2>You cart summary</h2>
+        <hr/>
+        <Checkout products={items}/>
 
     </div>
     </div>
