@@ -20,6 +20,7 @@ import MyArt from "./pages/MyArt";
 import UpdatePlace from "./pages/UpdatePlace";
 import SeeMore from "./pages/SeeMore";
 import Cart from "./components/Cart";
+import IndividualUserPage from "./pages/IndividualUserPage"
 
 let logoutTimer;
 function App() { 
@@ -88,6 +89,7 @@ function App() {
         <Route path='/edit' component={UpdatePlace} />
          <Route path='/seemore' component={SeeMore} /> 
         <Route path='/cart' component={Cart} />
+        <Route path='/individual' component={IndividualUserPage} />
         <Route path="/images/:imageId">
         
         <UpdatePlace />
