@@ -1,52 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useHistory } from "react-router-dom";
 import './SeeMore.css';
 
+const SeeMore = ({match}) => {
+  const [ counter, setCounter ] = useState(60);
+  const [ state, setState ] = useState({})
 
-const SeeMore = () => {
-    const { id } = useParams();
-    const [art, setArt] = useState(null);
-    const [content, setContent] = useState("");
+  const artwork = async () => {
+    const res = await fetch(`http://localhost:5000/api/images/${match.params.id}`);
+    const item = await res.json();
+    setState(item);
+    console.log(item);
+  };
 
-    useEffect(() => {
-        function loadArt() {
-          return `http://localhost:5000/api/images/${id}`;
-        }
-        async function onLoad() {
-          try {
-            const artwork = await loadArt();
-            const { content } = artwork;
-    
-            setContent(content);
-            setArt(artwork);
-          } catch (err) {
-            console.log(err);
-          }
-        }
-        onLoad();
-      }, [id]);
+  const timer = () => {
+    counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
+    return () => clearInterval(timer);
+  }
 
-    return (
-        <div className="paragraphs">
-            <h2 src={art.title}></h2>
-        </div>
-    )
-} 
-function SeeMore() {
-    const [counter, setCounter] = React.useState(60);
-  
-    // Third Attempts
-    React.useEffect(() => {
-      const timer =
-        counter > 0 && setInterval(() => setCounter(counter - 1), 1000);
-      return () => clearInterval(timer);
-    }, [counter]);
-  
-    return (
-      <div className="App">
+  useEffect(()=> {
+    artwork();
+    timer();
+  })
+
+  return (
+      <div className="paragraphs">
+        <h1>Image title</h1>
+        <h2>{state.title}</h2>
+        <p>{state.price}</p>
         <div>Countdown: {counter}</div>
       </div>
-    );
-  }
+  )
+}
 
 export default SeeMore;

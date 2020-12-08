@@ -12,14 +12,14 @@ import Sellingcenter from './pages/sellingcenter';
 import Saved from "./pages/Saved";
 import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
-import Signin from "./pages/signIn"
-import Explore from "./pages/Users"
-import NewArt from './pages/NewArtForm'
-import {AuthContext} from "./context/auth-context"
-import MyArt from "./pages/MyArt"
-import UpdatePlace from "./pages/UpdatePlace"
-import SeeMore from "./pages/SeeMore"
-import Cart from "./components/Cart"
+import Signin from "./pages/signIn";
+import Explore from "./pages/Users";
+import NewArt from './pages/NewArtForm';
+import {AuthContext} from "./context/auth-context";
+import MyArt from "./pages/MyArt";
+import UpdatePlace from "./pages/UpdatePlace";
+import SeeMore from "./pages/SeeMore";
+import Cart from "./components/Cart";
 
 let logoutTimer;
 function App() { 
@@ -64,7 +64,6 @@ function App() {
       login(storedData.userId,storedData.token, new Date(storedData.expiration))
     }
     },[login]);
-  let routes;
 
   return(
     <AuthContext.Provider value={{token:token,isLoggedIn:!!token,userId:userId,login:login,logout:logout}}>
@@ -72,10 +71,10 @@ function App() {
       <Navigation/>
       <Switch>
         <Route exact path='/' component={Home}  />
-        <Route exact path='/saved' component={Saved}  />
-        <Route exact path='/welcome' component={IntroSignUp}  />
-        <Route exact path='/signup' component={Signup}  />
-        <Route exact path='/login' component={Signin}  />
+        <Route path='/saved' component={Saved}  />
+        <Route path='/welcome' component={IntroSignUp}  />
+        <Route path='/signup' component={Signup}  />
+        <Route path='/login' component={Signin}  />
         <Route path='/about' component={About} />
         <Route path='/profile' component={Profile} />
         <Route path='/settings' component={Settings} />
@@ -87,10 +86,10 @@ function App() {
         <Route path='/addart' component={NewArt} />
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
-        <Route path='/seemore' component={SeeMore} />
+        {/* <Route path='/seemore' component={SeeMore} /> */}
         <Route path='/cart' component={Cart} />
         <Route path="/images/:imageId">
-        <Route path='/artwork/:id' component={SeeMore}/>
+        <Route path='/:id' component={SeeMore}/>
         <UpdatePlace />
         </Route>
       </Switch>
