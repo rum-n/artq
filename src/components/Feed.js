@@ -148,7 +148,10 @@ const showRemoveButton = (showRemoveProductButton) =>{
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                    <Link to={`/artwork/${props.id}`} className='see-more'>See more</Link>
+                    <Link to={{
+    pathname: "/seemore",
+    state: { theid: props.id}
+  }} className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>
