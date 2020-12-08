@@ -1,0 +1,28 @@
+.seemore-details {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-top: 3rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.seemore-details-table {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.seemore-details-table-left {
+    text-align: left;
+}
+
+.seemore-details-table-right {
+    text-align: right;
+}
+
+.seemore-details-table-left p {
+    
+}
+

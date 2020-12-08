@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SeeMore.css';
-import {useLocation} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const SeeMore = ({match}) => {
   let data = useLocation();
@@ -33,18 +33,32 @@ const SeeMore = ({match}) => {
     };
     sendRequest();
   }, []);
-  console.log("title"+ state.title)
-
-
-  useEffect(()=> {
-
-  })
+  console.log(state)
 
   return (
-      <div className="paragraphs">
-        <h1>Image title</h1>
-        <h2>{state.title}</h2>
-        <p>{state.price}</p>
+      <div className="seemore-details">
+        <h1>{state.title}</h1>
+        <div className="seemore-details-table">
+          <div className="seemore-details-table-left">
+            <h2>{state.author}</h2>
+            <p>Current price</p>
+            <p>Time remaining</p>
+            <p>Bids</p>
+            <p>Medium</p>
+            <p>Dimensions</p>
+          </div>
+          <div div className="seemore-details-table-right">
+            <h2>{state.address}</h2>
+            <p>{state.price}</p>
+            <p>{Date.now - state.duration}</p> 
+            {/* this should be something like that but I'll figure it out later */}
+            <p>11 bids</p>
+            {/* we don't have number of bids right now */}
+            <p>{state.medium}</p>
+            <p>{state.dimentions}</p>
+          </div>
+        </div>
+        <h2></h2>
         {/* <div>Countdown: {counter}</div> */}
       </div>
   )
