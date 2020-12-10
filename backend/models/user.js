@@ -9,8 +9,6 @@ const userSchema = new Schema({
     phone:{type: Number,required: true},
     image:[{type:mongoose.Types.ObjectId,required:true,ref:"Image"}],
     savedimage:[{type:mongoose.Types.ObjectId,required:true,ref:"Savedimage"}],
-   
-    
 });
 
 userSchema.plugin(uniqueValidator);

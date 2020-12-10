@@ -5,7 +5,7 @@ const realimageslist = props => {
   return (
     <ul className="users-list">
       {props.items.map(user => (
-        <Feed
+        <Feed showAddToCartButton={true}
           key={user.id}
           id={user.id}
           image={user.url}

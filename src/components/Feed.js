@@ -1,4 +1,5 @@
 import React, { useState,useEffect,useReducer,useContext} from "react";
+import {Redirect} from "react-router-dom";
 import PaypalButtons from "../pages/paypal";
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
@@ -7,13 +8,14 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
+import {addItem, removeItem} from "./cartHelpers"
 // import data from "./data";
 import {AuthContext} from "../context/auth-context";
 import {useHttpClient} from "../components/hooks/http-hook"
-// import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
 
-const Feed = (props) => {
+const Feed = (props,{showAddToCartButton = true}) => {
+  const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
   const [loadedUsers, setLoadedUsers] = useState();
@@ -47,6 +49,17 @@ const Feed = (props) => {
     setActivemedium(item.medium)
     setShow(true)
  };
+
+ const addToCart =() =>{
+   addItem(props,() =>{
+     setRedirect(true)
+   })
+ }
+ const shouldRedirect = redirect =>{
+   if(redirect){
+     return <Redirect to="/cart"/>
+   }
+ }
  
  const placeSubmitHandler = async event => {
    alert("saved!")
@@ -84,15 +97,30 @@ const Feed = (props) => {
   })
 } catch(err){}
 };
+console.log("the image id"+props.id)
 
+const showAddToCart = (showAddToCartButton) =>{
+  return showAddToCartButton && (
+    <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
+  )
+}
+
+const showRemoveButton = (showRemoveProductButton) =>{
+  return showRemoveProductButton && (
+    <Button  onClick={() => removeItem(props.id)}>Remove</Button>
+  )
+}
   return (
     <div>
+
       
       {showPaypal ? <PaypalButtons /> : 
            
           <Col key={props.id} xs={3} md={4} className='art-cards'>
+
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
               <Card.Img src={props.image} /> 
+              {shouldRedirect(redirect)}
             </Card>
           </Col>
         
@@ -110,15 +138,20 @@ const Feed = (props) => {
                         <Col xs={12} md={6}>
                           <h3>{props.title}</h3>
                           <p><b>Dimentions</b></p>
-                          <p>{props.description}</p>              
-                          <Button className="add-to-cart" variant="secondary" >Add to cart</Button>
+                          <p>{props.description}</p>  
+                          {showAddToCart(props.showAddToCartButton)}  
+                          {showRemoveButton(props.showRemoveProductButton)}            
+                          
                           <Button className="save-for-later" variant="primary" onClick={placeSubmitHandler}>Save for later</Button>
                         </Col>
                       </Row>
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                      <Link to='' className='see-more'>See more</Link>
+                    <Link to={{
+    pathname: "/seemore",
+    state: { theid: props.id}
+  }} className='see-more'>See more</Link>
                     </Modal.Footer>
                 </Modal>
       </div>

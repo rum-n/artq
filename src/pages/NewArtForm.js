@@ -87,8 +87,6 @@ const NewPlace = () => {
     });
   }, []);
 
-
-
   const placeSubmitHandler = async event => {
     event.preventDefault();
     try{
@@ -147,7 +145,8 @@ const NewPlace = () => {
           <Col sm="6">
             <Input
               id="description"
-              element="textarea"
+              element="input"
+              type="text"
               validators={[VALIDATOR_MINLENGTH(5)]}
               errorText="Please enter a valid description (at least 5 characters)."
               onInput={inputHandler}
@@ -161,7 +160,8 @@ const NewPlace = () => {
             <Input
               id="dimentions"
               validators={[VALIDATOR_REQUIRE()]}
-              element="text"
+              element="input"
+              type="text"
               onInput={inputHandler}
             />
           </Col>
@@ -172,19 +172,20 @@ const NewPlace = () => {
             <Input
               id="url"
               validators={[VALIDATOR_REQUIRE()]}
-              element="text"
+              element="input"
+              type="text"
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
-        
 
         <Form.Group as={Row} controlId="price">
           <Form.Label column sm="2">Price</Form.Label>
           <Col sm="6">
             <Input
               id="price"
-              element="number"
+              element="input"
+              type="text"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
             />
@@ -195,7 +196,8 @@ const NewPlace = () => {
           <Col sm="6">
             <Input
               id="address"
-              element="text"
+              element="input"
+              type="text"
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
             />
@@ -208,14 +210,13 @@ const NewPlace = () => {
             <Input
               id="medium"
               validators={[VALIDATOR_REQUIRE()]}
-              element="text"
+              element="input"
+              type="text"
               onInput={inputHandler}
             />
           </Col>
         </Form.Group>
         
-        
-
         <Form.Group as={Row} controlId="type">
           <Form.Label column sm="2">Type of sale</Form.Label>
           <Col sm="4">

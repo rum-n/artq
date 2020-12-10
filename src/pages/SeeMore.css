@@ -1,0 +1,56 @@
+.seemore-details {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-top: 3rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.seemore-img {
+    margin: 3rem auto;
+    text-align: center;
+}
+
+.seemore-details-table {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.seemore-details-table-left {
+    text-align: left;
+}
+
+.seemore-details-table-right {
+    text-align: right;
+}
+
+.seemore-btn-wrapper {
+    margin: 3rem auto;
+    width: 40%;
+    text-align: center;
+}
+
+.seemore-btn-wrapper .input-group {
+    font-family: 'Roboto', sans-serif;
+}
+
+.seemore-btn-wrapper .input-group button {
+    margin-top: 1rem;
+}
+
+.seemore-add {
+    color: white;
+    background: #F04B72;
+    border: none;
+    padding: 0.2rem 3rem;
+    border-radius: 6px;
+}
+
+.seemore-add:hover {
+    background: #f04b72bb;
+}
+
+

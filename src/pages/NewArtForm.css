@@ -29,6 +29,7 @@
 
 .add-art-form-wrapper .form-control {
   background: none;
+  margin: 0;
 }
 
 .add-art-form-wrapper input {
@@ -44,4 +45,22 @@
 .add-art-form-wrapper .form-control p {
   margin-left: 3rem;
   font-size: 0.8rem;
+  width: 200%;
+}
+
+.add-art-form-wrapper .form-group{
+  margin: 0;
+}
+
+.add-art-form-wrapper .custom-control{
+  margin-left: 3rem;
+  margin-right: -3rem;
+}
+
+.add-art-form-wrapper .custom-select{
+  margin-left: 3rem;
+}
+
+.add-art-form-wrapper button{
+  float: right;
 }
