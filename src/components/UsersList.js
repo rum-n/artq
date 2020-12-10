@@ -1,6 +1,5 @@
 import React from 'react';
 import UserItem from './UserItem';
-import Card from './CardModel';
 import './UsersList.css';
 
 const UsersList = props => {
@@ -9,7 +8,6 @@ const UsersList = props => {
       {props.items.map(user => (
         <UserItem
           key={user.id}
-         
           id={user.id}
           image={user.image}
           name={user.name}

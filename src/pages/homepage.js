@@ -1,6 +1,5 @@
 import React from "react";
 import './styles.css';
-import Feed from "../components/Feed";
 import GetRealImages from "../components/OtherPeople'sArt/getRealImages";
 
 const Home = () => {

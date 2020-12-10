@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useState}from 'react';
-
+import React, { useEffect, useState}from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import {getCart,removeItem} from "./cartHelpers"
+import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
 import Checkout from "./Checkout"
+
 const Cart =() =>{ 
     const [items,setItems] = useState([])
     useEffect(() =>{
@@ -14,9 +13,7 @@ const Cart =() =>{
     },[items])
     const showItems = props =>{
         return(
-           
             <ul className="users-list">
-                
             {props.map(user => (
               <Feed showAddToCartButton={false}
               showRemoveProductButton = {true}
@@ -42,10 +39,6 @@ const Cart =() =>{
             Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link>
         </h2>
     }
-
-
-
-
     return(
         <div>
         <div>
@@ -65,4 +58,4 @@ const Cart =() =>{
     </div>
     )
 }
-export default Cart
+export default Cart;

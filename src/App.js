@@ -33,10 +33,7 @@ function App() {
     setUserId(uid);
     const tokenExpirationDate = expirationDate || new Date(new Date().getTime()+1000*60*60)
     setTokenExpirationDate(tokenExpirationDate)
-    localStorage.setItem('userData',JSON.stringify({userId:uid,token:token,expiration:tokenExpirationDate.toISOString()}))
-    
-    
-   
+    localStorage.setItem('userData',JSON.stringify({userId:uid,token:token,expiration:tokenExpirationDate.toISOString()}));
   }, []);
 
   const logout = useCallback(() => {
@@ -54,7 +51,6 @@ function App() {
       clearTimeout(logoutTimer);
     }
   },[token,logout,tokenExpirationDate])
-
 
   useEffect(()=>{
     const storedData = JSON.parse(localStorage.getItem('userData'))

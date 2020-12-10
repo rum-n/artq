@@ -1,3 +1,4 @@
-.dropdown-item:hover {
-    color: #000!important;
+.dropdown-item:hover a{
+    color: #212529!important;
+    text-decoration: none;
 }

@@ -56,8 +56,7 @@ return(
     
     <br></br>
     <br></br>
-    <br></br>
-    <br></br>
+
     {!auth.isLoggedIn &&(
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/signup'>Sign Up</Link></Dropdown.Item>
     )}
@@ -68,14 +67,6 @@ return(
     <Dropdown.Item ><Link style = {{color: "white"}} className='nav-links' to='/'onClick ={auth.logout}>Sign Out</Link></Dropdown.Item>
     )}
     <br></br>
-    <br></br>
-    
-    <Dropdown.Item > 
-         
-         
-       </Dropdown.Item>
-       
-    
   </Dropdown.Menu>
 </Dropdown>
          
