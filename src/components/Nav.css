@@ -2,3 +2,16 @@
     color: #212529!important;
     text-decoration: none;
 }
+
+.dropdown-item a{
+    color: #fff!important;
+    text-decoration: none;
+}
+
+.nav-links {
+    color: #fff;
+}
+
+.nav-links:hover{
+    color: #fff!important;
+}
