@@ -25,9 +25,6 @@ function App() {
   const [userId, setUserId] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
 
-  
-
-
   const login = useCallback((uid,token,expirationDate) => {
     setToken(token);
     setUserId(uid);
@@ -62,7 +59,6 @@ function App() {
       login(storedData.userId,storedData.token, new Date(storedData.expiration))
     }
     },[login]);
-  let routes;
 
   return(
     <AuthContext.Provider value={{token:token,isLoggedIn:!!token,userId:userId,login:login,logout:logout}}>
