@@ -65,18 +65,7 @@ const Feed = (props,{showAddToCartButton = true}) => {
    alert("saved!")
   event.preventDefault();
   try{
-    console.log(activeItem)
-    console.log(activetitle)
-    console.log(activedescription)
-    console.log(activeurl)
-    console.log(activeaddress)
-    console.log(activeauthor)
-    console.log(activeauthor)
-      console.log(activeprice)
-      console.log(activedimentions)
-      console.log(activetype)
-      console.log(activemedium)
-
+   
    
   await sendRequest('http://localhost:5000/api/saved','POST',JSON.stringify({
    

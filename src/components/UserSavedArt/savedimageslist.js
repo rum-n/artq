@@ -7,6 +7,7 @@ const Savedimageslist = props => {
     <ul className="users-list">
       {props.items.map(user => (
         <Feed
+        showAddToCartButton={true}
         key={user.id}
         id={user.id}
         image={user.url}

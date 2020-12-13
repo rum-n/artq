@@ -54,6 +54,7 @@ const SeeMore = ({match}) => {
             {/* we don't have number of bids right now */}
             <p>{state.medium}</p>
             <p>{state.dimentions}</p>
+            
           </div>
         </div>
       </div>

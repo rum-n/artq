@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const imagesRoutes = require('./routes/saved-art-route');
 const usersRoutes = require('./routes/users-route')
 const savedRoutes = require('./routes/saving-other-people-art-route')
+const braintreeRoutes = require('./routes/braintree')
 const HttpError = require('./models/http-error')
 
 const app = express();
@@ -20,6 +21,7 @@ app.use((req,res,next) =>{
 app.use('/api/images',imagesRoutes);
 app.use('/api/users',usersRoutes);
 app.use('/api/saved',savedRoutes);
+app.use("/api",braintreeRoutes);
 
 app.use((req,res,next)=>{
     const error = new HttpError('Could not find this route.',404);
