@@ -11,8 +11,6 @@ import sidebar from "../assets/sidebar.PNG";
 import {AuthContext} from "../context/auth-context"
 
 const Navigation = () => { 
-
- 
 const auth = useContext(AuthContext)
    
 return(

@@ -1,0 +1,43 @@
+.cart-wrapper {
+    background: #F5F5F5;
+    min-height: 90vh;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.payment-method-wrapper {
+    background: white;
+    width: 40%;
+    height: 40rem;
+    margin-left: 20%;
+    margin-top: 3rem;
+    border: 1px solid #E3E3E3;
+    padding: 1rem;
+}
+
+.order-summary {
+    background: white;
+    width: 20%;
+    height: 25rem;
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 1px solid #E3E3E3;
+    margin-left: 1.5rem;
+}
+
+.order-summary-details {
+    display: flex;
+}
+
+.order-btn {
+    background: linear-gradient(0deg, #EE2A7B 4.95%, #F1626B 90.97%);
+    box-shadow: 0px 4px 5px rgba(244, 97, 97, 0.14);
+    border-radius: 25.5px;
+    color: white;
+    border: none;
+    font-weight: 600;
+    padding: 0.8rem;
+    width: 100%;
+    margin-top: 2rem;
+}

@@ -15,7 +15,6 @@ export const addItem = (item,next) => {
         });
         localStorage.setItem('cart',JSON.stringify(cart));
         next();
-
     }
 }
 
@@ -45,11 +44,9 @@ export const itemTotal = () =>{
     return 0;
 }
 export const getCart = () =>{
-    if(typeof window !== "undefined"){
-        if(localStorage.getItem('cart')){
-            console.log(localStorage.getItem('cart'))
+    if (typeof window !== "undefined"){
+        if (localStorage.getItem('cart')){
             return JSON.parse(localStorage.getItem("cart"));
-           
         }
     }
     return [];

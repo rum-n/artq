@@ -10,50 +10,34 @@ import {AuthContext} from "../context/auth-context";
 const Checkout =({products})=>{
     const [data,setData] = useState("")
     const auth = useContext(AuthContext);
-    const userId = auth.userId
+    const userId = auth.userId;
     useEffect(() => {
         const sendRequest = async () => {
-    
           try {
-            const response = await fetch(`http://localhost:5000/api/braintree/getToken/${auth.userId}`);
-            
+            const response = await fetch(`http://localhost:5000/api/braintree/getToken/${userId}`);
             const responseData = await response.json();
-            
-    
             if (!response.ok) {
               throw new Error(responseData.message);
-            }
-            
+            } 
             setData(responseData.clientToken);
-           
-           
           } catch (err) {
             alert(err)
           }
-        
         };
         sendRequest();
       }, []);
 
       console.log("the dataaaa"+ data)
-   
-   
-    
-    
-  
-    
+
     const getToken=(userId) =>{
-    getBrainTreeClientToken(userId).then(data =>{
-       
+    getBrainTreeClientToken(userId).then(data =>{ 
         if(data.error){
             setData({...data,error:data.error})
         } else{
             setData({...data,clientToken:data.clientToken})
         }
-    })
-   
+    })  
 }
-
     const getTotal = () =>{
         return products.reduce((currentValue,nextValue) =>{
             return currentValue+nextValue.count*nextValue.price
@@ -62,18 +46,14 @@ const Checkout =({products})=>{
 
     const showDropIn =() =>(
        
-        <div>
-          
-                 <div>
-                    <DropIn options={{
-                        authorization:data.toString()
-                    }} onInstance={instance => instance = instance}/>
-                    <button className="btn btn-success">Pay</button>
-                    </div> 
-      
-
+        <div>          
+            <div>
+            <DropIn options={{
+                authorization:data.toString()
+            }} onInstance={instance => instance = instance}/>
+            <button className="btn btn-success">Pay</button>
+            </div> 
         </div>
-        
     )
 return <div>
     <h2> Total: ${getTotal()}</h2>
@@ -81,11 +61,11 @@ return <div>
     <div>
     {showDropIn()}
     {/* <div>
-                    <DropIn options={{
-                        authorization:data.clientToken
-                    }} onInstance={instance => instance = instance}/>
-                    <button className="btn btn-success">Checkout</button>
-                    </div> */}
+        <DropIn options={{
+            authorization:data.clientToken
+        }} onInstance={instance => instance = instance}/>
+        <button className="btn btn-success">Checkout</button>
+        </div> */}
     </div>
     </div>
 
