@@ -5,6 +5,11 @@ import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
 import Checkout from "./Checkout"
 import './Cart.css';
+import Input from '../components/Input';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
+import paypal from './../assets/paypal.png';
 
 const Cart =() => { 
     const [items, setItems] = useState([])
@@ -12,6 +17,8 @@ const Cart =() => {
     useEffect(() => {
         setItems(getCart())
     },[])
+
+    console.log(items);
 
     const showItems = props =>{
         return(
@@ -45,8 +52,53 @@ const Cart =() => {
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 <h3>Payment method</h3>
+                <button className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
                 <h3>Shipping address</h3>
+                <Form className='shipping-form'>                
+                    <Form.Row>
+                        <Col>
+                        <Form.Control type="text" name="country" placeholder="Country or region"/>
+                        </Col>
+                        <Col>
+                        </Col>
+                    </Form.Row>
+                    <Form.Row>
+                    <Col>
+                        <Form.Control type="text" name="firstname" placeholder="First name" />
+                    </Col>
+                    <Col>
+                        <Form.Control type="text" name="lastname" placeholder="Last name" />
+                    </Col>
+                    </Form.Row>
+                    <Form.Row>
+                    <Col>
+                        <Form.Control type="text" name="street" placeholder="Street Address" />
+                    </Col>
+                    <Col>
+                        <Form.Control type="text" name="houseNumber" placeholder="Apt / Suite" />
+                    </Col>
+                    </Form.Row>
+                    <Form.Row>
+                    <Col>
+                        <Form.Control type="text" name="city" placeholder="City" />
+                    </Col>
+                    <Col>
+                        <Form.Control type="text" name="state" placeholder="State" />
+                    </Col>
+                    <Col>
+                        <Form.Control type="text" name="zipCode" placeholder="Zip Code" />
+                    </Col>
+                    </Form.Row>
+                    <Form.Row>
+                    <Col>
+                        <Form.Control type="text" name="phone" placeholder="Phone number" />
+                    </Col>
+                    <Col>
+                    </Col>
+                    </Form.Row>
+                </Form> 
                 <h3>Review order</h3>
+                <p>{items.title}</p>
             </div>
             <div className="order-summary">
                 <h3>Order summary</h3>

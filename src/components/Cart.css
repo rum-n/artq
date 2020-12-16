@@ -9,9 +9,10 @@
 .payment-method-wrapper {
     background: white;
     width: 40%;
-    height: 40rem;
+    height: auto;
     margin-left: 20%;
     margin-top: 3rem;
+    margin-bottom: 8rem;
     border: 1px solid #E3E3E3;
     padding: 1rem;
 }
@@ -19,9 +20,9 @@
 .order-summary {
     background: white;
     width: 20%;
-    height: 25rem;
+    height: fit-content;
     margin-top: 3rem;
-    padding: 1rem;
+    padding: 2rem 1rem 4rem 1rem;
     border: 1px solid #E3E3E3;
     margin-left: 1.5rem;
 }
@@ -40,4 +41,23 @@
     padding: 0.8rem;
     width: 100%;
     margin-top: 2rem;
+}
+
+.paypal-btn {
+    background: #EBEBEB;
+    border: none;
+    box-shadow: 0px 4px 7px rgba(7, 96, 134, 0.07);
+    border-radius: 13px;
+    margin: 3rem 5rem;
+    padding: 0.2rem 6rem;
+}
+
+.shipping-form {
+    margin-bottom: 2rem;
+}
+
+.shipping-form input, :focus {
+    border-top: none;
+    border-left: none;
+    border-right: none;
 }
