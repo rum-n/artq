@@ -25,7 +25,7 @@ const Checkout =({products})=>{
           }
         };
         sendRequest();
-      }, []);
+      }, [userId]);
 
       console.log("the dataaaa"+ data)
 

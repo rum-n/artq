@@ -5,9 +5,7 @@ import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
 import Checkout from "./Checkout"
 import './Cart.css';
-import Input from '../components/Input';
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
 
@@ -43,11 +41,11 @@ const Cart =() => {
           </ul>
         )
     }
+    
     const noItemsMessage =() =>{
-        <h2>
-            Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link>
-        </h2>
+        <p>Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link></p>
     }
+
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
@@ -105,7 +103,7 @@ const Cart =() => {
                 <div className="order-summary-details">
                     <div>
                     <br/>
-                        <p>{items.length} {items.length === 1 ? "item" : "items"}</p>
+                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage}
                         <p>Shipping</p>
                         <span>Expected delivery:</span>
                         <p>Tax</p>
