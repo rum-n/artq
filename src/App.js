@@ -64,9 +64,9 @@ function App() {
     <Router>
       <Navigation/>
       <Switch>
-        <Route exact path='/' component={token ? Home : Signin }  />
+        <Route exact path='/' component={token ? Home : IntroSignUp }  />
         <Route path='/saved' component={Saved}  />
-        <Route path='/welcome' component={IntroSignUp}  />
+        {/* <Route path='/welcome' component={IntroSignUp}  /> */}
         <Route path='/signup' component={Signup}  />
         <Route path='/login' component={Signin}  />
         <Route path='/about' component={About} />
