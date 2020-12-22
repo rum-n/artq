@@ -8,34 +8,30 @@ import Feed from '../components/Feed'
 import {AuthContext} from "../context/auth-context";
 
 const Checkout =({products})=>{
-    const [data,setData] = useState("")
+    const [data,setData] = useState({
+        success:false,
+        clientToken:null,
+        error:'',
+        instance:{},
+        address:''
+    })
     const auth = useContext(AuthContext);
     const userId = auth.userId;
     useEffect(() => {
-        const sendRequest = async () => {
-          try {
-            const response = await fetch(`http://localhost:5000/api/braintree/getToken/${userId}`);
-            const responseData = await response.json();
-            if (!response.ok) {
-              throw new Error(responseData.message);
-            } 
-            setData(responseData.clientToken);
-          } catch (err) {
-            alert(err)
-          }
-        };
-        sendRequest();
-      }, [userId]);
+        getToken(userId)
+      }, []);
 
       console.log("the dataaaa"+ data)
 
     const getToken=(userId) =>{
+        console.log("entered gettoken")
     getBrainTreeClientToken(userId).then(data =>{ 
         if(data.error){
             setData({...data,error:data.error})
         } else{
             setData({...data,clientToken:data.clientToken})
         }
+        console.log(data.clientToken)
     })  
 }
     const getTotal = () =>{
@@ -43,31 +39,52 @@ const Checkout =({products})=>{
             return currentValue+nextValue.count*nextValue.price
         },0)
     }
+ 
+    const buynow = () =>{
+        console.log("in buy nowwwww")
+        console.log(data)
+        console.log(data.instance)
+       
+        let nonce;
+        let getNonce = data.instance.requestPaymentMethod().then(data =>{
+            console.log(data)
+            nonce = data.nonce
+            console.log('send nonce and total to process: ', nonce,getTotal(products))
+        }).catch(error =>{
+            console.log('dropin error: ',error)
+            setData({...data,error:error.message})
+        })
+    }
 
-    const showDropIn =() =>(
+    
+
+ const showDropIn =() =>(
+         
        
         <div>          
-            <div>
+            
             <DropIn options={{
-                authorization:data.toString()
-            }} onInstance={instance => instance = instance}/>
-            <button className="btn btn-success">Pay</button>
-            </div> 
+                authorization:data.clientToken
+            }} onInstance={instance => (data.instance = instance)}/>
+            <button onClick={buynow} className='order-btn'>Place order</button>
+            
+           
         </div>
+        
     )
-return <div>
-    <h2> Total: ${getTotal()}</h2>
+   
+   
+return(
+  
     
     <div>
     {showDropIn()}
-    {/* <div>
-        <DropIn options={{
-            authorization:data.clientToken
-        }} onInstance={instance => instance = instance}/>
-        <button className="btn btn-success">Checkout</button>
-        </div> */}
+  
+    
     </div>
-    </div>
+   
+)
+
 
 }
 export default Checkout

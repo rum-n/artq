@@ -8,6 +8,7 @@ import './Cart.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
+import DropIn from "braintree-web-drop-in-react"
 
 const Cart =() => { 
     const [items, setItems] = useState([])
@@ -46,10 +47,16 @@ const Cart =() => {
         <p>Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link></p>
     }
 
+   
+
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 <h3>Payment method</h3>
+                <Checkout products={items}/>
+               
+                
+               
                 <button className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
@@ -114,21 +121,14 @@ const Cart =() => {
                         <p>{items.price}</p>
                     </div>
                 </div>
-                <button className='order-btn'>Place order</button>
+               
             </div>
-{/* 
-            <div>
-                <p>Manage your cart items. Add, remove, checkout, or continue shopping</p>
-                
-            </div>
+
+            
         <div className="row">
             {items.length > 0 ? showItems(items): noItemsMessage()}
         </div>
-        <div className="col-6">
-            <h2>You cart summary</h2>
-            <hr/>
-            <Checkout products={items}/>
-        </div> */}
+       
     </div>
     )
 }
