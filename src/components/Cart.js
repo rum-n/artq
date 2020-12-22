@@ -8,7 +8,6 @@ import './Cart.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
-import DropIn from "braintree-web-drop-in-react"
 
 const Cart =() => { 
     const [items, setItems] = useState([])
@@ -47,16 +46,13 @@ const Cart =() => {
         <p>Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link></p>
     }
 
-   
-
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 <h3>Payment method</h3>
-                <Checkout products={items}/>
-               
                 
-               
+                <Checkout products={items}/>
+
                 <button className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
@@ -103,6 +99,7 @@ const Cart =() => {
                     </Form.Row>
                 </Form> 
                 <h3>Review order</h3>
+                {items.length > 0 ? showItems(items): noItemsMessage()}
                 <p>{items.title}</p>
             </div>
             <div className="order-summary">
@@ -110,7 +107,7 @@ const Cart =() => {
                 <div className="order-summary-details">
                     <div>
                     <br/>
-                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage}
+                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage()}
                         <p>Shipping</p>
                         <span>Expected delivery:</span>
                         <p>Tax</p>
@@ -121,14 +118,7 @@ const Cart =() => {
                         <p>{items.price}</p>
                     </div>
                 </div>
-               
             </div>
-
-            
-        <div className="row">
-            {items.length > 0 ? showItems(items): noItemsMessage()}
-        </div>
-       
     </div>
     )
 }
