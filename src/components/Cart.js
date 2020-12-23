@@ -1,5 +1,6 @@
-import React, { useEffect, useState}from 'react';
+import React, { useEffect, useState,useContext}from 'react';
 import { Link } from 'react-router-dom';
+import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
@@ -8,19 +9,112 @@ import './Cart.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
+import {getBrainTreeClientToken} from "./payments"
+import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
 
 const Cart =() => { 
+  
+
+    
     const [items, setItems] = useState([])
+    const [data,setData] = useState({
+        success:false,
+        clientToken:null,
+        error:'',
+        instance:{},
+        address:''
+    })
+    const auth = useContext(AuthContext);
+    const userId = auth.userId;
+    useEffect(() => {
+        getToken(userId)
+      }, []);
+
+      console.log("the dataaaa"+ data)
+
+    const getToken=(userId) =>{
+        console.log("entered gettoken")
+    getBrainTreeClientToken(userId).then(data =>{ 
+        if(data.error){
+            setData({...data,error:data.error})
+        } else{
+            setData({...data,clientToken:data.clientToken})
+        }
+        console.log(data.clientToken)
+    })  
+}
+    const getTotal = () =>{
+        return items.reduce((currentValue,nextValue) =>{
+            return currentValue+nextValue.count*nextValue.price
+        },0)
+    }
+ 
+    const buynow = () =>{
+        console.log("in buy nowwwww")
+        console.log(data)
+        console.log(data.instance)
+       
+        let nonce;
+        let getNonce = data.instance.requestPaymentMethod().then(data =>{
+            console.log(data)
+            nonce = data.nonce
+            console.log('send nonce and total to process: ', nonce,getTotal(items))
+        }).catch(error =>{
+            console.log('dropin error: ',error)
+            setData({...data,error:error.message})
+        })
+    }
+
+   
+ 
+
+  
+ function ShowDropIn() {
+    
+   return(
+       <div> 
+           <text> refresh screen to go back</text>    
+            <div> 
+            <DropIn options={{
+                authorization:data.clientToken
+            }} onInstance={instance => (data.instance = instance)}/>
+              
+            
+            
+            </div> 
+            <button onClick={buynow} className='order-btn'>Place Order</button>
+            
+           
+        </div>
+      );
+    }
+    function tick() {
+        ReactDOM.render(
+          <ShowDropIn date={new Date()} />,
+          document.getElementById('root')
+        );
+      }
+      
+      
+    
+    
+       
+        
+     
+        
 
     useEffect(() => {
         setItems(getCart())
+       
+        
     },[])
 
     console.log(items);
 
     const showItems = props =>{
+       
         return(
             <ul className="users-list">
             {props.map(user => (
@@ -48,20 +142,32 @@ const Cart =() => {
         <p>Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link></p>
     }
 
-   
+    const gotopay =() =>{
+        return( 
+            setTimeout(tick, 1000))
+    }
+
+ 
+
+    
 
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 <h3>Payment method</h3>
+                <h6>Paypal, Visa, Mastercard...</h6>
+             
+                
+                
                
-                <Checkout products={items}/>
+               
+                
               
             
                
                 
                
-                <button className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
+                <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
                     <Form.Row>
@@ -135,5 +241,11 @@ const Cart =() => {
        
     </div>
     )
-}
+
+   
+    }
+    
+    
+   
+
 export default Cart;

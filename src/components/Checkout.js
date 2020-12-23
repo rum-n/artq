@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState}from 'react';
 import DropIn from "braintree-web-drop-in-react"
 import { Link } from 'react-router-dom';
+import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getBrainTreeClientToken} from "./payments"
 import {getCart,removeItem} from "./cartHelpers"
@@ -56,26 +57,27 @@ const Checkout =({products})=>{
         })
     }
 
-    
+   
 
  const showDropIn =() =>(
     
          
        
         <div>     
-            <div>  
-              
-            
+            <div> 
             <DropIn options={{
                 authorization:data.clientToken
             }} onInstance={instance => (data.instance = instance)}/>
+              
+            
+            
             </div> 
             <button onClick={buynow} className='order-btn'>Place order</button>
             
            
         </div>
      
-    )
+ )
    
    
 return(
@@ -94,5 +96,6 @@ return(
 
 
 }
+
 
 export default Checkout
