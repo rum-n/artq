@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
 import DropIn from "braintree-web-drop-in-react"
 
+
 const Cart =() => { 
     const [items, setItems] = useState([])
 
@@ -53,7 +54,10 @@ const Cart =() => {
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 <h3>Payment method</h3>
+               
                 <Checkout products={items}/>
+              
+            
                
                 
                

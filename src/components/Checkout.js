@@ -59,32 +59,40 @@ const Checkout =({products})=>{
     
 
  const showDropIn =() =>(
+    
          
        
-        <div>          
+        <div>     
+            <div>  
+              
             
             <DropIn options={{
                 authorization:data.clientToken
             }} onInstance={instance => (data.instance = instance)}/>
+            </div> 
             <button onClick={buynow} className='order-btn'>Place order</button>
             
            
         </div>
-        
+     
     )
    
    
 return(
   
     
-    <div>
-    {showDropIn()}
+    <React.Fragment>
+        
+        {showDropIn()}
   
     
-    </div>
+    </React.Fragment>
    
 )
 
 
+
+
 }
+
 export default Checkout
