@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext}from 'react';
-import { Link } from 'react-router-dom';
+import { Link,Router } from 'react-router-dom';
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCart } from "./cartHelpers"
@@ -9,7 +9,7 @@ import './Cart.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import paypal from './../assets/paypal.png';
-import {getBrainTreeClientToken} from "./payments"
+import {getBrainTreeClientToken,processPayment} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
@@ -40,7 +40,7 @@ const Cart =() => {
         if(data.error){
             setData({...data,error:data.error})
         } else{
-            setData({...data,clientToken:data.clientToken})
+            setData({clientToken:data.clientToken})
         }
         console.log(data.clientToken)
     })  
@@ -52,31 +52,53 @@ const Cart =() => {
     }
  
     const buynow = () =>{
-        console.log("in buy nowwwww")
-        console.log(data)
-        console.log(data.instance)
+        //console.log("in buy nowwwww")
+        //console.log(data)
+        //console.log(data.instance)
+
        
         let nonce;
         let getNonce = data.instance.requestPaymentMethod().then(data =>{
-            console.log(data)
-            nonce = data.nonce
-            console.log('send nonce and total to process: ', nonce,getTotal(items))
+            // console.log(data)
+            // nonce = data.nonce
+            // console.log('send nonce and total to process: ', nonce,getTotal(items))
+            const paymentData = {
+                paymentMethodNonce:nonce,
+                amount:getTotal(items)
+            }
+            processPayment(userId,paymentData)
+            .then(response => { setData({...data,success:response.success})
+        
+        }).then(alert("Thank you for your purchase!"))
+            .catch(error => console.log(error))
         }).catch(error =>{
-            console.log('dropin error: ',error)
+            //console.log('dropin error: ',error)
             setData({...data,error:error.message})
-        })
+        }) 
+        
     }
 
+    const showSuccess = success =>(
+        <text
+            className="alert alert-info"
+            style={{display:success?"":"none"}}>
+               Thanks, your payment was successful
+        </text>
+    )
    
  
 
   
  function ShowDropIn() {
+   
     
    return(
        <div> 
-           <text> refresh screen to go back</text>    
+           <text> refresh screen to go back</text>  
+           
             <div> 
+           
+
             <DropIn options={{
                 authorization:data.clientToken
             }} onInstance={instance => (data.instance = instance)}/>
@@ -86,12 +108,14 @@ const Cart =() => {
             </div> 
             <button onClick={buynow} className='order-btn'>Place Order</button>
             
+            
            
         </div>
       );
     }
     function tick() {
         ReactDOM.render(
+            
           <ShowDropIn date={new Date()} />,
           document.getElementById('root')
         );
@@ -166,7 +190,7 @@ const Cart =() => {
             
                
                 
-               
+                <Checkout products={items}/>
                 <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
@@ -213,6 +237,7 @@ const Cart =() => {
                     </Form.Row>
                 </Form> 
                 <h3>Review order</h3>
+                {items.length > 0 ? showItems(items): noItemsMessage()}
                 <p>{items.title}</p>
             </div>
             <div className="order-summary">
@@ -220,25 +245,19 @@ const Cart =() => {
                 <div className="order-summary-details">
                     <div>
                     <br/>
-                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage}
+                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage()}
                         <p>Shipping</p>
                         <span>Expected delivery:</span>
                         <p>Tax</p>
                         <br/>
                         <p>Order total</p>
+                        ${getTotal(items)}
                     </div>
                     <div>
                         <p>{items.price}</p>
                     </div>
                 </div>
-               
             </div>
-
-            
-        <div className="row">
-            {items.length > 0 ? showItems(items): noItemsMessage()}
-        </div>
-       
     </div>
     )
 
