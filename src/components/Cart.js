@@ -178,8 +178,7 @@ const Cart =() => {
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
-                <h3>Payment method</h3>
-                <h6>Paypal, Visa, Mastercard...</h6>
+                
              
                 
                 
@@ -190,8 +189,8 @@ const Cart =() => {
             
                
                 
-                <Checkout products={items}/>
-                <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button>
+                
+                {/* <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button> */}
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
                     <Form.Row>
@@ -239,7 +238,11 @@ const Cart =() => {
                 <h3>Review order</h3>
                 {items.length > 0 ? showItems(items): noItemsMessage()}
                 <p>{items.title}</p>
+                <h3>Payment method</h3>
+                <h6>Paypal, Visa, Mastercard...</h6>
+                <Checkout products={items}/>
             </div>
+           
             <div className="order-summary">
                 <h3>Order summary</h3>
                 <div className="order-summary-details">
