@@ -4,8 +4,9 @@ import { useHttpClient } from '../components/hooks/http-hook';
 import { Link } from 'react-router-dom';
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {getBrainTreeClientToken, processPayment} from "./payments"
+import {getBrainTreeClientToken, processPayment, createOrder} from "./payments"
 import {AuthContext} from "../context/auth-context";
+import {emptyCart} from "./cartHelpers"
 
 const Checkout =({ products })=>{
     const [ clicked, setClicked ] = useState(false)
@@ -21,28 +22,32 @@ const Checkout =({ products })=>{
         instance: {},
         address: ''
     })
+    let deliveryAddress = data.address
 
     const auth = useContext(AuthContext);
     const userId = auth.userId;
 
     
 
-      console.log("the dataaaa"+ data)
+      console.log("the dataaaa"+ deliveryAddress)
     
     const getToken = (userId) =>{
         console.log("entered gettoken")
     getBrainTreeClientToken(userId).then(data =>{ 
-        if (data.error){
-            setData({...data,error:data.error})
-        } else {
+      
             setData({clientToken:data.clientToken})
-        }
+     
         console.log(data.clientToken)
     })  
 }
 useEffect(() => {
     getToken(userId)
   }, []);
+
+const handleAddress = event =>{
+    setData(data.address = event.target.value)
+}
+
 
  useEffect(() =>{
     if (clicked === true){
@@ -79,7 +84,7 @@ useEffect(() => {
             
                 console.log(thenonce)
                   await sendRequest(
-                   `http://localhost:5000/api/braintree/payment/5fc15b5be27c0c6e35dbb8e2`,
+                   `http://localhost:5000/api/braintree/payment/${userId}`,
                    'POST',
                    JSON.stringify({
                   "paymentMethodNonce":thenonce,
@@ -91,11 +96,31 @@ useEffect(() => {
                    }
                  ).then(response =>{
                      console.log(response)
+                     const createOrderData = {
+                         products:products,
+                         transaction_id: response.transaction.id,
+                         sold: 1,
+                         amount: response.transaction.amount,
+                         address:deliveryAddress,
+                         user1: auth.userId
+
+                     }
+                     createOrder(userId,createOrderData)
+                    
+                     if (response.success == true){
+                        
+                         emptyCart(() =>{
+                             console.log("emptied cart")
+                         })
+                         setData({
+                             success:true
+                         })
+                     }
                      console.log("it worked")
                     
                  })
                
-               } catch (err) {alert("nah bruh it didnt work")}
+               } catch (err) {}
             console.log("entered clicked")
             setNonce("hi")
             
@@ -110,6 +135,24 @@ useEffect(() => {
     
 
     })
+    const sendorder = async (createOrderData) => {
+     
+       console.log("entered senorder")
+    
+       try{
+        
+        
+       await sendRequest(`http://localhost:5000/api/order/useraccount/${userId}`,'POST',JSON.stringify({
+        
+        body:JSON.stringify({order:createOrderData})
+     
+       }),{
+         'Content-Type':'application/json'
+       })
+     } catch(err){}
+     };
+
+   
     
     const getnonce =  () =>{
         
@@ -138,6 +181,7 @@ useEffect(() => {
       
        
     }
+    
 
     const buynow = async event => {
        
@@ -154,8 +198,22 @@ useEffect(() => {
        
         <div onBlur={() => setData({...data, error:""})}>     
             <div> 
+                <div className="gorm-group mb-3">
+                    <label className="text-muted">Delivery address: </label>
+                    <textarea 
+                    onChange={handleAddress} 
+                    className = "form-control"
+                    value = {data.address}
+                    placeholder="Type Delivery Address"
+                    />
+
+
+                </div>
             <DropIn options={{
-                authorization:data.clientToken
+                authorization:data.clientToken,
+                paypal:{
+                    flow:"vault"
+                }
             }} onInstance={instance => (data.instance = instance)}/>
               
               

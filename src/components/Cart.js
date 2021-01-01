@@ -68,6 +68,7 @@ const Cart =() => {
             }
             processPayment(userId,paymentData)
             .then(response => { setData({...data,success:response.success})
+            
         
         }).then(alert("Thank you for your purchase!"))
             .catch(error => console.log(error))

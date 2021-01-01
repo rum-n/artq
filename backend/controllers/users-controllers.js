@@ -4,6 +4,8 @@ const HttpError = require('../models/http-error');
 const User = require("../models/user");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const {Order} = require("../models/order")
+const mongoose = require("mongoose")
 
 const getUsers = async (req,res,next) =>{
     let users;
@@ -150,6 +152,103 @@ const login = async (req,res,next) =>{
     res.json({userId:existingUser.id,email:existingUser.email,token:token});
 };
 
+exports.addOrderToUserHistory = (req,res,next) =>{
+    console.log("entered orderhistory")
+ 
+    let history = []
+    req.body.order.products.forEach((item) =>{
+        history.push({
+            _id: item._id,
+            name:item.name,
+            description: item.description,
+            category: item.category,
+            quantity: item.count,
+            transaction_id: req.body.order.transaction_id,
+            amount: req.body.order.amount
+        })
+    })
+    console.log(history)
+    User.findOneAndUpdate({_id:req.body.order.user1},{$push:{history:history}},{new:true},(error,data) =>{
+        if(error){
+            console.log("didn't work")
+            return res.status(400).json({
+                error:"could not update purchase history"
+            })
+
+        }
+        next();
+    })
+
+
+
+}
+// const addorder = async (req,res,next) =>{
+//     console.log("enterreddddddddd")
+//    const history = new Order({
+       
+//         _id:req.body.order.products[0]._id,
+//         name:req.body.order.products[0].name,
+//         description:req.body.order.products[0].description,
+//         category:req.body.order.products[0].category,
+//         quantity:req.body.order.products[0].count,
+//         transaction_id:req.body.order.transaction_id,
+//         amount:req.body.order.amount,
+     
+
+    
+//     })
+ 
+//     console.log("enterreddddddddd")
+
+
+
+
+//     let user;
+//     console.log("user1 "+req.body.order.user1)
+//     try{
+//         console.log("user1 "+req.body.order.user1)
+//        user =  await User.findById(req.body.order.user1)
+      
+    
+//      }catch(err){
+//         console.log("error dawg1")
+
+//          const error = new HttpError(
+//           "Creating place failed",500
+//        );
+//          return next(error);
+//      }
+//      if (!user){
+//          console.log("error dawg")
+//          const error = new HttpError("Could not find user for provided id",404)
+//          return next(error)
+//      }
+
+
+
+// try{
+//     const sess = await mongoose.startSession();
+//     console.log("yuh")
+//     sess.startTransaction();
+//     console.log("yoh")
+//     await history.save({session:sess});
+//     console.log("yuh")
+//     user.order.push(history);
+//     console.log("yuh")
+//    await user.save({session:sess});
+//     await sess.commitTransaction();
+//    } catch(err){
+//        const error = new HttpError("Saving Image failed",500);
+  
+//    return next(error)
+//    }
+//   res.status(201).json({art:history});
+
+
+// };
+
+
+// exports.addorder = addorder
 exports.profileById = profileById;
 exports.getUsers = getUsers;
 exports.signup = signup

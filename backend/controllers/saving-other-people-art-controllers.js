@@ -55,7 +55,7 @@ const saveArt = async (req,res,next) => {
         location: {
         
             lat:(coordinates.lat),
-            long: (coordinates.lng) //it works when you put in actual coordinates
+            long: (coordinates.lng) 
             },
          
         url,
