@@ -178,9 +178,6 @@ exports.addOrderToUserHistory = (req,res,next) =>{
         }
         next();
     })
-
-
-
 }
 // const addorder = async (req,res,next) =>{
 //     console.log("enterreddddddddd")

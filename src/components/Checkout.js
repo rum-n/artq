@@ -54,8 +54,6 @@ const handleAddress = event =>{
         {getnonce()}
        }
  })
- 
-
 
     const getTotal = () =>{
         return products.reduce((currentValue, nextValue) =>{
@@ -80,8 +78,6 @@ const handleAddress = event =>{
     useEffect( async() =>{
         if (clicked === true){
             try {
-           
-            
                 console.log(thenonce)
                   await sendRequest(
                    `http://localhost:5000/api/braintree/payment/${userId}`,
@@ -128,15 +124,9 @@ const handleAddress = event =>{
           
         }
         console.log(thenonce)
-        
-        
-       
-
-    
-
     })
-    const sendorder = async (createOrderData) => {
-     
+
+    const sendorder = async (createOrderData) => { 
        console.log("entered senorder")
     
        try{
@@ -240,12 +230,7 @@ return(
         {showSuccess(data.success)}
         {showError(data.error)}
         {paycard}
-       
-      
-  
-    
     </React.Fragment>
-   
 )
         
 

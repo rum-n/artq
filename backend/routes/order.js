@@ -6,11 +6,7 @@ const {create} = require("../controllers/order");
 const {addOrderToUserHistory} = require("../controllers/users-controllers")
 const {decreaseQuantity} = require("../controllers/saved-art-controllers")
 
-
-
 router.post("/order/create/:userId",addOrderToUserHistory,create);
-
-
 
 module.exports = router;
 

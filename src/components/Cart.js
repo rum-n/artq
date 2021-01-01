@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext}from 'react';
-import { Link,Router } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCart } from "./cartHelpers"
@@ -8,16 +8,12 @@ import Checkout from "./Checkout"
 import './Cart.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import paypal from './../assets/paypal.png';
+// import paypal from './../assets/paypal.png';
 import {getBrainTreeClientToken,processPayment} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
-
 const Cart =() => { 
-  
-
-    
     const [items, setItems] = useState([])
     const [data,setData] = useState({
         success:false,
@@ -68,15 +64,12 @@ const Cart =() => {
             }
             processPayment(userId,paymentData)
             .then(response => { setData({...data,success:response.success})
-            
-        
         }).then(alert("Thank you for your purchase!"))
             .catch(error => console.log(error))
         }).catch(error =>{
             //console.log('dropin error: ',error)
             setData({...data,error:error.message})
         }) 
-        
     }
 
     const showSuccess = success =>(
@@ -86,60 +79,35 @@ const Cart =() => {
                Thanks, your payment was successful
         </text>
     )
-   
- 
-
-  
  function ShowDropIn() {
    
     
    return(
        <div> 
-           <text> refresh screen to go back</text>  
-           
+           <p> refresh screen to go back</p>  
             <div> 
-           
-
             <DropIn options={{
                 authorization:data.clientToken
-            }} onInstance={instance => (data.instance = instance)}/>
-              
-            
-            
+            }} onInstance={instance => (data.instance = instance)}/> 
             </div> 
-            <button onClick={buynow} className='order-btn'>Place Order</button>
-            
-            
-           
+            <button onClick={buynow} className='order-btn'>Place Order</button>  
         </div>
       );
     }
     function tick() {
-        ReactDOM.render(
-            
+        ReactDOM.render(     
           <ShowDropIn date={new Date()} />,
           document.getElementById('root')
         );
       }
-      
-      
-    
-    
-       
-        
-     
-        
 
     useEffect(() => {
-        setItems(getCart())
-       
-        
+        setItems(getCart())        
     },[])
 
     console.log(items);
 
     const showItems = props =>{
-       
         return(
             <ul className="users-list">
             {props.map(user => (
@@ -172,25 +140,9 @@ const Cart =() => {
             setTimeout(tick, 1000))
     }
 
- 
-
-    
-
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
-                
-             
-                
-                
-               
-               
-                
-              
-            
-               
-                
-                
                 {/* <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button> */}
                 <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
@@ -264,11 +216,6 @@ const Cart =() => {
             </div>
     </div>
     )
-
-   
-    }
-    
-    
-   
+}
 
 export default Cart;

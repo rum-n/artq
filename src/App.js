@@ -80,11 +80,10 @@ function App() {
         <Route path='/addart' component={NewArt} />
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
-         <Route path='/seemore' component={SeeMore} /> 
+        <Route path='/seemore' component={SeeMore} /> 
         <Route path='/cart' component={Cart} />
         <Route path='/individual' component={IndividualUserPage} />
         <Route path="/images/:imageId">
-        
         <UpdatePlace />
         </Route>
       </Switch>
