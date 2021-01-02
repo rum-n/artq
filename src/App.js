@@ -86,7 +86,6 @@ function App() {
         <Route path='/cart' component={Cart} />
         <Route path='/individual' component={IndividualUserPage} />
         <Route path="/images/:imageId">
-        
         <UpdatePlace />
         </Route>
       </Switch>
