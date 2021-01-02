@@ -16,7 +16,7 @@ const Profile = () => {
   const [loadedPhone, setLoadedPhone] = useState();
   const [loadedImage, setLoadedImage] = useState();
   const auth = useContext(AuthContext);
-  console.log(auth.userId)
+  console.log("auth.userid "+auth.userId)
 
   useEffect(() => {
     const sendRequest = async () => {

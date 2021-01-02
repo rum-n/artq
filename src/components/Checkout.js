@@ -95,14 +95,16 @@ const handleAddress = event =>{
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
                    }
                  ).then(response =>{
-                     console.log(response)
+                     
                      const createOrderData = {
                          products:products,
+                         name: data.name,
                          transaction_id: response.transaction.id,
                          sold: 1,
                          amount: response.transaction.amount,
                          address:deliveryAddress,
                          user1: auth.userId
+                         
 
                      }
                      createOrder(userId,createOrderData)

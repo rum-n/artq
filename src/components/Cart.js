@@ -14,6 +14,7 @@ import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
 
+
 const Cart =() => { 
   
 
@@ -136,9 +137,10 @@ const Cart =() => {
         
     },[])
 
-    console.log(items);
+    
 
     const showItems = props =>{
+
        
         return(
             <ul className="users-list">
@@ -238,6 +240,7 @@ const Cart =() => {
                 </Form> 
                 <h3>Review order</h3>
                 {items.length > 0 ? showItems(items): noItemsMessage()}
+                {console.log(items)}
                 <p>{items.title}</p>
                 <h3>Payment method</h3>
                 <h6>Paypal, Visa, Mastercard...</h6>

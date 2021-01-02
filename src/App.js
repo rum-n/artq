@@ -21,6 +21,7 @@ import UpdatePlace from "./pages/UpdatePlace";
 import SeeMore from "./pages/SeeMore";
 import Cart from "./components/Cart";
 import IndividualUserPage from "./pages/IndividualUserPage"
+import AdminDashboard from './pages/AdminDashboard';
 
 let logoutTimer;
 function App() { 
@@ -80,6 +81,7 @@ function App() {
         <Route path='/addart' component={NewArt} />
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
+        <Route path='/admin' component={AdminDashboard} />
          <Route path='/seemore' component={SeeMore} /> 
         <Route path='/cart' component={Cart} />
         <Route path='/individual' component={IndividualUserPage} />

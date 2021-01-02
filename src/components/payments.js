@@ -12,7 +12,7 @@ export const getBrainTreeClientToken = (userId) =>{
 export const processPayment = (userId,paymentData) =>{
     console.log(JSON.stringify(paymentData))
    
-     return fetch(`http://localhost:5000/api/braintree/payment/5fc15b5be27c0c6e35dbb8e2`,{
+     return fetch(`http://localhost:5000/api/braintree/payment/${userId}`,{
         method:"POST",
       
         body:JSON.stringify(paymentData)
@@ -28,7 +28,7 @@ export const processPayment = (userId,paymentData) =>{
 }
 
 export const createOrder = (userId,createOrderData) => {
-    return fetch('http://localhost:5000/api/order/create/5fef4dd37b0e709071d3300e',{
+    return fetch(`http://localhost:5000/api/order/create/${userId}`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'

@@ -5,7 +5,7 @@ const { ObjectId } = Schema;
 const CartItemSchema = new Schema(
   {
     product: { type: ObjectId, ref: "Product" },
-    name: String,
+    name: {},
     price: Number,
     count: Number
   },
@@ -17,6 +17,7 @@ const CartItem = mongoose.model("CartItem", CartItemSchema);
 const OrderSchema = new Schema(
   {
     products: [CartItemSchema],
+    name: {},
     transaction_id: {},
     amount: { type: Number },
     sold:{type: Number},
@@ -28,7 +29,8 @@ const OrderSchema = new Schema(
     },
     updated: Date,
     user: { type: ObjectId, ref: "User" },
-    user1:{type:String,required:true},
+    user1:{type:String,required:true}
+   
   },
   { timestamps: true }
 );

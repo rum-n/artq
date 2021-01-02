@@ -82,9 +82,13 @@ return(
       <FormControl type="text" placeholder="Search" className="mr-sm-2" />
       <Button variant="outline-light">Search</Button>
     </Form>
-    {auth.isLoggedIn && (
+    {auth.isLoggedIn && auth.userId != "5fef79391c01e059f13f3823" && (
       <Link className='nav-links' to='/cart'>Cart <sup><small className="cart-badge">{itemTotal()}</small></sup></Link>
     )}
+    {auth.isLoggedIn && auth.userId === "5fef79391c01e059f13f3823" && (
+      <Link className='nav-links' to='/admin'>Order Dashboard </Link>
+    )}
+
   </Navbar>
   )
 }

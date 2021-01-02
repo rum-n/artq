@@ -130,7 +130,7 @@ const login = async (req,res,next) =>{
         return next(error);
     }
     if (!isValidPassword){
-        alert("this one")
+      
         const error = new HttpError(
             'Could not log you in, check credentials',500
         )

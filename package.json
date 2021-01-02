@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.10.15",
     "mongoose-unique-validator": "^2.0.3",
     "react": "^17.0.1",
@@ -27,6 +28,7 @@
     "react-google-maps": "^9.4.5",
     "react-input-switch": "^2.2.2",
     "react-modal": "^3.12.1",
+    "react-moment": "^1.1.1",
     "react-native": "^0.63.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
@@ -34,6 +36,7 @@
     "react-store-locator": "^0.20.7",
     "react-toggle-button": "^2.2.0",
     "react-transition-group": "^4.4.1",
+    "reactjs-popup": "^2.0.4",
     "reactstrap": "^8.7.1",
     "save": "^2.4.0",
     "web-vitals": "^0.2.4"
