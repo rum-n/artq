@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useContext,Layout,useForceUpdate} from 'react';
-import {listOrders} from "../components/apiAdmin"
+import {listOrders,getartistinfo} from "../components/apiAdmin"
 import {AuthContext} from "../context/auth-context";
 import Moment from 'react-moment';
 import {useHttpClient} from "../components/hooks/http-hook"
@@ -18,6 +18,10 @@ const Admin = () => {
   const [loadedName, setLoadedName] = useState([]);
   const [loadedEmail, setLoadedEmail] = useState([]);
   const [loadedPhone, setLoadedPhone] = useState([]);
+
+  const [loadedBuyerName, setLoadedBuyerName] = useState([]);
+  const [loadedBuyerEmail, setLoadedBuyerEmail] = useState([]);
+  const [loadedBuyerPhone, setLoadedBuyerPhone] = useState([]);
   const auth = useContext(AuthContext);
   console.log(auth.userId)
 
@@ -59,9 +63,28 @@ const Admin = () => {
           if (!response.ok) {
             throw new Error(responseData.message);
           }  
-          loadedName.push(responseData.userWithImages.name)
-          loadedEmail.push(responseData.userWithImages.email)
-          loadedPhone.push(responseData.userWithImages.phone)
+          setLoadedName(loadedName.concat(responseData.userWithImages.name))
+          setLoadedEmail(loadedEmail.concat(responseData.userWithImages.email))
+          setLoadedPhone(loadedPhone.concat(responseData.userWithImages.phone))
+         
+        
+        } catch (err) {
+         
+        }
+    }
+
+    const getthebuyer = async (o,oIndex) => {
+        try {
+          console.log(o.products[0])
+          const response =  await fetch(`http://localhost:5000/api/users/${o.artistid}`);
+          const responseData = await response.json();
+          
+          if (!response.ok) {
+            throw new Error(responseData.message);
+          }  
+          setLoadedBuyerName(loadedBuyerName.concat(responseData.userWithImages.name))
+          setLoadedBuyerEmail(loadedBuyerEmail.concat(responseData.userWithImages.email))
+          setLoadedBuyerPhone(loadedBuyerPhone.concat(responseData.userWithImages.phone))
          
         
         } catch (err) {
@@ -79,12 +102,15 @@ const Admin = () => {
         >
             
                 {showOrdersLength(orders)}
+
+                
             
                 {orders.map((o,oIndex) =>{
                     console.log(o.user1)
                   
-                   
+                      
                         sendRequest(o,oIndex)
+                        getthebuyer(o,oIndex)
                 
                     
                 const showInput = (key,value) =>(
@@ -105,7 +131,7 @@ const Admin = () => {
                         <div>
                             
 
-                        <li className="list-group-item">Ordered By: {loadedName[oIndex]} {loadedEmail[oIndex]} {loadedPhone[oIndex]}</li>
+                        <li className="list-group-item">The artist: {loadedName[0,1]} {loadedEmail[oIndex]} {loadedPhone[oIndex]}</li>
                     </div>
                     )
 
@@ -139,6 +165,7 @@ const Admin = () => {
                             <li className="list-group-item">Amount $: {o.amount}</li>
                             
                             <li className="list-group-item">Ordered By:  {loadedName[oIndex]} {loadedEmail[oIndex]} {loadedPhone[oIndex]} </li>
+                            <li className="list-group-item">The Artist: {loadedBuyerName[oIndex]} {loadedBuyerEmail[oIndex]} {loadedBuyerPhone[oIndex]} </li>
                              {/* {loadedName[oIndex]} {loadedEmail[oIndex]} {loadedPhone[oIndex]} */}
                             <li className="list-group-item">Ordered On: <Moment>{(o.createdAt)}</Moment></li>
                             <li className="list-group-item">Delivery Address: {o.address}</li>
@@ -149,10 +176,10 @@ const Admin = () => {
                         
                         {o.products.map((p,pIndex) =>(
                             <div className="mb-4" key={pIndex} style={{padding:"20px",border:"1px solid indigo"}}> 
-                            {showInput("Product name", p.name)}
+                            
                             {showInput("Product price", p.price)}
                             {showInput("Product total", p.count)}
-                            {showInput("Product Id", p._id)}
+                            {showInput("Art Title", o.name)}
                             
                             
                             </div>

@@ -23,6 +23,7 @@ const Checkout =({ products })=>{
         address: ''
     })
     let deliveryAddress = data.address
+    let thename = data.name
 
     const auth = useContext(AuthContext);
     const userId = auth.userId;
@@ -76,6 +77,7 @@ const handleAddress = event =>{
     )
     
     useEffect( async() =>{
+        console.log(clicked)
         if (clicked === true){
             try {
                 console.log(thenonce)
@@ -92,20 +94,23 @@ const handleAddress = event =>{
                    }
                  ).then(response =>{
                      
+                     
                      const createOrderData = {
                          products:products,
-                         name: data.name,
+                         name: "thename",
                          transaction_id: response.transaction.id,
                          sold: 1,
                          amount: response.transaction.amount,
                          address:deliveryAddress,
-                         user1: auth.userId
+                         user1: auth.userId,
+                         artistid: products[0].author 
                          
 
                      }
-                     createOrder(userId,createOrderData)
+                    
                     
                      if (response.success == true){
+                        createOrder(userId,createOrderData)
                         
                          emptyCart(() =>{
                              console.log("emptied cart")
@@ -123,6 +128,7 @@ const handleAddress = event =>{
             setNonce("hi")
             
             setClicked(false)
+
           
         }
         console.log(thenonce)

@@ -29,7 +29,8 @@ const OrderSchema = new Schema(
     },
     updated: Date,
     user: { type: ObjectId, ref: "User" },
-    user1:{type:String,required:true}
+    user1:{type:String,required:true},
+    artistid:{type:String,required:true}
    
   },
   { timestamps: true }

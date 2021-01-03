@@ -83,6 +83,7 @@ const Cart =() => {
     )
  function ShowDropIn() {
    
+   
     
    return(
        <div> 
@@ -104,12 +105,14 @@ const Cart =() => {
       }
 
     useEffect(() => {
-        setItems(getCart())        
+        setItems(getCart())    
+       
     },[])
-
+    
     
 
     const showItems = props =>{
+        
 
        
         return(
@@ -123,7 +126,7 @@ const Cart =() => {
               description={user.description}
               address={user.address}
               title={user.title}
-              author={user.author}
+              author={user.author}    
               duration={user.duration}
               dimentions={user.dimentions}
               type={user.type}
@@ -193,6 +196,7 @@ const Cart =() => {
                     </Form.Row>
                 </Form> 
                 <h3>Review order</h3>
+               
                 {items.length > 0 ? showItems(items): noItemsMessage()}
                 {console.log(items)}
                 <p>{items.title}</p>
