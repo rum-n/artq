@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useContext,Layout,useForceUpdate} from 'react';
+import React, {useState,useEffect,useContext,Layout,useForceUpdate,useRef} from 'react';
 import {listOrders,getartistinfo,getStatusValues,updateOrderStatus} from "../components/apiAdmin"
 import {AuthContext} from "../context/auth-context";
 import Moment from 'react-moment';
@@ -8,10 +8,13 @@ import 'reactjs-popup/dist/index.css';
 
 
 const Admin = () => {
+    
     const {error,sendRequest,clearError} = useHttpClient();
    
        
     let changed = true
+   
+
     
     const [ clicked, setClicked ] = useState(false)
    
@@ -20,10 +23,13 @@ const Admin = () => {
   const [loadedName, setLoadedName] = useState([]);
   const [loadedEmail, setLoadedEmail] = useState([]);
   const [loadedPhone, setLoadedPhone] = useState([]);
+  const layoutRef= useRef({});
+layoutRef.current = loadedPhone;
 
   const [loadedBuyerName, setLoadedBuyerName] = useState([]);
   const [loadedBuyerEmail, setLoadedBuyerEmail] = useState([]);
   const [loadedBuyerPhone, setLoadedBuyerPhone] = useState([]);
+  
   const auth = useContext(AuthContext);
  
 
@@ -45,6 +51,7 @@ const Admin = () => {
         changed = false
     }
 
+
     const loadStatusValues = () =>{
         getStatusValues(auth.userId).then(data =>{
             if(data.error){
@@ -55,15 +62,16 @@ const Admin = () => {
         })
         changed = false
     }
-    
+   
    
 
     useEffect(() =>{
         console.log("enterredddd")
-        if (loadedName == ""){
+        if ((loadedName).length == 0){
         loadOrders();
-        loadStatusValues();}
-    },[])
+        loadStatusValues();
+       }
+    },[loadedPhone])
     const showOrdersLength = orders =>{
         if(orders.length > 0){
             return(
@@ -86,9 +94,9 @@ const Admin = () => {
           if (!response.ok) {
             throw new Error(responseData.message);
           }  
-          setLoadedName(loadedName.concat(responseData.userWithImages.name))
-          setLoadedEmail(loadedEmail.concat(responseData.userWithImages.email))
-          setLoadedPhone(loadedPhone.concat(responseData.userWithImages.phone))
+         loadedName[oIndex] = (responseData.userWithImages.name)
+         loadedEmail[oIndex] =(responseData.userWithImages.email)
+         loadedPhone[oIndex] =(responseData.userWithImages.phone)
          
         
         } catch (err) {
@@ -106,15 +114,16 @@ const Admin = () => {
           if (!response.ok) {
             throw new Error(responseData.message);
           }  
-          setLoadedBuyerName(loadedBuyerName.concat(responseData.userWithImages.name))
-          setLoadedBuyerEmail(loadedBuyerEmail.concat(responseData.userWithImages.email))
-          setLoadedBuyerPhone(loadedBuyerPhone.concat(responseData.userWithImages.phone))
+          loadedBuyerName.push(responseData.userWithImages.name)
+         loadedBuyerEmail.push((responseData.userWithImages.email))
+         loadedBuyerPhone.push((responseData.userWithImages.phone))
          
         
         } catch (err) {
          
         }
     }
+    console.log(loadedName)
 
     const placeSubmitHandler = async (o,e) => {
         console.log("entered placesubmit handler" )
@@ -135,6 +144,7 @@ const Admin = () => {
         console.log(err)
       }
       loadOrders()
+     
     };
 
     const handleStatusChange = (o,e, orderId) =>{
@@ -224,8 +234,8 @@ const Admin = () => {
                             <li className="list-group-item"> {showStatus(o)}</li>
                             <li className="list-group-item">Transaction ID: {o.transaction_id}</li>
                             <li className="list-group-item">Amount $: {o.amount}</li>
-                            
-                            <li className="list-group-item">Ordered By:  {loadedName[oIndex]} {loadedEmail[oIndex]} {loadedPhone[oIndex]} </li>
+                            {console.log(loadedPhone)}
+                            <li className="list-group-item">Ordered By:  {loadedName[oIndex]} {loadedEmail[oIndex]} {layoutRef.current[oIndex]} </li>
                             <li className="list-group-item">The Artist: {loadedBuyerName[oIndex]} {loadedBuyerEmail[oIndex]} {loadedBuyerPhone[oIndex]} </li>
                              {/* {loadedName[oIndex]} {loadedEmail[oIndex]} {loadedPhone[oIndex]} */}
                             <li className="list-group-item">Ordered On: <Moment>{(o.createdAt)}</Moment></li>
