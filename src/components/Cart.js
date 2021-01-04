@@ -13,8 +13,6 @@ import {getBrainTreeClientToken,processPayment} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
-
-
 const Cart =() => { 
     const [items, setItems] = useState([])
     const [data,setData] = useState({
@@ -49,17 +47,9 @@ const Cart =() => {
         },0)
     }
  
-    const buynow = () =>{
-        //console.log("in buy nowwwww")
-        //console.log(data)
-        //console.log(data.instance)
-
-       
+    const buynow = () =>{   
         let nonce;
         let getNonce = data.instance.requestPaymentMethod().then(data =>{
-            // console.log(data)
-            // nonce = data.nonce
-            // console.log('send nonce and total to process: ', nonce,getTotal(items))
             const paymentData = {
                 paymentMethodNonce:nonce,
                 amount:getTotal(items)
@@ -69,7 +59,6 @@ const Cart =() => {
         }).then(alert("Thank you for your purchase!"))
             .catch(error => console.log(error))
         }).catch(error =>{
-            //console.log('dropin error: ',error)
             setData({...data,error:error.message})
         }) 
     }
@@ -106,15 +95,9 @@ const Cart =() => {
 
     useEffect(() => {
         setItems(getCart())    
-       
     },[])
-    
-    
 
     const showItems = props =>{
-        
-
-       
         return(
             <ul className="users-list">
             {props.map(user => (

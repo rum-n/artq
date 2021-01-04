@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import './SeeMore.css';
-import { useLocation } from "react-router-dom";
+import { useLocation, Redirect } from "react-router-dom";
 import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl'
+import {addItem, removeItem} from "./../components/cartHelpers"
 
-const SeeMore = ({match}) => {
+const SeeMore = ( props, {match}) => {
   let data = useLocation();
   let theid = data.state.theid
   const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
+  const [redirect,setRedirect] = useState(false)
+
+  const addToCart =() =>{
+    addItem(props,() =>{
+      setRedirect(true)
+    })
+  }
+
+  const shouldRedirect = redirect =>{
+    if(redirect){
+      return <Redirect to="/cart"/>
+    }
+  }
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -34,6 +48,7 @@ const SeeMore = ({match}) => {
     <React.Fragment>
       <div className='seemore-img'>
         <img src={state.url} alt={state.title} />
+        {shouldRedirect(redirect)}
       </div>
       <div className="seemore-details">
         <h1>{state.title}</h1>
@@ -59,7 +74,7 @@ const SeeMore = ({match}) => {
         </div>
       </div>
       <div className='seemore-btn-wrapper'>
-        <button className='seemore-add'>Add to cart</button>
+        <button className='seemore-add' onClick={addToCart}>Add to cart</button>
         <p>Save for later</p>
         <InputGroup className="mb-3">
           <FormControl
