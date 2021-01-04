@@ -179,6 +179,78 @@ exports.addOrderToUserHistory = (req,res,next) =>{
         next();
     })
 }
+
+exports.update = (req,res) =>{
+    User.findOneAndUpdate(
+        {_id:req.profile._id},
+        {$set:req.body},
+        {new:true},
+        (err,user) =>{
+            if(err){
+                return res.status(400).json({
+                    error:"you are not authorized to perform this action"
+                })
+            }
+            user.hashed_password = undefined;
+            user.salt = undefined;
+            res.json(user)
+        }
+    )
+}
+
+const updateprofile = async (req,res,next) =>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        console.log(errors)
+        return next(new HttpError("Invalid inputs passed, please check your data",422))
+
+    }
+    const {name,email,password,image,savedimage,phone} = req.body;
+    const imageId = req.params.uid;
+    let profile;
+    try{
+        profile = await User.findById(imageId)
+        console.log("THE IMAGE ID "+ imageId)
+        
+    } catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not update art", 500
+        );
+        return next(error)
+    }
+    let hashedPassword;
+    try{
+    hashedPassword= await bcrypt.hash(password,12)
+    }catch(err){
+        const error = new HttpError(
+            'Could not create user, please try again.',500
+        );
+        return next(error)
+    }
+
+   
+    console.log(profile.name)
+    profile.name = name;
+    console.log(profile.name)
+    profile.email = email;
+    profile.password = hashedPassword;
+    profile.image = image
+    profile.savedimage = savedimage
+    profile.phone = phone
+
+    
+
+   try{
+       await profile.save();
+   }catch(err){
+       const error = new HttpError(
+           "Something went wrong, could not update artt", 500
+       );
+       return next(error);
+   }
+    res.status(200).json({profile:profile.toObject({getters:true})});
+
+};
 // const addorder = async (req,res,next) =>{
 //     console.log("enterreddddddddd")
 //    const history = new Order({
@@ -246,6 +318,7 @@ exports.addOrderToUserHistory = (req,res,next) =>{
 
 
 // exports.addorder = addorder
+exports.updateprofile = updateprofile
 exports.profileById = profileById;
 exports.getUsers = getUsers;
 exports.signup = signup

@@ -11,4 +11,6 @@ router.get('/:uid',userscontrollers.profileById);
 router.post('/signup',check("name").not().isEmpty(),check('email').normalizeEmail().isEmail(),check('password').isLength({min:6}),userscontrollers.signup);
 router.post('/login',userscontrollers.login);
 
+router.patch("/:uid",userscontrollers.updateprofile)
+
 module.exports = router;
