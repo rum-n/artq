@@ -1,26 +1,22 @@
-import React, { useState,useEffect,useReducer,useContext} from "react";
+import React, { useState, useContext} from "react";
 import {Redirect} from "react-router-dom";
-import PaypalButtons from "../pages/paypal";
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import CardDeck from 'react-bootstrap/CardDeck';
-import {addItem, removeItem} from "./cartHelpers"
-// import data from "./data";
-import {AuthContext} from "../context/auth-context";
-import {useHttpClient} from "../components/hooks/http-hook"
+import { addItem, removeItem } from "./cartHelpers"
+import { AuthContext } from "../context/auth-context";
+import { useHttpClient } from "../components/hooks/http-hook"
 import { Link } from "react-router-dom";
 
-const Feed = (props,{showAddToCartButton = true}) => {
+const Feed = (props, { showAddToCartButton = true }) => {
   const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
   const [loadedUsers, setLoadedUsers] = useState();
-  const [redirect,setRedirect] = useState(false)
-  const [showPaypal, setShowPaypal] = useState(false); 
+  const [redirect, setRedirect] = useState(false)
   const [show, setShow] = useState(false);
   const [activeItem, setActiveItem] = useState('');
   const [activetitle, setActivetitle] = useState('');
@@ -66,8 +62,7 @@ const Feed = (props,{showAddToCartButton = true}) => {
   event.preventDefault();
   try{
    
-   
-  await sendRequest('http://localhost:5000/api/saved','POST',JSON.stringify({
+  await sendRequest('http://localhost:5000/api/saved','POST', JSON.stringify({
    
     dimentions: activedimentions,
     price: activeprice,
@@ -86,7 +81,6 @@ const Feed = (props,{showAddToCartButton = true}) => {
   })
 } catch(err){}
 };
-console.log("the image id"+props.id)
 
 const showAddToCart = (showAddToCartButton) =>{
   return showAddToCartButton && (
@@ -96,24 +90,19 @@ const showAddToCart = (showAddToCartButton) =>{
 
 const showRemoveButton = (showRemoveProductButton) =>{
   return showRemoveProductButton && (
-    <Button  onClick={() => removeItem(props.id)}>Remove</Button>
+    <Button onClick={() => removeItem(props.id)}>Remove</Button>
   )
 }
+
   return (
     <div>
-
-      
-      {showPaypal ? <PaypalButtons /> : 
-           
           <Col key={props.id} xs={3} md={4} className='art-cards'>
-
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
               <Card.Img src={props.image} /> 
               {shouldRedirect(redirect)}
             </Card>
           </Col>
         
-        }
             <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
                     <Modal.Title>{activeItem.author}</Modal.Title>
@@ -137,12 +126,12 @@ const showRemoveButton = (showRemoveProductButton) =>{
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
-                    <Link to={{
-    pathname: "/seemore",
-    state: { theid: props.id}
-  }} className='see-more'>See more</Link>
+                      <Link to={{
+                        pathname: "/seemore",
+                        state: { theid: props.id}
+                      }} className='see-more'>See more</Link>
                     </Modal.Footer>
-                </Modal>
+              </Modal>
       </div>
   )}
 

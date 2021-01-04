@@ -19,7 +19,7 @@ export const addItem = (item,next) => {
     }
 }
 
-export const removeItem = (productId,count) => {
+export const removeItem = (productId, count) => {
     let cart =[];
     if (typeof window !== "undefined"){
         if (localStorage.getItem("cart")){
