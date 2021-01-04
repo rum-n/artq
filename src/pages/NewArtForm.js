@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer,useContext,useState } from 'react';
+import React, { useCallback, useReducer,useContext,useState, useEffect } from 'react';
 import {useHistory} from "react-router-dom"
 import {useHttpClient} from "../components/hooks/http-hook"
 import Input from '../components/Input';
@@ -38,6 +38,9 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = () => {
+
+ 
+  const [methodofbuying, setmethodofbuying] = useState("")
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
   const[duration,setduration] = useState(0)
@@ -114,6 +117,10 @@ const NewPlace = () => {
   }
 };
 
+const handlebuy = (method) =>{
+  setmethodofbuying(type)
+}
+
   return (
     <div className='signup-wrapper'>
       <div className='left-wrapper'>
@@ -179,18 +186,7 @@ const NewPlace = () => {
           </Col>
         </Form.Group>
 
-        <Form.Group as={Row} controlId="price">
-          <Form.Label column sm="2">Price</Form.Label>
-          <Col sm="6">
-            <Input
-              id="price"
-              element="input"
-              type="text"
-              validators={[VALIDATOR_REQUIRE()]}
-              onInput={inputHandler}
-            />
-          </Col>
-        </Form.Group>
+        
         <Form.Group as={Row} controlId="address">
           <Form.Label column sm="2">Address</Form.Label>
           <Col sm="6">
@@ -216,39 +212,63 @@ const NewPlace = () => {
             />
           </Col>
         </Form.Group>
+        <label>
+          Planning to Sell? 
+          <select value={methodofbuying} onChange={e => setmethodofbuying(e.target.value)}>
+          <option value="none">Not for sale</option>
+            <option value="Auction" >Auction</option>
+            <option value="Sale">Sale</option>
+           
+          </select>
+        </label>
         
-        <Form.Group as={Row} controlId="type">
-          <Form.Label column sm="2">Type of sale</Form.Label>
-          <Col sm="4">
-            <Form.Check 
-              custom
-              type="checkbox"
-              id="auction"
-              label="Auction"
-            
-            />
-          </Col>
-          <Col sm="4">
-            <Form.Check 
-              custom
-              type="checkbox"
-              id="buynow"
-              label="Buy Now"
-            />
-          </Col>
-        </Form.Group>
-
+      
+        {methodofbuying == "Auction" &&
         <Form.Group as={Row} controlId="duration">
-          <Form.Label column sm="2">Auction ends in:</Form.Label>
-          <Col sm="3">
-            <Form.Control as="select" custom>
-              <option>1</option>
-              <option>2</option>
-            </Form.Control>
+        <Form.Label column sm="2">Auction ends in (hours):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="price"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
           </Col>
-        </Form.Group>
+        </Form.Group>}
+        {methodofbuying == "Auction" &&
+       <Form.Group as={Row} controlId="price">
+       <Form.Label column sm="2">Starting bid price (USD)</Form.Label>
+       <Col sm="6">
+         <Input
+           id="price"
+           element="input"
+           type="number"
+           validators={[VALIDATOR_REQUIRE()]}
+           onInput={inputHandler}
+         />
+       </Col>
+     </Form.Group>}
 
-        <Button type="submit" disabled={!formState.isValid}>
+        {methodofbuying == "Sale" &&
+         <Form.Group as={Row} controlId="price">
+         <Form.Label column sm="2">price (USD)</Form.Label>
+         <Col sm="6">
+           <Input
+             id="price"
+             element="input"
+             type="number"
+             validators={[VALIDATOR_REQUIRE()]}
+             onInput={inputHandler}
+           />
+         </Col>
+       </Form.Group>}
+
+       {methodofbuying == "none" &&
+       formState.isValid == false
+         }
+
+        <Button type="submit" disabled={!formState.isValid && methodofbuying != "none" }>
           Publish
         </Button>
       </Form>

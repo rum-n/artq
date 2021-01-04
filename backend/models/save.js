@@ -4,7 +4,7 @@ const saveimageSchema = new Schema({
     title:{type:String,required:true},
     description: { type: String, required: true },
     dimentions: { type: String, required: true },
-    price: { type: String, required: true },
+    price: { type: Number, required: true },
     url:{type:String, required:true},
     address:{type:String,required:true},
     location:{

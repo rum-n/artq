@@ -1,13 +1,19 @@
-import React,{useContext,useState,useEffect,Redirect} from "react";
+import React,{useContext,useState,useEffect,Redirect,useReducer,useCallback} from "react";
 // import auth0Client from './../Auth';
 // import { useAuth0 } from "@auth0/auth0-react";
 import {AuthContext} from "../context/auth-context";
+import Button from '../components/Button';
 // import UsersList from '../components/UsersList';
 import {useHttpClient} from "../components/hooks/http-hook"
 import MyArt from "./MyArt"
 import './profile.css';
+import {
+  VALIDATOR_REQUIRE,
+  VALIDATOR_MINLENGTH
+} from './util/validators';
 
 const Profile = () => {
+  
   const{sendRequest,clearError,theresponse} = useHttpClient();
   const [loadedImages, setLoadedImages] = useState();
   const [loadedName, setLoadedName] = useState();
@@ -18,6 +24,40 @@ const Profile = () => {
   const auth = useContext(AuthContext);
   const userId = auth.userId
   console.log("auth.userid "+auth.userId)
+
+  const inputHandler = useCallback((id, value, isValid) => {
+    dispatch({
+      type: 'INPUT_CHANGE',
+      value: value,
+      isValid: isValid,
+      inputId: id
+    });
+  }, []);
+
+  const formReducer = (state, action) => {
+    switch (action.type) {
+      case 'INPUT_CHANGE':
+        let formIsValid = true;
+        for (const inputId in state.inputs) {
+          if (inputId === action.inputId) {
+            formIsValid = formIsValid && action.isValid;
+          } else {
+            formIsValid = formIsValid && state.inputs[inputId].isValid;
+          }
+        }
+        return {
+          ...state,
+          inputs: {
+            ...state.inputs,
+            [action.inputId]: { value: action.value, isValid: action.isValid }
+          },
+          isValid: formIsValid
+        };
+      default:
+        return state;
+    }
+  };
+  
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -61,6 +101,18 @@ const [allvalues,setallValues] = useState({
 
 })
 
+const [formState, dispatch] = useReducer(formReducer, {
+  inputs: {
+    password: {
+      value: '',
+      isValid: false
+    },
+  },
+  isValid: false
+});
+
+
+
 const updateinfo = async (event,user) => {
  event.preventDefault();
  try {
@@ -85,7 +137,7 @@ const getprofile = async () => {
    const response =  await fetch(`http://localhost:5000/api/users/${userId}`);
    const responseData = await response.json();
    console.log(responseData)
-   setValues({...values,name:responseData.userWithImages.name, email:responseData.userWithImages.email,password:responseData.userWithImages.password,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone})
+   setValues({...values,name:responseData.userWithImages.name, email:responseData.userWithImages.email,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone})
    setallValues({...allvalues,name:responseData.userWithImages.name, email:responseData.userWithImages.email,password:responseData.userWithImages.password,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone})
    
    
@@ -131,19 +183,26 @@ const finallyupdate = async event=> {
        'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
      }
    );
+     
   
      alert("saved changes")
+   
 
    
  } catch (err) {alert("nah bruh it didnt work")}
  
+ 
 };
 
 const clickSubmit = (e) =>{
+  e.preventDefault()
     console.log(name)
-    e.preventDefault()
+    if (values.password.length<=5){
+      alert("enter a new password greater than 5 characters")
+    }
+    else{
     console.log(values.name,values.email,values.password,allvalues.image,allvalues.savedimage,allvalues.phone)
-    finallyupdate()
+    finallyupdate()}
 
 }
 
@@ -177,9 +236,14 @@ const profileUpdate = (name,email,password) =>{
             </label>
             <input type="text" onChange={handleChange("password")} className="form-control" value={password}/>
         </div>
-        <button onClick={clickSubmit} className="btn btn-primary">
+        <Button type="submit" disabled={!formState.isValid}>
+          Publish
+        </Button>
+        <button onClick={clickSubmit} disabled={false} className="btn btn-primary">
             Submit
         </button>
+        <text>hi</text>
+        
         {redirectUser(success)}
     </form>
 }
@@ -200,10 +264,13 @@ return(
             <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
         </div>
         <div className="form-group">
-            <label className="text-muted">Password
+            <label className="text-muted">New Password (at least 5 characters)
             </label>
-            <input type="text" onChange={handleChange("password")} className="form-control" value={password}/>
+            <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
+              errorText="Please enter a valid password (at least 5 characters)."
+              onInput={inputHandler}/>
         </div>
+        
         <button onClick={clickSubmit} className="btn btn-primary">
             Submit
         </button>
@@ -244,39 +311,7 @@ return(
 )
 
   
-   return (
-    <div className='main'>
-      <div className='personal-info'>
-        <img className='profile-pic' src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" alt="new"/>
-        <div className='flex-c'>
-          <div className='personal-info-text'>
-            <div className='col-1'>
-              <h2>{loadedName}</h2>
-              {loadedEmail}
-              <p>Painter</p>
-            </div>
-            <div className='col-2'>
-              <div className='follow-stats'>
-                <p>101 Followers</p>
-                <p>121 Following</p>
-              </div>
-              <p>Based in San Francisco, CA</p>
-            </div>
-          </div>
-          <div className='personal-bio'>
-            <p>Self-thaught painter // Take a look at my work</p>
-          </div>
-          <div className='profile-btn-wrapper'>
-            <button className='edit-profile-btn'>Edit profile</button>
-            <button className='add-new-post-btn'>Add new post</button>
-          </div>
-        </div>
-      </div>
-     <hr/>
-           {<MyArt/>}
-     
-     </div>
-   )
+  
 };
 
 export default Profile;
