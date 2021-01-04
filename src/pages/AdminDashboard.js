@@ -3,7 +3,6 @@ import {listOrders,getartistinfo,getStatusValues,updateOrderStatus} from "../com
 import {AuthContext} from "../context/auth-context";
 import Moment from 'react-moment';
 import {useHttpClient} from "../components/hooks/http-hook"
-import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 
 

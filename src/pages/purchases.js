@@ -1,12 +1,9 @@
-import React, {useState,useEffect,useContext}from 'react';
+import React, { useState, useEffect, useContext }from 'react';
 import './styles.css';
-import {paypal} from "./paypal"
 import {AuthContext} from "../context/auth-context";
-import {read,update,updateUser} from "../components/apiUser"
-import data from '../components/data';
-import { Redirect } from 'react-router';
 import moment from "moment"
 import {useHttpClient} from "../components/hooks/http-hook"
+
 const Purchases = () => {
     const {sendRequest,clearError} = useHttpClient();
     const [history,setHistory] = useState([])
@@ -23,21 +20,17 @@ const Purchases = () => {
             throw new Error(responseData.message);
           }  
           setHistory(responseData)
-        
         } catch (err) {
-         
         }
-      
       };
 
       useEffect(() =>{
         getpurchases()
       })
-
     
       const purchaseHistory = history => {
         return (
-            <div className="card mb-5">
+            <div className="mb-5">
                 <h3 className="card-header">Purchase history</h3>
                 <ul className="list-group">
                     <li className="list-group-item">
