@@ -64,6 +64,7 @@ let handleChange = (e) => {
     }catch(err){   
     
     }
+    setRedirect(true)
     try{
     if (theresponse.ok){
        

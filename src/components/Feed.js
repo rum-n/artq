@@ -12,6 +12,7 @@ import { useHttpClient } from "../components/hooks/http-hook"
 import { Link } from "react-router-dom";
 
 const Feed = (props, { showAddToCartButton = true }) => {
+  console.log(props)
   const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
@@ -128,7 +129,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
                     <Modal.Footer>
                       <Link to={{
                         pathname: `/seemore/${props.id}`,
-                        state: { theid: props.id}
+                        state: { thedata:props , theid: props.id}
                       }} className='see-more'>See more</Link>
                     </Modal.Footer>
               </Modal>

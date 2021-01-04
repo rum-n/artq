@@ -8,6 +8,7 @@ import {addItem, removeItem} from "./../components/cartHelpers"
 import { useParams } from 'react-router-dom';
 
 const SeeMore = ( props, {match}) => {
+ 
   let data = useLocation();
   const params = useParams();
   console.log(params)
@@ -16,7 +17,8 @@ const SeeMore = ( props, {match}) => {
   const [redirect,setRedirect] = useState(false)
 
   const addToCart =() =>{
-    addItem(props,() =>{
+    console.log(data.state.thedata)
+    addItem(data.state.thedata,() =>{
       setRedirect(true)
     })
   }
@@ -38,12 +40,14 @@ const SeeMore = ( props, {match}) => {
           throw new Error(responseData.message);
         }
         setState(responseData.image);
+        
 
       } catch (err) {
         alert(err)
       }
     };
     sendRequest();
+    
   }, []);
 
   return (
