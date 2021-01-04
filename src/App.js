@@ -83,7 +83,7 @@ function App() {
         <Route path='/myart' component={MyArt} />
         <Route path='/edit' component={UpdatePlace} />
         <Route path='/admin' component={AdminDashboard} />
-         <Route path='/seemore' component={SeeMore} /> 
+         <Route path='/seemore/:imageId' component={SeeMore} /> 
          <Route path='/manage' component={AdminManagePosts} /> 
         <Route path='/cart' component={Cart} />
         <Route path='/individual' component={IndividualUserPage} />

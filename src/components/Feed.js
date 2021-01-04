@@ -127,7 +127,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
                   </Modal.Body>
                     <Modal.Footer>
                       <Link to={{
-                        pathname: "/seemore",
+                        pathname: `/seemore/${props.id}`,
                         state: { theid: props.id}
                       }} className='see-more'>See more</Link>
                     </Modal.Footer>

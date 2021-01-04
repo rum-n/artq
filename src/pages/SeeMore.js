@@ -5,10 +5,12 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import Button from 'react-bootstrap/Button'
 import FormControl from 'react-bootstrap/FormControl'
 import {addItem, removeItem} from "./../components/cartHelpers"
+import { useParams } from 'react-router-dom';
 
 const SeeMore = ( props, {match}) => {
   let data = useLocation();
-  let theid = data.state.theid
+  const params = useParams();
+  console.log(params)
   const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
   const [redirect,setRedirect] = useState(false)
@@ -29,7 +31,7 @@ const SeeMore = ( props, {match}) => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch(`http://localhost:5000/api/images/${theid}`);
+        const response = await fetch(`http://localhost:5000/api/images/${params.imageId}`);
         const responseData = await response.json();
         
         if (!response.ok) {
