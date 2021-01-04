@@ -1,10 +1,8 @@
 import React, {useContext, useEffect, useState}from 'react';
 import DropIn from "braintree-web-drop-in-react"
 import { useHttpClient } from '../components/hooks/http-hook';
-import { Link } from 'react-router-dom';
-import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {getBrainTreeClientToken, processPayment, createOrder} from "./payments"
+import {getBrainTreeClientToken, createOrder} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import {emptyCart} from "./cartHelpers"
 
@@ -22,39 +20,32 @@ const Checkout =({ products })=>{
         instance: {},
         address: ''
     })
+
     let deliveryAddress = data.address
     let thename = data.name
 
     const auth = useContext(AuthContext);
     const userId = auth.userId;
-
     
-
-      console.log("the dataaaa"+ deliveryAddress)
-    
-    const getToken = (userId) =>{
-        console.log("entered gettoken")
-    getBrainTreeClientToken(userId).then(data =>{ 
-      
+    const getToken = (userId) => {
+        getBrainTreeClientToken(userId).then(data =>{ 
             setData({clientToken:data.clientToken})
-     
-        console.log(data.clientToken)
-    })  
-}
-useEffect(() => {
-    getToken(userId)
-  }, []);
+        })
+    }
 
-const handleAddress = event =>{
-    setData(data.address = event.target.value)
-}
+    useEffect(() => {
+        getToken(userId)
+    }, []);
 
+    const handleAddress = event =>{
+        setData(data.address = event.target.value)
+    }
 
- useEffect(() =>{
-    if (clicked === true){
-        {getnonce()}
-       }
- })
+    useEffect(() =>{
+        if (clicked === true){
+            {getnonce()}
+        }
+    })
 
     const getTotal = () =>{
         return products.reduce((currentValue, nextValue) =>{
@@ -77,7 +68,6 @@ const handleAddress = event =>{
     )
     
     useEffect( async() =>{
-        console.log(clicked)
         if (clicked === true){
             try {
                 console.log(thenonce)
@@ -87,14 +77,11 @@ const handleAddress = event =>{
                    JSON.stringify({
                   "paymentMethodNonce":thenonce,
                    "amount": getTotal(products)
-                    
                }),
                    {
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
                    }
                  ).then(response =>{
-                     
-                     
                      const createOrderData = {
                          products:products,
                          name: "thename",
@@ -104,11 +91,7 @@ const handleAddress = event =>{
                          address:deliveryAddress,
                          user1: auth.userId,
                          artistid: products[0].author 
-                         
-
                      }
-                    
-                    
                      if (response.success == true){
                         createOrder(userId,createOrderData)
                         
@@ -119,81 +102,40 @@ const handleAddress = event =>{
                              success:true
                          })
                      }
-                     console.log("it worked")
-                    
                  })
                
                } catch (err) {}
-            console.log("entered clicked")
             setNonce("hi")
-            
             setClicked(false)
-
-          
         }
-        console.log(thenonce)
     })
 
     const sendorder = async (createOrderData) => { 
-       console.log("entered senorder")
-    
-       try{
-        
-        
+       try {
        await sendRequest(`http://localhost:5000/api/order/useraccount/${userId}`,'POST',JSON.stringify({
-        
         body:JSON.stringify({order:createOrderData})
-     
        }),{
          'Content-Type':'application/json'
        })
      } catch(err){}
-     };
+    };
 
-   
-    
     const getnonce =  () =>{
-        
         let nonce = '';
-       
-        console.log("entered")
-      
-        
         data.instance.requestPaymentMethod().then(data =>{
-            //console.log(data)
             nonce = data.nonce
-            
-            
             setNonce(nonce)
             console.log(thenonce)
             console.log("send nonce and total to process: ",nonce,getTotal(products))
-       
-            
-           
-           
-           
-        
-       
-    
         })
-      
-       
     }
     
-
     const buynow = async event => {
-       
         setClicked(true)
-       
-      
     }
    
     const showDropIn =() =>(
-
-       
-    
-        setpaycard(
-       
+        setpaycard (
         <div onBlur={() => setData({...data, error:""})}>     
             <div> 
                 <div className="gorm-group mb-3">
@@ -204,8 +146,6 @@ const handleAddress = event =>{
                     value = {data.address}
                     placeholder="Type Delivery Address"
                     />
-
-
                 </div>
             <DropIn options={{
                 authorization:data.clientToken,
@@ -213,38 +153,19 @@ const handleAddress = event =>{
                     flow:"vault"
                 }
             }} onInstance={instance => (data.instance = instance)}/>
-              
-              
-            
-            
             </div> 
             <button onClick={buynow} className='order-btn'>Place order</button>
         </div>)
-
-     
- 
-        )
-        
-        
-       
-  
+    )
    
 return(
-  
-    
     <React.Fragment>
-         <button value="MacBook Pro" onClick={showDropIn}>Click Here to Enter Payment Info</button>
-       
+        <button value="MacBook Pro" onClick={showDropIn}>Click Here to Enter Payment Info</button>
         {showSuccess(data.success)}
         {showError(data.error)}
         {paycard}
     </React.Fragment>
-)
-        
-
-
-
+    )
 }
-
 
 export default Checkout

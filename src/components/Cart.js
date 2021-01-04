@@ -28,17 +28,13 @@ const Cart =() => {
         getToken(userId)
       }, []);
 
-      console.log("the dataaaa"+ data)
-
     const getToken=(userId) =>{
-        console.log("entered gettoken")
     getBrainTreeClientToken(userId).then(data =>{ 
         if(data.error){
             setData({...data,error:data.error})
         } else{
             setData({clientToken:data.clientToken})
         }
-        console.log(data.clientToken)
     })  
 }
     const getTotal = () =>{
@@ -64,16 +60,14 @@ const Cart =() => {
     }
 
     const showSuccess = success =>(
-        <text
+        <p
             className="alert alert-info"
             style={{display:success?"":"none"}}>
                Thanks, your payment was successful
-        </text>
+        </p>
     )
+
  function ShowDropIn() {
-   
-   
-    
    return(
        <div> 
            <p> refresh screen to go back</p>  
@@ -86,12 +80,13 @@ const Cart =() => {
         </div>
       );
     }
+
     function tick() {
         ReactDOM.render(     
           <ShowDropIn date={new Date()} />,
           document.getElementById('root')
         );
-      }
+    }
 
     useEffect(() => {
         setItems(getCart())    
@@ -134,7 +129,7 @@ const Cart =() => {
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
                 {/* <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button> */}
-                <h3>Shipping address</h3>
+                {/* <h3>Shipping address</h3>
                 <Form className='shipping-form'>                
                     <Form.Row>
                         <Col>
@@ -177,12 +172,11 @@ const Cart =() => {
                     <Col>
                     </Col>
                     </Form.Row>
-                </Form> 
+                </Form>  */}
                 <h3>Review order</h3>
                
-                {items.length > 0 ? showItems(items): noItemsMessage()}
-                {console.log(items)}
-                <p>{items.title}</p>
+                {items.length > 0 ? showItems(items) : noItemsMessage()}
+                
                 <h3>Payment method</h3>
                 <h6>Paypal, Visa, Mastercard...</h6>
                 <Checkout products={items}/>
