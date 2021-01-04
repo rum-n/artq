@@ -251,6 +251,22 @@ const updateprofile = async (req,res,next) =>{
     res.status(200).json({profile:profile.toObject({getters:true})});
 
 };
+
+const purchaseHistory = async (req,res) =>{
+    Order.find({user:req.user1})
+    .populate("user","_id name")
+    .sort("-created")
+    .exec((err,orders) =>{
+        if(err){
+            return res.status(400).json({
+               
+            })
+        }
+        res.json(orders)
+
+    })
+
+}
 // const addorder = async (req,res,next) =>{
 //     console.log("enterreddddddddd")
 //    const history = new Order({
@@ -318,6 +334,7 @@ const updateprofile = async (req,res,next) =>{
 
 
 // exports.addorder = addorder
+exports.purchaseHistory = purchaseHistory
 exports.updateprofile = updateprofile
 exports.profileById = profileById;
 exports.getUsers = getUsers;

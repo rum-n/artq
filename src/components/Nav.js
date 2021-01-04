@@ -89,6 +89,10 @@ return(
       <Link className='nav-links' to='/admin'>Order Dashboard </Link>
     )}
 
+{auth.isLoggedIn && auth.userId === "5fef79391c01e059f13f3823" && (
+      <Link className='nav-links' to='/manage'>Manage Posts </Link>
+    )}
+
   </Navbar>
   )
 }
