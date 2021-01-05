@@ -113,8 +113,8 @@ const Cart =() => {
         )
     }
     
-    const noItemsMessage =() =>{
-        <p>Your cart is empty. <br/> <Link to="/shop">Continue Shopping</Link></p>
+    const noItemsMessage = () =>{
+        <p>Your cart is empty. <br/> <Link to="/feed">Continue Shopping</Link></p>
     }
 
     const gotopay =() =>{
@@ -125,75 +125,23 @@ const Cart =() => {
     return(
         <div className='cart-wrapper'>
             <div className='payment-method-wrapper'>
-                {/* <button onClick = {gotopay} className='paypal-btn'><img src={paypal} alt='Paypal Logo'/></button> */}
-                {/* <h3>Shipping address</h3>
-                <Form className='shipping-form'>                
-                    <Form.Row>
-                        <Col>
-                        <Form.Control type="text" name="country" placeholder="Country or region"/>
-                        </Col>
-                        <Col>
-                        </Col>
-                    </Form.Row>
-                    <Form.Row>
-                    <Col>
-                        <Form.Control type="text" name="firstname" placeholder="First name" />
-                    </Col>
-                    <Col>
-                        <Form.Control type="text" name="lastname" placeholder="Last name" />
-                    </Col>
-                    </Form.Row>
-                    <Form.Row>
-                    <Col>
-                        <Form.Control type="text" name="street" placeholder="Street Address" />
-                    </Col>
-                    <Col>
-                        <Form.Control type="text" name="houseNumber" placeholder="Apt / Suite" />
-                    </Col>
-                    </Form.Row>
-                    <Form.Row>
-                    <Col>
-                        <Form.Control type="text" name="city" placeholder="City" />
-                    </Col>
-                    <Col>
-                        <Form.Control type="text" name="state" placeholder="State" />
-                    </Col>
-                    <Col>
-                        <Form.Control type="text" name="zipCode" placeholder="Zip Code" />
-                    </Col>
-                    </Form.Row>
-                    <Form.Row>
-                    <Col>
-                        <Form.Control type="text" name="phone" placeholder="Phone number" />
-                    </Col>
-                    <Col>
-                    </Col>
-                    </Form.Row>
-                </Form>  */}
                 <h3>Review order</h3>
-               
-                {items.length > 0 ? showItems(items) : noItemsMessage()}
-                
-                <h3>Payment method</h3>
-                <h6>Paypal, Visa, Mastercard...</h6>
+                {items.length > 0 ? showItems(items) : <p>Your cart is empty. <br/> <Link to="/">Continue Shopping</Link></p>}
+                <h3>Payment & delivery</h3>
                 <Checkout products={items}/>
             </div>
-           
             <div className="order-summary">
                 <h3>Order summary</h3>
                 <div className="order-summary-details">
                     <div>
                     <br/>
-                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : noItemsMessage()}
+                        {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : <p>0 items</p>}
                         <p>Shipping</p>
                         <span>Expected delivery:</span>
                         <p>Tax</p>
                         <br/>
                         <p>Order total</p>
                         ${getTotal(items)}
-                    </div>
-                    <div>
-                        <p>{items.price}</p>
                     </div>
                 </div>
             </div>
