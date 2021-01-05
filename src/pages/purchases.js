@@ -13,13 +13,14 @@ const Purchases = () => {
     const getpurchases = async () => {
 
         try {
-          const response = await fetch(`http://localhost:5000/api/users/orders/by/user/${auth.userId}`);
+          const response = await fetch(`http://localhost:5000/api/users/orders/by/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {
             throw new Error(responseData.message);
           }  
-          setHistory(responseData)
+          setHistory(responseData.userWithImages)
+         
         } catch (err) {
         }
       };

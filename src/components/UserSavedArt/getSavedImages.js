@@ -24,6 +24,8 @@ const GetSavedImages = () => {
           }
           
           setLoadedUsers(responseData.userWithImages);
+          console.log(responseData)
+          console.log(responseData.userWithImages)
          
         } catch (err) {
          

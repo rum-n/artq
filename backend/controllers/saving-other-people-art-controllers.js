@@ -14,6 +14,7 @@ const getArtByUser = async (req,res,next)=>{
     const userId = req.params.uid;
     let userWithImages
     try{
+        console.log(Save)
         userWithImages = await Save.find({user1:userId})
         console.log(userWithImages)
     } catch(err){

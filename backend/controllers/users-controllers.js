@@ -4,7 +4,7 @@ const HttpError = require('../models/http-error');
 const User = require("../models/user");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const {Order} = require("../models/order")
+const Order = require("../models/order")
 const mongoose = require("mongoose")
 
 const getUsers = async (req,res,next) =>{
@@ -22,6 +22,7 @@ const getUsers = async (req,res,next) =>{
 };
 const profileById = async (req,res,next)=>{
     const userId = req.params.uid;
+    console.log("id "+userId)
     let userWithImages
     try{
         userWithImages = await User.findById(userId)
@@ -252,19 +253,34 @@ const updateprofile = async (req,res,next) =>{
 
 };
 
-const purchaseHistory = async (req,res) =>{
-    Order.find({user:req.user1})
-    .populate("user","_id name")
-    .sort("-created")
-    .exec((err,orders) =>{
-        if(err){
-            return res.status(400).json({
-               
-            })
-        }
-        res.json(orders)
+const purchaseHistory = async (req,res,next) =>{
 
-    })
+    const userId = req.params.uid;
+    console.log("hi")
+    console.log(userId)
+    let userWithImages
+    try{
+       
+        console.log(Order.Order)
+        userWithImages = await Order.Order.find({user1:userId})
+        console.log("userWithImages "+userWithImages)
+        
+        
+    } catch(err){
+        console.log("hoi")
+        const error = new HttpError(
+            "Something went wrong, could not find image from provided user id", 500
+        );
+        return next(error);}
+
+
+
+    if (!userWithImages || userWithImages.length === 0){
+        return next(
+            new HttpError("Could not find a image for the provided user id",404)
+        );
+    }
+    res.json({userWithImages: userWithImages.map(userWithImages => userWithImages.toObject({getters:true}))})
 
 }
 // const addorder = async (req,res,next) =>{
