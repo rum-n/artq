@@ -91,7 +91,13 @@ const showAddToCart = (showAddToCartButton) =>{
 
 const showRemoveButton = (showRemoveProductButton) =>{
   return showRemoveProductButton && (
-    <Button onClick={() => removeItem(props.id)}>Remove</Button>
+    <Button 
+      style={{marginBottom:'0.5rem'}} 
+      variant='outline-dark' 
+      block 
+      onClick={() => removeItem(props.id) && window.location.reload()}>
+        Remove
+    </Button>
   )
 }
 

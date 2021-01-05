@@ -6,14 +6,11 @@ import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
 import Checkout from "./Checkout"
 import './Cart.css';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-// import paypal from './../assets/paypal.png';
 import {getBrainTreeClientToken,processPayment} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
-const Cart =() => { 
+const Cart =() => {
     const [items, setItems] = useState([])
     const [data,setData] = useState({
         success:false,

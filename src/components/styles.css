@@ -39,6 +39,10 @@
     margin-bottom: 1rem;
 }
 
+.add-to-cart:hover {
+    background-color: #ee2a7c9f!important;
+}
+
 .save-for-later {
     background-color: transparent!important;
     font-family: "Roboto", sans-serif!important;
@@ -46,6 +50,11 @@
     width: 100%;
     color: #EE2A7B!important;
     margin-bottom: 1rem;
+}
+
+.save-for-later:hover {
+    background-color: #EE2A7B!important;
+    color: white!important;
 }
 
 .see-more {
