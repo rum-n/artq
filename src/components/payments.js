@@ -43,6 +43,23 @@ export const createOrder = (userId,createOrderData) => {
         return response.json();
     }).catch(err => console.log(err))
 };
+
+
+export const createBid = (createBidData) => {
+    console.log("entered create bid")
+    return fetch(`http://localhost:5000/api/bid/`,{
+        method:"POST",
+        headers:{
+            'Content-Type':'application/json'
+
+        },
+        body:JSON.stringify({bid:createBidData})
+
+    }).then(response =>{
+        console.log(response)
+        return response.json();
+    }).catch(err => console.log(err))
+};
     
 //    try{
     

@@ -10,7 +10,8 @@ const userSchema = new Schema({
     image:[{type:mongoose.Types.ObjectId,required:true,ref:"Image"}],
     savedimage:[{type:mongoose.Types.ObjectId,required:true,ref:"Savedimage"}],
     order:[{type:mongoose.Types.ObjectId,required:true,ref:"Order"}],
-    history:{type: Array,default:[]}
+    history:{type: Array,default:[]},
+    bids:{type: Array,default:[]}
 
 });
 

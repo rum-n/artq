@@ -35,7 +35,7 @@ export const validate = (value, validators) => {
       isValid = isValid && value.trim().length <= validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_MIN) {
-      isValid = isValid && +value >= validator.val;
+      isValid = isValid && +value > validator.val;
     }
     if (validator.type === VALIDATOR_TYPE_MAX) {
       isValid = isValid && +value <= validator.val;

@@ -73,7 +73,7 @@ return(
     <Nav className="mr-auto">
         <Link className='nav-links' to={auth.isLoggedIn ? '/' : '/login'}>My Feed</Link>
         <Link className='nav-links' to={auth.isLoggedIn ? '/explore' : '/login'}>Explore</Link>
-        <Link className='nav-links' to={auth.isLoggedIn ? '/currentbid' : '/login'}>Current Bids</Link>
+        <Link className='nav-links' to={auth.isLoggedIn ? '/currentbids' : '/login'}>Current Bids</Link>
         <Link className='nav-links' to={auth.isLoggedIn ? '/saved' : '/login'}>Saved</Link>
         <Link className='nav-links' to={auth.isLoggedIn ? '/nearme' : '/login'}>Near Me</Link>
         <Link className='nav-links' to={auth.isLoggedIn ? '/addart' : '/login'}>Add Art</Link>

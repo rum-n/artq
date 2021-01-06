@@ -23,6 +23,7 @@ import Cart from "./components/Cart";
 import IndividualUserPage from "./pages/IndividualUserPage"
 import AdminDashboard from './pages/AdminDashboard';
 import AdminManagePosts from './pages/adminManagePosts';
+import CurrentBids from './pages/currentBids';
 
 let logoutTimer;
 function App() { 
@@ -85,6 +86,7 @@ function App() {
         <Route path='/admin' component={AdminDashboard} />
          <Route path='/seemore/:imageId' component={SeeMore} /> 
          <Route path='/manage' component={AdminManagePosts} /> 
+         <Route path='/currentbids' component={CurrentBids} /> 
         <Route path='/cart' component={Cart} />
         <Route path='/individual' component={IndividualUserPage} />
         <Route path="/images/:imageId">

@@ -4,16 +4,16 @@ import {AuthContext} from "../context/auth-context";
 import moment from "moment"
 import {useHttpClient} from "../components/hooks/http-hook"
 
-const Purchases = () => {
+const CurrentBids = () => {
     const {sendRequest,clearError} = useHttpClient();
     const [history,setHistory] = useState([])
     const auth = useContext(AuthContext)
     const userId = auth.userId
 
-    const getpurchases = async () => {
+    const getbids = async () => {
 
         try {
-          const response = await fetch(`http://localhost:5000/api/users/orders/by/user/${userId}`);
+          const response = await fetch(`http://localhost:5000/api/bid/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {
@@ -26,34 +26,29 @@ const Purchases = () => {
       };
 
       useEffect(() =>{
-        getpurchases()
+        getbids()
       })
     
-      const purchaseHistory = history => {
+      const bidHistory = history => {
         return (
             <div className="mb-5">
-                <h3 className="card-header">Purchase history</h3>
+                <h3 className="card-header">Your Bids</h3>
                 <ul className="list-group">
                     <li className="list-group-item">
                         {history.map((h, i) => {
                             return (
                                 <div>
                                     <hr/>
-                                    {h.products.map((p, i) => {
-                                        return (
-                                            
-                                            <div key={i}>
-                                                 <hr/>
-                                                <h6>Status: {h.status}</h6>
-                                                <h6>Product name: {h.name}</h6>
-                                                <h6>Product price: ${p.price}</h6>
+                                  <div key={i}>
+                                  <h6>Status: {h.status}</h6>
+                                                
+                                                <h6>Art title: {h.title}</h6>
+                                                <h6>Art bid: ${h.bid}</h6>
                                                 <h6>
-                                                    Purchased date:{" "}
-                                                    {moment(p.createdAt).fromNow()}
+                                                    Placed bid:{" "}
+                                                    {moment(h.createdAt).fromNow()}
                                                 </h6>
                                             </div>
-                                        );
-                                    })}
                                 </div>
                             );
                         })}
@@ -67,7 +62,7 @@ const Purchases = () => {
         <div className="container-fluid">
             <div className="row">
                 <div className="col-9">
-                    {purchaseHistory(history)}
+                    {bidHistory(history)}
 
                 </div>
 
@@ -77,4 +72,4 @@ const Purchases = () => {
     )
 } 
 
-export default Purchases;
+export default CurrentBids;
