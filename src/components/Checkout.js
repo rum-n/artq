@@ -9,7 +9,7 @@ import {emptyCart} from "./cartHelpers"
 const Checkout =({ products })=>{
     const [ clicked, setClicked ] = useState(false)
     const [ thenonce, setNonce ] = useState('')
-    const [paycard,setpaycard] = useState([]);
+    const [ paycard, setPaycard ] = useState();
     let finalnonce = ""
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
    
@@ -34,18 +34,17 @@ const Checkout =({ products })=>{
     }
 
     useEffect(() => {
-        getToken(userId)
-    }, []);
+        getToken(userId);
+        // showDropIn();
+        if (clicked){
+            getnonce()
+        };
+        sendOrderData();
+    });
 
     const handleAddress = event =>{
         setData(data.address = event.target.value)
     }
-
-    useEffect(() =>{
-        if (clicked === true){
-            {getnonce()}
-        }
-    })
 
     const getTotal = () =>{
         return products.reduce((currentValue, nextValue) =>{
@@ -67,10 +66,9 @@ const Checkout =({ products })=>{
         </div>
     )
     
-    useEffect( async() =>{
+    const sendOrderData = async() =>{
         if (clicked === true){
             try {
-                console.log(thenonce)
                   await sendRequest(
                    `http://localhost:5000/api/braintree/payment/${userId}`,
                    'POST',
@@ -108,8 +106,9 @@ const Checkout =({ products })=>{
             setNonce("hi")
             setClicked(false)
         }
-    })
+    }
 
+    // Is this being used anywhere?
     const sendorder = async (createOrderData) => { 
        try {
        await sendRequest(`http://localhost:5000/api/order/useraccount/${userId}`,'POST',JSON.stringify({
@@ -125,8 +124,6 @@ const Checkout =({ products })=>{
         data.instance.requestPaymentMethod().then(data =>{
             nonce = data.nonce
             setNonce(nonce)
-            console.log(thenonce)
-            console.log("send nonce and total to process: ",nonce,getTotal(products))
         })
     }
     
@@ -134,12 +131,12 @@ const Checkout =({ products })=>{
         setClicked(true)
     }
    
-    const showDropIn =() =>(
-        setpaycard (
+    const showDropIn = () =>(
+        setPaycard(
         <div onBlur={() => setData({...data, error:""})}>     
             <div> 
-                <div className="gorm-group mb-3">
-                    <label className="text-muted">Delivery address: </label>
+                <div className="form-group mb-3">
+                    <label style={{marginTop: '0.5rem'}} className="text-muted">Delivery address: </label>
                     <textarea 
                     onChange={handleAddress} 
                     className = "form-control"
@@ -155,12 +152,12 @@ const Checkout =({ products })=>{
             }} onInstance={instance => (data.instance = instance)}/>
             </div> 
             <button onClick={buynow} className='order-btn'>Place order</button>
-        </div>)
-    )
+        </div>
+    ))
    
 return(
     <React.Fragment>
-        <button value="MacBook Pro" onClick={showDropIn}>Click Here to Enter Payment Info</button>
+        <button onClick={showDropIn}>Click Here to Enter Payment Info</button>
         {showSuccess(data.success)}
         {showError(data.error)}
         {paycard}
@@ -168,4 +165,4 @@ return(
     )
 }
 
-export default Checkout
+export default Checkout;
