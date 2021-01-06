@@ -6,9 +6,6 @@ const User = require("../models/user")
 const Bid = require("../models/bid")
 const mongoose = require("mongoose")
 
-
-
-
 const getBidByUser = async (req,res,next)=>{
     const userId = req.params.uid;
     let userWithImages
@@ -21,8 +18,6 @@ const getBidByUser = async (req,res,next)=>{
             "Something went wrong, could not find image from provided user id", 500
         );
         return next(error);}
-
-
 
     if (!userWithImages || userWithImages.length === 0){
         return next(
@@ -61,7 +56,6 @@ const createBid = async (req,res,next) => {
         user1
     });
    
-   
     let user;
     try{
        user =  await User.findById(user1)
@@ -96,8 +90,6 @@ const createBid = async (req,res,next) => {
      return next(error)
      }
     res.status(201).json({art:savedArt});
-
-
 };
 
 

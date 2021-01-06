@@ -1,24 +1,17 @@
-import React, { useState, useEffect,useCallback,useReducer,useContext} from 'react';
+import React, { useState, useEffect, useCallback, useReducer, useContext } from 'react';
 import './SeeMore.css';
 import { useLocation, Redirect } from "react-router-dom";
-import {useHttpClient} from "../components/hooks/http-hook"
-import {getBrainTreeClientToken, createOrder,createBid} from "../components/payments"
-import InputGroup from 'react-bootstrap/InputGroup'
+import { useHttpClient } from "../components/hooks/http-hook"
 import Button from 'react-bootstrap/Button'
-import FormControl from 'react-bootstrap/FormControl'
-import {addItem, removeItem} from "./../components/cartHelpers"
+import { addItem } from "./../components/cartHelpers"
 import { useParams } from 'react-router-dom';
 import Input from '../components/Input';
-import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import {AuthContext} from "../context/auth-context";
-import {
-  VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH,
-  VALIDATOR_MIN
-} from './util/validators';
-const SeeMore = ( props, {match}) => {
+import { VALIDATOR_MIN } from './util/validators';
+
+const SeeMore = () => {
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
   const formReducer = (state, action) => {
@@ -74,7 +67,6 @@ const SeeMore = ( props, {match}) => {
       medium: {
         value: '',
         isValid: false
-       
       }
     },
     isValid: false
@@ -93,18 +85,13 @@ const SeeMore = ( props, {match}) => {
 
   const setValue= (value) =>{
     setbidauth(value)
-
   }
 
   const inputHandler = useCallback((id, value, isValid) => {
-    console.log(value)
-
     setValue(value)
-    console.log(state.value)
     if (value<state.value){
       return(true)
     }
-   
     
     dispatch({
       type: 'INPUT_CHANGE',
@@ -114,11 +101,8 @@ const SeeMore = ( props, {match}) => {
     });
   }, []);
 
-  
- 
   let data = useLocation();
   const params = useParams();
-  console.log(params)
   const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
   const [ name, setName ] = useState([])
@@ -140,30 +124,20 @@ const SeeMore = ( props, {match}) => {
 
   useEffect(() => {
     const sendRequest = async () => {
-
       try {
         const response = await fetch(`http://localhost:5000/api/images/${params.imageId}`);
         const responseData = await response.json();
-        
         if (!response.ok) {
           throw new Error(responseData.message);
         }
         console.log(responseData.image)
         setState(responseData.image);
         getname(responseData.image)
-        
-
       } catch (err) {
         alert(err)
       }
     };
     sendRequest();
-
-   
-  
-
-    
-    
   }, []);
 
   const sendbid = async event => {
@@ -172,8 +146,7 @@ const SeeMore = ( props, {match}) => {
     console.log("state "+state)
     try{
       console.log(state.title,state.description,state.dimentions,state.address,state.url,state.type,state.duration,bidauth,state.medium,state.author,state.user1)
-    
-    
+      
     await sendRequest('http://localhost:5000/api/bid/','POST',JSON.stringify({
       
       "title":state.title,
@@ -191,79 +164,74 @@ const SeeMore = ( props, {match}) => {
       "medium":state.medium,
       "author":state.author,
       "user1":auth.userId,
-      
-  
-     
     }),{
-      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
+      'Content-Type': 'application/json', Authorization: 'Bearer '+ auth.token
     })
     
     alert("successfully sumbitted bid!")
   } catch(err){
-  
     console.log(err)
   }
 };
 
-
   const getname = async (state) => {
-
     try {
-      console.log(state)
-      
       const response = await fetch(`http://localhost:5000/api/users/${state.author}`);
       const responseData = await response.json();
-      console.log(responseData)
-      
       if (!response.ok) {
         throw new Error(responseData.message);
       }
       setName(responseData.userWithImages.name);
-      console.log(responseData)
-      
-
     } catch (err) {
       alert(err)
     }
   };
 
   return (
-    <React.Fragment>
-      <div className='seemore-img'>
-        <img src={state.url} alt={state.title} />
-        {shouldRedirect(redirect)}
-      </div>
-      <div className="seemore-details">
-       
-      <h1>{name}</h1>
-        <h1>{state.title}</h1>
-        <div className="seemore-details-table">
-          <div className="seemore-details-table-left">
-            
-            <p>Current price ($)</p>
-            <p>Time remaining</p>
-            <p>Bids</p>
-            <p>Medium</p>
-            <p>Dimensions</p>
-          </div>
-          <div div className="seemore-details-table-right">
-            <h2>{state.address}</h2>
-            <p>{state.price}</p>
-            <p>{state.duration} hours</p> 
-            <p>11 bids</p>
-            {/* we don't have number of bids right now */}
-            <p>{state.medium}</p>
-            <p>{state.dimentions}</p>
-            
-          </div>
+    <div className='seemore-wrapper'>
+      
+        <div className='seemore-img'>
+          <img src={state.url} alt={state.title} />
+          {shouldRedirect(redirect)}
         </div>
-      </div>
+
+    <div className="seemore-details">
+      <h1>{state.title}</h1>
+          <table>
+            <tr>
+              <td className='left'><p>Artist</p></td>
+              <td className='right'><p>{name}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Location</p></td>
+              <td className='right'><p>{state.address}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Current price ($)</p></td>
+              <td className='right'><p>{state.price}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Time remaining</p></td>
+              <td className='right'><p>{state.duration} hours</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Bids</p></td>
+              <td className='right'><p>{state.bidauth}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Medium</p></td>
+              <td className='right'><p>{state.medium}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Dimensions</p></td>
+              <td className='right'><p>{state.dimentions}</p></td>
+            </tr>
+          </table>
+
       <div className='seemore-btn-wrapper'>
 
-      {state.type == "Sell" &&
-     
+        {state.type == "Sell" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
-     
        
         {state.type == "Auction" &&
         <Form.Group as={Row} controlId="description">
@@ -276,18 +244,16 @@ const SeeMore = ( props, {match}) => {
               validators={[VALIDATOR_MIN(state.price)]}
               errorText="Please enter a valid bid (more than the current bid)."
               onInput={inputHandler}
-              
             />
 
-           
-            
         <Button type="submit" onClick={(e) =>sendbid(e)} disabled={authenticated(state.price)}>
           Publish
         </Button>
          
         </Form.Group>}
       </div>
-    </React.Fragment>
+      </div>
+    </div>
   )
 }
 

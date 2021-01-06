@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import './signUp.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
@@ -8,7 +8,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import plus from '../assets/plus.png'; 
 import {useHttpClient} from "../components/hooks/http-hook"
-import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 
 //sending http request
 //
@@ -113,6 +112,7 @@ let handleChange = (e) => {
                 </Col>
             </Form.Row>
                 <Button onClick= {save}>Next <span>→</span></Button>
+                <p>Already have an account? <Link to='/login'>Sign in!</Link></p>
             </Form>          
             </div>
         </div>
