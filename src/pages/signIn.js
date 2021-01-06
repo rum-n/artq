@@ -1,24 +1,14 @@
 import React, { useState, useContext} from 'react';
-import { useHistory,Redirect } from 'react-router-dom';
+import { useHistory, Redirect, Link } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import plus from '../assets/plus.png'; 
 import {useHttpClient} from "../components/hooks/http-hook"
-import {VALIDATOR_REQUIRE} from "../pages/util/validators"
 import {AuthContext} from "../context/auth-context"
 
-//sending http request
-//
-//  fetch('http://localhost:5000/api/users/signup',{method:"POST",headers:{
-//                    "Content-Type":'application/json'},body:JSON.stringify({"name":"naan",
-//                     "email":"hiiiiio@gmail.com",
-//                    "password":"hiiiii",
-//                     "phone": 85098409,
-//                     "image": "hii.png"})})
 const SignIn =  () => {
     const auth = useContext(AuthContext);
     const{error,sendRequest,clearError,theresponse} = useHttpClient();
@@ -117,6 +107,7 @@ let handleChange = (e) => {
                 </Col>
             </Form.Row>
                 <Button onClick= {save}>Login <span>→</span></Button>
+                <p>Don't have an account? <Link to='/signup'>Sign up!</Link></p>
             </Form>          
             </div>
         </div>
