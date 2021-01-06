@@ -21,8 +21,9 @@ const bidSchema = new Schema({
         default: "In-progress",
         enum: ["In-progress", "You did not win", "You won the bid!"] // enum means string objects
       },
+      
     
   
-})
+},{ timestamps: true })
 
 module.exports = mongoose.model('Bid',bidSchema);

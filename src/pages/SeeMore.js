@@ -198,7 +198,7 @@ const SeeMore = ( props, {match}) => {
       'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
     })
     
-    
+    alert("successfully sumbitted bid!")
   } catch(err){
   
     console.log(err)

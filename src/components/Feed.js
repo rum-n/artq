@@ -30,6 +30,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
   const [activetype, setActivetype] = useState('');
   const [activeduration, setActiveduration] = useState('');
   const [activemedium, setActivemedium] = useState('');
+  const [showcartbutton, setshowcartbutton] = useState('');
   
   const handleClose = () => setShow(false);
   const handleShow = (item) => {
@@ -84,9 +85,15 @@ const Feed = (props, { showAddToCartButton = true }) => {
 };
 
 const showAddToCart = (showAddToCartButton) =>{
-  return showAddToCartButton && (
+  if (props.type == "Sell"){
+  return showAddToCartButton && props.type != "Auction" && (
     <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
-  )
+  )}
+ 
+  else{
+    return(
+    <text>The item is not for sale</text>)
+  }
 }
 
 const showRemoveButton = (showRemoveProductButton) =>{
@@ -100,6 +107,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
     </Button>
   )
 }
+
 
   return (
     <div>

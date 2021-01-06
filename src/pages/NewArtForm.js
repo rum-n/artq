@@ -67,10 +67,7 @@ const NewPlace = () => {
         value: '',
         isValid: false
       },
-      price: {
-        value: 0,
-        isValid: false
-      },
+      
       medium: {
         value: '',
         isValid: false
@@ -215,7 +212,8 @@ const handlebuy = (method) =>{
         <label>
           Planning to Sell? 
           <select value={methodofbuying} onChange={e => setmethodofbuying(e.target.value)}>
-          <option value="none">Not for sale</option>
+          <option value="none"> </option>
+          <option value="No">Not for sale</option>
             <option value="Auction" >Auction</option>
             <option value="Sale">Sale</option>
            
@@ -264,11 +262,11 @@ const handlebuy = (method) =>{
          </Col>
        </Form.Group>}
 
-       {methodofbuying == "none" &&
-       formState.isValid == false
+       {methodofbuying == "No" &&
+       formState.isValid == true && setmethodofbuying("No")
          }
 
-        <Button type="submit" disabled={!formState.isValid && methodofbuying != "none" }>
+        <Button type="submit" disabled={!formState.isValid || methodofbuying == "No" }>
           Publish
         </Button>
       </Form>

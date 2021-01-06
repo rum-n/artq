@@ -101,6 +101,12 @@ const createBid = async (req,res,next) => {
 };
 
 
+exports.updateOrderStatus = (req,res) =>{
+    Bid.update({_id: req.body.orderId},{$set:{status:req.body.status}},(err,order) =>{
+      
+        res.json(order)
+    })
+}
 
 
 
