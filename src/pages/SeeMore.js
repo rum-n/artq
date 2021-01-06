@@ -186,36 +186,49 @@ const SeeMore = () => {
   };
 
   return (
-    <React.Fragment>
-      <div className='seemore-img'>
-        <img src={state.url} alt={state.title} />
-        {shouldRedirect(redirect)}
-      </div>
-      <div className="seemore-details">
-       
-      <h1>{name}</h1>
-        <h1>{state.title}</h1>
-        <div className="seemore-details-table">
-          <div className="seemore-details-table-left">
-            <p>Current price ($)</p>
-            <p>Time remaining</p>
-            <p>Bids</p>
-            <p>Medium</p>
-            <p>Dimensions</p>
-          </div>
-          <div div className="seemore-details-table-right">
-            <h2>{state.address}</h2>
-            <p>{state.price}</p>
-            <p>{state.duration} hours</p> 
-            <p>{state.bidauth}</p>
-            <p>{state.medium}</p>
-            <p>{state.dimentions}</p>
-          </div>
+    <div className='seemore-wrapper'>
+      
+        <div className='seemore-img'>
+          <img src={state.url} alt={state.title} />
+          {shouldRedirect(redirect)}
         </div>
-      </div>
+
+    <div className="seemore-details">
+      <h1>{state.title}</h1>
+          <table>
+            <tr>
+              <td className='left'><p>Artist</p></td>
+              <td className='right'><p>{name}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Location</p></td>
+              <td className='right'><p>{state.address}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Current price ($)</p></td>
+              <td className='right'><p>{state.price}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Time remaining</p></td>
+              <td className='right'><p>{state.duration} hours</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Bids</p></td>
+              <td className='right'><p>{state.bidauth}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Medium</p></td>
+              <td className='right'><p>{state.medium}</p></td>
+            </tr>
+            <tr>
+              <td className='left'><p>Dimensions</p></td>
+              <td className='right'><p>{state.dimentions}</p></td>
+            </tr>
+          </table>
+
       <div className='seemore-btn-wrapper'>
 
-      {state.type == "Sell" &&
+        {state.type == "Sell" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
         {state.type == "Auction" &&
@@ -237,7 +250,8 @@ const SeeMore = () => {
          
         </Form.Group>}
       </div>
-    </React.Fragment>
+      </div>
+    </div>
   )
 }
 
