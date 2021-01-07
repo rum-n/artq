@@ -8,6 +8,8 @@ const CurrentBids = () => {
     const {sendRequest,clearError} = useHttpClient();
     const [history,setHistory] = useState([])
     const [duration,setduration] = useState([])
+    const [ winningbid, setwinningbid ] = useState(0)
+    const [peoplewhobidded,setpeoplewhobidded] = useState([])
     const auth = useContext(AuthContext)
     const userId = auth.userId
 
@@ -19,6 +21,26 @@ const CurrentBids = () => {
         setduration(d)
     )
 
+    const getwinningbid = async (o) => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/bid/${o.artId}`);
+          const responseData = await response.json();
+          if (!response.ok) {
+            throw new Error(responseData.message);
+          }
+          console.log(responseData.userWithImages.length)
+          for (var i =0; i<responseData.userWithImages.length;i++){
+            if(responseData.userWithImages[i].bid>winningbid){
+              setwinningbid(responseData.userWithImages[i].bid)
+            }
+    
+          }
+          
+        } catch (err) {
+          
+        }
+      };
+
     const getbids = async () => {
 
         try {
@@ -29,6 +51,8 @@ const CurrentBids = () => {
             throw new Error(responseData.message);
           }  
           setHistory(responseData.userWithImages)
+          bidHistory(history)
+         
          
         } catch (err) {
         }
@@ -36,10 +60,19 @@ const CurrentBids = () => {
 
       useEffect(() =>{
         getbids()
+        bidHistory(history)
+       
       })
 
-      const updateBidStatus = async (o,newstatus) => {
+      const updateBidStatus = async (o,winstatus,losestatus) => {
         console.log("entered placesubmit handler" )
+        let status = ""
+        if (o.bid == winningbid){
+            status = winstatus
+        }
+        else{
+            status = losestatus
+        }
         
         try{
       
@@ -47,7 +80,30 @@ const CurrentBids = () => {
          
         await sendRequest(`http://localhost:5000/api/bid/${o._id}/status/${o.user1}`,'PUT',JSON.stringify({
             "orderId" : o._id,
-           "status":newstatus
+           "status":status
+        }),{
+            'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+          })
+          
+      } catch(err){
+      
+        console.log(err)
+      }
+     
+     
+    };
+
+    const updateSoldStatus = async (o) =>{
+      try{
+      
+    
+    
+     
+        await sendRequest(`http://localhost:5000/api/images/sold/${o.artId}`,'PUT',JSON.stringify({
+          "id":o.artId,
+                "status":"sold"
+          
+            
         }),{
             'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
           })
@@ -56,9 +112,23 @@ const CurrentBids = () => {
       
         console.log(err)
       }
-      
-     
-    };
+    }
+
+    const getallbidsforitem = async (o) => {
+        try {
+          const response = await fetch(`http://localhost:5000/api/bid/${o.artId}`);
+          const responseData = await response.json();
+          if (!response.ok) {
+            throw new Error(responseData.message);
+          }
+          
+          peoplewhobidded.push(responseData.userWithImages.user1);
+        
+         
+        } catch (err) {
+          
+        }
+      };
     
       const bidHistory = history => {
         return (
@@ -67,9 +137,17 @@ const CurrentBids = () => {
                 <ul className="list-group">
                     <li className="list-group-item">
                         {history.map((h, i) => {
+                           
 
-                            if ((moment(h.createdAt).fromNow()) == `20 minutes ago`){
-                                updateBidStatus(h,"you won the bid!")
+                            if ((moment(h.createdAt).fromNow()) == `7 minutes ago`){
+                                getallbidsforitem(h)
+                                //add for loop
+                                console.log("entered")
+                                getwinningbid(h)
+                                updateBidStatus(h,`you won the bid!`,"you lost the bid")
+                                updateSoldStatus(h)
+                                
+                               
                                
                             }
                             return (
@@ -96,10 +174,13 @@ const CurrentBids = () => {
         );
     };
 
+    
+ 
     return(
         <div className="container-fluid">
             <div className="row">
                 <div className="col-9">
+                  
                     {bidHistory(history)}
 
                 </div>

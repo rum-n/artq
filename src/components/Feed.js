@@ -89,11 +89,24 @@ const showAddToCart = (showAddToCartButton) =>{
   return showAddToCartButton && props.type != "Auction" && (
     <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
   )}
+  if(props.type == "Auction" && props.status != "sold"){
+    return(
+    <text>The item is up for auction!</text>)
+  }
+  console.log(props)
+
+  if(props.type == "Auction" && props.status == "sold"){
+    return(
+    <text style={{color: "red"}}>Sold!</text>)
+  }
+
+
  
-  else{
+  if(props.type == "No"){
     return(
     <text>The item is not for sale</text>)
   }
+
 }
 
 const showRemoveButton = (showRemoveProductButton) =>{

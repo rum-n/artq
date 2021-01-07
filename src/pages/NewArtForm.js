@@ -67,6 +67,10 @@ const NewPlace = () => {
         value: '',
         isValid: false
       },
+      address: {
+        value: 0,
+        isValid: true
+      },
       
       medium: {
         value: '',
@@ -88,19 +92,20 @@ const NewPlace = () => {
   }, []);
 
   const placeSubmitHandler = async event => {
+    console.log(methodofbuying)
     event.preventDefault();
     try{
     
       console.log(auth.userId)
     await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
       title:formState.inputs.title.value,
-      
+      status:"Not sold",
       description:formState.inputs.description.value,
       dimentions:formState.inputs.dimentions.value,
       duration: 3, //change this to use what user clicked
       medium: formState.inputs.medium.value,
-      price: formState.inputs.price.value,
-      type: "Auction", //change this to use what user clicked
+      price: 0,
+      type: methodofbuying, //change this to use what user clicked
       address:formState.inputs.address.value,
       url:formState.inputs.url.value,
       author: auth.userId
@@ -263,10 +268,10 @@ const handlebuy = (method) =>{
        </Form.Group>}
 
        {methodofbuying == "No" &&
-       formState.isValid == true && setmethodofbuying("No")
+       formState.isValid == true 
          }
 
-        <Button type="submit" disabled={!formState.isValid || methodofbuying == "No" }>
+        <Button type="submit" disabled={!formState.isValid  }>
           Publish
         </Button>
       </Form>

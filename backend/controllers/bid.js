@@ -27,6 +27,28 @@ const getBidByUser = async (req,res,next)=>{
     res.json({userWithImages: userWithImages.map(userWithImages => userWithImages.toObject({getters:true}))})
 
 }
+
+const getBidByArtId = async (req,res,next)=>{
+    const artId = req.params.imgid;
+    let userWithImages
+    try{
+        console.log(Bid)
+        userWithImages = await Bid.find({artId:artId})
+        console.log(userWithImages)
+    } catch(err){
+        const error = new HttpError(
+            "Something went wrong, could not find image from provided user id", 500
+        );
+        return next(error);}
+
+    if (!userWithImages || userWithImages.length === 0){
+        return next(
+            new HttpError("Could not find a image for the provided user id",404)
+        );
+    }
+    res.json({userWithImages: userWithImages.map(userWithImages => userWithImages.toObject({getters:true}))})
+
+}
 const createBid = async (req,res,next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
@@ -34,7 +56,7 @@ const createBid = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,dimentions,location,author,type,duration,bid,medium,address,user1} = req.body;
+    const {title,url,description,artId,dimentions,location,author,type,duration,bid,medium,address,user1} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -43,6 +65,7 @@ const createBid = async (req,res,next) => {
     }
     const savedArt = new Bid({
         title,
+        artId,
         description,
         dimentions,
         url,
@@ -100,8 +123,16 @@ exports.updateOrderStatus = (req,res) =>{
     })
 }
 
+exports.updateBidPrice = (req,res) =>{
+    Bid.update({_id: req.body.orderId},{$set:{bid:req.body.bid}},(err,order) =>{
+      
+        res.json(order)
+    })
+}
 
 
 
+
+exports.getBidByArtId = getBidByArtId;
 exports.getBidByUser = getBidByUser;
 exports.createBid = createBid;

@@ -65,7 +65,7 @@ const saveArt = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,dimentions,price,author,type,duration,medium,address} = req.body;
+    const {title,url,description,dimentions,status,price,author,type,duration,medium,address} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -76,6 +76,7 @@ const saveArt = async (req,res,next) => {
     }
     const savedArt = new Image({
         title,
+        status,
         description,
         dimentions,
         price,
@@ -248,6 +249,21 @@ exports.decreaseQuantity = (req,res,next) =>{
     })
 }
 
+const updateBidPrice = (req,res) =>{
+    Image.update({_id: req.body.id},{$set:{price:req.body.price}},(err,order) =>{
+      
+        res.json(order)
+    })
+}
+
+const updateStatus = (req,res) =>{
+    Image.update({_id: req.body.id},{$set:{status:req.body.status}},(err,order) =>{
+      
+        res.json(order)
+    })
+}
+exports.updateStatus = updateStatus
+exports.updateBidPrice = updateBidPrice
 exports.getAllArt = getAllArt;
 exports.getArtById = getArtById;
 exports.getArtByUser = getArtByUser;

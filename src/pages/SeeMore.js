@@ -106,6 +106,7 @@ const SeeMore = () => {
   const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
   const [ name, setName ] = useState([])
+  const [ numberofbids, setnumberofbids ] = useState([])
   const [ validatebid, setvalidatebid ] = useState(false)
   const [redirect,setRedirect] = useState(false)
 
@@ -122,6 +123,8 @@ const SeeMore = () => {
     }
   }
 
+  
+
   useEffect(() => {
     const sendRequest = async () => {
       try {
@@ -134,10 +137,30 @@ const SeeMore = () => {
         setState(responseData.image);
         getname(responseData.image)
       } catch (err) {
-        alert(err)
+        
       }
     };
     sendRequest();
+
+    const getnumberofbids = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/bid/${params.imageId}`);
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        console.log(responseData.userWithImages.length)
+        setnumberofbids(responseData.userWithImages.length);
+        if (responseData.userWithImages.length == []){
+          setnumberofbids("0")
+        }
+       
+      } catch (err) {
+        
+      }
+    };
+    getnumberofbids();
+
   }, []);
 
   const sendbid = async event => {
@@ -145,11 +168,12 @@ const SeeMore = () => {
     event.preventDefault();
     console.log("state "+state)
     try{
-      console.log(state.title,state.description,state.dimentions,state.address,state.url,state.type,state.duration,bidauth,state.medium,state.author,state.user1)
+      console.log(state._id,state.description,state.dimentions,state.address,state.url,state.type,state.duration,bidauth,state.medium,state.author,state.user1)
       
     await sendRequest('http://localhost:5000/api/bid/','POST',JSON.stringify({
       
       "title":state.title,
+      "artId":state._id,
       "description": state.description,
       "dimentions": state.dimentions,
       "url":state.url,
@@ -172,6 +196,25 @@ const SeeMore = () => {
   } catch(err){
     console.log(err)
   }
+
+  try{
+    
+    
+     
+    await sendRequest(`http://localhost:5000/api/images/${state._id}`,'PUT',JSON.stringify({
+      "id":state._id,
+            "price":bidauth
+      
+        
+    }),{
+        'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+      })
+  
+  } catch(err){
+  
+    console.log(err)
+  }
+ 
 };
 
   const getname = async (state) => {
@@ -183,9 +226,15 @@ const SeeMore = () => {
       }
       setName(responseData.userWithImages.name);
     } catch (err) {
-      alert(err)
+      
     }
   };
+
+
+  console.log(numberofbids.length)
+  if(numberofbids.length == 0){
+    setnumberofbids("be the first bid!")
+  }
 
   return (
     <div className='seemore-wrapper'>
@@ -216,7 +265,7 @@ const SeeMore = () => {
             </tr>
             <tr>
               <td className='left'><p>Bids</p></td>
-              <td className='right'><p>{state.bidauth}</p></td>
+              <td className='right'><p>{numberofbids}</p></td>
             </tr>
             <tr>
               <td className='left'><p>Medium</p></td>
@@ -233,7 +282,7 @@ const SeeMore = () => {
         {state.type == "Sell" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
-        {state.type == "Auction" &&
+        {state.type == "Auction" && state.status!="sold" &&
         <Form.Group as={Row} controlId="description">
           <Form.Label >Place Bid</Form.Label>
         

@@ -2,6 +2,11 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 const imageSchema = new Schema({
     title:{type:String,required:true},
+    status: {
+        type: String,
+        default: "Not sold",
+        enum: ["Not sold", "sold"] // enum means string objects
+      },
     description: { type: String, required: true },
     dimentions: { type: String, required: true },
     price: { type: Number},

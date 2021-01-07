@@ -11,8 +11,12 @@ router.get('/',savedartcontrollers.getAllArt);
 
 
 router.get('/user/:uid',savedartcontrollers.getArtByUser);
+router.put("/:imgId",savedartcontrollers.updateBidPrice)
+router.put("/sold/:imgId",savedartcontrollers.updateStatus)
 
 router.use(checkAuth);
+
+
 
 router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
 

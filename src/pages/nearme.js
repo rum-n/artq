@@ -127,7 +127,7 @@ const GoogleMaps =  (props,{ latitude, longitude }) => {
       dataArrayTitle[i]+" "+ dataArrayDescription[i]
       
     let infowindow = new maps.InfoWindow({
-      content: `<Modal > <Modal.Header closeButton><Modal.Title></Modal.Title></Modal.Header><Modal.Body><Container><Row><Col xs={12} md={6}><img className='modal-img' src=${dataArrayimage[i]} alt={activeItem.name}/></Col><Col xs={12} md={6}><h3>${dataArrayTitle[i]}</h3><p><b></b></p><p>${dataArrayDescription[i]}</p> <a href="http://localhost:3000/seemore/5ff346f265bdacb8b20812c0">More Details</a> </Modal.Footer></Modal>`,
+      content: `<Modal > <Modal.Header closeButton><Modal.Title></Modal.Title></Modal.Header><Modal.Body><Container><Row><Col xs={12} md={6}><img className='modal-img' src=${dataArrayimage[i]} alt={activeItem.name}/></Col><Col xs={12} md={6}><h3>${dataArrayTitle[i]}</h3><p><b></b></p><p>${dataArrayDescription[i]}</p> <a href="http://localhost:3000/seemore/${dataArrayid[i]}">More Details</a> </Modal.Footer></Modal>`,
     });
     marker.addListener("click", () => {
       infowindow.open(map, marker);
