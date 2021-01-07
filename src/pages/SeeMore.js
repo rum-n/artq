@@ -72,7 +72,7 @@ const SeeMore = () => {
     isValid: false
   });
 
-  const [bidauth,setbidauth] = useState("")
+  const [ bidauth, setbidauth ] = useState("")
 
   const authenticated = (price) =>{
    if (bidauth>price){
@@ -122,8 +122,6 @@ const SeeMore = () => {
       return <Redirect to="/cart"/>
     }
   }
-
-  
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -196,25 +194,16 @@ const SeeMore = () => {
   } catch(err){
     console.log(err)
   }
-
   try{
-    
-    
-     
     await sendRequest(`http://localhost:5000/api/images/${state._id}`,'PUT',JSON.stringify({
       "id":state._id,
-            "price":bidauth
-      
-        
+        "price":bidauth     
     }),{
         'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-      })
-  
+      }) 
   } catch(err){
-  
     console.log(err)
   }
- 
 };
 
   const getname = async (state) => {
@@ -230,8 +219,6 @@ const SeeMore = () => {
     }
   };
 
-
-  console.log(numberofbids.length)
   if(numberofbids.length == 0){
     setnumberofbids("be the first bid!")
   }
@@ -279,10 +266,10 @@ const SeeMore = () => {
 
       <div className='seemore-btn-wrapper'>
 
-        {state.type == "Sell" &&
+        {state.type === "Sell" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
-        {state.type == "Auction" && state.status!="sold" &&
+        {state.type === "Auction" && state.status!="sold" &&
         <Form.Group as={Row} controlId="description">
           <Form.Label >Place Bid</Form.Label>
         
@@ -295,7 +282,7 @@ const SeeMore = () => {
               onInput={inputHandler}
             />
 
-        <Button type="submit" onClick={(e) =>sendbid(e)} disabled={authenticated(state.price)}>
+        <Button type="submit" onClick={(e) =>sendbid(e) && window.location.reload()} disabled={authenticated(state.price)}>
           Publish
         </Button>
          

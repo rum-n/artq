@@ -23,13 +23,13 @@
 .add-art-form-wrapper {
   width: 80%;
   margin: auto;
-  margin-top: 3rem;
+  margin-top: 4rem;
   font-family: 'Roboto', sans-serif;
 }
 
 .add-art-form-wrapper .form-control {
   background: none;
-  margin: 0;
+  margin-top: 0;
 }
 
 .add-art-form-wrapper input {
@@ -39,7 +39,12 @@
   border-right: none;
   background: transparent;
   margin-left: 2rem;
-  margin-top: -2rem;
+}
+
+.add-art-form-wrapper select {
+  /* border: 1px solid black!important; */
+  margin-left: 2rem;
+  background: white!important;
 }
 
 .add-art-form-wrapper .form-control p {
@@ -63,4 +68,5 @@
 
 .add-art-form-wrapper button{
   float: right;
+  margin-top: 2rem;
 }

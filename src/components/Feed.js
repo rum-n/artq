@@ -85,28 +85,25 @@ const Feed = (props, { showAddToCartButton = true }) => {
 };
 
 const showAddToCart = (showAddToCartButton) =>{
-  if (props.type == "Sell"){
-  return showAddToCartButton && props.type != "Auction" && (
+  if (props.type === "Sell"){
+  return showAddToCartButton && props.type !== "Auction" && (
     <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
   )}
-  if(props.type == "Auction" && props.status != "sold"){
+  if(props.type === "Auction" && props.status !== "sold"){
     return(
     <text>The item is up for auction!</text>)
   }
   console.log(props)
 
-  if(props.type == "Auction" && props.status == "sold"){
+  if(props.type === "Auction" && props.status === "sold"){
     return(
     <text style={{color: "red"}}>Sold!</text>)
   }
-
-
  
-  if(props.type == "No"){
+  if(props.type === "No"){
     return(
     <text>The item is not for sale</text>)
   }
-
 }
 
 const showRemoveButton = (showRemoveProductButton) =>{
