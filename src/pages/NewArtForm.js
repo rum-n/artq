@@ -211,7 +211,11 @@ const handlebuy = (method) =>{
         <Form.Group as={Row}>
           <Form.Label column sm="4">Planning to Sell?</Form.Label>
           <Col sm="6">
-            <Form.Control as='select' defaultValue="Choose...">
+            <Form.Control 
+              as='select' 
+              defaultValue="Choose..." 
+              value={methodofbuying} 
+              onChange={e => setmethodofbuying(e.target.value)}>
             <option value="none"> </option>
             <option value="No">Not for sale</option>
             <option value="Auction" >Auction</option>
@@ -250,7 +254,7 @@ const handlebuy = (method) =>{
 
         {methodofbuying === "Sale" &&
          <Form.Group as={Row} controlId="price">
-         <Form.Label column sm="4">price (USD)</Form.Label>
+         <Form.Label column sm="4">Price (USD)</Form.Label>
          <Col sm="6">
            <Input
              id="price"
