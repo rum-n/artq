@@ -7,21 +7,12 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import plus from '../assets/plus.png'; 
-import {useHttpClient} from "../components/hooks/http-hook"
+import { useHttpClient } from "../components/hooks/http-hook"
 
-//sending http request
-//
-//  fetch('http://localhost:5000/api/users/signup',{method:"POST",headers:{
-//                    "Content-Type":'application/json'},body:JSON.stringify({"name":"naan",
-//                     "email":"hiiiiio@gmail.com",
-//                    "password":"hiiiii",
-//                     "phone": 85098409,
-//                     "image": "hii.png"})})
 const Signup =  () => {
-    // const history = useHistory();
-    const { error, sendRequest, clearError, theresponse } = useHttpClient();
-    const[redirect,setRedirect] = useState(false)
-    const [account, setAccount] = useState({
+    const { sendRequest } = useHttpClient();
+    const [ redirect, setRedirect ] = useState(false)
+    const [ account, setAccount ] = useState({
         firstname:'',
         lastname:'',
         email:'',
@@ -61,7 +52,7 @@ let handleChange = (e) => {
 }
     const shouldRedirect = redirect =>{
         if (redirect){
-            return <Redirect to = "/"/>
+            return <Redirect to = "/login"/>
         }
     }
 
@@ -119,6 +110,5 @@ let handleChange = (e) => {
         </React.Fragment>
     )
 } 
-
 
 export default Signup;

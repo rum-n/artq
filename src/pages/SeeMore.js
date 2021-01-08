@@ -12,7 +12,7 @@ import {AuthContext} from "../context/auth-context";
 import { VALIDATOR_MIN } from './util/validators';
 
 const SeeMore = () => {
-  const {error,sendRequest,clearError} = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
   const formReducer = (state, action) => {
     switch (action.type) {
@@ -103,11 +103,11 @@ const SeeMore = () => {
 
   let data = useLocation();
   const params = useParams();
-  const [ counter, setCounter ] = useState(60);
+  // const [ counter, setCounter ] = useState(60);
   const [ state, setState ] = useState({})
   const [ name, setName ] = useState([])
   const [ numberofbids, setnumberofbids ] = useState([])
-  const [ validatebid, setvalidatebid ] = useState(false)
+  // const [ validatebid, setvalidatebid ] = useState(false)
   const [redirect,setRedirect] = useState(false)
 
   const addToCart =() =>{
@@ -131,11 +131,10 @@ const SeeMore = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-        console.log(responseData.image)
         setState(responseData.image);
         getname(responseData.image)
       } catch (err) {
-        
+        console.log(err);
       }
     };
     sendRequest();
@@ -147,29 +146,21 @@ const SeeMore = () => {
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-        console.log(responseData.userWithImages.length)
         setnumberofbids(responseData.userWithImages.length);
-        if (responseData.userWithImages.length == []){
+        if (responseData.userWithImages.length === []){
           setnumberofbids("0")
         }
-       
       } catch (err) {
-        
+        console.log(err);
       }
     };
     getnumberofbids();
-
   }, []);
 
   const sendbid = async event => {
-    console.log("entered sendbid")
     event.preventDefault();
-    console.log("state "+state)
-    try{
-      console.log(state._id,state.description,state.dimentions,state.address,state.url,state.type,state.duration,bidauth,state.medium,state.author,state.user1)
-      
+    try {
     await sendRequest('http://localhost:5000/api/bid/','POST',JSON.stringify({
-      
       "title":state.title,
       "artId":state._id,
       "description": state.description,
@@ -189,8 +180,7 @@ const SeeMore = () => {
     }),{
       'Content-Type': 'application/json', Authorization: 'Bearer '+ auth.token
     })
-    
-    alert("successfully sumbitted bid!")
+    alert("successfully submitted bid!")
   } catch(err){
     console.log(err)
   }

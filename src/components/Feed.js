@@ -16,7 +16,6 @@ const Feed = (props, { showAddToCartButton = true }) => {
   const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
-  const [loadedUsers, setLoadedUsers] = useState();
   const [redirect, setRedirect] = useState(false)
   const [show, setShow] = useState(false);
   const [activeItem, setActiveItem] = useState('');

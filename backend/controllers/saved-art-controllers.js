@@ -113,17 +113,11 @@ const saveArt = async (req,res,next) => {
 
      try{
       const sess = await mongoose.startSession();
-      console.log("hi")
       sess.startTransaction();
-      console.log("hi")
       await savedArt.save({session:sess});
-      console.log("hi")
       user.image.push(savedArt);
-      console.log("hi")
      await user.save({session:sess});
-     console.log("hi")
       await sess.commitTransaction();
-      console.log("hi")
      } catch(err){
          const error = new HttpError("Saving Image failed",500);
     

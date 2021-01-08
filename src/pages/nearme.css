@@ -1,5 +1,44 @@
-.map {
-    width: 100%;
+/* .map {
+    width: 70%;
     height: 100%;
-  }
+} */
+
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.nearme-search {
+  width: 45%;
+  height: 35px;
+  padding-left: 1rem;
+  font-family: "Roboto", sans-serif;
+  margin: auto;
+  border: none;
+  background: #EBEAEA;
+  border-radius: 10px;
+}
+
+.artist-location {
+  width: 20%;
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  background: #FFF5F8;
+  position: absolute;
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.1);
+  height: 520px;
+  overflow-y: scroll;
+}
+
+.artist-location-info {
+  width: 90%;
+  margin: 1rem auto;
+  background: white;
+  height: 7rem;
+}
+
+.map-modal-img {
+  width: 20%;
+}
   
