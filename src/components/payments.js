@@ -1,22 +1,28 @@
 import { useHttpClient } from '../components/hooks/http-hook';
 export const getBrainTreeClientToken = (userId) =>{
-    return fetch(`http://localhost:5000/api/braintree/getToken/5fc15b5be27c0c6e35dbb8e2`,{
+    return fetch(`http://localhost:5000/api/braintree/getToken/${userId}`,{
         method:"GET"
       
     })
     .then(response =>{
+       
         return response.json();
     })
     .catch(err => console.log(err))
 }
 export const processPayment = (userId,paymentData) =>{
-    console.log("entered process payment")
+    console.log("entered process paymenttt")
     console.log(JSON.stringify(paymentData))
+
+    console.log(paymentData.paymentMethodNonce,paymentData.amount)
    
      return fetch(`http://localhost:5000/api/braintree/payment/${userId}`,{
         method:"POST",
       
-        body:JSON.stringify(paymentData)
+        body:JSON.stringify({
+            paymentData
+        })
+        
       
     })
     .then(response =>{
@@ -29,7 +35,7 @@ export const processPayment = (userId,paymentData) =>{
 }
 
 export const createOrder = (userId,createOrderData) => {
-    console.log("entered create order")
+    console.log(createOrderData)
     return fetch(`http://localhost:5000/api/order/create/${userId}`,{
         method:"POST",
         headers:{

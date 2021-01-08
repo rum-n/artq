@@ -29,18 +29,21 @@ const Checkout =({ products })=>{
     
     const getToken = (userId) => {
         getBrainTreeClientToken(userId).then(data =>{ 
+           
             setData({clientToken:data.clientToken})
         })
+       
     }
 
     useEffect(() => {
         getToken(userId);
+       
         // showDropIn();
         if (clicked){
             getnonce()
-        };
-        sendOrderData();
-    });
+         };
+        // sendOrderData();
+    },[]);
 
     const handleAddress = event =>{
         setData(data.address = event.target.value)
@@ -80,17 +83,19 @@ const Checkout =({ products })=>{
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
                    }
                  ).then(response =>{
+                     
                      const createOrderData = {
                          products:products,
                          name: "thename",
                          transaction_id: response.transaction.id,
                          sold: 1,
                          amount: response.transaction.amount,
-                         address:deliveryAddress,
+                         address:"nyc",
                          user1: auth.userId,
                          artistid: products[0].author 
                      }
                      if (response.success == true){
+                        
                         createOrder(userId,createOrderData)
                         
                          emptyCart(() =>{
@@ -108,30 +113,108 @@ const Checkout =({ products })=>{
         }
     }
 
+    const sendtobraintree = async(nonce) =>{
+        console.log("enteredbraintree")
+        console.log(nonce)
+        console.log(getTotal(products))
+       
+            try {
+                  await sendRequest(
+                   `http://localhost:5000/api/braintree/payment/${userId}`,
+                   'POST',
+                   JSON.stringify({
+                  paymentMethodNonce:nonce,
+                   amount: getTotal(products)
+               }),
+                   {
+                     'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
+                   }
+                 ).then(response =>{
+                    console.log(auth.userId)
+                    console.log(response.transaction.id)
+                    console.log(response.transaction.amount)
+                    const createOrderData = {
+                        status:"Not Processed",
+                        products:products,
+                        name: "thename",
+                        transaction_id: response.transaction.id,
+                        sold: 1,
+                        amount: response.transaction.amount,
+                        address:"nyc",
+                        user1: "5ff34c7565bdacb8b20812c7",
+                        artistid: products[0].author,
+                       
+                    }
+                    if (response.success == true){
+                        
+                       
+                        sendorder(createOrderData)
+                       
+                        emptyCart(() =>{
+                            console.log("emptied cart")
+                        })
+                        setData({
+                            success:true
+                        })
+                    }
+                })
+               
+               } catch (err) {
+                   console.log(err)
+               }
+            
+        
+    }
+
+    const changeclick = () =>{
+        setClicked(true)
+    }
+
     // Is this being used anywhere?
     const sendorder = async (createOrderData) => { 
+        console.log(createOrderData)
        try {
-       await sendRequest(`http://localhost:5000/api/order/useraccount/${userId}`,'POST',JSON.stringify({
-        body:JSON.stringify({order:createOrderData})
+       await sendRequest(`http://localhost:5000/api/order/create/${userId}`,'POST',JSON.stringify({
+        createOrderData
        }),{
          'Content-Type':'application/json'
        })
-     } catch(err){}
+     } catch(err){
+         alert(err)
+         console.log(err)
+     }
     };
+    
+
+    
 
     const getnonce =  () =>{
+        console.log("entered nonce")
         let nonce = '';
         data.instance.requestPaymentMethod().then(data =>{
             nonce = data.nonce
             setNonce(nonce)
+            sendtobraintree(nonce)
         })
+       
     }
     
-    const buynow = async event => {
-        setClicked(true)
+    const buynow = () => {
+        
+        let nonce;
+        let getNonce = data.instance.requestPaymentMethod()
+        .then(data =>{
+            console.log(data)
+            nonce = data.nonce
+            console.log("send nonce and total to process: ",nonce,getTotal(products))
+        })
+        .catch(error =>{
+            console.log(error)
+        })
     }
    
     const showDropIn = () =>(
+
         setPaycard(
         <div onBlur={() => setData({...data, error:""})}>     
             <div> 
@@ -144,14 +227,18 @@ const Checkout =({ products })=>{
                     placeholder="Type Delivery Address"
                     />
                 </div>
+                
             <DropIn options={{
                 authorization:data.clientToken,
                 paypal:{
                     flow:"vault"
                 }
             }} onInstance={instance => (data.instance = instance)}/>
+            <button onClick={getnonce} className='order-btn'>Place order</button>
+            
             </div> 
-            <button onClick={buynow} className='order-btn'>Place order</button>
+            
+           
         </div>
     ))
    

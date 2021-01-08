@@ -139,7 +139,7 @@ const CurrentBids = () => {
                         {history.map((h, i) => {
                            
 
-                            if ((moment(h.createdAt).fromNow()) == `7 minutes ago`){
+                            if ((moment(h.createdAt).fromNow()) == `2 minutes ago`){
                                 getallbidsforitem(h)
                                 //add for loop
                                 console.log("entered")

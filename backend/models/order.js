@@ -28,7 +28,6 @@ const OrderSchema = new Schema(
       enum: ["Not processed", "Processing", "Shipped", "Delivered", "Cancelled"] // enum means string objects
     },
     updated: Date,
-    user: { type: ObjectId, ref: "User" },
     user1:{type:String,required:true},
     artistid:{type:String,required:true}
    
