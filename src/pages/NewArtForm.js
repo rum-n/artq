@@ -103,7 +103,8 @@ const NewPlace = () => {
       type: methodofbuying, //change this to use what user clicked
       address:formState.inputs.address.value,
       url:formState.inputs.url.value,
-      author: auth.userId
+      author: auth.userId,
+      
     }),{
       'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
     })

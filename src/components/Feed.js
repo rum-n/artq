@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import {Redirect} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import Container from 'react-bootstrap/Container';
@@ -10,8 +10,10 @@ import { addItem, removeItem } from "./cartHelpers"
 import { AuthContext } from "../context/auth-context";
 import { useHttpClient } from "../components/hooks/http-hook"
 import { Link } from "react-router-dom";
+import Heart from "react-animated-heart";
 
 const Feed = (props, { showAddToCartButton = true }) => {
+  const [isClick, setClick] = useState(false);
   console.log(props)
   const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
@@ -48,6 +50,11 @@ const Feed = (props, { showAddToCartButton = true }) => {
     setShow(true)
  };
 
+ useEffect(() =>{
+   if (isClick == true){
+    incrementLikes(props)
+   }
+ },[isClick])
  const addToCart =() =>{
    addItem(props,() =>{
      setRedirect(true)
@@ -85,8 +92,8 @@ const Feed = (props, { showAddToCartButton = true }) => {
 };
 
 const showAddToCart = (showAddToCartButton) =>{
-  if (props.type === "Sell"){
-  return showAddToCartButton && props.type !== "Auction" && (
+  if (props.type === "Sale"){
+  return showAddToCartButton && props.type == "Sale" && (
     <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>
   )}
   if(props.type === "Auction" && props.status !== "sold"){
@@ -117,15 +124,45 @@ const showRemoveButton = (showRemoveProductButton) =>{
     </Button>
   )
 }
+const incrementLikes = async (o) => {
+
+  console.log("entered placesubmit handler" )
+  let updatedlikes = 0
+  try{
+  updatedlikes = o.likes+1
+  
+   console.log(o)
+  await sendRequest(`http://localhost:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
+      "id" : o.id,
+      "likes":updatedlikes
+  }),{
+      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+    })
+
+} catch(err){
+
+  console.log(err)
+}
+
+
+};
 
 
   return (
+
     <div>
+      
           <Col key={props.id} xs={3} md={4} className='art-cards'>
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
               <Card.Img src={props.image} /> 
               {shouldRedirect(redirect)}
+              <div>
+              <text> {props.likes} likes</text>
+              <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />
+             
+              </div>
             </Card>
+            
           </Col>
         
             <Modal show={show} onHide={handleClose}>
