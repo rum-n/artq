@@ -1,4 +1,4 @@
-import React, { useCallback, useReducer,useContext,useState, useEffect } from 'react';
+import React, { useCallback, useReducer,useContext,useState } from 'react';
 import {useHistory} from "react-router-dom"
 import {useHttpClient} from "../components/hooks/http-hook"
 import Input from '../components/Input';
@@ -38,13 +38,11 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = () => {
-
- 
   const [methodofbuying, setmethodofbuying] = useState("")
-  const {error,sendRequest,clearError} = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
-  const[duration,setduration] = useState(0)
-  const[type,settype] = useState("")
+  // const[duration,setduration] = useState(0)
+  const[type] = useState("")
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
@@ -92,11 +90,8 @@ const NewPlace = () => {
   }, []);
 
   const placeSubmitHandler = async event => {
-    console.log(methodofbuying)
     event.preventDefault();
     try{
-    
-      console.log(auth.userId)
     await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
       title:formState.inputs.title.value,
       status:"Not sold",
@@ -114,7 +109,6 @@ const NewPlace = () => {
     })
     history.push('/');
   } catch(err){
-  
     console.log(err)
   }
 };
@@ -136,7 +130,7 @@ const handlebuy = (method) =>{
       
       <Form className='add-art-form-wrapper' onSubmit={placeSubmitHandler}>
         <Form.Group as={Row} controlId="title">
-          <Form.Label column sm="2">Artwork Title</Form.Label>
+          <Form.Label column sm="4">Artwork Title</Form.Label>
           <Col sm="6">
             <Input 
               id="title"
@@ -150,7 +144,7 @@ const handlebuy = (method) =>{
         </Form.Group>
 
         <Form.Group as={Row} controlId="description">
-          <Form.Label column sm="2">Description</Form.Label>
+          <Form.Label column sm="4">Description</Form.Label>
           <Col sm="6">
             <Input
               id="description"
@@ -164,7 +158,7 @@ const handlebuy = (method) =>{
         </Form.Group>
 
         <Form.Group as={Row} controlId="dimentions">
-          <Form.Label column sm="2">Dimentions</Form.Label>
+          <Form.Label column sm="4">Dimentions</Form.Label>
           <Col sm="6">
             <Input
               id="dimentions"
@@ -176,7 +170,7 @@ const handlebuy = (method) =>{
           </Col>
         </Form.Group>
         <Form.Group as={Row} controlId="url">
-          <Form.Label column sm="2">Url</Form.Label>
+          <Form.Label column sm="4">Url</Form.Label>
           <Col sm="6">
             <Input
               id="url"
@@ -187,10 +181,9 @@ const handlebuy = (method) =>{
             />
           </Col>
         </Form.Group>
-
         
         <Form.Group as={Row} controlId="address">
-          <Form.Label column sm="2">Address</Form.Label>
+          <Form.Label column sm="4">Address</Form.Label>
           <Col sm="6">
             <Input
               id="address"
@@ -203,7 +196,7 @@ const handlebuy = (method) =>{
         </Form.Group>
 
         <Form.Group as={Row} controlId="medium">
-          <Form.Label column sm="2">Medium</Form.Label>
+          <Form.Label column sm="4">Medium</Form.Label>
           <Col sm="6">
             <Input
               id="medium"
@@ -214,21 +207,26 @@ const handlebuy = (method) =>{
             />
           </Col>
         </Form.Group>
-        <label>
-          Planning to Sell? 
-          <select value={methodofbuying} onChange={e => setmethodofbuying(e.target.value)}>
-          <option value="none"> </option>
-          <option value="No">Not for sale</option>
+
+        <Form.Group as={Row}>
+          <Form.Label column sm="4">Planning to Sell?</Form.Label>
+          <Col sm="6">
+            <Form.Control 
+              as='select' 
+              defaultValue="Choose..." 
+              value={methodofbuying} 
+              onChange={e => setmethodofbuying(e.target.value)}>
+            <option value="none"> </option>
+            <option value="No">Not for sale</option>
             <option value="Auction" >Auction</option>
-            <option value="Sale">Sale</option>
-           
-          </select>
-        </label>
+            <option value="Sale">Sale</option>   
+            </Form.Control>
+          </Col>
+        </Form.Group>
         
-      
-        {methodofbuying == "Auction" &&
+        {methodofbuying === "Auction" &&
         <Form.Group as={Row} controlId="duration">
-        <Form.Label column sm="2">Auction ends in (hours):</Form.Label>
+        <Form.Label column sm="4">Auction ends in (hours):</Form.Label>
           <Col sm="6">
             <Input
               id="price"
@@ -239,9 +237,10 @@ const handlebuy = (method) =>{
             />
           </Col>
         </Form.Group>}
-        {methodofbuying == "Auction" &&
+
+        {methodofbuying === "Auction" &&
        <Form.Group as={Row} controlId="price">
-       <Form.Label column sm="2">Starting bid price (USD)</Form.Label>
+       <Form.Label column sm="4">Starting bid price (USD)</Form.Label>
        <Col sm="6">
          <Input
            id="price"
@@ -253,9 +252,9 @@ const handlebuy = (method) =>{
        </Col>
      </Form.Group>}
 
-        {methodofbuying == "Sale" &&
+        {methodofbuying === "Sale" &&
          <Form.Group as={Row} controlId="price">
-         <Form.Label column sm="2">price (USD)</Form.Label>
+         <Form.Label column sm="4">Price (USD)</Form.Label>
          <Col sm="6">
            <Input
              id="price"
@@ -267,9 +266,7 @@ const handlebuy = (method) =>{
          </Col>
        </Form.Group>}
 
-       {methodofbuying == "No" &&
-       formState.isValid == true 
-         }
+       {methodofbuying === "No" && formState.isValid === true}
 
         <Button type="submit" disabled={!formState.isValid  }>
           Publish
