@@ -13,6 +13,7 @@ router.get('/',savedartcontrollers.getAllArt);
 router.get('/user/:uid',savedartcontrollers.getArtByUser);
 router.put("/:imgId",savedartcontrollers.updateBidPrice)
 router.put("/sold/:imgId",savedartcontrollers.updateStatus)
+router.put("/likes/:imgId/status/",savedartcontrollers.updateLikes)
 
 router.use(checkAuth);
 

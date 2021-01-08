@@ -19,7 +19,11 @@ const imageSchema = new Schema({
     type:{type:String, required:true},
     duration:{type:Number},
     medium:{type:String, required:true},
-    author:{type:mongoose.Types.ObjectId,required:true,ref:"User"}
+    author:{type:mongoose.Types.ObjectId,required:true,ref:"User"},
+    likes: {
+        type: Number,
+        default: 0,
+      },
 })
 
 module.exports = mongoose.model('Image',imageSchema);

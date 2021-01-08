@@ -7,6 +7,7 @@ const realimageslist = props => {
       {props.items.map(user => (
         <Feed showAddToCartButton={true}
           key={user.id}
+          likes={user.likes}
           status = {user.status}
           id={user.id}
           image={user.url}
@@ -19,6 +20,7 @@ const realimageslist = props => {
           type={user.type}
           price={user.price}
           medium={user.medium}
+
         />
       ))}
     </ul>
