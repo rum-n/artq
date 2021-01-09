@@ -8,6 +8,7 @@ import {useLocation} from "react-router-dom";
  
 
 const Individual = () => {
+
     let data = useLocation();
     let theid = data.state.theid
 
@@ -17,7 +18,7 @@ const Individual = () => {
   
     useEffect(() => {
       const sendRequest = async () => {
-  
+       
         try {
           const response = await fetch(`http://localhost:5000/api/images/user/${theid}`);
           
@@ -42,6 +43,7 @@ const Individual = () => {
   
     return (
       <React.Fragment>
+        {console.log(loadedUsers)}
       
       
         {loadedUsers && <Savedimageslist items={loadedUsers} />}

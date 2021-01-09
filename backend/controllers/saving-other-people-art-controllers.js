@@ -40,7 +40,7 @@ const saveArt = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,dimentions,price,author,type,duration,medium,address,user1} = req.body;
+    const {title,url,description,dimentions,price,author,likes,type,duration,medium,address,user1} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -50,6 +50,7 @@ const saveArt = async (req,res,next) => {
     const savedArt = new Save({
         title,
         description,
+        likes,
         dimentions,
         price,
         address,

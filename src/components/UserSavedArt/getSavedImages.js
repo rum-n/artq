@@ -9,6 +9,7 @@ const GetSavedImages = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
     const [loadedUsers, setLoadedUsers] = useState();
+    const [likes, setLikes] = useState();
   
     useEffect(() => {
       const sendRequest = async () => {
@@ -30,6 +31,23 @@ const GetSavedImages = () => {
         } catch (err) {
          
         }
+        try {
+          const response1 = await fetch(`http://localhost:5000/api/images/${loadedUsers.id}`);
+          
+          const responseData1 = await response1.json();
+          
+  
+          if (!response1.ok) {
+            throw new Error(responseData1.message);
+          }
+          
+          setLikes(responseData1.image.likes);
+          console.log(responseData1)
+          console.log(responseData1.image.likes)
+         
+        } catch (err) {
+         
+        }
       
       };
       sendRequest();
@@ -41,7 +59,7 @@ const GetSavedImages = () => {
       <React.Fragment>
       
       
-        {loadedUsers && <Savedimageslist items={loadedUsers} />}
+        {loadedUsers && <Savedimageslist items={loadedUsers} likes={likes} />}
       </React.Fragment>
     );
   };

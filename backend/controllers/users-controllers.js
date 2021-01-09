@@ -350,6 +350,33 @@ const purchaseHistory = async (req,res,next) =>{
 
 
 // exports.addorder = addorder
+
+const artistSearch = (req,res) =>{
+    const query = {}
+    if(req.query.search){
+        console.log(req.query.search)
+        query.name = {$regex: req.query.search, $options:"i"}
+        console.log(query.name)
+        
+        
+        
+        User.find(query, (err,products) =>{
+            if(err){
+                console.log("error "+err)
+                return res.status(400).json({
+                    error:errorHandler(err)
+                })
+            }
+            res.json(products)
+        })
+       
+       
+    }
+ 
+     
+ }
+
+exports.artistSearch = artistSearch
 exports.purchaseHistory = purchaseHistory
 exports.updateprofile = updateprofile
 exports.profileById = profileById;

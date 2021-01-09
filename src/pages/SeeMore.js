@@ -233,6 +233,10 @@ const SeeMore = () => {
               <td className='right'><p>{state.address}</p></td>
             </tr>
             <tr>
+              <td className='left'><p>style</p></td>
+              <td className='right'><p>{state.style}</p></td>
+            </tr>
+            <tr>
               <td className='left'><p>Current price ($)</p></td>
               <td className='right'><p>{state.price}</p></td>
             </tr>

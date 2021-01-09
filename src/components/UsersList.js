@@ -3,6 +3,7 @@ import UserItem from './UserItem';
 import './UsersList.css';
 
 const UsersList = props => {
+ 
   return (
     <ul className="users-list">
       {props.items.map(user => (
@@ -12,6 +13,8 @@ const UsersList = props => {
           image={user.image}
           name={user.name}
           placeCount={user.image.length}
+          author = {user._id}
+         
         />
       ))}
     </ul>

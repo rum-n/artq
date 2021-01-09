@@ -6,7 +6,9 @@ const savedartcontrollers = require("../controllers/saved-art-controllers");
 const router = express.Router();
 
 router.get('/:imgid',savedartcontrollers.getArtById);
-
+router.get("/images/search",savedartcontrollers.listSearch)
+router.get("/images/medium/search",savedartcontrollers.mediumSearch)
+router.get("/images/style/search",savedartcontrollers.styleSearch)
 router.get('/',savedartcontrollers.getAllArt);
 
 

@@ -29,6 +29,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
   const [activeprice, setActiveprice] = useState('');
   const [activedimentions, setActivedimentions] = useState('');
   const [activetype, setActivetype] = useState('');
+  const [activelikes, setActivelikes] = useState(0);
   const [activeduration, setActiveduration] = useState('');
   const [activemedium, setActivemedium] = useState('');
   const [showcartbutton, setshowcartbutton] = useState('');
@@ -43,6 +44,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
     setActiveauthor(item.author)
     setActiveprice(item.price)
     setActivedimentions(item.dimentions)
+    setActivelikes(item.likes)
     setActivetype(item.type)
     setActiveduration(item.duration)
     setActivemedium(item.medium)
@@ -73,6 +75,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
   await sendRequest('http://localhost:5000/api/saved','POST', JSON.stringify({
    
     dimentions: activedimentions,
+    likes: activelikes,
     price: activeprice,
     type:activetype,
     duration:activeduration,

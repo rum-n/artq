@@ -3,6 +3,7 @@ const {validationResult} = require('express-validator')
 const HttpError = require('../models/http-error');
 const getCoordsForAddress = require("../util/location")
 const Image = require('../models/image');
+const Save = require('../models/save');
 const User = require("../models/user")
 const mongoose = require("mongoose")
 const { findAllByPlaceholderText } = require('@testing-library/react');
@@ -65,7 +66,7 @@ const saveArt = async (req,res,next) => {
         return next (new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {title,url,description,dimentions,status,price,author,type,duration,medium,address,likes} = req.body;
+    const {title,url,description,dimentions,status,price,author,type,duration,medium,style,address,likes} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -91,6 +92,7 @@ const saveArt = async (req,res,next) => {
         type,
         duration,
         medium,
+        style,
         author,
         likes
     });
@@ -262,7 +264,102 @@ const updateLikes = (req,res) =>{
       
         res.json(order)
     })
+    
 }
+
+const listSearch = (req,res) =>{
+    console.log("entered list")
+   const query = {}
+   console.log("category "+req.query.category)
+   if(req.query.search){
+       console.log(req.query.search)
+       query.title = {$regex: req.query.search, $options:"i"}
+    
+    if(req.query.category && req.query.category!="All"){
+     
+        query.style = req.query.category
+        console.log("style"+query.style)
+    }
+       
+       
+       
+       Image.find(query, (err,products) =>{
+           if(err){
+               console.log("error "+err)
+               return res.status(400).json({
+                   error:errorHandler(err)
+               })
+           }
+           res.json(products)
+       })
+      
+      
+   }
+
+    
+}
+
+const mediumSearch = (req,res) =>{
+    const query = {}
+    if(req.query.search){
+        console.log(req.query.search)
+        query.medium = {$regex: req.query.search, $options:"i"}
+        console.log(query.medium)
+        
+        
+        
+        Image.find(query, (err,products) =>{
+            if(err){
+                console.log("error "+err)
+                return res.status(400).json({
+                    error:errorHandler(err)
+                })
+            }
+            res.json(products)
+        })
+       
+       
+    }
+ 
+     
+ }
+
+ const styleSearch = (req,res) =>{
+    console.log("entered style")
+    const query = {}
+    console.log("category "+req.query.category)
+    if(req.query.category){
+        console.log("hoi")
+        query.style = req.query.category
+        console.log("style"+query.style)
+   }
+    if(req.query.search){
+        console.log(req.query.search)
+        query.style = {$regex: req.query.search, $options:"i"}
+     
+    
+    }
+        
+        
+        Image.find(query, (err,products) =>{
+            if(err){
+                console.log("error "+err)
+                return res.status(400).json({
+                    error:errorHandler(err)
+                })
+            }
+            res.json(products)
+        })
+       
+       
+    
+ 
+     
+ }
+
+exports.styleSearch = styleSearch
+exports.mediumSearch = mediumSearch
+exports.listSearch = listSearch
 exports.updateLikes = updateLikes
 exports.updateStatus = updateStatus
 exports.updateBidPrice = updateBidPrice

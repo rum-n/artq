@@ -39,6 +39,7 @@ const formReducer = (state, action) => {
 
 const NewPlace = () => {
   const [methodofbuying, setmethodofbuying] = useState("")
+  const [artstyle, setartstyle] = useState("")
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
   // const[duration,setduration] = useState(0)
@@ -102,6 +103,7 @@ const NewPlace = () => {
       price: 0,
       type: methodofbuying, //change this to use what user clicked
       address:formState.inputs.address.value,
+      style:artstyle,
       url:formState.inputs.url.value,
       author: auth.userId,
       
@@ -206,6 +208,30 @@ const handlebuy = (method) =>{
               type="text"
               onInput={inputHandler}
             />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Row}>
+          <Form.Label column sm="4">Style</Form.Label>
+          <Col sm="6">
+            <Form.Control 
+              as='select' 
+              defaultValue="Choose..." 
+              value={artstyle} 
+              onChange={e => setartstyle(e.target.value)}>
+            <option value="All">Pick Category</option>
+            <option value="Abstract">Abstract</option>
+            <option value="Figurative">Figurative</option>
+            <option value="Geometric">Geometric</option>
+            <option value="Minimalist">Minimalist</option>
+            <option value="Nature">Nature</option>
+            <option value="Pop">Pop</option>
+            <option value="Portraiture">Portraiture</option>
+            <option value="Still Life">Still Life</option>
+            <option value="Surrealist">Surrealist</option>
+            <option value="Typography">Typography</option>
+            <option value="Urban">Urban</option>
+            <option value="Others">Others</option>
+            </Form.Control>
           </Col>
         </Form.Group>
 
