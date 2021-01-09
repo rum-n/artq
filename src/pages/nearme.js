@@ -4,8 +4,8 @@ import './nearme.css';
 
 const GoogleMaps = (props) => {
   const [ artistList, setArtistList ] = useState([])
-  const [loadedTitle, setLoadedTitle] = useState();
-  const [loadedDescription, setLoadedDescription] = useState();
+  const [ loadedTitle, setLoadedTitle ] = useState();
+  const [ loadedDescription, setLoadedDescription ] = useState();
   const ModelsMap = (map, maps) => {
     //instantiate array that will hold your Json Data
     let dataArrayLat = [];
@@ -34,8 +34,6 @@ const GoogleMaps = (props) => {
       setLoadedTitle(dataArrayTitle[i])
       setLoadedDescription(dataArrayDescription[i])
       setArtistList()
-      // const contentString =
-      // dataArrayTitle[i]+" "+ dataArrayDescription[i]
       
     let infowindow = new maps.InfoWindow({
       content: 
