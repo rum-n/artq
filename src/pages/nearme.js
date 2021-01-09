@@ -1,9 +1,14 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import './nearme.css';
 
 const GoogleMaps = (props) => {
-  const [ artistList, setArtistList ] = useState([])
+  const [ artistList, setArtistList ] = useState({
+    title: '',
+    description: '',
+    image: ''
+  })
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
   const ModelsMap = (map, maps) => {
@@ -33,7 +38,11 @@ const GoogleMaps = (props) => {
       });
       setLoadedTitle(dataArrayTitle[i])
       setLoadedDescription(dataArrayDescription[i])
-      setArtistList()
+      setArtistList({
+        title: dataArrayTitle,
+        description: dataArrayDescription,
+        image: dataArrayimage
+      })
       
     let infowindow = new maps.InfoWindow({
       content: 
@@ -69,12 +78,20 @@ const GoogleMaps = (props) => {
           />
       </div>
       <div className='artist-location'>
-
-        {/* {artistList.map(artists => { */}
-          <div className='artist-location-info'>
-            {/* <img className='near-artist-img' src={} alt=''/> */}
+        {props.items.map(artists => {
+          return (
+          <Link to={`/seemore/${artists.id}`}>
+          <div key={artists.id} className='artist-location-info'>
+            <img className='near-artist-img' src={artists.url} alt={artists.title}/>
+            <div>
+              <p>{artists.title}</p>
+              <p>{artists.description}</p>
+            </div>
           </div>
+          </Link>)
+          })}
       </div>
+
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}

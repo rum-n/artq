@@ -31,14 +31,44 @@
   overflow-y: scroll;
 }
 
+.artist-location-info:hover {
+  box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.artist-location-info p:hover {
+  text-decoration: none;
+}
+
 .artist-location-info {
   width: 90%;
   margin: 1rem auto;
   background: white;
   height: 7rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+
+.artist-location-info p {
+  margin: 0;
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none!important;
 }
 
 .map-modal-img {
   width: 20%;
+}
+
+.near-artist-img {
+  border-radius: 50%;
+  width: 4rem;
+  margin-left: 0.5rem;
+  margin-right: 1rem;
 }
   
