@@ -4,6 +4,18 @@ import GoogleMapReact from "google-map-react";
 import './nearme.css';
 
 const GoogleMaps = (props) => {
+  
+  const [userlocationlat, setuserlocationlat] = useState("")
+  const [userlocationlong, setuserlocationlong] = useState("")
+  const[data,setData] = useState("")
+  console.log(data)
+
+  navigator.geolocation.getCurrentPosition(function(position) {
+    setuserlocationlat(position.coords.latitude)
+    setuserlocationlong(position.coords.longitude)
+
+    
+  });
   const [ artistList, setArtistList ] = useState({
     title: '',
     description: '',
@@ -68,15 +80,35 @@ const GoogleMaps = (props) => {
     }
   };
 
+  
+  const searchSubmit = () =>{
+ 
+    console.log(data)
+  }
+
+  const handleChange = name => event =>{
+    event.preventDefault()
+    setData(event.target.value)
+    
+  }
+
+
+
   return (
     <div>
-      <h1 className='feed-title'>Find an artist near you!</h1>
-      <div className='search-wrapper'>
-        <input 
-          className='nearme-search'
-          placeholder='Search by your location'
-          />
-      </div>
+     
+      <form className="nav-search-form" onSubmit={searchSubmit}>
+  <div className="input-group-text">
+    <div className="input-group input-group-lg">
+     
+      <input type="search" className="form-control" onChange={handleChange((e)=> e)} placeholder="search by location"></input>
+    </div>
+    <div className="btn input-group-append" style={{border:"none"}}>
+      <button style={{color:"blue"}}className="input-group-text">Search</button>
+    </div>
+  </div>
+  </form>
+  <h1 className='feed-title'>Find an artist near you!</h1>
       <div className='artist-location'>
         {props.items.map(artists => {
           return (
@@ -95,7 +127,7 @@ const GoogleMaps = (props) => {
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
-          defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
+          defaultCenter={{ lat: userlocationlat, lng: userlocationlong }}
           defaultZoom={10}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}

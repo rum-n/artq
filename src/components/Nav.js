@@ -124,19 +124,19 @@ const searchForm = () =>(
     <div className="input-group input-group-lg">
       <div className="input-group-prepend">
           <select className="btn mr-2" onChange={handleChange("category")}>
-            <option value="All">Pick Category</option>
-            <option value="Abstract">Abstract</option>
-            <option value="Figurative">Figurative</option>
-            <option value="Geometric">Geometric</option>
-            <option value="Minimalist">Minimalist</option>
-            <option value="Nature">Nature</option>
-            <option value="Pop">Pop</option>
-            <option value="Portraiture">Portraiture</option>
-            <option value="Still Life">Still Life</option>
-            <option value="Surrealist">Surrealist</option>
-            <option value="Typography">Typography</option>
-            <option value="Urban">Urban</option>
-            <option value="Others">Others</option>
+            <option style={{color:"black"}} value="All">Pick Category</option>
+            <option style={{color:"black"}}value="Abstract">Abstract</option>
+            <option style={{color:"black"}}value="Figurative">Figurative</option>
+            <option style={{color:"black"}}value="Geometric">Geometric</option>
+            <option style={{color:"black"}}value="Minimalist">Minimalist</option>
+            <option style={{color:"black"}}value="Nature">Nature</option>
+            <option style={{color:"black"}}value="Pop">Pop</option>
+            <option style={{color:"black"}}value="Portraiture">Portraiture</option>
+            <option style={{color:"black"}}value="Still Life">Still Life</option>
+            <option style={{color:"black"}}value="Surrealist">Surrealist</option>
+            <option style={{color:"black"}}value="Typography">Typography</option>
+            <option style={{color:"black"}}value="Urban">Urban</option>
+            <option style={{color:"black"}}value="Others">Others</option>
           </select>
       </div>
       <input type="search" className="form-control" onChange={handleChange("search")} placeholder="search by artist, style..."></input>
