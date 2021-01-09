@@ -24,3 +24,43 @@
     font-size: 12px;
     background: #EE2A7B;
 }
+
+.nav-search-form {
+    vertical-align: middle;
+}
+
+.input-group-text {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-bottom: -1rem;
+}
+
+.input-group-lg>.custom-select, .input-group-lg>.form-control, .input-group-lg>.input-group-append>.btn, .input-group-lg>.input-group-append>.input-group-text, .input-group-lg>.input-group-prepend>.btn, .input-group-lg>.input-group-prepend>.input-group-text {
+    font-size: inherit;
+    color: white;
+    padding: 0;
+}
+
+.input-group-text button{
+    border: 1px solid white;
+}
+
+.input-group-text button:hover {
+    border: 1px solid #EE2A7B;
+    background: #EE2A7B;
+}
+
+.input-group-text .form-control{
+    width: 15rem;
+    color: black;
+    margin-top: 0;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-top-left-radius: .3rem!important;
+    border-bottom-left-radius: .3rem!important;
+}
+
+.input-group-append button{
+    margin: 0;
+}

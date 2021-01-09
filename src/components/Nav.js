@@ -1,6 +1,6 @@
 import React, {useContext, useState}from 'react';
 import Navbar from 'react-bootstrap/Navbar';
-import { Button,Nav,FormControl,Form,Dropdown } from "react-bootstrap";
+import { Nav, Dropdown } from "react-bootstrap";
 import {itemTotal} from "./cartHelpers"
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,15 +9,12 @@ import './styles.css'
 import logo from "../assets/logo.PNG";
 import sidebar from "../assets/sidebar.PNG";
 import {AuthContext} from "../context/auth-context"
-import Savedimageslist from "./UserSavedArt/savedimageslist";
 import { artistsearch, list,mediums, stylesearch } from './apiCore';
-import PlaceItem from './PlaceItem';
 import Modal from 'react-bootstrap/Modal';
 import Feed from './Feed';
 import UsersList from './UsersList';
 const Navigation = () => { 
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [data,setData] = useState({
@@ -29,132 +26,104 @@ const Navigation = () => {
   })
 
   const {results} = data;
-const auth = useContext(AuthContext)
+  const auth = useContext(AuthContext)
 
-
-const handleChange = name => event =>{
-  setData({...data,[name]:event.target.value, searched:false});
-
-}
-
-const searchedProducts = (results = []) =>{
-  console.log(results)
-  if (results.length && !results[0].email){
-  return (
-    <div className="row">
-   
-      {results.map(image => (
-        <Feed
-          key={image.id}
-          id={image.id}
-          image={image.url}
-          title={image.title}
-          description={image.description}
-          address={image.address}
-          creatorId={image.author}
-          coordinates={image.location}
-        
-        />
-        
-      ))}
-
-
-    </div>
-  
-    )}
-    else{
-      return (
-        <div className="row">
-       
-          {<UsersList items={results} />}
-    
-        </div>
-      
-        )
-
-    }
-}
-
-const searchData = () =>{
-  
-
-  console.log(data.category)
-  if(data.search || data.category){
-    console.log(data.search)
-    stylesearch({search:data.search || undefined, category:data.category})
-    .then(response =>{
-      if(response.error){
-  
-                     console.log(response.error)
-                 
-      } else{
-        setData({...data,results:response,searched:true})
-        console.log(response)
-        if (response.length == 0){
-          list({search:data.search || undefined, category:data.category})
-    .then(response =>{
-      if(response.error){
-  
-                     console.log(response.error)
-                 
-      } else{
-        setData({...data,results:response,searched:true})
-        console.log(response)
-        if (response.length == 0){
-          mediums({search:data.search || undefined, category:data.category})
-          .then(response =>{
-            if(response.error){
-        
-                           console.log(response.error)
-                       
-            } else{
-              setData({...data,results:response,searched:true})
-              console.log(response)
-              if (response.length == 0){
-                artistsearch({search:data.search || undefined, category:data.category})
-          .then(response =>{
-            if(response.error){
-        
-                           console.log(response.error)
-                       
-            } else{
-              setData({...data,results:response,searched:true})
-              console.log(response)
-              if (response.length == 0){
-                console.log("hoiiiiiiiiiiiii")
-      
-              }
-            }
-          })
-      
-              }
-            }
-          })
-
-        }
-      }
-    })
-
-        }
-      }
-    })
+  const handleChange = name => event =>{
+    setData({...data,[name]:event.target.value, searched:false});
   }
-  {handleShow()}
- 
-}
+
+  const searchedProducts = (results = []) =>{
+    console.log(results)
+    if (results.length && !results[0].email){
+    return (
+      <div className="row">
+        {results.map(image => (
+          <Feed
+            key={image.id}
+            id={image.id}
+            image={image.url}
+            title={image.title}
+            description={image.description}
+            address={image.address}
+            creatorId={image.author}
+            coordinates={image.location}
+          />
+        ))}
+      </div>
+      )}
+      else{
+        return (
+          <div className="row">
+            {<UsersList items={results} />}
+          </div>
+          )
+      }
+  }
+
+  const searchData = () => {
+    console.log(data.category)
+    if(data.search || data.category){
+      console.log(data.search)
+      stylesearch({search:data.search || undefined, category:data.category})
+      .then(response =>{
+        if(response.error){
+          console.log(response.error)
+        } else{
+          setData({...data,results:response,searched:true})
+          console.log(response)
+          if (response.length === 0){
+            list({search:data.search || undefined, category:data.category})
+            .then(response =>{
+              if(response.error){
+                console.log(response.error)
+              } else{
+                setData({...data,results:response,searched:true})
+                console.log(response)
+                if (response.length === 0){
+                  mediums({search:data.search || undefined, category:data.category})
+                  .then(response =>{
+                    if(response.error){
+                      console.log(response.error)        
+                    } else {
+                      setData({...data,results:response,searched:true})
+                      console.log(response)
+                      if (response.length === 0){
+                        artistsearch({search:data.search || undefined, category:data.category})
+                        .then(response =>{
+                          if(response.error){
+                            console.log(response.error) 
+                          } else{
+                            setData({...data,results:response,searched:true})
+                            console.log(response)
+                            if (response.length === 0){
+                              console.log("hoiiiiiiiiiiiii")
+                            }
+                          }
+                        })
+                      }
+                    }
+                  })
+                }
+              }
+            })
+          }
+        }
+      })
+    }
+    handleShow();
+  }
+
 const searchSubmit = (e) =>{
   e.preventDefault()
   searchData()
-
 }
 
 const searchForm = () =>(
-  <form onSubmit={searchSubmit}>
-  <span className="input-group-text">
+  <form className="nav-search-form" onSubmit={searchSubmit}>
+  <div className="input-group-text">
     <div className="input-group input-group-lg">
       <div className="input-group-prepend">
           <select className="btn mr-2" onChange={handleChange("category")}>
-
             <option value="All">Pick Category</option>
             <option value="Abstract">Abstract</option>
             <option value="Figurative">Figurative</option>
@@ -170,18 +139,13 @@ const searchForm = () =>(
             <option value="Others">Others</option>
           </select>
       </div>
-    
       <input type="search" className="form-control" onChange={handleChange("search")} placeholder="search by artist, style..."></input>
- 
-
     </div>
     <div className="btn input-group-append" style={{border:"none"}}>
       <button className="input-group-text">Search</button>
     </div>
-
-  </span>
+  </div>
   </form>
-  
 )
    
 return(
@@ -193,7 +157,6 @@ return(
         </Modal.Header>
         <Modal.Body>   {searchedProducts(results)}</Modal.Body>
         <Modal.Footer>
-         
         </Modal.Footer>
       </Modal>
 
@@ -262,13 +225,10 @@ return(
     </Nav>
     <div className="row">
       <div style ={{color:"white"}}className="container">{searchForm()}
-      <div className="container-fluid mb-3">
-        {console.log(results)}
-      
+        <div className="container-fluid mb-3">
+          {console.log(results)}
+        </div>
       </div>
-      
-      </div>
-
     </div>
    
     {auth.isLoggedIn && auth.userId != "5fef79391c01e059f13f3823" && (
@@ -281,15 +241,9 @@ return(
 {auth.isLoggedIn && auth.userId === "5fef79391c01e059f13f3823" && (
       <Link className='nav-links' to='/manage'>Manage Posts </Link>
     )}
-
   </Navbar>
-  
- 
- 
   </div>
- 
-  </>
-  
+  </> 
   )
 }
 
