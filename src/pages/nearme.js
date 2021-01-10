@@ -4,6 +4,7 @@ import GoogleMapReact from "google-map-react";
 import './nearme.css';
 
 const GoogleMaps = (props) => {
+  
   const axios = require('axios');
 
 const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A' 
@@ -32,10 +33,8 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
       setuserlocationlong("-73.954298")
     };
   }
+  mapCoordinates();
 
-  useEffect(() => {
-    mapCoordinates();
-  })
 
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
@@ -125,6 +124,8 @@ const getCoordsForAddress = async(address) => {
 const findDistance = (lat,lng) =>{
  
   console.log(userlocationlat)
+  setuserlocationlat(lat)
+  setuserlocationlong(lng)
  
   
 
