@@ -4,10 +4,21 @@ import GoogleMapReact from "google-map-react";
 import './nearme.css';
 
 const GoogleMaps = (props) => {
+  const axios = require('axios');
+
+const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A' 
   
   const [userlocationlat, setuserlocationlat] = useState("")
   const [userlocationlong, setuserlocationlong] = useState("")
   const[data,setData] = useState("")
+  const[convert,setconvert] = useState("")
+  let distances = []
+  const [order,setorder] = useState(props.items)
+  const [uorder,setuorder] = useState([])
+  const updateddistances = []
+  const finaldistanceorder = []
+  const finalimageorder = []
+  
   console.log(data)
 
   navigator.geolocation.getCurrentPosition(function(position) {
@@ -23,6 +34,7 @@ const GoogleMaps = (props) => {
   })
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
+  const [ artistorder, setartistorder ] = useState([]);
   const ModelsMap = (map, maps) => {
     //instantiate array that will hold your Json Data
     let dataArrayLat = [];
@@ -81,13 +93,136 @@ const GoogleMaps = (props) => {
   };
 
   
-  const searchSubmit = () =>{
+
+
+const getCoordsForAddress = async(address) => {
+  //  return {
+  //    lat: 40.7484474,
+  //   lng: -73.9871516
+  //  };
+
+ const response = await axios.get(
+     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+      address
+    )}&key=${API_KEY}`
+   );
+
+   const data = response.data;
+
+   if (!data || data.status === 'ZERO_RESULTS') {
+    alert("no results")
+   }
+
+   const coordinates = data.results[0].geometry.location;
+
+   setuserlocationlat(coordinates.lat)
+   setuserlocationlong(coordinates.lng)
+   console.log(coordinates)
+   findDistance(coordinates.lat,coordinates.lng)
+   
+  
+}
+const findDistance = (lat,lng) =>{
  
+  console.log(userlocationlat)
+ 
+  
+
+  //for loop through all images
+  //use userlocation
+  //put the images in order from least to greatest
+  //update on page (reload)
+
+  order.map(artists => {
+    const R = 6371e3; // metres
+    const φ1 = artists.location.lat * Math.PI/180; // φ, λ in radians
+    const φ2 = lat * Math.PI/180;
+    const Δφ = (lat-artists.location.lat) * Math.PI/180;
+    const Δλ = (lng-artists.location.long) * Math.PI/180;
+    
+    const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+              Math.cos(φ1) * Math.cos(φ2) *
+              Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    
+    const d = R * c; // in metres
+    console.log(d)
+    distances.push(d)
+    
+    console.log(distances)
+
+    })
+    let hi = Array.from(distances)
+    let theindex = 0
+    const saveprevious = distances
+  
+    const sortedarray = ((hi.sort((a, b) => a - b)))
+    console.log(distances)
+    console.log(saveprevious)
+    console.log(hi)
+    console.log(props.items)
+    for (let j = 0; j < distances.length; j++) { 
+      console.log(hi[j])
+      theindex = (distances.indexOf(sortedarray[j]))
+   
+      uorder.push(props.items[theindex])
+    
+    } 
+    console.log(uorder)
+   
+    
+
+   
+  //   for (let j = 0; j < distances.length; j++) { 
+  //     min = distances[0]
+  //     console.log(distances)
+ 
+    
+  //   for (let i = 1; i < distances.length; ++i) {
+  //     if (distances[i] < min) {
+  //       min = distances[i];
+       
+  //     }
+  //     tosplice = i
+  //   }
+    
+  //   console.log(distances.indexOf(min))
+  //   tosplice = distances.indexOf(min)
+  //   distances = distances.filter(item => item !== min)
+  //   console.log(distances)
+    
+
+  //   finaldistanceorder.push(min)
+
+  // }
+ 
+
+  
+  
+ 
+
+   
+    
+    //console.log(finaldistanceorder)
+   
+
+  }
+  Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
+
+
+  const searchSubmit = (e) =>{
+    
+    getCoordsForAddress(data)
     console.log(data)
+    
+    e.preventDefault()
+   
   }
 
   const handleChange = name => event =>{
-    event.preventDefault()
+    
     setData(event.target.value)
     
   }
@@ -110,7 +245,7 @@ const GoogleMaps = (props) => {
   </form>
   <h1 className='feed-title'>Find an artist near you!</h1>
       <div className='artist-location'>
-        {props.items.map(artists => {
+        {uorder.map(artists => {
           return (
           <Link to={`/seemore/${artists.id}`}>
           <div key={artists.id} className='artist-location-info'>
@@ -127,7 +262,7 @@ const GoogleMaps = (props) => {
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
-          defaultCenter={{ lat: userlocationlat, lng: userlocationlong }}
+          center={{ lat: userlocationlat, lng: userlocationlong }}
           defaultZoom={10}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}

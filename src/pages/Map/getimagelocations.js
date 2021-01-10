@@ -30,7 +30,7 @@ const Users = () => {
     sendRequest();
   }, []);
 
-
+console.log(loadedUsers)
   return (
     <React.Fragment>
     
