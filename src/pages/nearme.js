@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import GoogleMapReact from "google-map-react";
 import './nearme.css';
@@ -9,18 +9,23 @@ const GoogleMaps = (props) => {
   const [userlocationlong, setuserlocationlong] = useState("")
   const[data,setData] = useState("")
   console.log(data)
+  
+  const mapCoordinates = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setuserlocationlat(position.coords.latitude)
+        setuserlocationlong(position.coords.longitude)
+      })
+    } else {
+      setuserlocationlat("40.756795")
+      setuserlocationlong("-73.954298")
+    };
+  }
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    setuserlocationlat(position.coords.latitude)
-    setuserlocationlong(position.coords.longitude)
-
-    
-  });
-  const [ artistList, setArtistList ] = useState({
-    title: '',
-    description: '',
-    image: ''
+  useEffect(() => {
+    mapCoordinates();
   })
+
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
   const ModelsMap = (map, maps) => {
@@ -50,11 +55,6 @@ const GoogleMaps = (props) => {
       });
       setLoadedTitle(dataArrayTitle[i])
       setLoadedDescription(dataArrayDescription[i])
-      setArtistList({
-        title: dataArrayTitle,
-        description: dataArrayDescription,
-        image: dataArrayimage
-      })
       
     let infowindow = new maps.InfoWindow({
       content: 
@@ -80,35 +80,139 @@ const GoogleMaps = (props) => {
     }
   };
 
-  
   const searchSubmit = () =>{
- 
     console.log(data)
   }
 
   const handleChange = name => event =>{
     event.preventDefault()
     setData(event.target.value)
-    
   }
 
-
+  const mapStyle = [
+    {
+        featureType: "poi",
+        elementType: "geometry",
+        stylers: [
+            {
+                color: "#eeeeee",
+            },
+        ],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          color: "#FFBECE",
+        },
+      ],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "road.highway.controlled_access",
+      elementType: "geometry",
+      stylers: [
+        {
+          color: "#000",
+        },
+      ],
+    },
+    {
+      featureType: "road.highway.controlled_access",
+      elementType: "geometry.stroke",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "road.local",
+      elementType: "labels.text.fill",
+      stylers: [
+        {
+          color: "#ffffff",
+        },
+      ],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry.fill",
+      stylers: [
+        {
+          color: "#E5E5E5",
+        },
+      ],
+    },
+    {
+        featureType: "poi",
+        elementType: "labels.text",
+        stylers: [
+            {
+                visibility: "off",
+            },
+        ],
+    },
+    {
+        featureType: "water",
+        elementType: "labels.text.fill",
+        stylers: [
+            {
+                color: "#9e9e9e",
+            },
+        ],
+    },
+  ];
 
   return (
     <div>
-     
       <form className="nav-search-form" onSubmit={searchSubmit}>
-  <div className="input-group-text">
-    <div className="input-group input-group-lg">
-     
-      <input type="search" className="form-control" onChange={handleChange((e)=> e)} placeholder="search by location"></input>
-    </div>
-    <div className="btn input-group-append" style={{border:"none"}}>
-      <button style={{color:"blue"}}className="input-group-text">Search</button>
-    </div>
-  </div>
-  </form>
-  <h1 className='feed-title'>Find an artist near you!</h1>
+        <div className="input-group-text">
+          <div className="input-group input-group-lg">
+            <input type="search" className="form-control" onChange={handleChange((e)=> e)} placeholder="search by location"></input>
+          </div>
+          <div className="btn input-group-append" style={{border:"none"}}>
+            <button style={{color:"blue"}}className="input-group-text">Search</button>
+          </div>
+        </div>
+      </form>
+      <h1 className='feed-title'>Find an artist near you!</h1>
       <div className='artist-location'>
         {props.items.map(artists => {
           return (
@@ -127,8 +231,12 @@ const GoogleMaps = (props) => {
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
-          defaultCenter={{ lat: userlocationlat, lng: userlocationlong }}
+          defaultCenter={{ lat: 40.756795, lng: -73.954298 }}
+          // defaultCenter={{ lat: userlocationlat, lng: userlocationlong }}
           defaultZoom={10}
+          options={{
+            styles: mapStyle,
+          }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
         />
