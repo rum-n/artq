@@ -60,12 +60,7 @@ const getArtByUser = async (req,res,next)=>{
 
 }
 const saveArt = async (req,res,next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()){
-        console.log(errors)
-        return next (new HttpError("Invalid inputs passed, please check your data",422))
-
-    }
+    
     const {title,url,description,dimentions,status,price,author,type,duration,medium,style,address,likes} = req.body;
     let coordinates;
     try{

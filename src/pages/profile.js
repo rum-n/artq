@@ -3,6 +3,7 @@ import React,{useContext,useState,useEffect,Redirect,useReducer,useCallback} fro
 // import { useAuth0 } from "@auth0/auth0-react";
 import {AuthContext} from "../context/auth-context";
 import Button from '../components/Button';
+import { Link } from "react-router-dom";
 // import UsersList from '../components/UsersList';
 import {useHttpClient} from "../components/hooks/http-hook"
 import MyArt from "./MyArt"
@@ -21,6 +22,8 @@ const Profile = () => {
   const [loadedId, setLoadedId] = useState();
   const [loadedPhone, setLoadedPhone] = useState();
   const [loadedImage, setLoadedImage] = useState();
+  const [loadedAbout, setLoadedAbout] = useState();
+  const [loadedLocation, setLoadedLocation] = useState();
   const auth = useContext(AuthContext);
   const userId = auth.userId
   console.log("auth.userid "+auth.userId)
@@ -73,7 +76,11 @@ const Profile = () => {
         setLoadedEmail(responseData.userWithImages.email)
         setLoadedPhone(responseData.userWithImages.phone)
         setLoadedId(responseData.userWithImages.id)
-        setLoadedImage(responseData.userWithImages.image)
+        setLoadedImage(responseData.userWithImages.prof)
+        setLoadedAbout(responseData.userWithImages.about)
+        setLoadedLocation(responseData.userWithImages.location)
+        console.log(responseData.userWithImages)
+       
       } catch (err) {
        
       }
@@ -278,7 +285,10 @@ return(
     </div>
     <div className='main'>
     <div className='personal-info'>
-      <img className='profile-pic' src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350" alt="new"/>
+      {console.log(loadedImage)}
+    
+      <img className='profile-pic' src={loadedImage} alt="new"/>
+      
       <div className='flex-c'>
         <div className='personal-info-text'>
           <div className='col-1'>
@@ -291,15 +301,16 @@ return(
               <p>101 Followers</p>
               <p>121 Following</p>
             </div>
-            <p>Based in San Francisco, CA</p>
+         
+            {loadedLocation}
           </div>
         </div>
         <div className='personal-bio'>
-          <p>Self-thaught painter // Take a look at my work</p>
+            {loadedAbout}
         </div>
         <div className='profile-btn-wrapper'>
           <button className='edit-profile-btn'>Edit profile</button>
-          <button className='add-new-post-btn'>Add new post</button>
+          <a href="http://localhost:3000/addart">Add new post</a> 
         </div>
       </div>
     </div>

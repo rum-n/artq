@@ -15,6 +15,7 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
   const[convert,setconvert] = useState("")
   let distances = []
   const [order,setorder] = useState(props.items)
+  const [onloaded, setonloaded] = useState(false)
   const [uorder,setuorder] = useState([])
   const updateddistances = []
   const finaldistanceorder = []
@@ -23,6 +24,7 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
   console.log(data)
   
   const mapCoordinates = () => {
+   
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         setuserlocationlat(position.coords.latitude)
@@ -32,14 +34,23 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
       setuserlocationlat("40.756795")
       setuserlocationlong("-73.954298")
     };
+   
   }
-  mapCoordinates();
+  
+  useEffect(() =>{
+    mapCoordinates()
+
+  },[userlocationlat])
+  
+  
 
 
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
   const [ artistorder, setartistorder ] = useState([]);
   const ModelsMap = (map, maps) => {
+    
+  
     //instantiate array that will hold your Json Data
     let dataArrayLat = [];
     let dataArrayLong = [];
@@ -92,7 +103,6 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
   };
 
   
-
 
 const getCoordsForAddress = async(address) => {
   //  return {
@@ -225,6 +235,7 @@ const findDistance = (lat,lng) =>{
   const handleChange = name => event =>{
     
     setData(event.target.value)
+    event.preventDefault()
   }
 
   const mapStyle = [
@@ -339,7 +350,9 @@ const findDistance = (lat,lng) =>{
   ];
 
   return (
+   
     <div>
+      
       <form className="nav-search-form" onSubmit={searchSubmit}>
         <div className="input-group-text">
           <div className="input-group input-group-lg">

@@ -13,6 +13,7 @@ import {
 } from './util/validators';
 import './NewArtForm.css';
 
+
 const formReducer = (state, action) => {
   switch (action.type) {
     case 'INPUT_CHANGE':
@@ -38,6 +39,7 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = () => {
+  const [file, setFile] = React.useState("");
   const [methodofbuying, setmethodofbuying] = useState("")
   const [artstyle, setartstyle] = useState("")
   const { sendRequest } = useHttpClient();
@@ -60,7 +62,7 @@ const NewPlace = () => {
       },
       url: {
         value: '',
-        isValid: false
+        isValid: true
       },
       address: {
         value: '',
@@ -90,6 +92,17 @@ const NewPlace = () => {
     });
   }, []);
 
+  function handleUpload(event) {
+    setFile(event.target.files[0]);
+
+    // Add code here to upload file to server
+    // ...
+  }
+  const ImageThumb = ({ image }) => {
+    console.log(URL.createObjectURL(file))
+    console.log(URL.createObjectURL(file))
+  return <img src={URL.createObjectURL(file)} alt={image.name} />;
+};
   const placeSubmitHandler = async event => {
     event.preventDefault();
     try{
@@ -104,7 +117,7 @@ const NewPlace = () => {
       type: methodofbuying, //change this to use what user clicked
       address:formState.inputs.address.value,
       style:artstyle,
-      url:formState.inputs.url.value,
+      url:URL.createObjectURL(file),
       author: auth.userId,
       
     }),{
@@ -175,15 +188,16 @@ const handlebuy = (method) =>{
         <Form.Group as={Row} controlId="url">
           <Form.Label column sm="4">Url</Form.Label>
           <Col sm="6">
-            <Input
-              id="url"
-              validators={[VALIDATOR_REQUIRE()]}
-              element="input"
-              type="text"
-              onInput={inputHandler}
-            />
+          <div id="upload-box">
+      <input type="file" onChange={handleUpload} />
+      {/* <p>Filename: {file.name}</p>
+      <p>File type: {file.type}</p>
+      <p>File size: {file.size} bytes</p> */}
+     
+    </div>
           </Col>
         </Form.Group>
+        
         
         <Form.Group as={Row} controlId="address">
           <Form.Label column sm="4">Address</Form.Label>
