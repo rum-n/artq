@@ -64,6 +64,10 @@ const NewPlace = () => {
         value: '',
         isValid: true
       },
+      duration: {
+        value: '',
+        isValid: true
+      },
       address: {
         value: '',
         isValid: false
@@ -105,20 +109,23 @@ const NewPlace = () => {
 };
   const placeSubmitHandler = async event => {
     event.preventDefault();
-    try{
+    if (methodofbuying == "Sale")
+    {try{
+      console.log(formState.inputs.price.value)
     await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
       title:formState.inputs.title.value,
       status:"Not sold",
       description:formState.inputs.description.value,
       dimentions:formState.inputs.dimentions.value,
-      duration: 3, //change this to use what user clicked
+      duration: 0, //change this to use what user clicked
       medium: formState.inputs.medium.value,
-      price: 0,
+      price: formState.inputs.price.value,
       type: methodofbuying, //change this to use what user clicked
       address:formState.inputs.address.value,
       style:artstyle,
       url:URL.createObjectURL(file),
       author: auth.userId,
+      likes:0
       
     }),{
       'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
@@ -126,7 +133,30 @@ const NewPlace = () => {
     history.push('/');
   } catch(err){
     console.log(err)
-  }
+  }}
+  if (methodofbuying == "Auction")
+  {try{
+  await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
+    title:formState.inputs.title.value,
+    status:"Not sold",
+    description:formState.inputs.description.value,
+    dimentions:formState.inputs.dimentions.value,
+    duration: formState.inputs.duration.value, //change this to use what user clicked
+    medium: formState.inputs.medium.value,
+    price: formState.inputs.price.value,
+    type: methodofbuying, //change this to use what user clicked
+    address:formState.inputs.address.value,
+    style:artstyle,
+    url:URL.createObjectURL(file),
+    author: auth.userId,
+    
+  }),{
+    'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+  })
+  history.push('/');
+} catch(err){
+  console.log(err)
+}}
 };
 
 const handlebuy = (method) =>{
@@ -270,7 +300,7 @@ const handlebuy = (method) =>{
         <Form.Label column sm="4">Auction ends in (hours):</Form.Label>
           <Col sm="6">
             <Input
-              id="price"
+              id="duration"
               element="input"
               type="number"
               validators={[VALIDATOR_REQUIRE()]}

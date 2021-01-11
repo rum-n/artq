@@ -17,11 +17,13 @@ router.put("/:imgId",savedartcontrollers.updateBidPrice)
 router.put("/sold/:imgId",savedartcontrollers.updateStatus)
 router.put("/likes/:imgId/status/",savedartcontrollers.updateLikes)
 
+router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
+
 router.use(checkAuth);
 
 
 
-router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
+
 
 
 router.patch('/:imgid',check('title').not().isEmpty(),check('url').isURL(),savedartcontrollers.updateImage);

@@ -58,20 +58,22 @@ const createOrder = async (req,res,next) => {
          const error = new HttpError("Could not find user for provided id",404)
          return next(error)
      }
+     console.log("entered")
 
      try{
+      
       const sess = await mongoose.startSession();
-      console.log("hi")
+      console.log("hoi")
       sess.startTransaction();
-      console.log("hi")
+      console.log("hoi")
       await savedOrder.save({session:sess});
-      console.log("hi")
+      console.log("hoi")
       user.order.push(savedOrder);
-      console.log("hi")
+      console.log("hoi")
      await user.save({session:sess});
-     console.log("hi")
+     console.log("hoi")
       await sess.commitTransaction();
-      console.log("hi")
+      console.log("hoi")
      } catch(err){
          console.log(err)
          const error = new HttpError("Saving Order failed",500);

@@ -30,17 +30,20 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
         setuserlocationlat(position.coords.latitude)
         setuserlocationlong(position.coords.longitude)
       })
-    } else {
-      setuserlocationlat("40.756795")
-      setuserlocationlong("-73.954298")
     };
    
   }
-  
   useEffect(() =>{
     mapCoordinates()
+    
 
   },[userlocationlat])
+  
+  
+  
+   
+
+ 
   
   
 
@@ -105,6 +108,7 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
   
 
 const getCoordsForAddress = async(address) => {
+  
   //  return {
   //    lat: 40.7484474,
   //   lng: -73.9871516
@@ -128,14 +132,17 @@ const getCoordsForAddress = async(address) => {
    setuserlocationlong(coordinates.lng)
    console.log(coordinates)
    findDistance(coordinates.lat,coordinates.lng)
+
    
   
 }
 const findDistance = (lat,lng) =>{
  
+ 
   console.log(userlocationlat)
   setuserlocationlat(lat)
   setuserlocationlong(lng)
+  
  
   
 
@@ -224,6 +231,7 @@ const findDistance = (lat,lng) =>{
 
 
   const searchSubmit = (e) =>{
+ 
     
     getCoordsForAddress(data)
     console.log(data)
@@ -233,6 +241,7 @@ const findDistance = (lat,lng) =>{
   }
 
   const handleChange = name => event =>{
+    
     
     setData(event.target.value)
     event.preventDefault()
@@ -380,6 +389,7 @@ const findDistance = (lat,lng) =>{
       </div>
 
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
+   
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
           center={{ lat: userlocationlat, lng: userlocationlong }}
@@ -388,6 +398,7 @@ const findDistance = (lat,lng) =>{
             styles: mapStyle,
           }}
           yesIWantToUseGoogleMapApiInternals
+          
           onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
         />
       </div>

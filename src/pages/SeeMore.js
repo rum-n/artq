@@ -209,7 +209,7 @@ const SeeMore = () => {
     }
   };
 
-  if(numberofbids.length == 0){
+  if(numberofbids.length == 0 && state.type == "Auction"){
     setnumberofbids("be the first bid!")
   }
 
@@ -240,14 +240,16 @@ const SeeMore = () => {
               <td className='left'><p>Current price ($)</p></td>
               <td className='right'><p>{state.price}</p></td>
             </tr>
+            {state.type == "Auction" &&
             <tr>
               <td className='left'><p>Time remaining</p></td>
               <td className='right'><p>{state.duration} hours</p></td>
-            </tr>
+            </tr>}
+            {state.type == "Auction" &&
             <tr>
               <td className='left'><p>Bids</p></td>
               <td className='right'><p>{numberofbids}</p></td>
-            </tr>
+            </tr>}
             <tr>
               <td className='left'><p>Medium</p></td>
               <td className='right'><p>{state.medium}</p></td>
@@ -260,7 +262,7 @@ const SeeMore = () => {
 
       <div className='seemore-btn-wrapper'>
 
-        {state.type === "Sell" &&
+        {state.type === "Sale" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
         {state.type === "Auction" && state.status!="sold" &&

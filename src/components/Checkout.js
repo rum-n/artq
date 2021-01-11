@@ -131,7 +131,7 @@ const Checkout =({ products })=>{
                    }
                  ).then(response =>{
                     console.log(auth.userId)
-                    console.log(response.transaction.id)
+                    console.log(response)
                     console.log(response.transaction.amount)
                     const createOrderData = {
                         status:"Not Processed",
@@ -141,13 +141,14 @@ const Checkout =({ products })=>{
                         sold: 1,
                         amount: response.transaction.amount,
                         address:"nyc",
-                        user1: "5ff34c7565bdacb8b20812c7",
+                        user1: auth.userId,
                         artistid: products[0].author,
                        
                     }
                     if (response.success == true){
+                        console.log(auth.userId)
                         
-                       
+                        createOrder(auth.userId,createOrderData)
                         sendorder(createOrderData)
                        
                         emptyCart(() =>{
@@ -170,7 +171,7 @@ const Checkout =({ products })=>{
         setClicked(true)
     }
 
-    // Is this being used anywhere?
+  
     const sendorder = async (createOrderData) => { 
         console.log(createOrderData)
        try {

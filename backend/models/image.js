@@ -13,8 +13,8 @@ const imageSchema = new Schema({
     url:{type:String, required:true},
     address:{type:String,required:true},
     location:{
-        lat:{type:Number, required:true},
-        long:{type:Number, required:true}
+        lat:{type:Number},
+        long:{type:Number}
     },
     type:{type:String, required:true},
     duration:{type:Number},
