@@ -1,23 +1,22 @@
-/* .map {
-    width: 70%;
-    height: 100%;
-} */
-
 .search-wrapper {
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
 }
 
+.search-wrapper form {
+  width: 100%;
+  text-align: center;
+}
+
 .nearme-search {
-  width: 45%;
   height: 35px;
   padding-left: 1rem;
+  padding-right: 10rem;
   font-family: "Roboto", sans-serif;
-  margin: auto;
   border: none;
   background: #EBEAEA;
-  border-radius: 10px;
+  border-radius: 6px;
 }
 
 .artist-location {

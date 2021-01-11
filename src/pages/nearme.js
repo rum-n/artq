@@ -4,15 +4,13 @@ import GoogleMapReact from "google-map-react";
 import './nearme.css';
 
 const GoogleMaps = (props) => {
-  
   const axios = require('axios');
-
-const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A' 
+  const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A' 
   
   const [userlocationlat, setuserlocationlat] = useState("")
   const [userlocationlong, setuserlocationlong] = useState("")
-  const[data,setData] = useState("")
-  const[convert,setconvert] = useState("")
+  const [data,setData] = useState("")
+  const [convert,setconvert] = useState("")
   let distances = []
   const [order,setorder] = useState(props.items)
   const [onloaded, setonloaded] = useState(false)
@@ -34,22 +32,16 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
       setuserlocationlat("40.756795")
       setuserlocationlong("-73.954298")
     };
-   
   }
   
   useEffect(() =>{
     mapCoordinates()
-
   },[userlocationlat])
-  
-  
-
 
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
   const [ artistorder, setartistorder ] = useState([]);
   const ModelsMap = (map, maps) => {
-    
   
     //instantiate array that will hold your Json Data
     let dataArrayLat = [];
@@ -102,8 +94,6 @@ const API_KEY = 'AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A'
     }
   };
 
-  
-
 const getCoordsForAddress = async(address) => {
   //  return {
   //    lat: 40.7484474,
@@ -121,15 +111,11 @@ const getCoordsForAddress = async(address) => {
    if (!data || data.status === 'ZERO_RESULTS') {
     alert("no results")
    }
-
    const coordinates = data.results[0].geometry.location;
-
    setuserlocationlat(coordinates.lat)
    setuserlocationlong(coordinates.lng)
    console.log(coordinates)
    findDistance(coordinates.lat,coordinates.lng)
-   
-  
 }
 const findDistance = (lat,lng) =>{
  
@@ -166,7 +152,6 @@ const findDistance = (lat,lng) =>{
     let hi = Array.from(distances)
     let theindex = 0
     const saveprevious = distances
-  
     const sortedarray = ((hi.sort((a, b) => a - b)))
     console.log(distances)
     console.log(saveprevious)
@@ -175,15 +160,9 @@ const findDistance = (lat,lng) =>{
     for (let j = 0; j < distances.length; j++) { 
       console.log(hi[j])
       theindex = (distances.indexOf(sortedarray[j]))
-   
-      uorder.push(props.items[theindex])
-    
+      uorder.push(props.items[theindex])    
     } 
-    console.log(uorder)
-   
-    
 
-   
   //   for (let j = 0; j < distances.length; j++) { 
   //     min = distances[0]
   //     console.log(distances)
@@ -206,34 +185,17 @@ const findDistance = (lat,lng) =>{
   //   finaldistanceorder.push(min)
 
   // }
- 
-
-  
-  
- 
-
-   
-    
-    //console.log(finaldistanceorder)
-   
-
   }
   Array.min = function( array ){
     return Math.min.apply( Math, array );
 };
 
-
   const searchSubmit = (e) =>{
-    
     getCoordsForAddress(data)
-    console.log(data)
-    
     e.preventDefault()
-   
   }
 
   const handleChange = name => event =>{
-    
     setData(event.target.value)
     event.preventDefault()
   }
@@ -350,21 +312,16 @@ const findDistance = (lat,lng) =>{
   ];
 
   return (
-   
     <div>
-      
-      <form className="nav-search-form" onSubmit={searchSubmit}>
-        <div className="input-group-text">
-          <div className="input-group input-group-lg">
-            <input type="search" className="form-control" onChange={handleChange((e)=> e)} placeholder="search by location"></input>
-          </div>
-          <div className="btn input-group-append" style={{border:"none"}}>
-            <button style={{color:"blue"}}className="input-group-text">Search</button>
-          </div>
-        </div>
-      </form>
       <h1 className='feed-title'>Find an artist near you!</h1>
-      <div className='artist-location'>
+      <div className='search-wrapper'>
+      <form onSubmit={searchSubmit}>
+          <input type="search" className='nearme-search' placeholder='Search by location' onChange={handleChange((e)=> e)}></input>
+          {/* Not sure if we wanna have that button. I like it better without but if you think we should leave it I'm fine too. */}
+          {/* <button style={{color:"blue"}}className="input-group-text">Search</button> */}
+      </form>
+      </div>
+      {data && <div className='artist-location'>
         {uorder.map(artists => {
           return (
           <Link to={`/seemore/${artists.id}`}>
@@ -377,7 +334,7 @@ const findDistance = (lat,lng) =>{
           </div>
           </Link>)
           })}
-      </div>
+      </div>}
 
       <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
         <GoogleMapReact
