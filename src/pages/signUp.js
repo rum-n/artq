@@ -74,29 +74,10 @@ let handleChange = (e) => {
     account[name] = value;
     setAccount(account);
     profilepic()
-    
-   
-    
   }
 
   let save = async(e) => {
     e.preventDefault();
-    
-    // const fileReader = new FileReader();
-    // fileReader.onload = () =>{
-    // console.log("ENTETED LOADDDDDDDDDDDDDDDD")
-    // console.log(thepic)
-    // setPreviewUrl(fileReader.url)
-    
-   
-
-    // }
-    // console.log(thepic)
-    // fileReader.readAsDataURL(thepic)
-     
-     
-   
-
     
     try{
 
@@ -130,11 +111,8 @@ let handleChange = (e) => {
 
     const profilepic = () =>{
         setthepic(pic[0])
-     
-        
     }
-   
-
+    
     return (
         <React.Fragment>
             <div className="App">
