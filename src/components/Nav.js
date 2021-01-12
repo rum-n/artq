@@ -42,6 +42,9 @@ const Navigation = () => {
             key={image.id}
             id={image.id}
             image={image.url}
+            url={image.url}
+            likes={image.likes}
+            peoplewholiked={image.peoplewholiked}
             title={image.title}
             description={image.description}
             address={image.address}

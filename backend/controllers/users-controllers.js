@@ -393,6 +393,15 @@ const artistSearch = (req,res) =>{
    
     
 }
+
+const updateFollowers = (req,res) =>{
+    User.update({_id: req.body.id},{$set:{followers:req.body.followers,followersnumber:req.body.followersnumber}},(err,order) =>{
+        res.json(order)
+    })
+   
+    
+}
+exports.updateFollowers = updateFollowers
 exports.updateFollowing = updateFollowing
 exports.artistSearch = artistSearch
 exports.purchaseHistory = purchaseHistory

@@ -37,6 +37,7 @@ const Individual = () => {
           }
           
           setLoadedUsers(responseData.userWithImages);
+          console.log(responseData.userWithImages)
          
         } catch (err) {
          
@@ -76,6 +77,7 @@ const Individual = () => {
    const disable = () =>{
    
      incrementFollowing()
+     incrementFollowers()
      setdisablebutton(true)
      setdisableunfollow(false)
      
@@ -86,6 +88,7 @@ const Individual = () => {
     decrementFollowing()
     setdisableunfollow(true)
     setdisablebutton(false)
+    decrementFollowers()
   }
 
    //add decrementfollowing
@@ -137,6 +140,54 @@ const Individual = () => {
 
 }
 
+const decrementFollowers = async () => {
+  alert("user removed")
+ try {
+   const response = await fetch(`http://localhost:5000/api/users/${loadedUsers[0].author}`);
+ 
+   const responseData = await response.json();
+   console.log(responseData)
+   
+
+   if (!response.ok) {
+     throw new Error(responseData.message);
+   }
+   
+  
+  
+
+
+
+ let followersnumber = 0
+ console.log(responseData.userWithImages)
+ let followers = responseData.userWithImages.followers
+
+   
+
+ followersnumber = responseData.userWithImages.followersnumber - 1
+ followers = responseData.userWithImages.followers
+ //find the existing user id and delete
+ console.log(responseData.userWithImages.followers)
+ followers = responseData.userWithImages.followers[0].replace(auth.userId,'');
+
+
+ console.log(auth.userId)
+
+ await sendRequest(`http://localhost:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+     "id" : loadedUsers[0].author,
+     "followers":followers,
+     "followersnumber":followersnumber
+ }),{
+     'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+   })
+
+} catch(err){
+ alert(err)
+ console.log(err)
+}
+
+}
+
   
    const incrementFollowing = async () => {
     try {
@@ -177,6 +228,50 @@ const Individual = () => {
       })
   
   } catch(err){
+  
+    console.log(err)
+  }
+  
+  
+  };
+
+  const incrementFollowers = async () => {
+    try {
+      alert(loadedUsers[0].author)
+      
+      const response = await fetch(`http://localhost:5000/api/users/${loadedUsers[0].author}`);
+    
+      const responseData = await response.json();
+      console.log(responseData)
+      
+
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+    let followersnumber = 0
+    console.log(responseData.userWithImages)
+    followersnumber = responseData.userWithImages.followersnumber
+ 
+    
+   
+    followersnumber = responseData.userWithImages.followersnumber+1
+    let followers = responseData.userWithImages.followers
+    
+    followers = responseData.userWithImages.followers[0]+(auth.userId)
+  
+    alert(loadedUsers[0].author,followers,followersnumber)
+   
+  
+    await sendRequest(`http://localhost:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+        "id" : loadedUsers[0].author,
+        "followers":followers,
+        "followersnumber":followersnumber
+    }),{
+        'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+      })
+  
+  } catch(err){
+    alert(err)
   
     console.log(err)
   }

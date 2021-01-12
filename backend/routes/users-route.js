@@ -12,6 +12,7 @@ router.get("/images/name/search",userscontrollers.artistSearch)
 router.post('/signup',fileUpload.single('prof'),check("name").not().isEmpty(),check('email').normalizeEmail().isEmail(),check('password').isLength({min:6}),userscontrollers.signup);
 router.post('/login',userscontrollers.login);
 router.put("/following/:uid/",userscontrollers.updateFollowing)
+router.put("/followers/:uid/",userscontrollers.updateFollowers)
 router.patch("/:uid",userscontrollers.updateprofile)
 
 module.exports = router;

@@ -12,6 +12,7 @@ const UsersList = props => {
           id={user.id}
           prof={user.prof}
           image={user.image}
+          url={user.url}
           name={user.name}
           placeCount={user.image.length}
           author = {user._id}
