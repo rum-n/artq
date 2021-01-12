@@ -15,9 +15,11 @@ const Savedimageslist = props => {
         key={user.id}
         id={user.id}
         image={user.url}
+        url={user.url}
         description={user.description}
         address={user.address}
         title={user.title}
+        peoplewholiked = {user.peoplewholiked}
         />
       ))}
     </ul>

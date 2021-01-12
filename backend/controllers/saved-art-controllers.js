@@ -4,6 +4,7 @@ const HttpError = require('../models/http-error');
 const getCoordsForAddress = require("../util/location")
 const Image = require('../models/image');
 const Save = require('../models/save');
+const fs = require('fs')
 const User = require("../models/user")
 const mongoose = require("mongoose")
 const { findAllByPlaceholderText } = require('@testing-library/react');
@@ -61,7 +62,7 @@ const getArtByUser = async (req,res,next)=>{
 }
 const saveArt = async (req,res,next) => {
     
-    const {title,url,description,dimentions,status,price,author,type,duration,medium,style,address,likes} = req.body;
+    const {title,url,description,dimentions,status,price,author,user1,type,duration,peoplewholiked,medium,style,address,likes} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -70,11 +71,14 @@ const saveArt = async (req,res,next) => {
     } catch(error){
         return next(error)
     }
+    
+    
+    
     const savedArt = new Image({
         title,
         status,
         description,
-        dimentions,
+        dimentions:5,
         price,
         address,
         location: {
@@ -83,13 +87,15 @@ const saveArt = async (req,res,next) => {
             long: (coordinates.lng) //it works when you put in actual coordinates
             },
          
-        url,
+        url:req.file.path,
         type,
         duration,
         medium,
         style,
+        user1,
         author,
-        likes
+        likes,
+        peoplewholiked
     });
    
     console.log(savedArt)
@@ -207,6 +213,9 @@ const deleteImage = async (req,res,next) =>{
 
      }
 
+     const imagePath = image.url;
+
+
 
     try{
          const sess = await mongoose.startSession();
@@ -224,6 +233,10 @@ const deleteImage = async (req,res,next) =>{
         );
         return next(error);
     }
+
+    fs.unlink(imagePath,err =>{
+        console.log(err);
+    })
     res.status(200).json({message:'Deleted art'})
 
 };
@@ -262,10 +275,10 @@ const updateStatus = (req,res) =>{
     })
 }
 const updateLikes = (req,res) =>{
-    Image.update({_id: req.body.id},{$set:{likes:req.body.likes}},(err,order) =>{
-      
+    Image.update({_id: req.body.id},{$set:{likes:req.body.likes,peoplewholiked:req.body.peoplewholiked}},(err,order) =>{
         res.json(order)
     })
+   
     
 }
 

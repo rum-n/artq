@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
+const fs = require('fs')
 const imagesRoutes = require('./routes/saved-art-route');
 const usersRoutes = require('./routes/users-route')
 const savedRoutes = require('./routes/saving-other-people-art-route')
@@ -9,9 +9,12 @@ const braintreeRoutes = require('./routes/braintree')
 const orderRoutes = require("./routes/order")
 const bidRoutes = require("./routes/bid-route")
 const HttpError = require('./models/http-error')
+const path = require('path')
 
 const app = express();
 app.use(bodyParser.json());
+
+app.use('/uploads/images',express.static(path.join('uploads','images')))
 
 app.use((req,res,next) =>{
     res.setHeader('Access-Control-Allow-Origin','*');
@@ -34,6 +37,11 @@ app.use((req,res,next)=>{
 });
 
 app.use((error,req,res,next) =>{
+    if (req.file){
+      fs.unlink(req.file.path,() =>{
+          console.log(error)
+      })
+    }
     if (res.headerSent){
         return next(error);
     }

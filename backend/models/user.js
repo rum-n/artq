@@ -14,6 +14,10 @@ const userSchema = new Schema({
     savedimage:[{type:mongoose.Types.ObjectId,required:true,ref:"Savedimage"}],
     order:[{type:mongoose.Types.ObjectId,required:true,ref:"Order"}],
     history:{type: Array,default:[]},
+    followers:{type: Array,default:[]},
+    following:{type: Array,default:[]},
+    followingnumber:{type: Number,default:0},
+    followersnumber:{type: Number,default:0},
     
     bids:{type: Array,default:[]}
 

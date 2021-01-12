@@ -57,7 +57,7 @@ const GetSavedImages = () => {
   
     return (
       <React.Fragment>
-      
+        {console.log(loadedUsers)}
       
         {loadedUsers && <Savedimageslist items={loadedUsers} likes={likes} />}
       </React.Fragment>

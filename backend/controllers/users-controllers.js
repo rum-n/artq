@@ -39,8 +39,10 @@ const profileById = async (req,res,next)=>{
 
 }
 const signup = async (req,res,next) =>{
+    console.log("entered")
     const errors = validationResult(req);
     if (!errors.isEmpty()){
+
         console.log(errors)
         return next( new HttpError("Invalid inputs passed, please check your data",422));
 
@@ -50,6 +52,8 @@ const signup = async (req,res,next) =>{
     try{
     existingUser = await User.findOne({email:email})
     } catch (err){
+        
+        console.log(err)
         const error = new HttpError(
             "Signing in failed",500
         );
@@ -66,6 +70,8 @@ const signup = async (req,res,next) =>{
     try{
     hashedPassword= await bcrypt.hash(password,12)
     }catch(err){
+        alert(err)
+        console.log(err)
         const error = new HttpError(
             'Could not create user, please try again.',500
         );
@@ -77,7 +83,7 @@ const signup = async (req,res,next) =>{
         name,
         location,
         about,
-        prof,
+        prof:req.file.path,
         email,
         password:hashedPassword,
         phone,
@@ -87,6 +93,7 @@ const signup = async (req,res,next) =>{
     try{
         await createdUser.save();
     }catch(err){
+        console.log(err)
         const error = new HttpError(
             "Signingg up failed", 500
         );
@@ -379,6 +386,14 @@ const artistSearch = (req,res) =>{
      
  }
 
+ const updateFollowing = (req,res) =>{
+    User.update({_id: req.body.id},{$set:{following:req.body.following,followingnumber:req.body.followingnumber}},(err,order) =>{
+        res.json(order)
+    })
+   
+    
+}
+exports.updateFollowing = updateFollowing
 exports.artistSearch = artistSearch
 exports.purchaseHistory = purchaseHistory
 exports.updateprofile = updateprofile

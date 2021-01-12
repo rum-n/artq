@@ -80,23 +80,20 @@ let handleChange = (e) => {
     e.preventDefault();
     
     try{
+        const formData = new FormData()
+        formData.append('name',account.firstname)
+        formData.append('email',account.email)
+        formData.append('password',account.password)
+        formData.append('phone',account.phone)
+        formData.append('prof',file)
+        formData.append('image',account.image)
+        formData.append('location',account.location)
+        formData.append('about',account.about)
+       
 
         console.log(previewUrl)
-    await sendRequest('http://localhost:5000/api/users/signup', 'POST', JSON.stringify({  
-       
-        "name":account.firstname,
-        "email":account.email,
-        "password":account.password,
-        "prof": URL.createObjectURL(file),
-        "phone": account.phone,
-        "image": account.image,
-        "location": account.location,
-        "about": account.about
-    }),
-    {
-        'Accept': 'application/json',  
-        'Content-Type': 'application/json'
-    },
+    await sendRequest('http://localhost:5000/api/users/signup', 'POST', formData
+   
       );
       setRedirect(true)
     } catch(err){

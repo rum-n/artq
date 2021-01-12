@@ -25,6 +25,10 @@ const imageSchema = new Schema({
         type: Number,
         default: 0,
       },
+    peoplewholiked: {
+        type: String,
+        default: "",
+      }
 })
 
 module.exports = mongoose.model('Image',imageSchema);

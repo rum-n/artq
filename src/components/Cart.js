@@ -98,12 +98,15 @@ const Cart =() => {
               key={user.id}
               id={user.id}
               image={user.image}
+              url={user.url}
               description={user.description}
               address={user.address}
               title={user.title}
               author={user.author}    
               duration={user.duration}
               dimentions={user.dimentions}
+              peoplewholiked = {user.peoplewholiked}
+              likes = {user.likes}
               type={user.type}
               price={user.price}
               medium={user.medium}

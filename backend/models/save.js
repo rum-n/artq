@@ -20,6 +20,12 @@ const saveimageSchema = new Schema({
     medium:{type:String, required:true},
     author:{type:mongoose.Types.ObjectId,required:true,ref:"User"},
     user1:{type:String,required:true},
+    likes: {
+        type: Number
+      },
+    peoplewholiked: {
+        type: String,
+      }
     
   
 })

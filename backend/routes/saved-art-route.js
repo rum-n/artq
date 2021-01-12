@@ -2,6 +2,7 @@ const express = require('express');
 const {check} = require('express-validator');
 const checkAuth = require("../middleware/check-auth")
 const savedartcontrollers = require("../controllers/saved-art-controllers");
+const fileUpload = require('../middleware/file-upload')
 
 const router = express.Router();
 
@@ -17,7 +18,8 @@ router.put("/:imgId",savedartcontrollers.updateBidPrice)
 router.put("/sold/:imgId",savedartcontrollers.updateStatus)
 router.put("/likes/:imgId/status/",savedartcontrollers.updateLikes)
 
-router.post('/',check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
+
+router.post('/',fileUpload.single('url'),check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
 
 router.use(checkAuth);
 

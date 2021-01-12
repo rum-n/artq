@@ -32,6 +32,8 @@ const Feed = (props, { showAddToCartButton = true }) => {
   const [activelikes, setActivelikes] = useState(0);
   const [activeduration, setActiveduration] = useState('');
   const [activemedium, setActivemedium] = useState('');
+  const [activepeoplewholiked, setActivepeoplewholiked] = useState(0);
+  const [base64data, setbase64data] = useState('');
   const [showcartbutton, setshowcartbutton] = useState('');
   
   const handleClose = () => setShow(false);
@@ -39,15 +41,16 @@ const Feed = (props, { showAddToCartButton = true }) => {
     setActiveItem(item)
     setActivetitle(item.title)
     setActivedescription(item.description)
-    setActiveurl(item.image)
+    setActiveurl(item.url)
     setActiveaddress(item.address)
     setActiveauthor(item.author)
     setActiveprice(item.price)
     setActivedimentions(item.dimentions)
-    setActivelikes(item.likes)
     setActivetype(item.type)
     setActiveduration(item.duration)
     setActivemedium(item.medium)
+    setActivepeoplewholiked(item.peoplewholiked)
+    setActivelikes(item.likes)
     setShow(true)
  };
 
@@ -71,25 +74,24 @@ const Feed = (props, { showAddToCartButton = true }) => {
    alert("saved!")
   event.preventDefault();
   try{
+    const formData = new FormData()
+        formData.append('dimentions',activedimentions)
+        formData.append('price',activeprice)
+        formData.append('type',activetype)
+        formData.append('duration',activeduration)
+        formData.append('medium',activemedium)
+        formData.append('title',activetitle)
+        formData.append('description',activedescription)
+        formData.append('address',activeaddress)
+        formData.append('url',activeurl)
+        formData.append('dimentions',activedimentions)
+        formData.append('author',activeauthor)
+        formData.append('user1',auth.userId)
+        formData.append('likes',activelikes)
+        formData.append('peoplewholiked',activepeoplewholiked)
+        
    
-  await sendRequest('http://localhost:5000/api/saved','POST', JSON.stringify({
-   
-    dimentions: activedimentions,
-    likes: activelikes,
-    price: activeprice,
-    type:activetype,
-    duration:activeduration,
-    medium:activemedium,
-    title:activetitle,
-    description:activedescription,
-    address:activeaddress,
-    url:activeurl,
-    author: activeauthor,
-    user1:auth.userId
-
-  }),{
-    'Content-Type':'application/json'
-  })
+  await sendRequest('http://localhost:5000/api/saved','POST', formData)
 } catch(err){}
 };
 
@@ -130,13 +132,23 @@ const incrementLikes = async (o) => {
 
   console.log("entered placesubmit handler" )
   let updatedlikes = 0
+  let updatedpeople = o.peoplewholiked
   try{
+  if (o.peoplewholiked.indexOf(auth.userId) > -1)
+{
+  alert("you already liked dawg");
+}else{
   updatedlikes = o.likes+1
+  updatedpeople = o.peoplewholiked
+  console.log(updatedpeople+((auth.userId)))
+  updatedpeople = updatedpeople+((auth.userId))
+}
   
    console.log(o)
   await sendRequest(`http://localhost:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
       "id" : o.id,
-      "likes":updatedlikes
+      "likes":updatedlikes,
+      "peoplewholiked":updatedpeople
   }),{
       'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
     })
@@ -148,6 +160,11 @@ const incrementLikes = async (o) => {
 
 
 };
+console.log(props.image)
+
+
+
+
 
 
   return (
@@ -156,11 +173,13 @@ const incrementLikes = async (o) => {
       
           <Col key={props.id} xs={3} md={4} className='art-cards'>
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
-              <Card.Img src={props.image} /> 
+              <Card.Img src={`http://localhost:5000/${props.url}`} /> 
               {shouldRedirect(redirect)}
               <div>
               <text> {props.likes} likes</text>
-              <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />
+              {console.log(props)}
+              {!(props.peoplewholiked.indexOf(auth.userId) > -1) &&
+              <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
              
               </div>
             </Card>
@@ -175,7 +194,7 @@ const incrementLikes = async (o) => {
                     <Container>
                       <Row>
                         <Col xs={12} md={6}>
-                            <img className="modal-img" src={props.image} alt={activeItem.name}/>
+                            <img className="modal-img" src={`http://localhost:5000/${props.url}`} alt={activeItem.name}/>
                         </Col>
                         <Col xs={12} md={6}>
                           <h3>{props.title}</h3>

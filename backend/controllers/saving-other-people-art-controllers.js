@@ -5,6 +5,7 @@ const getCoordsForAddress = require("../util/location")
 const Image = require('../models/image');
 const User = require("../models/user")
 const Save = require("../models/save")
+const fs = require('fs')
 const mongoose = require("mongoose")
 
 
@@ -34,13 +35,8 @@ const getArtByUser = async (req,res,next)=>{
 
 }
 const saveArt = async (req,res,next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()){
-        console.log(errors)
-        return next (new HttpError("Invalid inputs passed, please check your data",422))
-
-    }
-    const {title,url,description,dimentions,price,author,likes,type,duration,medium,address,user1} = req.body;
+   
+    const {title,url,description,dimentions,price,style,author,likes,type,peoplewholiked,duration,medium,address,user1} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -51,7 +47,7 @@ const saveArt = async (req,res,next) => {
         title,
         description,
         likes,
-        dimentions,
+        dimentions:5,
         price,
         address,
         location: {
@@ -64,8 +60,11 @@ const saveArt = async (req,res,next) => {
         type,
         duration,
         medium,
+        style,
         author,
-        user1
+        user1,
+        likes,
+        peoplewholiked
     });
    
    
@@ -75,6 +74,7 @@ const saveArt = async (req,res,next) => {
        console.log(user)
 
      }catch(err){
+         console.log("hoi")
          const error = new HttpError(
           "Creating place failed",500
        );
@@ -98,6 +98,7 @@ const saveArt = async (req,res,next) => {
      await user.save({session:sess});
       await sess.commitTransaction();
      } catch(err){
+         console.log(err)
          const error = new HttpError("Saving Image failed",500);
     
      return next(error)

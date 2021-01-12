@@ -39,6 +39,7 @@ const formReducer = (state, action) => {
 };
 
 const NewPlace = () => {
+  
   const [file, setFile] = React.useState("");
   const [methodofbuying, setmethodofbuying] = useState("")
   const [artstyle, setartstyle] = useState("")
@@ -69,10 +70,6 @@ const NewPlace = () => {
         isValid: true
       },
       address: {
-        value: '',
-        isValid: false
-      },
-      address: {
         value: 0,
         isValid: true
       },
@@ -96,7 +93,33 @@ const NewPlace = () => {
     });
   }, []);
 
-  function handleUpload(event) {
+  const handleUpload  = async(event) =>{
+    const formData = new FormData();
+
+		formData.append('File', event.target.files[0]);
+    console.log(URL.createObjectURL(event.target.files[0]))
+    
+	// 	try{
+  //     console.log(file)
+  //    await sendRequest('https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5','POST',JSON.stringify( 
+  //     event.target.files[0]
+       
+  //    ),{
+  //      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+  //    }).then((response) => response.json())
+  //    .then((result) => {
+  //      console.log('Success:', result);
+  //    })
+  //    .catch((error) => {
+  //      console.error('Error:', error);
+  //    });
+   
+  //  } catch(err){
+  //    console.log(err)
+  //  }
+	
+	
+    console.log(event.target.files[0])
     setFile(event.target.files[0]);
 
     // Add code here to upload file to server
@@ -111,48 +134,46 @@ const NewPlace = () => {
     event.preventDefault();
     if (methodofbuying == "Sale")
     {try{
-      console.log(formState.inputs.price.value)
-    await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
-      title:formState.inputs.title.value,
-      status:"Not sold",
-      description:formState.inputs.description.value,
-      dimentions:formState.inputs.dimentions.value,
-      duration: 0, //change this to use what user clicked
-      medium: formState.inputs.medium.value,
-      price: formState.inputs.price.value,
-      type: methodofbuying, //change this to use what user clicked
-      address:formState.inputs.address.value,
-      style:artstyle,
-      url:URL.createObjectURL(file),
-      author: auth.userId,
-      likes:0
-      
-    }),{
-      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-    })
+      const formData = new FormData()
+        formData.append('title',formState.inputs.title.value)
+        formData.append('status',"Not sold")
+        formData.append('description',formState.inputs.description.value)
+        formData.append('duration',0)
+        formData.append('medium',formState.inputs.medium.value)
+        formData.append('price',formState.inputs.price.value)
+        formData.append('type',methodofbuying)
+        formData.append('address',formState.inputs.address.value)
+        formData.append('style',artstyle)
+        formData.append('url',file)
+        formData.append('dimentions',formState.inputs.dimentions.value)
+        formData.append('author',auth.userId)
+       
+        formData.append('likes',0)
+        formData.append('peoplewholiked',"")
+     console.log(file)
+    await sendRequest('http://localhost:5000/api/images','POST',formData)
     history.push('/');
   } catch(err){
     console.log(err)
   }}
   if (methodofbuying == "Auction")
   {try{
-  await sendRequest('http://localhost:5000/api/images','POST',JSON.stringify({
-    title:formState.inputs.title.value,
-    status:"Not sold",
-    description:formState.inputs.description.value,
-    dimentions:formState.inputs.dimentions.value,
-    duration: formState.inputs.duration.value, //change this to use what user clicked
-    medium: formState.inputs.medium.value,
-    price: formState.inputs.price.value,
-    type: methodofbuying, //change this to use what user clicked
-    address:formState.inputs.address.value,
-    style:artstyle,
-    url:URL.createObjectURL(file),
-    author: auth.userId,
-    
-  }),{
-    'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-  })
+    const formData = new FormData()
+        formData.append('title',formState.inputs.title.value)
+        formData.append('status',"Not sold")
+        formData.append('description',formState.inputs.description.value)
+        formData.append('dimentions',formState.inputs.dimentions.value)
+        formData.append('address',"nyc")
+        formData.append('price',formState.inputs.price.value)
+        formData.append('url',file)
+        formData.append('type',methodofbuying)
+        formData.append('duration',0)
+        formData.append('medium',formState.inputs.medium.value)
+        formData.append('style',artstyle)
+        formData.append('author',auth.userId)
+        formData.append('likes',0)
+        formData.append('peoplewholiked',"")
+  await sendRequest('http://localhost:5000/api/images','POST',formData)
   history.push('/');
 } catch(err){
   console.log(err)
@@ -188,6 +209,7 @@ const handlebuy = (method) =>{
             />
           </Col>
         </Form.Group>
+        
 
         <Form.Group as={Row} controlId="description">
           <Form.Label column sm="4">Description</Form.Label>

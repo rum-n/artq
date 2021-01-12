@@ -16,7 +16,7 @@ const UserItem = props => {
     state: { theid: props.id }
   }}>
           <div className="user-item__image">
-            <Avatar image={props.image} alt={props.name} />
+            <Avatar image={`http://localhost:5000/${props.prof}`} alt={props.name} />
           </div>
           <div className="user-item__info">
             <h2>{props.name}</h2>
@@ -29,6 +29,7 @@ const UserItem = props => {
     </li>
   );}
   else{
+    
     return (
       <li className="user-item">
         <Card className="user-item__content">
@@ -37,7 +38,7 @@ const UserItem = props => {
       state: { theid: props.author }
     }}>
             <div className="user-item__image">
-              <Avatar image={props.image} alt={props.name} />
+              <Avatar image={`http://localhost:5000/${props.prof}`} alt={props.name} />
             </div>
             <div className="user-item__info">
               <h2>{props.name}</h2>

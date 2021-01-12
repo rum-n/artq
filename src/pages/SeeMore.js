@@ -217,7 +217,7 @@ const SeeMore = () => {
     <div className='seemore-wrapper'>
       
         <div className='seemore-img'>
-          <img src={state.url} alt={state.title} />
+          <img src={`http://localhost:5000/${state.url}`} alt={state.title} />
           {shouldRedirect(redirect)}
         </div>
 

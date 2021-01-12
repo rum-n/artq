@@ -23,6 +23,8 @@ const Profile = () => {
   const [loadedPhone, setLoadedPhone] = useState();
   const [loadedImage, setLoadedImage] = useState();
   const [loadedAbout, setLoadedAbout] = useState();
+  const [loadedFollowing, setloadedFollowing] = useState();
+  const [loadedFollowers, setloadedFollowers] = useState();
   const [loadedLocation, setLoadedLocation] = useState();
   const auth = useContext(AuthContext);
   const userId = auth.userId
@@ -79,6 +81,8 @@ const Profile = () => {
         setLoadedImage(responseData.userWithImages.prof)
         setLoadedAbout(responseData.userWithImages.about)
         setLoadedLocation(responseData.userWithImages.location)
+        setloadedFollowing(responseData.userWithImages.followingnumber)
+        setloadedFollowers(responseData.userWithImages.followersnumber)
         console.log(responseData.userWithImages)
        
       } catch (err) {
@@ -287,7 +291,7 @@ return(
     <div className='personal-info'>
       {console.log(loadedImage)}
     
-      <img className='profile-pic' src={loadedImage} alt="new"/>
+      <img className='profile-pic' src={`http://localhost:5000/${loadedImage}`} alt="new"/>
       
       <div className='flex-c'>
         <div className='personal-info-text'>
@@ -298,8 +302,8 @@ return(
           </div>
           <div className='col-2'>
             <div className='follow-stats'>
-              <p>101 Followers</p>
-              <p>121 Following</p>
+              <p>{loadedFollowers} Followers</p>
+              <p>{loadedFollowing} Following</p>
             </div>
          
             {loadedLocation}
