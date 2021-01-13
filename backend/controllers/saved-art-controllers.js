@@ -6,6 +6,7 @@ const Image = require('../models/image');
 const Save = require('../models/save');
 const fs = require('fs')
 const User = require("../models/user")
+const Notifications = require("../models/notifications")
 const mongoose = require("mongoose")
 const { findAllByPlaceholderText } = require('@testing-library/react');
 
@@ -275,11 +276,37 @@ const updateStatus = (req,res) =>{
     })
 }
 const updateLikes = (req,res) =>{
+    console.log("hoi")
     Image.update({_id: req.body.id},{$set:{likes:req.body.likes,peoplewholiked:req.body.peoplewholiked}},(err,order) =>{
         res.json(order)
     })
    
     
+}
+
+const updateNotifications = (req,res) =>{
+    console.log("enteredddddd")
+    Notifications.update({_id: "5fff516aa5ddb630731f4430"},{$set:{likes:req.body.likes,followers:req.body.followers,bids:req.body.bids,auction:req.body.auction,items:req.body.items}},(err,order) =>{
+        res.json(order)
+    })
+   
+    
+}
+
+const getNotifications= async (req,res,next) => {
+    let notification;
+    try{
+        console.log("hi")
+        notification = await Notifications.findById("5fff516aa5ddb630731f4430")
+       console.log(notification)
+    } catch(err){
+        const error = new HttpError(
+            "Fetching notifications failed", 500
+        );
+        return next(error)
+    }
+    res.json(notification);
+
 }
 
 const listSearch = (req,res) =>{
@@ -372,6 +399,8 @@ const mediumSearch = (req,res) =>{
      
  }
 
+exports.getNotifications = getNotifications
+exports.updateNotifications = updateNotifications
 exports.styleSearch = styleSearch
 exports.mediumSearch = mediumSearch
 exports.listSearch = listSearch

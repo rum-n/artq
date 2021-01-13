@@ -43,11 +43,12 @@ const Settings = () => {
   const [file, setFile] = React.useState("");
   const [methodofbuying, setmethodofbuying] = useState("")
   const [artstyle, setartstyle] = useState("")
-  const [followers, setfollowers] = useState("")
-  const [likes, setlikes] = useState("")
-  const [bids, setbids] = useState("")
-  const [auction, setauction] = useState("")
-  const [items, setitems] = useState("")
+  let [followers, setfollowers] = useState("")
+  let [likes, setlikes] = useState("")
+  let [bids, setbids] = useState("")
+  let [auction, setauction] = useState("")
+  let [items, setitems] = useState("")
+  const [notifications, setnotifications] = useState([])
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
   // const[duration,setduration] = useState(0)
@@ -134,56 +135,68 @@ const Settings = () => {
     console.log(URL.createObjectURL(file))
     console.log(URL.createObjectURL(file))
   return <img src={URL.createObjectURL(file)} alt={image.name} />;
+
 };
-  const placeSubmitHandler = async event => {
-    event.preventDefault();
-    console.log(auction)
-//     if (methodofbuying == "Sale")
-//     {try{
-//       const formData = new FormData()
-//         formData.append('title',formState.inputs.title.value)
-//         formData.append('status',"Not sold")
-//         formData.append('description',formState.inputs.description.value)
-//         formData.append('duration',0)
-//         formData.append('medium',formState.inputs.medium.value)
-//         formData.append('price',formState.inputs.price.value)
-//         formData.append('type',methodofbuying)
-//         formData.append('address',formState.inputs.address.value)
-//         formData.append('style',artstyle)
-//         formData.append('url',file)
-//         formData.append('dimentions',formState.inputs.dimentions.value)
-//         formData.append('author',auth.userId)
-       
-//         formData.append('likes',0)
-//         formData.append('peoplewholiked',"")
-//      console.log(file)
-//     await sendRequest('http://localhost:5000/api/images','POST',formData)
-//     history.push('/');
-//   } catch(err){
-//     console.log(err)
-//   }}
-//   if (methodofbuying == "Auction")
-//   {try{
-//     const formData = new FormData()
-//         formData.append('title',formState.inputs.title.value)
-//         formData.append('status',"Not sold")
-//         formData.append('description',formState.inputs.description.value)
-//         formData.append('dimentions',formState.inputs.dimentions.value)
-//         formData.append('address',"nyc")
-//         formData.append('price',formState.inputs.price.value)
-//         formData.append('url',file)
-//         formData.append('type',methodofbuying)
-//         formData.append('duration',0)
-//         formData.append('medium',formState.inputs.medium.value)
-//         formData.append('style',artstyle)
-//         formData.append('author',auth.userId)
-//         formData.append('likes',0)
-//         formData.append('peoplewholiked',"")
-//   await sendRequest('http://localhost:5000/api/images','POST',formData)
-//   history.push('/');
-// } catch(err){
-//   console.log(err)
-// }}
+
+
+const placeSubmitHandler = async (e) => {
+  e.preventDefault()
+  alert("Settings have been updated")
+  console.log("entered placesubmit handler" )
+  
+  try{
+  
+      const response = await fetch(
+        `http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`
+      );
+      const responseData = await response.json();
+      setnotifications(responseData);
+      
+ 
+  
+    //o.peoplewholiked.indexOf(auth.userId) > -1
+    let updatedfollowers = []
+    let updatedlikes = []
+    let updatedauction = []
+    let updatedbids = []
+    let updateditems = []
+  console.log(e.target.value)
+    if (followers = "No"){
+      console.log(responseData.followers)
+      updatedfollowers = responseData.followers + (auth.userId)
+      console.log(updatedfollowers)
+    }
+    if (likes = "No"){
+      updatedlikes = responseData.likes.push(auth.userId)
+    }
+    if (bids = "No"){
+      updatedbids = responseData.bids.push(auth.userId)
+    }
+    if (auction = "No"){
+      updatedauction = responseData.auction.push(auth.userId)
+    }
+    if (items = "No"){
+      updateditems = responseData.items.push(auth.userId)
+    }
+
+  
+   
+  await sendRequest(`http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`,'PUT',JSON.stringify({
+    followers:updatedfollowers,
+    likes: updatedlikes,
+    auction:updatedauction,
+    bids:updatedbids,
+    items:updateditems
+  }),{
+      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+    })
+
+} catch(err){
+
+  console.log(err)
+}
+
+
 };
 
 const handlebuy = (method) =>{

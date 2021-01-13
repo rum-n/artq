@@ -17,7 +17,8 @@ router.get('/user/:uid',savedartcontrollers.getArtByUser);
 router.put("/:imgId",savedartcontrollers.updateBidPrice)
 router.put("/sold/:imgId",savedartcontrollers.updateStatus)
 router.put("/likes/:imgId/status/",savedartcontrollers.updateLikes)
-
+router.put("/notifications/:imgId",savedartcontrollers.updateNotifications) 
+router.get('/notifications/:imgId',savedartcontrollers.getNotifications);
 
 router.post('/',fileUpload.single('url'),check('title').not().isEmpty(),check('url').isURL(),check('address').not().isEmpty(),savedartcontrollers.saveArt);
 
