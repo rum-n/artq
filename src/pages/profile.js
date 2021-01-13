@@ -14,7 +14,14 @@ import {
 } from './util/validators';
 
 const Profile = () => {
-  
+  const [file, setFile] = React.useState("");
+  function handleUpload(event) {
+    setFile(event.target.files[0]);
+    handleChange("prof")
+
+    // Add code here to upload file to server
+    // ...
+  }
   const{sendRequest,clearError,theresponse} = useHttpClient();
   const [loadedImages, setLoadedImages] = useState();
   const [loadedName, setLoadedName] = useState();
@@ -108,7 +115,10 @@ const [allvalues,setallValues] = useState({
  password:'',
  image: [],
  savedimage:[],
- phone:''
+ phone:'',
+ about:'',
+ location:'',
+ prof:''
 
 })
 
@@ -148,8 +158,8 @@ const getprofile = async () => {
    const response =  await fetch(`http://localhost:5000/api/users/${userId}`);
    const responseData = await response.json();
    console.log(responseData)
-   setValues({...values,name:responseData.userWithImages.name, email:responseData.userWithImages.email,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone})
-   setallValues({...allvalues,name:responseData.userWithImages.name, email:responseData.userWithImages.email,password:responseData.userWithImages.password,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone})
+   setValues({...values,name:responseData.userWithImages.name, email:responseData.userWithImages.email,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone, about:responseData.userWithImages.about, location:responseData.userWithImages.location,prof:responseData.userWithImages.prof})
+   setallValues({...allvalues,name:responseData.userWithImages.name, email:responseData.userWithImages.email,password:responseData.userWithImages.password,image:responseData.userWithImages.image,savedimage:responseData.userWithImages.savedimage,phone:responseData.userWithImages.phone,about:responseData.userWithImages.about,location:responseData.userWithImages.location,prof:responseData.userWithImages.prof})
    
    
    
@@ -164,7 +174,7 @@ const getprofile = async () => {
 }
 
 const {name,email,password,error,success} = values
-const {phone,image,savedimage} = allvalues
+const {phone,image,savedimage,about,location,prof} = allvalues
 const init = (userId) =>{
  getprofile(userId)
 
@@ -177,22 +187,20 @@ useEffect(() =>{
 const finallyupdate = async event=> {
  
  try {
+  const formData = new FormData()
+  formData.append('name',values.name)
+  formData.append('email',values.email)
+  formData.append('password',values.password)
+  formData.append('phone',allvalues.phone)
+  formData.append('prof',file)
+  formData.append('location',allvalues.location)
+  formData.append('about',allvalues.about)
+ 
  
    await sendRequest(
      `http://localhost:5000/api/users/${auth.userId}`,
      'PATCH',
-     JSON.stringify({
-         
-         name : values.name,
-         email: values.email,
-         password:values.password,
-         image:allvalues.image,
-         savedimage:allvalues.savedimage,
-         phone:allvalues.phone
- }),
-     {
-       'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
-     }
+     formData
    );
      
   
@@ -247,6 +255,7 @@ const profileUpdate = (name,email,password) =>{
             </label>
             <input type="text" onChange={handleChange("password")} className="form-control" value={password}/>
         </div>
+       
         <Button type="submit" disabled={!formState.isValid}>
           Publish
         </Button>
@@ -281,7 +290,30 @@ return(
               errorText="Please enter a valid password (at least 5 characters)."
               onInput={inputHandler}/>
         </div>
-        
+        <div className="form-group">
+            <label className="text-muted">Phone
+            </label>
+            <input type="text" onChange={handleChange("phone")} className="form-control" value={phone}
+              errorText="Please enter a valid phone #."
+              onInput={inputHandler}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Bio
+            </label>
+            <input type="text" onChange={handleChange("about")} className="form-control" value={about}
+              onInput={inputHandler}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Location
+            </label>
+            <input type="text" onChange={handleChange("location")} className="form-control" value={location}
+              onInput={inputHandler}/>
+        </div>
+       <p>Choose a new profile pic</p>
+            <div id="upload-box">
+      <input type="file" onChange={handleUpload} />
+     
+    </div>
         <button onClick={clickSubmit} className="btn btn-primary">
             Submit
         </button>
@@ -298,7 +330,7 @@ return(
           <div className='col-1'>
             <h2>{loadedName}</h2>
             {loadedEmail}
-            <p>Painter</p>
+           
           </div>
           <div className='col-2'>
             <div className='follow-stats'>
@@ -313,7 +345,7 @@ return(
             {loadedAbout}
         </div>
         <div className='profile-btn-wrapper'>
-          <button className='edit-profile-btn'>Edit profile</button>
+          <button className='edit-profile-btn'>Edit profile pic</button>
           <a href="http://localhost:3000/addart">Add new post</a> 
         </div>
       </div>

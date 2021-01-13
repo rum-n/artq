@@ -97,6 +97,13 @@ let handleChange = (e) => {
       );
       setRedirect(true)
     } catch(err){
+        if (err == "Error: User exists already, please login instead"){
+            alert("User already exists, login instead")
+        }else{
+            alert("Error with logging in")
+
+        }
+      
         setRedirect(false)
     }
 }

@@ -52,6 +52,7 @@ const signup = async (req,res,next) =>{
     try{
     existingUser = await User.findOne({email:email})
     } catch (err){
+
         
         console.log(err)
         const error = new HttpError(
@@ -59,8 +60,9 @@ const signup = async (req,res,next) =>{
         );
         return next(error);
     }
-
+    
     if (existingUser){
+        
         const error = new HttpError(
             "User exists already, please login instead",422
         );
@@ -216,14 +218,17 @@ const updateprofile = async (req,res,next) =>{
         return next(new HttpError("Invalid inputs passed, please check your data",422))
 
     }
-    const {name,email,password,image,savedimage,phone} = req.body;
+    const {name,email,password,image,savedimage,phone,about,location,prof} = req.body;
     const imageId = req.params.uid;
+    console.log(req)
     let profile;
     try{
         profile = await User.findById(imageId)
         console.log("THE IMAGE ID "+ imageId)
         
     } catch(err){
+        
+        console.log(err)
         const error = new HttpError(
             "Something went wrong, could not update art", 500
         );
@@ -231,8 +236,10 @@ const updateprofile = async (req,res,next) =>{
     }
     let hashedPassword;
     try{
-    hashedPassword= await bcrypt.hash(password,12)
+    hashedPassword= await bcrypt.hash(password.toString(),12)
     }catch(err){
+        console.log("hereeeeeeeeee")
+        console.log(err)
         const error = new HttpError(
             'Could not create user, please try again.',500
         );
@@ -240,20 +247,23 @@ const updateprofile = async (req,res,next) =>{
     }
 
    
-    console.log(profile.name)
+    console.log(prof)
     profile.name = name;
     console.log(profile.name)
     profile.email = email;
     profile.password = hashedPassword;
-    profile.image = image
-    profile.savedimage = savedimage
     profile.phone = phone
+    profile.about = about
+    profile.location = location
+    profile.prof = req.file.path
 
     
 
    try{
        await profile.save();
    }catch(err){
+       
+       console.log(err)
        const error = new HttpError(
            "Something went wrong, could not update artt", 500
        );

@@ -13,6 +13,6 @@ router.post('/signup',fileUpload.single('prof'),check("name").not().isEmpty(),ch
 router.post('/login',userscontrollers.login);
 router.put("/following/:uid/",userscontrollers.updateFollowing)
 router.put("/followers/:uid/",userscontrollers.updateFollowers)
-router.patch("/:uid",userscontrollers.updateprofile)
+router.patch("/:uid",fileUpload.single('prof'),userscontrollers.updateprofile)
 
 module.exports = router;
