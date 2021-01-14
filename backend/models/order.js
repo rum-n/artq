@@ -22,6 +22,7 @@ const OrderSchema = new Schema(
     amount: { type: Number },
     sold:{type: Number},
     address: {},
+    email:{},
     status: {
       type: String,
       default: "Not processed",

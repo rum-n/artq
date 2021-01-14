@@ -5,11 +5,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {getBrainTreeClientToken, createOrder} from "./payments"
 import {AuthContext} from "../context/auth-context";
 import {emptyCart} from "./cartHelpers"
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 
 const Checkout =({ products })=>{
     const [ clicked, setClicked ] = useState(false)
     const [ thenonce, setNonce ] = useState('')
     const [ paycard, setPaycard ] = useState();
+    let [location, setlocation] = useState("")
+    const [loadedname,setloadedname] = useState("")
+    const [loadedemail,setloadedemail] = useState("")
     let finalnonce = ""
     const { isLoading, error, sendRequest, clearError } = useHttpClient();
    
@@ -20,6 +26,8 @@ const Checkout =({ products })=>{
         instance: {},
         address: ''
     })
+
+    const [address,setaddress] = useState("")
 
     let deliveryAddress = data.address
     let thename = data.name
@@ -46,7 +54,9 @@ const Checkout =({ products })=>{
     },[]);
 
     const handleAddress = event =>{
+        console.log(event.target.value)
         setData(data.address = event.target.value)
+        setaddress(event.target.value)
     }
 
     const getTotal = () =>{
@@ -90,7 +100,7 @@ const Checkout =({ products })=>{
                          transaction_id: response.transaction.id,
                          sold: 1,
                          amount: response.transaction.amount,
-                         address:"nyc",
+                         address:deliveryAddress,
                          user1: auth.userId,
                          artistid: products[0].author 
                      }
@@ -112,13 +122,15 @@ const Checkout =({ products })=>{
             setClicked(false)
         }
     }
-
+    
     const sendtobraintree = async(nonce) =>{
         console.log("enteredbraintree")
         console.log(nonce)
         console.log(getTotal(products))
        
             try {
+                let thename = ""
+                let theemail = ""
                   await sendRequest(
                    `http://localhost:5000/api/braintree/payment/${userId}`,
                    'POST',
@@ -129,35 +141,58 @@ const Checkout =({ products })=>{
                    {
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
                    }
-                 ).then(response =>{
-                    console.log(auth.userId)
-                    console.log(response)
-                    console.log(response.transaction.amount)
-                    const createOrderData = {
-                        status:"Not Processed",
-                        products:products,
-                        name: "thename",
-                        transaction_id: response.transaction.id,
-                        sold: 1,
-                        amount: response.transaction.amount,
-                        address:"nyc",
-                        user1: auth.userId,
-                        artistid: products[0].author,
-                       
-                    }
-                    if (response.success == true){
-                        console.log(auth.userId)
+                 ).then(paymentresponse =>{
+                     let theloadedname = ""
+                     let theloadedemail = ""
+                    const getuserinfo = async(paymentresponse) =>{
+                 
+                        const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+                        const responseData = await response.json();
                         
-                        createOrder(auth.userId,createOrderData)
-                        sendorder(createOrderData)
+                        if (!response.ok) {
+                          throw new Error(responseData.message);
+                        }  
+                        theloadedname = (responseData.userWithImages.name)
+                        theloadedemail = (responseData.userWithImages.email)
+                        const createOrderData = {
+                            status:"Not Processed",
+                            products:products,
+                            name: responseData.userWithImages.name,
+                            email:responseData.userWithImages.email,
+                            transaction_id: paymentresponse.transaction.id,
+                            sold: 1,
+                            amount: paymentresponse.transaction.amount,
+                            address:data.address,
+                            user1: auth.userId,
+                            artistid: products[0].author,
+                           
+                        }
+                        console.log(responseData.userWithImages.name)
+                        console.log(responseData.userWithImages.email)
+                        console.log(data.address)
+                        if (paymentresponse.success == true){
+                            console.log(auth.userId)
+                            
+                            createOrder(auth.userId,createOrderData)
+                            sendorder(createOrderData)
+                           
+                            emptyCart(() =>{
+                                console.log("emptied cart")
+                            })
+                            setData({
+                                success:true
+                            })
+                        }
+                        
+                        
                        
-                        emptyCart(() =>{
-                            console.log("emptied cart")
-                        })
-                        setData({
-                            success:true
-                        })
+                     
                     }
+                    getuserinfo(paymentresponse)
+                    console.log(auth.userId)
+                   
+                    
+                    
                 })
                
                } catch (err) {
@@ -213,6 +248,12 @@ const Checkout =({ products })=>{
             console.log(error)
         })
     }
+
+    useEffect(() =>{
+        if ((products.length != 0)){
+        showDropIn()}
+
+    },[location])
    
     const showDropIn = () =>(
 
@@ -228,6 +269,26 @@ const Checkout =({ products })=>{
                     placeholder="Type Delivery Address"
                     />
                 </div>
+                <Form.Group as={Row}>
+          <Form.Label column sm="4">Country/Continent</Form.Label>
+          <Col sm="6">
+            <Form.Control 
+              as='select' 
+              defaultValue="Choose..." 
+              value={location} 
+              onChange={e => setlocation(e.target.value)}>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="Mexico">Mexico</option>
+            <option value="China">China</option>
+            <option value="India">India</option>
+            <option value="Europe">Europe</option>
+            <option value="Africa">Africa</option>
+            <option value="Australia">Australia</option>
+            <option value="Asia">Asia(not India or China)</option>
+            </Form.Control>
+          </Col>
+        </Form.Group>
                 
             <DropIn options={{
                 authorization:data.clientToken,

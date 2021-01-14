@@ -22,6 +22,7 @@ const realimageslist = props => {
           author={user.author}
           duration={user.duration}
           dimentions={user.dimentions}
+          name={user.title}
           type={user.type}
           price={user.price}
           medium={user.medium}

@@ -9,6 +9,7 @@ export const addItem = (item,next) => {
         }
         cart.push({
             ...item,
+            name:item.name,
             count: 1
         });
         cart = Array.from(new Set(cart.map(p =>p.id))).map(id => {

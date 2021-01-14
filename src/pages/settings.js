@@ -154,7 +154,8 @@ const placeSubmitHandler = async (e) => {
       
  
   
-    //o.peoplewholiked.indexOf(auth.userId) > -1
+    //o.peoplewholiked.indexOf(auth.userId) > -1\
+    //
     let updatedfollowers = []
     let updatedlikes = []
     let updatedauction = []
