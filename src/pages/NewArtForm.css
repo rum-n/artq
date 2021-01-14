@@ -1,7 +1,7 @@
 .upload-white-rectangle {
   background-color: white;
   width: 70%;
-  height: 40%;
+  height: 20rem;
   border-radius: 10px;
   box-shadow: 0px 10px 10px hsla(0, 0%, 0%, 0.1);
   margin: 10rem auto;
@@ -27,8 +27,14 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.add-art-form-wrapper select {
+  /* border: 1px solid black!important; */
+  margin-left: 2rem;
+  background: white!important;
+}
+
 .add-art-form-wrapper .form-control {
-  background: none;
+  background: transparent!important;
   margin-top: 0;
 }
 
@@ -41,11 +47,6 @@
   margin-left: 2rem;
 }
 
-.add-art-form-wrapper select {
-  /* border: 1px solid black!important; */
-  margin-left: 2rem;
-  background: white!important;
-}
 
 .add-art-form-wrapper .form-control p {
   margin-left: 3rem;
@@ -69,4 +70,5 @@
 .add-art-form-wrapper button{
   float: right;
   margin-top: 2rem;
+  margin-bottom: 5rem;
 }

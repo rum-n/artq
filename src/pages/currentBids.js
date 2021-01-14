@@ -13,10 +13,6 @@ const CurrentBids = () => {
     const auth = useContext(AuthContext)
     const userId = auth.userId
 
-    if (duration == "7 minutes ago"){
-        alert("hoiiiii")
-    }
-
     const settheduration = (d) =>(
         setduration(d)
     )
@@ -101,9 +97,7 @@ const CurrentBids = () => {
      
         await sendRequest(`http://localhost:5000/api/images/sold/${o.artId}`,'PUT',JSON.stringify({
           "id":o.artId,
-                "status":"sold"
-          
-            
+          "status":"sold"
         }),{
             'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
           })
@@ -132,61 +126,41 @@ const CurrentBids = () => {
     
       const bidHistory = history => {
         return (
-            <div className="mb-5">
-                <h3 className="card-header">Your Bids</h3>
+            <div>
+                <h1 className="feed-title">Here's the artwork you're currently bidding on:</h1>
                 <ul className="list-group">
                     <li className="list-group-item">
                         {history.map((h, i) => {
-                           
-
-                            if ((moment(h.createdAt).fromNow()) == `6 minutes ago`){
-                                getallbidsforitem(h)
-                                //add for loop
-                                console.log("entered")
-                                getwinningbid(h)
-                                updateBidStatus(h,`you won the bid!`,"you lost the bid")
-                                updateSoldStatus(h)
-                                
-                               
-                               
-                            }
-                            return (
-                                
-                                <div>
-                                    <hr/>
-                                  <div key={i}>
-                                  <h6>Status: {h.status}</h6>
-                                                
-                                                <h6>Art title: {h.title}</h6>
-                                                <h6>Art bid: ${h.bid}</h6>
-                                                <h6>
-                                                    Placed bid:{" "}
-                                                    {moment(h.createdAt).fromNow()}
-                                                     
-                                                </h6>
-                                            </div>
-                                </div>
-                            );
-                        })}
+                          if ((moment(h.createdAt).fromNow()) == `6 minutes ago`){
+                            getallbidsforitem(h)
+                            //add for loop
+                            getwinningbid(h)
+                            updateBidStatus(h,`you won the bid!`,"you lost the bid")
+                            updateSoldStatus(h)
+                          }
+                          return (
+                          <div>
+                            <hr/>
+                            <div key={i}>
+                              <h6>Status: {h.status}</h6>                                                
+                              <h6>Art title: {h.title}</h6>
+                              <h6>Art bid: ${h.bid}</h6>
+                              <h6>Placed bid:{" "}
+                                  {moment(h.createdAt).fromNow()}  
+                              </h6>
+                            </div>
+                          </div>
+                          );
+                          })}
                     </li>
                 </ul>
             </div>
         );
     };
 
-    
- 
     return(
-        <div className="container-fluid">
-            <div className="row">
-                <div className="col-9">
-                  
-                    {bidHistory(history)}
-
-                </div>
-
-            </div>
-
+        <div>  
+          {bidHistory(history)}
         </div>
     )
 } 

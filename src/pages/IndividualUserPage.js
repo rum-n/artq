@@ -4,9 +4,7 @@ import Savedimageslist from "../components/UserSavedArt/savedimageslist";
 import { AuthContext } from "../context/auth-context";
 import './SeeMore.css';
 import {useLocation} from "react-router-dom";
-import { disableExpoCliLogging } from 'expo/build/logs/Logs';
-
- 
+// import { disableExpoCliLogging } from 'expo/build/logs/Logs';
 
 const Individual = () => {
   const auth = useContext(AuthContext)
@@ -152,12 +150,7 @@ const decrementFollowers = async () => {
    if (!response.ok) {
      throw new Error(responseData.message);
    }
-   
-  
-  
-
-
-
+ 
  let followersnumber = 0
  console.log(responseData.userWithImages)
  let followers = responseData.userWithImages.followers
@@ -287,9 +280,6 @@ const decrementFollowers = async () => {
         <button onClick={() => removefollower()} disabled={disableunfollow}> Unfollow</button>}
         {console.log(loadedUsers)}
        
-        
-      
-      
         {loadedUsers && <Savedimageslist items={loadedUsers} />}
       </React.Fragment>
     );
