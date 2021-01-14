@@ -98,27 +98,7 @@ const NewPlace = () => {
 
 		formData.append('File', event.target.files[0]);
     console.log(URL.createObjectURL(event.target.files[0]))
-    
-	// 	try{
-  //     console.log(file)
-  //    await sendRequest('https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5','POST',JSON.stringify( 
-  //     event.target.files[0]
-       
-  //    ),{
-  //      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-  //    }).then((response) => response.json())
-  //    .then((result) => {
-  //      console.log('Success:', result);
-  //    })
-  //    .catch((error) => {
-  //      console.error('Error:', error);
-  //    });
-   
-  //  } catch(err){
-  //    console.log(err)
-  //  }
-	
-	
+  
     console.log(event.target.files[0])
     setFile(event.target.files[0]);
 
