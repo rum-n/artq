@@ -63,7 +63,24 @@ const getArtByUser = async (req,res,next)=>{
 }
 const saveArt = async (req,res,next) => {
     
-    const {title,url,description,dimentions,status,price,author,user1,type,duration,peoplewholiked,medium,style,address,likes} = req.body;
+    const {title,url,description,dimentions,status,tusa,
+        susa,
+        tcanada,
+        scanada,
+        tmexico,
+        smexico,
+        teurope,
+        seurope,
+        tafrica,
+        safrica,
+        taustralia,
+        saustralia,
+        tchina,
+        schina,
+        tindia,
+        sindia,
+        totherasia,
+        sotherasia,price,author,user1,type,duration,peoplewholiked,medium,style,address,likes} = req.body;
     let coordinates;
     try{
       coordinates = await getCoordsForAddress(address)
@@ -96,7 +113,25 @@ const saveArt = async (req,res,next) => {
         user1,
         author,
         likes,
-        peoplewholiked
+        peoplewholiked,
+        tusa,
+    susa,
+    tcanada,
+    scanada,
+    tmexico,
+    smexico,
+    teurope,
+    seurope,
+    tafrica,
+    safrica,
+    taustralia,
+    saustralia,
+    tchina,
+    schina,
+    tindia,
+    sindia,
+    totherasia,
+    sotherasia,
     });
    
     console.log(savedArt)

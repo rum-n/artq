@@ -1,6 +1,7 @@
 
 import DropIn from "braintree-web-drop-in-react"
 export const addItem = (item,next) => {
+    console.log(item)
 
     let cart = []
     if(typeof window !== 'undefined'){

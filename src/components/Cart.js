@@ -5,6 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCart } from "./cartHelpers"
 import Feed from '../components/Feed'
 import Checkout from "./Checkout"
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form';
 import './Cart.css';
 import {getBrainTreeClientToken,processPayment} from "./payments"
 import {AuthContext} from "../context/auth-context";
@@ -12,6 +15,7 @@ import DropIn from "braintree-web-drop-in-react"
 
 const Cart =() => {
     const [items, setItems] = useState([])
+    let [location, setlocation] = useState("")
     const [data,setData] = useState({
         success:false,
         clientToken:null,
@@ -36,7 +40,7 @@ const Cart =() => {
 }
     const getTotal = () =>{
         return items.reduce((currentValue,nextValue) =>{
-            return currentValue+nextValue.count*nextValue.price
+            return currentValue+(nextValue.count)*nextValue.price
         },0)
     }
  
@@ -124,6 +128,7 @@ const Cart =() => {
         return( 
             setTimeout(tick, 1000))
     }
+    {console.log(items)}
 
     return(
         <div className='cart-wrapper'>
@@ -131,21 +136,101 @@ const Cart =() => {
                 <h3>Review order</h3>
                 {items.length > 0 ? showItems(items) : <p>Your cart is empty. <br/> <Link to="/">Continue Shopping</Link></p>}
                 <h3>Payment & delivery</h3>
-                <Checkout products={items}/>
-            </div>
+               
+                <Form.Group as={Row}>
+          <Form.Label column sm="4">Country/Continent</Form.Label>
+          <Col sm="6">
+            <Form.Control 
+              as='select' 
+              defaultValue="Choose..." 
+              value={location} 
+              onChange={e => setlocation(e.target.value)}>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="Mexico">Mexico</option>
+            <option value="China">China</option>
+            <option value="India">India</option>
+            <option value="Europe">Europe</option>
+            <option value="Africa">Africa</option>
+            <option value="Australia">Australia</option>
+            <option value="Asia">Asia(not India or China)</option>
+            </Form.Control>
+          </Col>
+        </Form.Group>
+     
+                <Checkout products={items} shipping={location}/>
+                </div>
+                
+        
             <div className="order-summary">
                 <h3>Order summary</h3>
                 <div className="order-summary-details">
+                    {items[0] &&
                     <div>
                     <br/>
+                    {console.log(items)}
                         {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : <p>0 items</p>}
-                        <p>Shipping</p>
-                        <span>Expected delivery:</span>
+                        {location == "USA" &&
+                        <div>
+                        <p>Shipping: ${items[0].susa}</p>
+                        <span>Expected delivery: {items[0].tusa} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].susa}
+                        </div>}
+                        {location == "Canada" &&
+                        <div>
+                        <p>Shipping: ${items[0].scanada}</p>
+                        <span>Expected delivery: {items[0].tcanada} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].scanada}
+                        </div>}
+                        {location == "Mexico" &&
+                        <div>
+                        <p>Shipping: ${items[0].smexico}</p>
+                        <span>Expected delivery: {items[0].tmexico} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].smexico}
+                        </div>}
+                        {location == "Africa" &&
+                       <div>
+                       <p>Shipping: ${items[0].seurope}</p>
+                       <span>Expected delivery: {items[0].teurope} weeks</span>
+                       <p>Order total</p>
+                        ${getTotal(items)+items[0].seurope}
+                       </div>}
+                        {location == "China" &&
+                        <div>
+                        <p>Shipping: ${items[0].schina}</p>
+                        <span>Expected delivery: {items[0].tchina} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].schina}
+                        </div>}
+                        {location == "India" &&
+                        <div>
+                        <p>Shipping: ${items[0].sindia}</p>
+                        <span>Expected delivery: {items[0].tindia} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].sindia}
+                        </div>}
+                        {location == "Asia(not India or China)" &&
+                        <div>
+                        <p>Shipping: ${items[0].sasia}</p>
+                        <span>Expected delivery: {items[0].tasia} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].sasia}
+                        </div>}
+                        {location == "Australia" &&
+                        <div>
+                        <p>Shipping: ${items[0].saustralia}</p>
+                        <span>Expected delivery: {items[0].taustralia} weeks</span>
+                        <p>Order total</p>
+                        ${getTotal(items)+items[0].saustralia}
+                        </div>}
+                        
                         <p>Tax</p>
                         <br/>
-                        <p>Order total</p>
-                        ${getTotal(items)}
-                    </div>
+                        
+                    </div>}
                 </div>
             </div>
     </div>

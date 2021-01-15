@@ -28,7 +28,26 @@ const imageSchema = new Schema({
     peoplewholiked: {
         type: String,
         default: "",
-      }
+      },
+    tusa:{type:Number},
+    susa:{type:Number},
+    tcanada:{type:Number},
+    scanada:{type:Number},
+    tmexico:{type:Number},
+    smexico:{type:Number},
+    teurope:{type:Number},
+    seurope:{type:Number},
+    tafrica:{type:Number},
+    safrica:{type:Number},
+    taustralia:{type:Number},
+    saustralia:{type:Number},
+    tchina:{type:Number},
+    schina:{type:Number},
+    tindia:{type:Number},
+    sindia:{type:Number},
+    totherasia:{type:Number},
+    sotherasia:{type:Number},
+
 })
 
 module.exports = mongoose.model('Image',imageSchema);

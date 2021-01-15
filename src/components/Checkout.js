@@ -87,7 +87,7 @@ const Checkout =({ products })=>{
                    'POST',
                    JSON.stringify({
                   "paymentMethodNonce":thenonce,
-                   "amount": getTotal(products)
+                   "amount": getTotal(products)+products[0].susa
                }),
                    {
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
@@ -136,7 +136,7 @@ const Checkout =({ products })=>{
                    'POST',
                    JSON.stringify({
                   paymentMethodNonce:nonce,
-                   amount: getTotal(products)
+                   amount: getTotal(products)+products[0].susa
                }),
                    {
                      'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
@@ -269,7 +269,7 @@ const Checkout =({ products })=>{
                     placeholder="Type Delivery Address"
                     />
                 </div>
-                <Form.Group as={Row}>
+                {/* <Form.Group as={Row}>
           <Form.Label column sm="4">Country/Continent</Form.Label>
           <Col sm="6">
             <Form.Control 
@@ -288,7 +288,7 @@ const Checkout =({ products })=>{
             <option value="Asia">Asia(not India or China)</option>
             </Form.Control>
           </Col>
-        </Form.Group>
+        </Form.Group> */}
                 
             <DropIn options={{
                 authorization:data.clientToken,

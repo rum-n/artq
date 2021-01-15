@@ -69,6 +69,78 @@ const NewPlace = () => {
         value: '',
         isValid: true
       },
+      susa: {
+        value: '',
+        isValid: true
+      },
+      tusa: {
+        value: '',
+        isValid: true
+      },
+      scanada: {
+        value: '',
+        isValid: true
+      },
+      tcanada: {
+        value: '',
+        isValid: true
+      },
+      seurope: {
+        value: '',
+        isValid: true
+      },
+      teurope: {
+        value: '',
+        isValid: true
+      },
+      safrica: {
+        value: '',
+        isValid: true
+      },
+      tafrica: {
+        value: '',
+        isValid: true
+      },
+      saustralia: {
+        value: '',
+        isValid: true
+      },
+      taustralia: {
+        value: '',
+        isValid: true
+      },
+      smexico: {
+        value: '',
+        isValid: true
+      },
+      tmexico: {
+        value: '',
+        isValid: true
+      },
+      schina: {
+        value: '',
+        isValid: true
+      },
+      tchina: {
+        value: '',
+        isValid: true
+      },
+      sindia: {
+        value: '',
+        isValid: true
+      },
+      tindia: {
+        value: '',
+        isValid: true
+      },
+      sasia: {
+        value: '',
+        isValid: true
+      },
+      tasia: {
+        value: '',
+        isValid: true
+      },
       address: {
         value: 0,
         isValid: true
@@ -114,6 +186,7 @@ const NewPlace = () => {
     event.preventDefault();
     if (methodofbuying == "Sale")
     {try{
+     
       const formData = new FormData()
         formData.append('title',formState.inputs.title.value)
         formData.append('status',"Not sold")
@@ -127,9 +200,26 @@ const NewPlace = () => {
         formData.append('url',file)
         formData.append('dimentions',formState.inputs.dimentions.value)
         formData.append('author',auth.userId)
-       
         formData.append('likes',0)
         formData.append('peoplewholiked',"")
+        formData.append('susa',formState.inputs.susa.value)
+        formData.append('tusa',formState.inputs.tusa.value)
+        formData.append('scanada',formState.inputs.scanada.value)
+        formData.append('tcanada',formState.inputs.tcanada.value)
+        formData.append('smexico',formState.inputs.smexico.value)
+        formData.append('tmexico',formState.inputs.tmexico.value)
+        formData.append('seurope',formState.inputs.seurope.value)
+        formData.append('teurope',formState.inputs.teurope.value)
+        formData.append('safrica',formState.inputs.safrica.value)
+        formData.append('tafrica',formState.inputs.tafrica.value)
+        formData.append('saustralia',formState.inputs.saustralia.value)
+        formData.append('taustralia',formState.inputs.taustralia.value)
+        formData.append('schina',formState.inputs.schina.value)
+        formData.append('tchina',formState.inputs.tchina.value)
+        formData.append('sindia',formState.inputs.sindia.value)
+        formData.append('tindia',formState.inputs.tindia.value)
+        formData.append('sotherasia',formState.inputs.sasia.value)
+        formData.append('totherasia',formState.inputs.tasia.value)
      console.log(file)
     await sendRequest('http://localhost:5000/api/images','POST',formData)
     history.push('/');
@@ -153,6 +243,24 @@ const NewPlace = () => {
         formData.append('author',auth.userId)
         formData.append('likes',0)
         formData.append('peoplewholiked',"")
+        formData.append('susa',formState.inputs.susa.value)
+        formData.append('tusa',formState.inputs.tusa.value)
+        formData.append('scanada',formState.inputs.scanada.value)
+        formData.append('tcanada',formState.inputs.tcanada.value)
+        formData.append('smexico',formState.inputs.smexico.value)
+        formData.append('tmexico',formState.inputs.tmexico.value)
+        formData.append('seurope',formState.inputs.seurope.value)
+        formData.append('teurope',formState.inputs.teurope.value)
+        formData.append('safrica',formState.inputs.safrica.value)
+        formData.append('tafrica',formState.inputs.tafrica.value)
+        formData.append('saustralia',formState.inputs.saustralia.value)
+        formData.append('taustralia',formState.inputs.taustralia.value)
+        formData.append('schina',formState.inputs.schina.value)
+        formData.append('tchina',formState.inputs.tchina.value)
+        formData.append('sindia',formState.inputs.sindia.value)
+        formData.append('tindia',formState.inputs.tindia.value)
+        formData.append('sotherasia',formState.inputs.sasia.value)
+        formData.append('totherasia',formState.inputs.tasia.value)
   await sendRequest('http://localhost:5000/api/images','POST',formData)
   history.push('/');
 } catch(err){
@@ -297,7 +405,8 @@ const handlebuy = (method) =>{
           </Col>
         </Form.Group>
         
-        {methodofbuying === "Auction" &&
+        {(methodofbuying === "Auction" || methodofbuying === "Sale") &&
+        <>
         <Form.Group as={Row} controlId="duration">
         <Form.Label column sm="4">Auction ends in (hours):</Form.Label>
           <Col sm="6">
@@ -308,8 +417,227 @@ const handlebuy = (method) =>{
               validators={[VALIDATOR_REQUIRE()]}
               onInput={inputHandler}
             />
-          </Col>
-        </Form.Group>}
+          </Col>   
+        </Form.Group>
+        <p>Fill in Shipping Rates/Time. <strong>Important: </strong>If you do not want to ship to that location: <strong>INPUT -1</strong></p>
+        <Form.Group as={Row} controlId="susa">
+        <Form.Label column sm="4">Shipping cost to USA:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="susa"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tusa">
+        <Form.Label column sm="4">Shipping Time to USA (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tusa"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="scanada">
+        <Form.Label column sm="4">Shipping cost to Canada:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="scanada"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tcanada">
+        <Form.Label column sm="4">Shipping Time to Canada (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tcanada"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="smexico">
+        <Form.Label column sm="4">Shipping cost to Mexico:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="smexico"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tmexico">
+        <Form.Label column sm="4">Shipping Time to Mexico (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tmexico"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="seurope">
+        <Form.Label column sm="4">Shipping cost to Europe:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="seurope"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="teurope">
+        <Form.Label column sm="4">Shipping Time to Europe (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="teurope"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="safrica">
+        <Form.Label column sm="4">Shipping cost to Africa:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="safrica"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tafrica">
+        <Form.Label column sm="4">Shipping Time to Africa (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tafrica"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="saustralia">
+        <Form.Label column sm="4">Shipping cost to Australia:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="saustralia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="taustralia">
+        <Form.Label column sm="4">Shipping Time to Australia (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="taustralia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="sindia">
+        <Form.Label column sm="4">Shipping cost to India:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="sindia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tindia">
+        <Form.Label column sm="4">Shipping Time to India (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tindia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="schina">
+        <Form.Label column sm="4">Shipping cost to China:</Form.Label>
+          <Col sm="6">
+            <Input
+              id="schina"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tchina">
+        <Form.Label column sm="4">Shipping Time to China (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tchina"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="sasia">
+        <Form.Label column sm="4">Shipping cost to Asia (other than China and India):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="sasia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+        <Form.Group as={Row} controlId="tasia">
+        <Form.Label column sm="4">Shipping Time to Asia (other than China and India) (weeks):</Form.Label>
+          <Col sm="6">
+            <Input
+              id="tasia"
+              element="input"
+              type="number"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+            />
+          </Col>   
+        </Form.Group>
+
+        </>}
 
         {methodofbuying === "Auction" &&
        <Form.Group as={Row} controlId="price">

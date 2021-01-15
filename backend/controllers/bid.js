@@ -112,6 +112,72 @@ const createBid = async (req,res,next) => {
     
      return next(error)
      }
+
+     //sending bid info to buyer and seller
+
+    //  const emailData = {
+    //     to: "seawavecrafts@gmail.com",
+    //     from: 'Nandita1227@gmail.com',
+    //     subject: `A new order is received`,
+    //     html: `
+    //     <h1>Hey Admin, Somebody just made a bid in your ecommerce store</h1>
+    //     <h2>Customer name: ${name}</h2>
+    //     <h2>Customer address: ${address}</h2>
+    //     <h2>User's purchase history: ${products.length} purchase</h2>
+    //     <h2>User's email: ${email}</h2>
+    //     <h2>Total products: ${products.length}</h2>
+    //     <h2>Transaction ID: ${transaction_id}</h2>
+    //     <h2>Order status: Not processed</h2>
+    //     <h2>Product details:</h2>
+    //     <hr />
+    //     ${products
+    //         .map(p => {
+    //             return `<div>
+    //                 <h3>Product Name: ${products.name}</h3>
+    //                 <h3>Product Price: ${p.price}</h3>
+    //                 <h3>Product Quantity: ${p.count}</h3>
+    //         </div>`;
+    //         })
+    //         .join('--------------------')}
+    //     <h2>Total order cost: ${amount}<h2>
+    //     <p>Login to your dashboard</a> to see the order in detail.</p>
+    // `
+    // };
+    // sgMail
+    //     .send(emailData)
+    //     .then(sent => console.log('SENT >>>', sent))
+    //     .catch(err => console.log('ERR >>>', err));
+
+    // // email to buyer
+    // const emailData2 = {
+    //     //order.user.email
+    //     to: "seawavecrafts@gmail.com",
+    //     from: 'Nandita1227@gmail.com',
+    //     subject: `Your order is in process`,
+    //     html: `
+    //     <h1>Hey ${name}, Thank you for shopping with us.</h1>
+    //     <h2>Total products: ${products.length}</h2>
+    //     <h2>Transaction ID: ${transaction_id}</h2>
+    //     <h2>Order status: Not Processed </h2>
+    //     <h2>Product details:</h2>
+    //     <hr />
+    //     ${products
+    //         .map(p => {
+    //             return `<div>
+    //                 <h3>Product Name: ${p.name}</h3>
+    //                 <h3>Product Price: ${p.price}</h3>
+    //                 <h3>Product Quantity: ${p.count}</h3>
+    //         </div>`;
+    //         })
+    //         .join('--------------------')}
+    //     <h2>Total order cost: ${amount}<h2>
+    //     <p>Thank your for shopping with us.</p>
+    // `
+    // };
+    // sgMail
+    //     .send(emailData2)
+    //     .then(sent => console.log('SENT 2 >>>', sent))
+    //     .catch(err => console.log('ERR 2 >>>', err));
     res.status(201).json({art:savedArt});
 };
 
