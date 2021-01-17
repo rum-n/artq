@@ -196,6 +196,31 @@ exports.updateBidPrice = (req,res) =>{
     })
 }
 
+exports.getStatusValues = (req,res) =>{
+    res.json(Bid.schema.path("status").enumValues)
+}
+
+exports.listBids = (req,res) =>{
+    Bid.find()
+    .populate('user',"_id name address")
+    .sort("-title")
+    .exec((err,orders) =>{
+        if(err){
+            return res.status(400).json({
+                
+            })
+        }
+        res.json(orders)
+    })
+}
+
+
+exports.updateBidStatus = (req,res) =>{
+    Bid.update({_id: req.body.orderId},{$set:{status:req.body.status}},(err,order) =>{
+      
+        res.json(order)
+    })
+}
 
 
 

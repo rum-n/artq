@@ -244,6 +244,9 @@ return(
 {auth.isLoggedIn && auth.userId === "5fef79391c01e059f13f3823" && (
       <Link className='nav-links' to='/manage'>Manage Posts </Link>
     )}
+    {auth.isLoggedIn && auth.userId === "5fef79391c01e059f13f3823" && (
+      <Link className='nav-links' to='/managebids'>Manage Bids </Link>
+    )}
   </Navbar>
   </div>
   </> 

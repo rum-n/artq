@@ -25,6 +25,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminManagePosts from './pages/adminManagePosts';
 import CurrentBids from './pages/currentBids';
 import { ShortenUrlProvider } from 'react-shorten-url';
+import ManageBids from './pages/ManageBids'
 
 let logoutTimer;
 function App() { 
@@ -90,6 +91,7 @@ function App() {
          <Route path='/manage' component={AdminManagePosts} /> 
          <Route path='/currentbids' component={CurrentBids} /> 
         <Route path='/cart' component={Cart} />
+        <Route path='/managebids' component={ManageBids} />
         <Route path='/individual' component={IndividualUserPage} />
         <Route path="/images/:imageId">
         <UpdatePlace />

@@ -62,6 +62,7 @@ const getArtByUser = async (req,res,next)=>{
 
 }
 const saveArt = async (req,res,next) => {
+    console.log("entered")
     
     const {title,url,description,dimentions,status,tusa,
         susa,
@@ -87,6 +88,7 @@ const saveArt = async (req,res,next) => {
      
       console.log("rhe cooordinates"+coordinates)
     } catch(error){
+        console.log(error)
         return next(error)
     }
     

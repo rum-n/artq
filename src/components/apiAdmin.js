@@ -9,6 +9,18 @@ export const listOrders = (userId) =>{
     .catch(err => console.log(err))
 }
 
+export const listBids = () =>{
+    return fetch(`http://localhost:5000/api/bid`,{
+        method:"GET"
+      
+    })
+    .then(response =>{
+        return response.json();
+    })
+    .catch(err => console.log(err))
+}
+
+
 export const getartistinfo = (userId) =>{
     return fetch(`http://localhost:5000/api/users/${userId}`,{
         method:"GET"
@@ -22,6 +34,17 @@ export const getartistinfo = (userId) =>{
 
 export const getStatusValues = (userId) =>{
     return fetch(`http://localhost:5000/api/order/status-values/${userId}`,{
+        method:"GET"
+      
+    })
+    .then(response =>{
+        return response.json();
+    })
+    .catch(err => console.log(err))
+}
+
+export const getStatusValuesBids = () =>{
+    return fetch(`http://localhost:5000/api/bid/status-values/5ff4e6ce7e77c6d1eb713e86`,{
         method:"GET"
       
     })

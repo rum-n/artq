@@ -66,79 +66,83 @@ const NewPlace = () => {
         isValid: true
       },
       duration: {
-        value: '',
+        value: 0,
         isValid: true
       },
       susa: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tusa: {
-        value: '',
+        value: 0,
         isValid: true
       },
       scanada: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tcanada: {
-        value: '',
+        value: 0,
         isValid: true
       },
       seurope: {
-        value: '',
+        value: 0,
         isValid: true
       },
       teurope: {
-        value: '',
+        value: 0,
         isValid: true
       },
       safrica: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tafrica: {
-        value: '',
+        value: 0,
         isValid: true
       },
       saustralia: {
-        value: '',
+        value: 0,
         isValid: true
       },
       taustralia: {
-        value: '',
+        value: 0,
         isValid: true
       },
       smexico: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tmexico: {
-        value: '',
+        value: 0,
         isValid: true
       },
       schina: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tchina: {
-        value: '',
+        value: 0,
         isValid: true
       },
       sindia: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tindia: {
-        value: '',
+        value: 0,
+        isValid: true
+      },
+      price: {
+        value: 0,
         isValid: true
       },
       sasia: {
-        value: '',
+        value: 0,
         isValid: true
       },
       tasia: {
-        value: '',
+        value: 0,
         isValid: true
       },
       address: {
@@ -184,7 +188,7 @@ const NewPlace = () => {
 };
   const placeSubmitHandler = async event => {
     event.preventDefault();
-    if (methodofbuying == "Sale")
+    if (methodofbuying == "Sale" || methodofbuying == "No")
     {try{
      
       const formData = new FormData()
@@ -408,7 +412,7 @@ const handlebuy = (method) =>{
         {(methodofbuying === "Auction" || methodofbuying === "Sale") &&
         <>
         <Form.Group as={Row} controlId="duration">
-        <Form.Label column sm="4">Auction ends in (hours):</Form.Label>
+        <Form.Label column sm="4">Auction ends in (days):</Form.Label>
           <Col sm="6">
             <Input
               id="duration"

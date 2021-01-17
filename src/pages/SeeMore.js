@@ -278,7 +278,7 @@ const SeeMore = () => {
               onInput={inputHandler}
             />
 
-        <Button type="submit" onClick={(e) =>sendbid(e) && window.location.reload()} disabled={authenticated(state.price)}>
+        <Button type="submit" onClick={(e) =>sendbid(e) } disabled={authenticated(state.price)}>
           Publish
         </Button>
          

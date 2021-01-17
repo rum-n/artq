@@ -2,13 +2,17 @@ import React, { useState, useEffect, useContext }from 'react';
 import './styles.css';
 import {AuthContext} from "../context/auth-context";
 import moment from "moment"
+import Button from 'react-bootstrap/Button';
 import {useHttpClient} from "../components/hooks/http-hook"
+import { addItem, removeItem } from "../components/cartHelpers"
+import {Redirect} from "react-router-dom";
 
 const CurrentBids = () => {
     const {sendRequest,clearError} = useHttpClient();
     const [history,setHistory] = useState([])
     const [duration,setduration] = useState([])
     const [ winningbid, setwinningbid ] = useState(0)
+    const [redirect, setRedirect] = useState(false)
     const [peoplewhobidded,setpeoplewhobidded] = useState([])
     const auth = useContext(AuthContext)
     const userId = auth.userId
@@ -19,6 +23,7 @@ const CurrentBids = () => {
 
     const getwinningbid = async (o) => {
         try {
+          let winning = 0
           const response = await fetch(`http://localhost:5000/api/bid/${o.artId}`);
           const responseData = await response.json();
           if (!response.ok) {
@@ -28,10 +33,11 @@ const CurrentBids = () => {
           for (var i =0; i<responseData.userWithImages.length;i++){
             if(responseData.userWithImages[i].bid>winningbid){
               setwinningbid(responseData.userWithImages[i].bid)
+              winning = responseData.userWithImages[i].bid
             }
     
           }
-          
+        
         } catch (err) {
           
         }
@@ -47,7 +53,7 @@ const CurrentBids = () => {
             throw new Error(responseData.message);
           }  
           setHistory(responseData.userWithImages)
-          bidHistory(history)
+          
          
          
         } catch (err) {
@@ -60,10 +66,10 @@ const CurrentBids = () => {
        
       })
 
-      const updateBidStatus = async (o,winstatus,losestatus) => {
+      const updateBidStatus = async (o,winning,winstatus,losestatus) => {
         console.log("entered placesubmit handler" )
         let status = ""
-        if (o.bid == winningbid){
+        if (o.bid == winning){
             status = winstatus
         }
         else{
@@ -80,7 +86,7 @@ const CurrentBids = () => {
         }),{
             'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
           })
-          
+          window.location.reload()
       } catch(err){
       
         console.log(err)
@@ -88,6 +94,20 @@ const CurrentBids = () => {
      
      
     };
+
+    const addToCart =() =>{
+      console.log(history)
+      addItem(history[0],() =>{
+        setRedirect(true)
+      })
+    }
+    const shouldRedirect = redirect =>{
+      if(redirect){
+        return <Redirect to="/cart"/>
+      }
+    }
+
+   
 
     const updateSoldStatus = async (o) =>{
       try{
@@ -131,11 +151,18 @@ const CurrentBids = () => {
                 <ul className="list-group">
                     <li className="list-group-item">
                         {history.map((h, i) => {
-                          if ((moment(h.createdAt).fromNow()) == `6 minutes ago`){
-                            getallbidsforitem(h)
+                          if ((moment(h.createdAt).fromNow()) == `2 minutes ago`){
+                            console.log("DONE!!!!")
+                           
+
+                            //getallbidsforitem(h)
                             //add for loop
+                            
                             getwinningbid(h)
-                            updateBidStatus(h,`you won the bid!`,"you lost the bid")
+                            {console.log(winningbid)}
+                            updateBidStatus(h,winningbid,`you won the bid!`,"you lost the bid")
+                          
+                            
                             updateSoldStatus(h)
                           }
                           return (
@@ -148,6 +175,7 @@ const CurrentBids = () => {
                               <h6>Placed bid:{" "}
                                   {moment(h.createdAt).fromNow()}  
                               </h6>
+                              {h.status=="you won the bid!" && <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>}
                             </div>
                           </div>
                           );

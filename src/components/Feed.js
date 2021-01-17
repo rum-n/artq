@@ -60,6 +60,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
    }
  },[isClick])
  const addToCart =() =>{
+   console.log(props)
    addItem(props,() =>{
      setRedirect(true)
    })
