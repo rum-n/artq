@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import {useHttpClient} from "../components/hooks/http-hook"
 import { addItem, removeItem } from "../components/cartHelpers"
 import {Redirect} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CurrentBids = () => {
     const {sendRequest,clearError} = useHttpClient();
@@ -151,20 +152,20 @@ const CurrentBids = () => {
                 <ul className="list-group">
                     <li className="list-group-item">
                         {history.map((h, i) => {
-                          if ((moment(h.createdAt).fromNow()) == `2 minutes ago`){
-                            console.log("DONE!!!!")
+                          // if ((moment(h.createdAt).fromNow()) == `2 minutes ago`){
+                          //   console.log("DONE!!!!")
                            
 
-                            //getallbidsforitem(h)
-                            //add for loop
+                          //   //getallbidsforitem(h)
+                          //   //add for loop
                             
-                            getwinningbid(h)
-                            {console.log(winningbid)}
-                            updateBidStatus(h,winningbid,`you won the bid!`,"you lost the bid")
+                          //   getwinningbid(h)
+                          //   {console.log(winningbid)}
+                          //   updateBidStatus(h,winningbid,`you won the bid!`,"you lost the bid")
                           
                             
-                            updateSoldStatus(h)
-                          }
+                          //   updateSoldStatus(h)
+                          // }
                           return (
                           <div>
                             <hr/>
@@ -175,7 +176,11 @@ const CurrentBids = () => {
                               <h6>Placed bid:{" "}
                                   {moment(h.createdAt).fromNow()}  
                               </h6>
-                              {h.status=="you won the bid!" && <Button className="add-to-cart" variant="secondary" onClick={addToCart}>Add to cart</Button>}
+                              {console.log(history[0])}
+                              {h.status=="you won the bid!" && history && <Link to={{
+                        pathname: `/seemore/${h.artId}`,
+                        state: { thedata:h , theid: h.artId}
+                      }} className="text-danger">Click to Buy!</Link>}
                             </div>
                           </div>
                           );

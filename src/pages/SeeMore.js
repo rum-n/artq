@@ -264,6 +264,8 @@ const SeeMore = () => {
 
         {state.type === "Sale" &&
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
+        {state.type === "Auction" && 
+        <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
         {state.type === "Auction" && state.status!="sold" &&
         <Form.Group as={Row} controlId="description">

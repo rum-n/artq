@@ -210,10 +210,11 @@ console.log(props.image)
                     </Container>
                   </Modal.Body>
                     <Modal.Footer>
+                      {props.status!="sold" &&
                       <Link to={{
                         pathname: `/seemore/${props.id}`,
                         state: { thedata:props , theid: props.id}
-                      }} className='see-more'>See more</Link>
+                      }} className='see-more'>See more</Link>}
                     </Modal.Footer>
               </Modal>
       </div>
