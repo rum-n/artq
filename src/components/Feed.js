@@ -55,7 +55,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
  };
 
  useEffect(() =>{
-   if (isClick == true){
+   if (isClick === true){
     incrementLikes(props)
    }
  },[isClick])
@@ -161,12 +161,6 @@ const incrementLikes = async (o) => {
 
 
 };
-console.log(props.image)
-
-
-
-
-
 
   return (
 
@@ -178,7 +172,6 @@ console.log(props.image)
               {shouldRedirect(redirect)}
               <div>
               <text> {props.likes} likes</text>
-              {console.log(props)}
               {!(props.peoplewholiked.indexOf(auth.userId) > -1) &&
               <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
              

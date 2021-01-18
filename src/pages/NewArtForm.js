@@ -38,15 +38,15 @@ const formReducer = (state, action) => {
   }
 };
 
-const NewPlace = () => {
+const NewPlace = (props) => {
   
-  const [file, setFile] = React.useState("");
+  const [file, setFile] = useState("");
   const [methodofbuying, setmethodofbuying] = useState("")
   const [artstyle, setartstyle] = useState("")
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
   // const[duration,setduration] = useState(0)
-  const[type] = useState("")
+  // const[type] = useState("")
   const [formState, dispatch] = useReducer(formReducer, {
     inputs: {
       title: {
@@ -181,14 +181,14 @@ const NewPlace = () => {
     // Add code here to upload file to server
     // ...
   }
-  const ImageThumb = ({ image }) => {
-    console.log(URL.createObjectURL(file))
-    console.log(URL.createObjectURL(file))
-  return <img src={URL.createObjectURL(file)} alt={image.name} />;
-};
+//   const ImageThumb = ({ image }) => {
+//     console.log(URL.createObjectURL(file))
+//     console.log(URL.createObjectURL(file))
+//   return <img src={URL.createObjectURL(file)} alt={image.name} />;
+// };
   const placeSubmitHandler = async event => {
     event.preventDefault();
-    if (methodofbuying == "Sale" || methodofbuying == "No")
+    if (methodofbuying === "Sale" || methodofbuying === "No")
     {try{
      
       const formData = new FormData()
@@ -230,7 +230,7 @@ const NewPlace = () => {
   } catch(err){
     console.log(err)
   }}
-  if (methodofbuying == "Auction")
+  if (methodofbuying === "Auction")
   {try{
     const formData = new FormData()
         formData.append('title',formState.inputs.title.value)
@@ -272,17 +272,17 @@ const NewPlace = () => {
 }}
 };
 
-const handlebuy = (method) =>{
-  setmethodofbuying(type)
-}
+// const handlebuy = (method) =>{
+//   setmethodofbuying(type)
+// }
 
   return (
     <div className='signup-wrapper'>
       <div className='left-wrapper'>
         <div className='upload-white-rectangle'>
-          <p>FIRST NAME: <span>Curtis Bryant</span></p>
-          <p>E-MAIL: <span>curtis11@gmail.com</span></p>
-          <p>PHONE: <span>415-768-9987</span></p>
+          <p>FIRST NAME: <span>{props.title}</span></p>
+          <p>E-MAIL: <span>{props.email}</span></p>
+          <p>PHONE: <span>{props.phone}</span></p>
         </div>
       </div>
     <div className='right-wrapper'>
@@ -334,9 +334,6 @@ const handlebuy = (method) =>{
           <Col sm="6">
           <div id="upload-box">
       <input type="file" onChange={handleUpload} />
-      {/* <p>Filename: {file.name}</p>
-      <p>File type: {file.type}</p>
-      <p>File size: {file.size} bytes</p> */}
      
     </div>
           </Col>
