@@ -1,48 +1,45 @@
-import React, { useCallback, useReducer,useContext,useState } from 'react';
-import {useHistory} from "react-router-dom"
+import React, { useContext, useState, useEffect,Redirect,useReducer,useCallback } from 'react';
+// import {useHistory} from "react-router-dom"
 import {useHttpClient} from "../components/hooks/http-hook"
-import Input from '../components/Input';
-import Button from '../components/Button';
+// import Input from '../components/Input';
+import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import {AuthContext} from "../context/auth-context";
-import {
-  VALIDATOR_REQUIRE,
-  VALIDATOR_MINLENGTH
-} from './util/validators';
+import './settings.css';
 import './NewArtForm.css';
 
+// import { Link } from "react-router-dom";
+import { VALIDATOR_MINLENGTH } from './util/validators';
 
-const formReducer = (state, action) => {
-  switch (action.type) {
-    case 'INPUT_CHANGE':
-      let formIsValid = true;
-      for (const inputId in state.inputs) {
-        if (inputId === action.inputId) {
-          formIsValid = formIsValid && action.isValid;
-        } else {
-          formIsValid = formIsValid && state.inputs[inputId].isValid;
-        }
-      }
-      return {
-        ...state,
-        inputs: {
-          ...state.inputs,
-          [action.inputId]: { value: action.value, isValid: action.isValid }
-        },
-        isValid: formIsValid
-      };
-    default:
-      return state;
-  }
-};
+// const formReducer = (state, action) => {
+//   switch (action.type) {
+//     case 'INPUT_CHANGE':
+//       let formIsValid = true;
+//       for (const inputId in state.inputs) {
+//         if (inputId === action.inputId) {
+//           formIsValid = formIsValid && action.isValid;
+//         } else {
+//           formIsValid = formIsValid && state.inputs[inputId].isValid;
+//         }
+//       }
+//       return {
+//         ...state,
+//         inputs: {
+//           ...state.inputs,
+//           [action.inputId]: { value: action.value, isValid: action.isValid }
+//         },
+//         isValid: formIsValid
+//       };
+//     default:
+//       return state;
+//   }
+// };
 
 const Settings = () => {
   
-  const [file, setFile] = React.useState("");
   const [methodofbuying, setmethodofbuying] = useState("")
-  const [artstyle, setartstyle] = useState("")
   let [followers, setfollowers] = useState("")
   let [likes, setlikes] = useState("")
   let [bids, setbids] = useState("")
@@ -51,44 +48,74 @@ const Settings = () => {
   const [notifications, setnotifications] = useState([])
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
-  // const[duration,setduration] = useState(0)
-  const[type] = useState("")
-  const [formState, dispatch] = useReducer(formReducer, {
-    inputs: {
-      title: {
-        value: '',
-        isValid: false
-      },
-      description: {
-        value: '',
-        isValid: false
-      },
-      dimentions: {
-        value: '',
-        isValid: false
-      },
-      url: {
-        value: '',
-        isValid: true
-      },
-      duration: {
-        value: '',
-        isValid: true
-      },
-      address: {
-        value: 0,
-        isValid: true
-      },
-      
-      medium: {
-        value: '',
-        isValid: false
-       
+  const [loadedImages, setLoadedImages] = useState();
+  const [loadedName, setLoadedName] = useState();
+  const [loadedEmail, setLoadedEmail] = useState();
+  const [loadedId, setLoadedId] = useState();
+  const [loadedPhone, setLoadedPhone] = useState();
+  const [loadedImage, setLoadedImage] = useState();
+  const [loadedAbout, setLoadedAbout] = useState();
+  const [loadedFollowing, setloadedFollowing] = useState();
+  const [loadedFollowers, setloadedFollowers] = useState();
+  const [loadedLocation, setLoadedLocation] = useState();
+  const userId = auth.userId
+
+  const placeSubmitHandler = async (e) => {
+    e.preventDefault()
+    alert("Settings have been updated")
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`
+      );
+      const responseData = await response.json();
+      setnotifications(responseData);
+      let updatedfollowers = []
+      let updatedlikes = []
+      let updatedauction = []
+      let updatedbids = []
+      let updateditems = []
+    
+      if (followers === "No"){
+        console.log(responseData.followers)
+        updatedfollowers = responseData.followers + (auth.userId)
+        console.log(updatedfollowers)
       }
-    },
-    isValid: false
-  });
-  const history = useHistory();
+      if (likes === "No"){
+        updatedlikes = responseData.likes.push(auth.userId)
+      }
+      if (bids === "No"){
+        updatedbids = responseData.bids.push(auth.userId)
+      }
+      if (auction === "No"){
+        updatedauction = responseData.auction.push(auth.userId)
+      }
+      if (items === "No"){
+        updateditems = responseData.items.push(auth.userId)
+      }
+    
+      await sendRequest(`http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`,'PUT',JSON.stringify({
+        followers:updatedfollowers,
+        likes: updatedlikes,
+        auction:updatedauction,
+        bids:updatedbids,
+        items:updateditems
+      }),
+      {
+        'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+      })
+    } catch(err) {
+      console.log(err)
+    }
+  };
+
+  const [file, setFile] = React.useState("");
+  function handleUpload(event) {
+    setFile(event.target.files[0]);
+    handleChange("prof")
+
+    // Add code here to upload file to server
+    // ...
+  }
 
   const inputHandler = useCallback((id, value, isValid) => {
     dispatch({
@@ -99,194 +126,360 @@ const Settings = () => {
     });
   }, []);
 
-  const handleUpload  = async(event) =>{
-    const formData = new FormData();
+  const formReducer = (state, action) => {
+    switch (action.type) {
+      case 'INPUT_CHANGE':
+        let formIsValid = true;
+        for (const inputId in state.inputs) {
+          if (inputId === action.inputId) {
+            formIsValid = formIsValid && action.isValid;
+          } else {
+            formIsValid = formIsValid && state.inputs[inputId].isValid;
+          }
+        }
+        return {
+          ...state,
+          inputs: {
+            ...state.inputs,
+            [action.inputId]: { value: action.value, isValid: action.isValid }
+          },
+          isValid: formIsValid
+        };
+      default:
+        return state;
+    }
+  };
 
-		formData.append('File', event.target.files[0]);
-    console.log(URL.createObjectURL(event.target.files[0]))
-    
-	// 	try{
-  //     console.log(file)
-  //    await sendRequest('https://freeimage.host/api/1/upload?key=6d207e02198a847aa98d0a2a901485a5','POST',JSON.stringify( 
-  //     event.target.files[0]
-       
-  //    ),{
-  //      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-  //    }).then((response) => response.json())
-  //    .then((result) => {
-  //      console.log('Success:', result);
-  //    })
-  //    .catch((error) => {
-  //      console.error('Error:', error);
-  //    });
-   
-  //  } catch(err){
-  //    console.log(err)
-  //  }
-	
-	
-    console.log(event.target.files[0])
-    setFile(event.target.files[0]);
+  useEffect(() => {
+    const sendRequest = async () => {
 
-    // Add code here to upload file to server
-    // ...
-  }
-  const ImageThumb = ({ image }) => {
-    console.log(URL.createObjectURL(file))
-    console.log(URL.createObjectURL(file))
-  return <img src={URL.createObjectURL(file)} alt={image.name} />;
-
-};
-
-
-const placeSubmitHandler = async (e) => {
-  e.preventDefault()
-  alert("Settings have been updated")
-  console.log("entered placesubmit handler" )
-  
-  try{
-  
-      const response = await fetch(
-        `http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`
-      );
-      const responseData = await response.json();
-      setnotifications(responseData);
+      try {
+        const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+        const responseData = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }  
+        setLoadedName(responseData.userWithImages.name)
+        setLoadedEmail(responseData.userWithImages.email)
+        setLoadedPhone(responseData.userWithImages.phone)
+        setLoadedId(responseData.userWithImages.id)
+        setLoadedImage(responseData.userWithImages.prof)
+        setLoadedAbout(responseData.userWithImages.about)
+        setLoadedLocation(responseData.userWithImages.location)
+        setloadedFollowing(responseData.userWithImages.followingnumber)
+        setloadedFollowers(responseData.userWithImages.followersnumber)
+      } catch (err) {
       
- 
+      }
+    };
+    sendRequest();
+  }, []);
+
+  const [values,setValues] = useState({
+    name:'',
+    email:'',
+    password:'',
+    error:false,
+    success:false
+  });
+
+  const [allvalues,setallValues] = useState({
+    name:'',
+    email:'',
+    password:'',
+    image: [],
+    savedimage:[],
+    phone:'',
+    about:'',
+    location:'',
+    prof:''
+  });
+
+  const [formState, dispatch] = useReducer(formReducer, {
+    inputs: {
+      password: {
+        value: '',
+        isValid: false
+      },
+    },
+    isValid: false
+  });
+
+  const updateinfo = async (event,user) => {
+    event.preventDefault();
+    try {
+      
+      await sendRequest(
+        `http://localhost:5000/api/users/${auth.userId}`,
+        'PUT',
+        JSON.stringify({
+          user
+    }),
+        {
+          'Content-Type': 'application/json',Authorization: 'Bearer '+auth.token
+        }
+      );
+    
+    } catch (err) {alert("nah bruh it didnt work")}
+  };
+
+  const getprofile = async () => {
+    try {
+      const response =  await fetch(`http://localhost:5000/api/users/${userId}`);
+      const responseData = await response.json();
+      setValues(
+        { 
+          ...values,
+          name:responseData.userWithImages.name, 
+          email:responseData.userWithImages.email,
+          image:responseData.userWithImages.image,
+          savedimage:responseData.userWithImages.savedimage,
+          phone:responseData.userWithImages.phone, 
+          about:responseData.userWithImages.about, 
+          location:responseData.userWithImages.location,
+          prof:responseData.userWithImages.prof
+          })
+      setallValues(
+        {
+          ...allvalues,
+          name:responseData.userWithImages.name, 
+          email:responseData.userWithImages.email,
+          password:responseData.userWithImages.password,
+          image:responseData.userWithImages.image,
+          savedimage:responseData.userWithImages.savedimage,
+          phone:responseData.userWithImages.phone,
+          about:responseData.userWithImages.about,
+          location:responseData.userWithImages.location,
+          prof:responseData.userWithImages.prof
+          })
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      } 
+    } catch (err) {
+      
+    }
+  };
+
+  const {name,email,password,error,success} = values
+  const {phone,image,savedimage,about,location,prof} = allvalues
   
-    //o.peoplewholiked.indexOf(auth.userId) > -1\
-    //
-    let updatedfollowers = []
-    let updatedlikes = []
-    let updatedauction = []
-    let updatedbids = []
-    let updateditems = []
-  console.log(e.target.value)
-    if (followers = "No"){
-      console.log(responseData.followers)
-      updatedfollowers = responseData.followers + (auth.userId)
-      console.log(updatedfollowers)
-    }
-    if (likes = "No"){
-      updatedlikes = responseData.likes.push(auth.userId)
-    }
-    if (bids = "No"){
-      updatedbids = responseData.bids.push(auth.userId)
-    }
-    if (auction = "No"){
-      updatedauction = responseData.auction.push(auth.userId)
-    }
-    if (items = "No"){
-      updateditems = responseData.items.push(auth.userId)
-    }
+  const init = (userId) =>{
+    getprofile(userId)
+  };
 
+  useEffect(() =>{
+      init(auth.userId)
+  })
+
+  const finallyupdate = async event=> {
+  try {
+    const formData = new FormData()
+    formData.append('name',values.name)
+    formData.append('email',values.email)
+    formData.append('password',values.password)
+    formData.append('phone',allvalues.phone)
+    formData.append('prof',file)
+    formData.append('location',allvalues.location)
+    formData.append('about',allvalues.about)
   
-   
-  await sendRequest(`http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`,'PUT',JSON.stringify({
-    followers:updatedfollowers,
-    likes: updatedlikes,
-    auction:updatedauction,
-    bids:updatedbids,
-    items:updateditems
-  }),{
-      'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
-    })
+    await sendRequest(
+      `http://localhost:5000/api/users/${auth.userId}`,
+      'PATCH',
+      formData
+    );
+      alert("saved changes")
+  } catch (err) {alert("nah bruh it didnt work")}
+  };
 
-} catch(err){
+  const clickSubmit = (e) =>{
+    e.preventDefault()
+      console.log(name)
+      if (values.password.length<=5){
+        alert("enter a new password greater than 5 characters")
+      }
+      else{
+      console.log(values.name,values.email,values.password,allvalues.image,allvalues.savedimage,allvalues.phone)
+      finallyupdate()}
+  };
 
-  console.log(err)
-}
+  const redirectUser = (success) =>{
+      if(success){
+          return <Redirect to="/"/>
+      }
+  };
 
+  const handleChange = name => (e) =>{
+      console.log(e.target.value)
+      setValues({...values,error:false,[name]:e.target.value})
+      setallValues({...values,error:false,[name]:e.target.value})
+  };
 
-};
-
-const handlebuy = (method) =>{
-  setmethodofbuying(type)
-}
+  const profileUpdate = (name,email,password) =>{
+      <form>
+          <div className="form-group">
+              <label className="text-muted">Name
+              </label>
+              <input type="text" onChange={handleChange("name")} className="form-control" value={name}/>
+          </div>
+          <div className="form-group">
+              <label className="text-muted">Email
+              </label>
+              <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
+          </div>
+          <div className="form-group">
+              <label className="text-muted">Password
+              </label>
+              <input type="text" onChange={handleChange("password")} className="form-control" value={password}/>
+          </div>
+        
+          <Button type="submit" disabled={!formState.isValid}>
+            Publish
+          </Button>
+          <button onClick={clickSubmit} disabled={false} className="btn btn-primary">
+              Submit
+          </button>
+          <text>hi</text>
+          
+          {redirectUser(success)}
+      </form>
+  }
 
   return (
-    <div className='signup-wrapper'>
-      
-    <div className='right-wrapper'>
-      <h4>Email Notification Settings</h4>
-      
-      <Form className='add-art-form-wrapper' onSubmit={placeSubmitHandler}>
-        <Form.Group as={Row}>
-          <Form.Label column sm="4">New Followers</Form.Label>
-          <Col sm="6">
-            <Form.Control 
-              as='select' 
-              defaultValue="Choose..." 
-              value={followers} 
-              onChange={e => setfollowers(e.target.value)}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </Form.Control>
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row}>
-          <Form.Label column sm="4">New Likes</Form.Label>
-          <Col sm="6">
-            <Form.Control 
-              as='select' 
-              defaultValue="Choose..." 
-              value={likes} 
-              onChange={e => setlikes(e.target.value)}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </Form.Control>
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm="4">New bids</Form.Label>
-          <Col sm="6">
-            <Form.Control 
-              as='select' 
-              defaultValue="Choose..." 
-              value={bids} 
-              onChange={e => setbids(e.target.value)}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </Form.Control>
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm="4">Auction Results</Form.Label>
-          <Col sm="6">
-            <Form.Control 
-              as='select' 
-              defaultValue="Choose..." 
-              value={auction} 
-              onChange={e => setauction(e.target.value)}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </Form.Control>
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row}>
-          <Form.Label column sm="4">Items Sold</Form.Label>
-          <Col sm="6">
-            <Form.Control 
-              as='select' 
-              defaultValue="Choose..." 
-              value={items} 
-              onChange={e => setitems(e.target.value)}>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-            </Form.Control>
-          </Col>
-        </Form.Group>
+    <div className='settings-wrapper'>
+      <div className='firstrow'>
+        <div className='notifications-wrapper'>
+        <h4>Notification Preferences</h4>
         
-       
+        <Form className='notifications-form' onSubmit={placeSubmitHandler}>
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">New Followers</Form.Label>
+            <Col sm="6">
+              <Form.Control 
+                as='select' 
+                defaultValue="Choose..." 
+                value={followers} 
+                onChange={e => setfollowers(e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
 
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">New Likes</Form.Label>
+            <Col sm="6">
+              <Form.Control 
+                as='select' 
+                defaultValue="Choose..." 
+                value={likes} 
+                onChange={e => setlikes(e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">New bids</Form.Label>
+            <Col sm="6">
+              <Form.Control 
+                as='select' 
+                defaultValue="Choose..." 
+                value={bids} 
+                onChange={e => setbids(e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">Auction Results</Form.Label>
+            <Col sm="6">
+              <Form.Control 
+                as='select' 
+                defaultValue="Choose..." 
+                value={auction} 
+                onChange={e => setauction(e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Form.Group as={Row}>
+            <Form.Label column sm="4">Items Sold</Form.Label>
+            <Col sm="6">
+              <Form.Control 
+                as='select' 
+                defaultValue="Choose..." 
+                value={items} 
+                onChange={e => setitems(e.target.value)}>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+              </Form.Control>
+            </Col>
+          </Form.Group>
+
+          <Button variant='outline-dark' type="submit">
+            Update Settings
+          </Button>
+        </Form>
+        </div>
+        <div className='password-wrapper'>
+        <h4>General</h4>
+        <div title="Profile" description="Update your profile" className="container-fluid">
+     <h2 className="mb-4">Profile update</h2>
+     <form>
+        <div className="form-group">
+            <label className="text-muted">Name
+            </label>
+            <input type="text" onChange={handleChange("name")} className="form-control" value={name}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Email
+            </label>
+            <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">New Password (at least 5 characters)
+            </label>
+            <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
+              errorText="Please enter a valid password (at least 5 characters)."
+              onInput={inputHandler}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Phone
+            </label>
+            <input type="text" onChange={handleChange("phone")} className="form-control" value={phone}
+              errorText="Please enter a valid phone #."
+              onInput={inputHandler}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Bio
+            </label>
+            <input type="text" onChange={handleChange("about")} className="form-control" value={about}
+              onInput={inputHandler}/>
+        </div>
+        <div className="form-group">
+            <label className="text-muted">Location
+            </label>
+            <input type="text" onChange={handleChange("location")} className="form-control" value={location}
+              onInput={inputHandler}/>
+        </div>
+       <p>Choose a new profile pic</p>
+            <div id="upload-box">
+      <input type="file" onChange={handleUpload} />
      
-
-        <Button type="submit">
-          Update Settings
-        </Button>
-      </Form>
     </div>
+        <button onClick={clickSubmit} className="btn btn-primary">
+            Submit
+        </button>
+    </form>
+    </div>
+        </div>
+      </div>
     </div>
   );
 };
