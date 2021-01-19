@@ -94,9 +94,12 @@ const Cart =() => {
     },[])
 
     const showItems = props =>{
+        console.log(props)
         return(
             <ul className="users-list">
             {props.map(user => (
+                
+               
               <Feed showAddToCartButton={false}
               showRemoveProductButton = {true}
               key={user.id}

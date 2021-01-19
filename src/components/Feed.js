@@ -179,7 +179,7 @@ console.log(props.image)
               <div>
               <text> {props.likes} likes</text>
               {console.log(props)}
-              {!(props.peoplewholiked.indexOf(auth.userId) > -1) &&
+              {props.peoplewholiked && !(props.peoplewholiked.indexOf(auth.userId) > -1) &&
               <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
              
               </div>
