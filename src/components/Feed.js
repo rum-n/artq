@@ -55,7 +55,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
  };
 
  useEffect(() =>{
-   if (isClick == true){
+   if (isClick === true){
     incrementLikes(props)
    }
  },[isClick])
@@ -161,12 +161,6 @@ const incrementLikes = async (o) => {
 
 
 };
-console.log(props.image)
-
-
-
-
-
 
   return (
 

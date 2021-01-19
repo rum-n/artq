@@ -1,0 +1,35 @@
+.bids-wrapper {
+    background:#E5E5E5;
+    min-height: 100vh;
+    max-height: auto;
+    margin-top: -3rem;
+    padding-top: 3rem;
+}
+
+.bid-card {
+    width: 70%;
+    margin: 1rem auto;
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 15rem;
+}
+
+.bid-card p {
+    margin: 0;
+}
+
+.bid-card img {
+    width: 15rem;
+}
+
+.bid-details {
+    padding: 2rem;
+    margin-top: 5rem;
+}
+
+.bid-text {
+    padding: 1rem;
+    width: 45%;
+}
