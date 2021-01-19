@@ -1,7 +1,5 @@
-import React, { useContext, useState, useEffect,Redirect,useReducer,useCallback } from 'react';
-// import {useHistory} from "react-router-dom"
+import React, { useContext, useState, useEffect, useReducer, useCallback } from 'react';
 import {useHttpClient} from "../components/hooks/http-hook"
-// import Input from '../components/Input';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -9,33 +7,7 @@ import Form from 'react-bootstrap/Form';
 import {AuthContext} from "../context/auth-context";
 import './settings.css';
 import './NewArtForm.css';
-
-// import { Link } from "react-router-dom";
 import { VALIDATOR_MINLENGTH } from './util/validators';
-
-// const formReducer = (state, action) => {
-//   switch (action.type) {
-//     case 'INPUT_CHANGE':
-//       let formIsValid = true;
-//       for (const inputId in state.inputs) {
-//         if (inputId === action.inputId) {
-//           formIsValid = formIsValid && action.isValid;
-//         } else {
-//           formIsValid = formIsValid && state.inputs[inputId].isValid;
-//         }
-//       }
-//       return {
-//         ...state,
-//         inputs: {
-//           ...state.inputs,
-//           [action.inputId]: { value: action.value, isValid: action.isValid }
-//         },
-//         isValid: formIsValid
-//       };
-//     default:
-//       return state;
-//   }
-// };
 
 const Settings = () => {
   
@@ -174,7 +146,7 @@ const Settings = () => {
       }
     };
     sendRequest();
-  }, []);
+  });
 
   const [values,setValues] = useState({
     name:'',
@@ -303,47 +275,11 @@ const Settings = () => {
       finallyupdate()}
   };
 
-  const redirectUser = (success) =>{
-      if(success){
-          return <Redirect to="/"/>
-      }
-  };
-
   const handleChange = name => (e) =>{
       console.log(e.target.value)
       setValues({...values,error:false,[name]:e.target.value})
       setallValues({...values,error:false,[name]:e.target.value})
   };
-
-  const profileUpdate = (name,email,password) =>{
-      <form>
-          <div className="form-group">
-              <label className="text-muted">Name
-              </label>
-              <input type="text" onChange={handleChange("name")} className="form-control" value={name}/>
-          </div>
-          <div className="form-group">
-              <label className="text-muted">Email
-              </label>
-              <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
-          </div>
-          <div className="form-group">
-              <label className="text-muted">Password
-              </label>
-              <input type="text" onChange={handleChange("password")} className="form-control" value={password}/>
-          </div>
-        
-          <Button type="submit" disabled={!formState.isValid}>
-            Publish
-          </Button>
-          <button onClick={clickSubmit} disabled={false} className="btn btn-primary">
-              Submit
-          </button>
-          <text>hi</text>
-          
-          {redirectUser(success)}
-      </form>
-  }
 
   return (
     <div className='settings-wrapper'>
@@ -429,55 +365,50 @@ const Settings = () => {
         </div>
         <div className='password-wrapper'>
         <h4>General</h4>
-        <div title="Profile" description="Update your profile" className="container-fluid">
-     <h2 className="mb-4">Profile update</h2>
-     <form>
-        <div className="form-group">
-            <label className="text-muted">Name
-            </label>
-            <input type="text" onChange={handleChange("name")} className="form-control" value={name}/>
-        </div>
-        <div className="form-group">
-            <label className="text-muted">Email
-            </label>
-            <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
-        </div>
-        <div className="form-group">
-            <label className="text-muted">New Password (at least 5 characters)
-            </label>
-            <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
-              errorText="Please enter a valid password (at least 5 characters)."
-              onInput={inputHandler}/>
-        </div>
-        <div className="form-group">
-            <label className="text-muted">Phone
-            </label>
-            <input type="text" onChange={handleChange("phone")} className="form-control" value={phone}
-              errorText="Please enter a valid phone #."
-              onInput={inputHandler}/>
-        </div>
-        <div className="form-group">
-            <label className="text-muted">Bio
-            </label>
-            <input type="text" onChange={handleChange("about")} className="form-control" value={about}
-              onInput={inputHandler}/>
-        </div>
-        <div className="form-group">
-            <label className="text-muted">Location
-            </label>
-            <input type="text" onChange={handleChange("location")} className="form-control" value={location}
-              onInput={inputHandler}/>
-        </div>
-       <p>Choose a new profile pic</p>
-            <div id="upload-box">
-      <input type="file" onChange={handleUpload} />
-     
-    </div>
-        <button onClick={clickSubmit} className="btn btn-primary">
-            Submit
-        </button>
-    </form>
-    </div>
+        
+          <Form>
+            <Form.Group>
+              <Form.Label className="text-muted">Name</Form.Label>
+              <Form.Control type="text" onChange={handleChange("name")} value={name}/>
+            </Form.Group>
+              <div className="form-group">
+                  <label className="text-muted">Email
+                  </label>
+                  <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
+              </div>
+              <div className="form-group">
+                  <label className="text-muted">New Password (at least 5 characters)
+                  </label>
+                  <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
+                    errorText="Please enter a valid password (at least 5 characters)."
+                    onInput={inputHandler}/>
+              </div>
+              <div className="form-group">
+                  <label className="text-muted">Phone
+                  </label>
+                  <input type="text" onChange={handleChange("phone")} className="form-control" value={phone}
+                    errorText="Please enter a valid phone #."
+                    onInput={inputHandler}/>
+              </div>
+              <div className="form-group">
+                  <label className="text-muted">Bio
+                  </label>
+                  <input type="text" onChange={handleChange("about")} className="form-control" value={about}
+                    onInput={inputHandler}/>
+              </div>
+              <div className="form-group">
+                  <label className="text-muted">Location
+                  </label>
+                  <input type="text" onChange={handleChange("location")} className="form-control" value={location}
+                    onInput={inputHandler}/>
+              </div>
+            <p>Choose a new profile pic</p>
+                  <div id="upload-box">
+                    <input type="file" onChange={handleUpload} />
+                  </div>
+              <Button onClick={clickSubmit} variant='outline-dark'>Update</Button>
+          </Form>
+    
         </div>
       </div>
     </div>
