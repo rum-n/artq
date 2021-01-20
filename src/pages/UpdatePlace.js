@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Input from '../components/Input';
-import Button from '../components/Button';
-import Card from '../components/CardModel';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
@@ -110,9 +111,9 @@ const UpdateImage = () => {
   if (!loadedImage && !error) {
     return (
       <div className="center">
-        <Card>
+        
           <h2>Could not find image!</h2>
-        </Card>
+        
       </div>
     );
   }
@@ -121,7 +122,7 @@ const UpdateImage = () => {
     <React.Fragment>
       
       {loadedImage && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+        <Form className="place-form" onSubmit={placeUpdateSubmitHandler}>
           <Input
             id="description"
             element="input"
@@ -154,7 +155,7 @@ const UpdateImage = () => {
           <Button type="submit" disabled={!formState.isValid}>
             Update artwork
           </Button>
-        </form>
+        </Form>
       )}
     </React.Fragment>
   );
