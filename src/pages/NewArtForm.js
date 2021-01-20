@@ -181,11 +181,7 @@ const NewPlace = (props) => {
     // Add code here to upload file to server
     // ...
   }
-//   const ImageThumb = ({ image }) => {
-//     console.log(URL.createObjectURL(file))
-//     console.log(URL.createObjectURL(file))
-//   return <img src={URL.createObjectURL(file)} alt={image.name} />;
-// };
+
   const placeSubmitHandler = async event => {
     event.preventDefault();
     if (methodofbuying === "Sale" || methodofbuying === "No")

@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import Input from '../components/Input';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import './UpdatePlace.css';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
@@ -51,7 +51,6 @@ const UpdateImage = () => {
           `http://localhost:5000/api/images/${imageId}`
         );
         setLoadedImage(responseData.image);
-        console.log("responsedata"+imageId)
         setFormData(
           {
             title: {
@@ -111,19 +110,19 @@ const UpdateImage = () => {
   if (!loadedImage && !error) {
     return (
       <div className="center">
-        
-          <h2>Could not find image!</h2>
-        
+          <p>Could not find image!</p>
       </div>
     );
   }
 
   return (
-    <React.Fragment>
-      
+    <div className='update-art-wrapper'>
+      <h1 className="feed-title">Update your artwork information</h1>
       {loadedImage && (
         <Form className="place-form" onSubmit={placeUpdateSubmitHandler}>
-          <Input
+          <Form.Group>
+          <Form.Label>Descripton</Form.Label>
+          <Form.Control
             id="description"
             element="input"
             type="text"
@@ -134,7 +133,10 @@ const UpdateImage = () => {
             initialValue={loadedImage.title}
             initialValid={true}
           />
-          <Input
+          </Form.Group>
+          <Form.Group>
+          <Form.Label>Dimensions</Form.Label>
+          <Form.Control
             id="dimentions"
             element="textarea"
             label="Dimentions"
@@ -144,20 +146,24 @@ const UpdateImage = () => {
             initialValue={loadedImage.description}
             initialValid={true}
           />
-           <Input
-        id="medium"
-        element="input"
-        label="Medium"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid address."
-        onInput={inputHandler}
-      />
-          <Button type="submit" disabled={!formState.isValid}>
-            Update artwork
+          </Form.Group>
+          <Form.Group>
+          <Form.Label>Medium</Form.Label>
+           <Form.Control
+              id="medium"
+              element="input"
+              label="Medium"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a valid address."
+              onInput={inputHandler}
+            />
+          </Form.Group>
+          <Button type="submit" variant='outline-primary' disabled={!formState.isValid}>
+            Save
           </Button>
         </Form>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 
