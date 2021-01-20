@@ -12,11 +12,10 @@ import { useForm } from '../components/hooks/form-hook';
 import { useHttpClient } from '../components/hooks/http-hook';
 import { AuthContext } from '../context/auth-context';
 import '../components/PlaceItem.css';
-import { duration } from '@material-ui/core';
 
 const UpdateImage = () => {
   const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest } = useHttpClient();
   const [loadedImage, setLoadedImage] = useState();
   const imageId = useParams().imageId;
   const history = useHistory();
@@ -108,8 +107,6 @@ const UpdateImage = () => {
     } catch (err) {alert("nah bruh it didnt work")}
   };
 
-  
-
   if (!loadedImage && !error) {
     return (
       <div className="center">
@@ -155,7 +152,7 @@ const UpdateImage = () => {
         onInput={inputHandler}
       />
           <Button type="submit" disabled={!formState.isValid}>
-            UPDATE PLACE
+            Update artwork
           </Button>
         </form>
       )}

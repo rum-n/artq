@@ -122,16 +122,11 @@ const Cart =() => {
           </ul>
         )
     }
-    
-    const noItemsMessage = () =>{
-        <p>Your cart is empty. <br/> <Link to="/feed">Continue Shopping</Link></p>
-    }
 
     const gotopay =() =>{
         return( 
             setTimeout(tick, 1000))
     }
-    {console.log(items)}
 
     return(
         <div className='cart-wrapper'>
@@ -163,8 +158,7 @@ const Cart =() => {
      
                 <Checkout products={items} shipping={location}/>
                 </div>
-                
-        
+
             <div className="order-summary">
                 <h3>Order summary</h3>
                 <div className="order-summary-details">
@@ -173,42 +167,42 @@ const Cart =() => {
                     <br/>
                     {console.log(items)}
                         {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : <p>0 items</p>}
-                        {location == "USA" &&
+                        {location === "USA" &&
                         <div>
                         <p>Shipping: ${items[0].susa}</p>
                         <span>Expected delivery: {items[0].tusa} weeks</span>
                         <p>Order total</p>
                         ${getTotal(items)+items[0].susa}
                         </div>}
-                        {location == "Canada" &&
+                        {location === "Canada" &&
                         <div>
                         <p>Shipping: ${items[0].scanada}</p>
                         <span>Expected delivery: {items[0].tcanada} weeks</span>
                         <p>Order total</p>
                         ${getTotal(items)+items[0].scanada}
                         </div>}
-                        {location == "Mexico" &&
+                        {location === "Mexico" &&
                         <div>
                         <p>Shipping: ${items[0].smexico}</p>
                         <span>Expected delivery: {items[0].tmexico} weeks</span>
                         <p>Order total</p>
                         ${getTotal(items)+items[0].smexico}
                         </div>}
-                        {location == "Africa" &&
+                        {location === "Africa" &&
                        <div>
                        <p>Shipping: ${items[0].seurope}</p>
                        <span>Expected delivery: {items[0].teurope} weeks</span>
                        <p>Order total</p>
                         ${getTotal(items)+items[0].seurope}
                        </div>}
-                        {location == "China" &&
+                        {location === "China" &&
                         <div>
                         <p>Shipping: ${items[0].schina}</p>
                         <span>Expected delivery: {items[0].tchina} weeks</span>
                         <p>Order total</p>
                         ${getTotal(items)+items[0].schina}
                         </div>}
-                        {location == "India" &&
+                        {location === "India" &&
                         <div>
                         <p>Shipping: ${items[0].sindia}</p>
                         <span>Expected delivery: {items[0].tindia} weeks</span>
@@ -222,7 +216,7 @@ const Cart =() => {
                         <p>Order total</p>
                         ${getTotal(items)+items[0].sasia}
                         </div>}
-                        {location == "Australia" &&
+                        {location === "Australia" &&
                         <div>
                         <p>Shipping: ${items[0].saustralia}</p>
                         <span>Expected delivery: {items[0].taustralia} weeks</span>

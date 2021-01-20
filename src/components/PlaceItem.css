@@ -46,6 +46,7 @@
 .place-item__actions button,
 .place-item__actions a {
   margin: 0.5rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .map-container {
