@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-
-import Input from '../components/Input';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './UpdatePlace.css';
@@ -34,10 +32,6 @@ const UpdateImage = () => {
       address: {
         value: '',
         isValid: false
-      },
-      url: {
-        value: '',
-        isValid: false
       }
     },
     false
@@ -63,10 +57,6 @@ const UpdateImage = () => {
             },
             address: {
                 value: responseData.image.address,
-                isValid: true
-              },
-              url: {
-                value: responseData.image.url,
                 isValid: true
               }
           },
@@ -158,9 +148,7 @@ const UpdateImage = () => {
               onInput={inputHandler}
             />
           </Form.Group>
-          <Button type="submit" variant='outline-primary' disabled={!formState.isValid}>
-            Save
-          </Button>
+          <Button type="submit" variant='outline-primary' disabled={!formState.isValid}>Save</Button>
         </Form>
       )}
     </div>
