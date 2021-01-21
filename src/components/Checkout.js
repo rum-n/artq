@@ -167,10 +167,7 @@ const Checkout =({ products })=>{
                             artistid: products[0].author,
                            
                         }
-                        console.log(responseData.userWithImages.name)
-                        console.log(responseData.userWithImages.email)
-                        console.log(data.address)
-                        if (paymentresponse.success == true){
+                        if (paymentresponse.success === true){
                             console.log(auth.userId)
                             
                             createOrder(auth.userId,createOrderData)
@@ -183,30 +180,19 @@ const Checkout =({ products })=>{
                                 success:true
                             })
                         }
-                        
-                        
-                       
-                     
                     }
                     getuserinfo(paymentresponse)
-                    console.log(auth.userId)
-                   
-                    
-                    
                 })
                
                } catch (err) {
                    console.log(err)
                }
-            
-        
     }
 
     const changeclick = () =>{
         setClicked(true)
     }
 
-  
     const sendorder = async (createOrderData) => { 
         console.log(createOrderData)
        try {
@@ -220,9 +206,6 @@ const Checkout =({ products })=>{
          console.log(err)
      }
     };
-    
-
-    
 
     const getnonce =  () =>{
         console.log("entered nonce")
@@ -250,9 +233,8 @@ const Checkout =({ products })=>{
     }
 
     useEffect(() =>{
-        if ((products.length != 0)){
+        if ((products.length !== 0)){
         showDropIn()}
-
     },[location])
    
     const showDropIn = () =>(
@@ -297,10 +279,7 @@ const Checkout =({ products })=>{
                 }
             }} onInstance={instance => (data.instance = instance)}/>
             <button onClick={getnonce} className='order-btn'>Place order</button>
-            
             </div> 
-            
-           
         </div>
     ))
    

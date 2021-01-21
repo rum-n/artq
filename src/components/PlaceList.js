@@ -17,9 +17,7 @@ const PlaceList = props => {
   }
 
   return (
-    
     <ul className="place-list">
-      
       {props.items.map(image => (
         <PlaceItem
           key={image.id}
@@ -32,7 +30,6 @@ const PlaceList = props => {
           coordinates={image.location}
           onDelete = {props.onDeleteImage}
         />
-        
       ))}
     </ul>
   );

@@ -1,15 +1,13 @@
 import React, { useEffect, useState,useContext } from 'react';
-import { useParams } from 'react-router-dom';
 import {AuthContext} from "../context/auth-context";
 import PlaceList from '../components/PlaceList';
 import { useHttpClient } from '../components/hooks/http-hook';
-import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Col from 'react-bootstrap/Col';
 
 const UserPlaces = () => {
   const [loadedPlaces, setLoadedPlaces] = useState();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
 
   const auth = useContext(AuthContext);
   useEffect(() => {
@@ -20,14 +18,13 @@ const UserPlaces = () => {
         );
         const responseData = await response.json();
         setLoadedPlaces(responseData.userWithImages);
-        console.log(responseData)
       } catch (err) {}
     };
     fetchImages();
   }, [sendRequest, auth.userId]);
   
   const imageDeletedHandler = deletedImageId =>{
-      setLoadedPlaces(prevImages => prevImages.filter(image =>image.id != deletedImageId))
+      setLoadedPlaces(prevImages => prevImages.filter(image =>image.id !== deletedImageId))
   }
 
   return (

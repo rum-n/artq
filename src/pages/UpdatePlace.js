@@ -2,8 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
 import Input from '../components/Input';
-import Button from '../components/Button';
-import Card from '../components/CardModel';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import './UpdatePlace.css';
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH
@@ -12,11 +13,10 @@ import { useForm } from '../components/hooks/form-hook';
 import { useHttpClient } from '../components/hooks/http-hook';
 import { AuthContext } from '../context/auth-context';
 import '../components/PlaceItem.css';
-import { duration } from '@material-ui/core';
 
 const UpdateImage = () => {
   const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { error, sendRequest } = useHttpClient();
   const [loadedImage, setLoadedImage] = useState();
   const imageId = useParams().imageId;
   const history = useHistory();
@@ -51,7 +51,6 @@ const UpdateImage = () => {
           `http://localhost:5000/api/images/${imageId}`
         );
         setLoadedImage(responseData.image);
-        console.log("responsedata"+imageId)
         setFormData(
           {
             title: {
@@ -108,24 +107,22 @@ const UpdateImage = () => {
     } catch (err) {alert("nah bruh it didnt work")}
   };
 
-  
-
   if (!loadedImage && !error) {
     return (
       <div className="center">
-        <Card>
-          <h2>Could not find image!</h2>
-        </Card>
+          <p>Could not find image!</p>
       </div>
     );
   }
 
   return (
-    <React.Fragment>
-      
+    <div className='update-art-wrapper'>
+      <h1 className="feed-title">Update your artwork information</h1>
       {loadedImage && (
-        <form className="place-form" onSubmit={placeUpdateSubmitHandler}>
-          <Input
+        <Form className="place-form" onSubmit={placeUpdateSubmitHandler}>
+          <Form.Group>
+          <Form.Label>Descripton</Form.Label>
+          <Form.Control
             id="description"
             element="input"
             type="text"
@@ -136,7 +133,10 @@ const UpdateImage = () => {
             initialValue={loadedImage.title}
             initialValid={true}
           />
-          <Input
+          </Form.Group>
+          <Form.Group>
+          <Form.Label>Dimensions</Form.Label>
+          <Form.Control
             id="dimentions"
             element="textarea"
             label="Dimentions"
@@ -146,20 +146,24 @@ const UpdateImage = () => {
             initialValue={loadedImage.description}
             initialValid={true}
           />
-           <Input
-        id="medium"
-        element="input"
-        label="Medium"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Please enter a valid address."
-        onInput={inputHandler}
-      />
-          <Button type="submit" disabled={!formState.isValid}>
-            UPDATE PLACE
+          </Form.Group>
+          <Form.Group>
+          <Form.Label>Medium</Form.Label>
+           <Form.Control
+              id="medium"
+              element="input"
+              label="Medium"
+              validators={[VALIDATOR_REQUIRE()]}
+              errorText="Please enter a valid address."
+              onInput={inputHandler}
+            />
+          </Form.Group>
+          <Button type="submit" variant='outline-primary' disabled={!formState.isValid}>
+            Save
           </Button>
-        </form>
+        </Form>
       )}
-    </React.Fragment>
+    </div>
   );
 };
 

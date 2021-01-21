@@ -11,7 +11,6 @@ import { VALIDATOR_MINLENGTH } from './util/validators';
 
 const Settings = () => {
   
-  const [methodofbuying, setmethodofbuying] = useState("")
   let [followers, setfollowers] = useState("")
   let [likes, setlikes] = useState("")
   let [bids, setbids] = useState("")
@@ -20,7 +19,6 @@ const Settings = () => {
   const [notifications, setnotifications] = useState([])
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
-  const [loadedImages, setLoadedImages] = useState();
   const [loadedName, setLoadedName] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
   const [loadedId, setLoadedId] = useState();
@@ -80,7 +78,8 @@ const Settings = () => {
     }
   };
 
-  const [file, setFile] = React.useState("");
+  const [file, setFile] = useState("");
+
   function handleUpload(event) {
     setFile(event.target.files[0]);
     handleChange("prof")
@@ -266,12 +265,10 @@ const Settings = () => {
 
   const clickSubmit = (e) =>{
     e.preventDefault()
-      console.log(name)
-      if (values.password.length<=5){
+      if (values.password.length > 0 && values.password.length <=5){
         alert("enter a new password greater than 5 characters")
       }
       else{
-      console.log(values.name,values.email,values.password,allvalues.image,allvalues.savedimage,allvalues.phone)
       finallyupdate()}
   };
 
@@ -380,7 +377,7 @@ const Settings = () => {
                   <label className="text-muted">New Password (at least 5 characters) or Type Current Password
                   </label>
                   <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
-                    errorText="Please enter a valid password (at least 5 characters)."
+                    // errorText="Please enter a valid password (at least 5 characters)."
                     onInput={inputHandler}/>
               </div>
               <div className="form-group">

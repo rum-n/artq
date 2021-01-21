@@ -209,7 +209,7 @@ const SeeMore = () => {
     }
   };
 
-  if(numberofbids.length == 0 && state.type == "Auction"){
+  if(numberofbids.length === 0 && state.type === "Auction"){
     setnumberofbids("be the first bid!")
   }
 
@@ -267,7 +267,7 @@ const SeeMore = () => {
         {state.type === "Auction" && 
         <button className='seemore-add' onClick={addToCart}>Add to cart</button>}
        
-        {state.type === "Auction" && state.status!="sold" &&
+        {state.type === "Auction" && state.status!=="sold" &&
         <Form.Group as={Row} controlId="description">
           <Form.Label >Place Bid</Form.Label>
         
@@ -280,7 +280,7 @@ const SeeMore = () => {
               onInput={inputHandler}
             />
 
-        <Button type="submit" onClick={(e) =>sendbid(e) } disabled={authenticated(state.price)}>
+        <Button type="submit" onClick={(e) =>sendbid(e) && window.location.reload()} disabled={authenticated(state.price)}>
           Publish
         </Button>
          
