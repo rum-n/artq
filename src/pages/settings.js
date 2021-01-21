@@ -155,7 +155,7 @@ const Settings = () => {
     success:false
   });
 
-  const [allvalues,setallValues] = useState({
+  const [allvalues, setallValues] = useState({
     name:'',
     email:'',
     password:'',
@@ -355,9 +355,7 @@ const Settings = () => {
             </Col>
           </Form.Group>
 
-          <Button variant='outline-dark' type="submit">
-            Update Settings
-          </Button>
+          <Button variant='outline-dark' type="submit">Update</Button>
         </Form>
         </div>
         <div className='password-wrapper'>
@@ -405,7 +403,13 @@ const Settings = () => {
                   </div>
               <Button onClick={clickSubmit} variant='outline-dark'>Update</Button>
           </Form>
-    
+        </div>
+        <div className='address-wrapper'>
+        <h4>Payment & Shipping</h4>
+        <h5>Payment method</h5>
+        <h5>Shipping address</h5>
+        {allvalues.location}
+          <Button variant='outline-dark'>Update</Button>
         </div>
       </div>
     </div>
