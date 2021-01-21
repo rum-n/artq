@@ -377,7 +377,7 @@ const Settings = () => {
                   <input type="text" onChange={handleChange("email")} className="form-control" value={email}/>
               </div>
               <div className="form-group">
-                  <label className="text-muted">New Password (at least 5 characters)
+                  <label className="text-muted">New Password (at least 5 characters) or Type Current Password
                   </label>
                   <input type="text" onChange={handleChange("password")} className="form-control" value={password} validators={[VALIDATOR_MINLENGTH(5)]}
                     errorText="Please enter a valid password (at least 5 characters)."
