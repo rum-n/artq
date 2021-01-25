@@ -20,12 +20,13 @@ const Purchases = () => {
           setHistory(responseData.userWithImages)
          
         } catch (err) {
+            console.log(err)
         }
       };
 
       useEffect(() =>{
         getPurchases()
-      })
+      }, [userId])
     
       const purchaseHistory = history => {
         return (
@@ -34,18 +35,30 @@ const Purchases = () => {
                 <div className="purchases-wrapper">
                     {history.map((h, i) => {
                         return (
-                        <div>
-                            <hr/>
+                        <div key={i}>
                             {h.products.map((p, i) => {
                                 return (
-                                <div key={i}>   
-                                    <h6>Status: {h.status}</h6>
-                                    <h6>Product name: {h.name}</h6>
-                                    <h6>Product price: ${p.price}</h6>
+                                <div key={i}>
+                                    <div className='purchase-time'>
                                     <h6>
-                                        Purchased:{" "}
-                                        {moment(p.createdAt).fromNow()}
-                                    </h6>
+                                        Purchased: {moment(p.createdAt).fromNow()}
+                                    </h6><hr/>
+                                    </div>
+                                    <div className='purchase-row'>
+                                        <div className='purchase-img'>
+                                        
+                                        </div>   
+                                        <div className='purchase-info'>
+                                            <h5>{h.products[0].name}</h5>
+                                            <p>Status: {h.status}</p>
+                                        </div>
+                                        <div className='product-price'>
+                                            <h6>${(p.price).toFixed(2)}</h6>
+                                        </div>
+                                        <div className='price-total'>
+                                            <h4>Total: </h4>
+                                        </div>
+                                    </div>
                                 </div>
                                 );
                             })}

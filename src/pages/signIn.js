@@ -49,7 +49,7 @@ const SignIn =  () => {
         auth.login(responseData.userId, responseData.token)
         responseData = await theresponse.json();
         } catch(err) {
-            console.log(err);
+            setWrongLogin(true)
         }
         setRedirect(true)
         try{
@@ -70,7 +70,7 @@ const SignIn =  () => {
 
     return (
         <React.Fragment>
-        {shouldRedirect(redirect)}
+        {redirect && shouldRedirect(redirect)}
         <div className='signup-wrapper'>
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
@@ -104,7 +104,7 @@ const SignIn =  () => {
                 </Col>
             </Form.Row>
                 <Button onClick={save}>Login <span>→</span></Button>
-                {wrongLogin && <p>Wrong Email or Password!</p>}
+                {wrongLogin && <p className='wrong-credentials'>Wrong Email or Password!</p>}
                 <p>Don't have an account? <Link to='/signup'>Sign up!</Link></p>
             </Form>          
             </div>

@@ -17,3 +17,24 @@
     padding: 3rem;
     height: 35rem;
 }
+
+.purchase-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 4rem;
+}
+
+.purchase-img {
+    width: 20%;
+}
+
+.purchase-info {
+    width: 20%;
+}
+
+.product-price {
+    width: 30%;
+    text-align: center;
+}
+
