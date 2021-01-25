@@ -1,5 +1,5 @@
 import React, { useState, useContext} from 'react';
-import { useHistory, Redirect, Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import './styles.css';
 import artist from '../assets/artist_1.png';
 import buyer from '../assets/buyer_1.png';
@@ -11,12 +11,10 @@ import {AuthContext} from "../context/auth-context"
 
 const SignIn =  () => {
     const auth = useContext(AuthContext);
-    const{error,sendRequest,clearError,theresponse} = useHttpClient();
-    const history = useHistory();
-   
-    const[redirect,setRedirect] = useState(false)
-
-    const [account, setAccount] = useState({
+    const [ wrongLogin, setWrongLogin ] = useState();
+    const { sendRequest, theresponse } = useHttpClient();
+    const[ redirect, setRedirect ] = useState(false)
+    const [ account, setAccount ] = useState({
         firstname:'',
         lastname:'',
         email:'',
@@ -25,56 +23,55 @@ const SignIn =  () => {
         image:'default.png'
     })
 
-let handleChange = (e) => {
-    
-    let name = e.target.name;
-    let value = e.target.value;
-    account[name] = value;
-    setAccount(account);
-  }
+    let handleChange = (e) => {
+        let name = e.target.name;
+        let value = e.target.value;
+        account[name] = value;
+        setAccount(account);
+    }
 
-  let save = async(e) => {
-  
-    e.preventDefault();
-   
-    try {
-    const responseData = await sendRequest('http://localhost:5000/api/users/login','POST',  JSON.stringify({  
-        "email":account.email,
-        "password":account.password,   
-    }) ,   
-       {  
-          'Accept': 'application/json',  
-          'Content-Type': 'application/json'  
-        },
-      );
-      auth.login(responseData.userId,responseData.token)
-     
-       responseData = await theresponse.json();
-  
-    }catch(err){   
+    let save = async(e) => {
+        e.preventDefault();
     
+        try {
+        let responseData = await sendRequest(
+            'http://localhost:5000/api/users/login',
+            'POST',  
+            JSON.stringify({
+                "email": account.email,
+                "password": account.password,
+            }),
+            {  
+            'Accept': 'application/json',  
+            'Content-Type': 'application/json'  
+            },
+        );
+        auth.login(responseData.userId, responseData.token)
+        responseData = await theresponse.json();
+        } catch(err) {
+            console.log(err);
+        }
+        setRedirect(true)
+        try{
+            if (theresponse.ok){
+                setRedirect(true)
+                setWrongLogin(false)
+            }
+        } catch(err) {
+            setRedirect(false)
+            setWrongLogin(true)
+        }
     }
-    setRedirect(true)
-    try{
-    if (theresponse.ok){
-       
-      setRedirect(true)
-    }
-}catch(err){
-    setRedirect(false)
-    
-}
-}
     const shouldRedirect = redirect =>{
         if (redirect){
             return <Redirect to = "/"/>
         }
     }
+
     return (
         <React.Fragment>
         {shouldRedirect(redirect)}
         <div className='signup-wrapper'>
-       
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <div className='img-div'>
@@ -106,7 +103,8 @@ let handleChange = (e) => {
                     <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} />
                 </Col>
             </Form.Row>
-                <Button onClick= {save}>Login <span>→</span></Button>
+                <Button onClick={save}>Login <span>→</span></Button>
+                {wrongLogin && <p>Wrong Email or Password!</p>}
                 <p>Don't have an account? <Link to='/signup'>Sign up!</Link></p>
             </Form>          
             </div>
