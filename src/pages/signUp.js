@@ -92,7 +92,7 @@ let handleChange = (e) => {
        
 
         console.log(previewUrl)
-    await sendRequest('http://localhost:5000/api/users/signup', 'POST', formData
+    await sendRequest('http://165.227.117.138:5000/api/users/signup', 'POST', formData
    
       );
       setRedirect(true)

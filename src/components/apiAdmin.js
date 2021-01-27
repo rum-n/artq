@@ -1,5 +1,5 @@
 export const listOrders = (userId) =>{
-    return fetch(`http://localhost:5000/api/order/list/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/order/list/${userId}`,{
         method:"GET"
       
     })
@@ -10,7 +10,7 @@ export const listOrders = (userId) =>{
 }
 
 export const listBids = () =>{
-    return fetch(`http://localhost:5000/api/bid`,{
+    return fetch(`http://165.227.117.138:5000/api/bid`,{
         method:"GET"
       
     })
@@ -22,7 +22,7 @@ export const listBids = () =>{
 
 
 export const getartistinfo = (userId) =>{
-    return fetch(`http://localhost:5000/api/users/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/users/${userId}`,{
         method:"GET"
       
     })
@@ -33,7 +33,7 @@ export const getartistinfo = (userId) =>{
 }
 
 export const getStatusValues = (userId) =>{
-    return fetch(`http://localhost:5000/api/order/status-values/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/order/status-values/${userId}`,{
         method:"GET"
       
     })
@@ -44,7 +44,7 @@ export const getStatusValues = (userId) =>{
 }
 
 export const getStatusValuesBids = () =>{
-    return fetch(`http://localhost:5000/api/bid/status-values/5ff4e6ce7e77c6d1eb713e86`,{
+    return fetch(`http://165.227.117.138:5000/api/bid/status-values/5ff4e6ce7e77c6d1eb713e86`,{
         method:"GET"
       
     })
@@ -55,7 +55,7 @@ export const getStatusValuesBids = () =>{
 }
 
 export const updateOrderStatus = (userId,orderId,status) =>{
-    return fetch(`http://localhost:5000/api/order/5ff1373ec464c44f0d3b64d9/status/5fecede41fdac7456367d4b4`,{
+    return fetch(`http://165.227.117.138:5000/api/order/5ff1373ec464c44f0d3b64d9/status/5fecede41fdac7456367d4b4`,{
         method:"PUT",
         body:{
             "orderId" : "5ff1373ec464c44f0d3b64d9",

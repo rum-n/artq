@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useContext}from 'react';
 import {AuthContext} from "../context/auth-context";
 export const read = (userId) =>{
-    return fetch(`http://localhost:5000/api/users/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/users/${userId}`,{
         method:"GET"
       
     })
@@ -14,7 +14,7 @@ export const read = (userId) =>{
 export const update = (userId,user,auth) =>{
     
     console.log("entered")
-    return fetch(`http://localhost:5000/api/users/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/users/${userId}`,{
         method:"PATCH",
         body:{
             "name" : "Nandita K",

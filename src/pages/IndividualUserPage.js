@@ -25,7 +25,7 @@ const Individual = () => {
       const sendRequest = async () => {
        
         try {
-          const response = await fetch(`http://localhost:5000/api/images/user/${theid}`);
+          const response = await fetch(`http://165.227.117.138:5000/api/images/user/${theid}`);
           
           const responseData = await response.json();
           
@@ -42,7 +42,7 @@ const Individual = () => {
         }
         
         try {
-          const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+          const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
           
           const responseData = await response.json();
           
@@ -93,7 +93,7 @@ const Individual = () => {
    const decrementFollowing = async () => {
      alert("user removed")
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+      const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
     
       const responseData = await response.json();
       console.log(responseData)
@@ -123,7 +123,7 @@ const Individual = () => {
   
     console.log(auth.userId)
   
-    await sendRequest(`http://localhost:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
+    await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
         "following":following,
         "followingnumber":followingnumber
@@ -141,7 +141,7 @@ const Individual = () => {
 const decrementFollowers = async () => {
   alert("user removed")
  try {
-   const response = await fetch(`http://localhost:5000/api/users/${loadedUsers[0].author}`);
+   const response = await fetch(`http://165.227.117.138:5000/api/users/${loadedUsers[0].author}`);
  
    const responseData = await response.json();
    console.log(responseData)
@@ -166,7 +166,7 @@ const decrementFollowers = async () => {
 
  console.log(auth.userId)
 
- await sendRequest(`http://localhost:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+ await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
      "id" : loadedUsers[0].author,
      "followers":followers,
      "followersnumber":followersnumber
@@ -184,7 +184,7 @@ const decrementFollowers = async () => {
   
    const incrementFollowing = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+      const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
     
       const responseData = await response.json();
       console.log(responseData)
@@ -212,7 +212,7 @@ const decrementFollowers = async () => {
   
     console.log(auth.userId)
   
-    await sendRequest(`http://localhost:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
+    await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
         "following":following,
         "followingnumber":followingnumber
@@ -232,7 +232,7 @@ const decrementFollowers = async () => {
     try {
       alert(loadedUsers[0].author)
       
-      const response = await fetch(`http://localhost:5000/api/users/${loadedUsers[0].author}`);
+      const response = await fetch(`http://165.227.117.138:5000/api/users/${loadedUsers[0].author}`);
     
       const responseData = await response.json();
       console.log(responseData)
@@ -255,7 +255,7 @@ const decrementFollowers = async () => {
     alert(loadedUsers[0].author,followers,followersnumber)
    
   
-    await sendRequest(`http://localhost:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+    await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
         "id" : loadedUsers[0].author,
         "followers":followers,
         "followersnumber":followersnumber

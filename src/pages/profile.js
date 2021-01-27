@@ -20,7 +20,7 @@ const Profile = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${userId}`);
+        const response = await fetch(`http://165.227.117.138:5000/api/users/${userId}`);
         const responseData = await response.json();
         
         if (!response.ok) {
@@ -43,7 +43,7 @@ const Profile = () => {
 return (
     <div className='main'>
     <div className='personal-info'>
-      <img className='profile-pic' src={`http://localhost:5000/${loadedImage}`} alt="new"/>
+      <img className='profile-pic' src={`http://165.227.117.138:5000/${loadedImage}`} alt="new"/>
         <div className='personal-info-text'>
           <div className='col-1'>
             <h2>{loadedName}</h2>

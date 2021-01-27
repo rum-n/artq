@@ -15,7 +15,7 @@ const GetSavedImages = () => {
       const sendRequest = async () => {
   
         try {
-          const response = await fetch(`http://localhost:5000/api/saved/user/${auth.userId}`);
+          const response = await fetch(`http://165.227.117.138:5000/api/saved/user/${auth.userId}`);
           
           const responseData = await response.json();
           
@@ -32,7 +32,7 @@ const GetSavedImages = () => {
          
         }
         try {
-          const response1 = await fetch(`http://localhost:5000/api/images/${loadedUsers.id}`);
+          const response1 = await fetch(`http://165.227.117.138:5000/api/images/${loadedUsers.id}`);
           
           const responseData1 = await response1.json();
           

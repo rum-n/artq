@@ -1,6 +1,6 @@
 import { useHttpClient } from '../components/hooks/http-hook';
 export const getBrainTreeClientToken = (userId) =>{
-    return fetch(`http://localhost:5000/api/braintree/getToken/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/braintree/getToken/${userId}`,{
         method:"GET"
       
     })
@@ -16,7 +16,7 @@ export const processPayment = (userId,paymentData) =>{
 
     console.log(paymentData.paymentMethodNonce,paymentData.amount)
    
-     return fetch(`http://localhost:5000/api/braintree/payment/${userId}`,{
+     return fetch(`http://165.227.117.138:5000/api/braintree/payment/${userId}`,{
         method:"POST",
       
         body:JSON.stringify({
@@ -36,7 +36,7 @@ export const processPayment = (userId,paymentData) =>{
 
 export const createOrder = (userId,createOrderData) => {
     console.log(createOrderData)
-    return fetch(`http://localhost:5000/api/order/create/${userId}`,{
+    return fetch(`http://165.227.117.138:5000/api/order/create/${userId}`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'
@@ -53,7 +53,7 @@ export const createOrder = (userId,createOrderData) => {
 
 export const createBid = (createBidData) => {
     console.log("entered create bid")
-    return fetch(`http://localhost:5000/api/bid/`,{
+    return fetch(`http://165.227.117.138:5000/api/bid/`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'

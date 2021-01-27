@@ -140,13 +140,15 @@ const login = async (req,res,next) =>{
         const error = new HttpError(
             'Could not log you in, check credentials',500
         )
+        console.log(error)
         return next(error);
     }
     if (!isValidPassword){
       
         const error = new HttpError(
-            'Could not log you in, check credentials',500
+            'Could not log you in, check credentialss',500
         )
+        console.log(error)
         return next(error);
 
     }

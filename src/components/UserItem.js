@@ -16,7 +16,7 @@ const UserItem = props => {
     state: { theid: props.id }
   }}>
           <div className="user-item__image">
-            <Avatar image={`http://localhost:5000/${props.prof}`} alt={props.name} />
+            <Avatar image={`http://165.227.117.138:5000/${props.prof}`} alt={props.name} />
           </div>
           <div className="user-item__info">
             <h2>{props.name}</h2>
@@ -38,7 +38,7 @@ const UserItem = props => {
       state: { theid: props.author }
     }}>
             <div className="user-item__image">
-              <Avatar image={`http://localhost:5000/${props.prof}`} alt={props.name} />
+              <Avatar image={`http://165.227.117.138:5000/${props.prof}`} alt={props.name} />
             </div>
             <div className="user-item__info">
               <h2>{props.name}</h2>

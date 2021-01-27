@@ -12,7 +12,7 @@ const CurrentBids = () => {
     const getbids = async () => {
 
         try {
-          const response = await fetch(`http://localhost:5000/api/bid/user/${userId}`);
+          const response = await fetch(`http://165.227.117.138:5000/api/bid/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {

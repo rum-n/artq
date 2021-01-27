@@ -16,7 +16,7 @@ const AdminManagePosts = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/images`
+          `http://165.227.117.138:5000/api/images`
         );
         const responseData = await response.json();
         setLoadedPlaces(responseData.image);

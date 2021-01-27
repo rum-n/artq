@@ -92,7 +92,7 @@ const Feed = (props, { showAddToCartButton = true }) => {
         formData.append('peoplewholiked',activepeoplewholiked)
         
    
-  await sendRequest('http://localhost:5000/api/saved','POST', formData)
+  await sendRequest('http://165.227.117.138:5000/api/saved','POST', formData)
 } catch(err){}
 };
 
@@ -146,7 +146,7 @@ const incrementLikes = async (o) => {
 }
   
    console.log(o)
-  await sendRequest(`http://localhost:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
+  await sendRequest(`http://165.227.117.138:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
       "id" : o.id,
       "likes":updatedlikes,
       "peoplewholiked":updatedpeople
@@ -168,7 +168,7 @@ const incrementLikes = async (o) => {
       
           <Col key={props.id} xs={3} md={4} className='art-cards'>
             <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
-              <Card.Img src={`http://localhost:5000/${props.url}`} /> 
+              <Card.Img src={`http://165.227.117.138:5000/${props.url}`} /> 
               {shouldRedirect(redirect)}
               <div>
               <text> {props.likes} likes</text>
@@ -189,7 +189,7 @@ const incrementLikes = async (o) => {
                     <Container>
                       <Row>
                         <Col xs={12} md={6}>
-                            <img className="modal-img" src={`http://localhost:5000/${props.url}`} alt={activeItem.name}/>
+                            <img className="modal-img" src={`http://165.227.117.138:5000/${props.url}`} alt={activeItem.name}/>
                         </Col>
                         <Col xs={12} md={6}>
                           <h3>{props.title}</h3>

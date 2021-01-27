@@ -35,7 +35,7 @@ const Settings = () => {
     alert("Settings have been updated")
     try {
       const response = await fetch(
-        `http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`
+        `http://165.227.117.138:5000/api/images/notifications/5fff516aa5ddb630731f4430`
       );
       const responseData = await response.json();
       setnotifications(responseData);
@@ -63,7 +63,7 @@ const Settings = () => {
         updateditems = responseData.items.push(auth.userId)
       }
     
-      await sendRequest(`http://localhost:5000/api/images/notifications/5fff516aa5ddb630731f4430`,'PUT',JSON.stringify({
+      await sendRequest(`http://165.227.117.138:5000/api/images/notifications/5fff516aa5ddb630731f4430`,'PUT',JSON.stringify({
         followers:updatedfollowers,
         likes: updatedlikes,
         auction:updatedauction,
@@ -125,7 +125,7 @@ const Settings = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch(`http://localhost:5000/api/users/${auth.userId}`);
+        const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
         const responseData = await response.json();
         
         if (!response.ok) {
@@ -182,7 +182,7 @@ const Settings = () => {
     try {
       
       await sendRequest(
-        `http://localhost:5000/api/users/${auth.userId}`,
+        `http://165.227.117.138:5000/api/users/${auth.userId}`,
         'PUT',
         JSON.stringify({
           user
@@ -197,7 +197,7 @@ const Settings = () => {
 
   const getprofile = async () => {
     try {
-      const response =  await fetch(`http://localhost:5000/api/users/${userId}`);
+      const response =  await fetch(`http://165.227.117.138:5000/api/users/${userId}`);
       const responseData = await response.json();
       setValues(
         { 
@@ -255,7 +255,7 @@ const Settings = () => {
     formData.append('about',allvalues.about)
   
     await sendRequest(
-      `http://localhost:5000/api/users/${auth.userId}`,
+      `http://165.227.117.138:5000/api/users/${auth.userId}`,
       'PATCH',
       formData
     );

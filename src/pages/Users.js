@@ -11,7 +11,7 @@ const Users = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch('http://localhost:5000/api/users');
+        const response = await fetch('http://165.227.117.138:5000/api/users');
         
         const responseData = await response.json();
         

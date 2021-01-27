@@ -11,7 +11,7 @@ const Purchases = () => {
     const getPurchases = async () => {
 
         try {
-          const response = await fetch(`http://localhost:5000/api/users/orders/by/user/${userId}`);
+          const response = await fetch(`http://165.227.117.138:5000/api/users/orders/by/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {

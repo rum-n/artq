@@ -24,7 +24,7 @@ const PlaceItem = props => {
   const confirmDeleteHandler = async() => {
     setShowConfirmModal(false);
     try {
-    await sendRequest(`http://localhost:5000/api/images/${props.id}`,'DELETE',null,{Authorization: 'Bearer '+auth.token});
+    await sendRequest(`http://165.227.117.138:5000/api/images/${props.id}`,'DELETE',null,{Authorization: 'Bearer '+auth.token});
     props.onDelete(props.id);
     } catch (err) {     
     }
@@ -35,7 +35,7 @@ const PlaceItem = props => {
       <li className="place-item">
         <CardModel className="place-item__content">
           <div className="place-item__image">
-            <img src={`http://localhost:5000/${props.image}`} alt={props.title} />
+            <img src={`http://165.227.117.138:5000/${props.image}`} alt={props.title} />
           </div>
           <div className="place-item__info">
             <h4>{props.title}</h4>
