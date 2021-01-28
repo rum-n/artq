@@ -26,6 +26,7 @@ import AdminManagePosts from './pages/adminManagePosts';
 import CurrentBids from './pages/currentBids';
 import { ShortenUrlProvider } from 'react-shorten-url';
 import ManageBids from './pages/ManageBids'
+import SideNav from './components/SideNav';
 
 let logoutTimer;
 function App() { 
@@ -68,7 +69,8 @@ function App() {
     <ShortenUrlProvider config={{ accessToken: 'bitly_access_token' }}>
     <AuthContext.Provider value={{token:token,isLoggedIn:!!token,userId:userId,login:login,logout:logout}}>
     <Router>
-      <Navigation/>
+      {/* <Navigation/> */}
+      <SideNav/>
       <Switch>
         <Route exact path='/' component={token ? Home : IntroSignUp }  />
         <Route path='/saved' component={Saved}  />

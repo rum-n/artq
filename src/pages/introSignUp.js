@@ -1,24 +1,16 @@
 import React from 'react';
-import './introSignUp.css';
-import introImg from '../assets/ART_WALL_1.png';
-import introElipse from '../assets/Ellipse_1.svg';
+import './introSignUp.css'; 
 import { Link } from "react-router-dom";
+import artqlogo from './../assets/artq-logo-big.png';
 
 const IntroSignUp = () => {
 
     return (
         <div className='intro-wrapper'>
-            <div className='intro-text-wrapper'>
-                <h1 className='signup-title'>Get<br/> your<br/> artwork<br/> seen!</h1>
-                <h2 className='signup-subtitle'>We help artists get more audience.</h2>
-                <h2 className='signup-subtitle'>We help you explore more gorgeous art.</h2>
-            </div>
-            <img className='abstract-art' src={introImg} alt="Abstract Art" /> 
-            <img className='pink-elipse' src={introElipse} alt="Pink Elipse" />
-            <div className='intro-btn-wrapper'>
-                <button className='intro-signup-btn'><Link to='/signup'>Sign Up</Link></button>
-                <button className='intro-guest-btn'>As a guest</button>
-            </div> 
+            <img src={artqlogo} alt='Artq Logo' />
+            <Link to='/login'><button className='intro-signup-btn'>Sign in</button></Link>
+            <Link to='/signup'>Create an account</Link>
+            <Link className='guest-link' to='/login'>Continue as guest</Link> 
         </div>
     )
 } 
