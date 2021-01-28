@@ -1,0 +1,36 @@
+.sidenav {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-top: 4rem;
+    margin-left: 2.5rem;
+}
+
+.sidenav ul {
+    list-style: none;
+    color: white;
+    padding-left: 0;
+    font-weight: 200;
+}
+
+.sidenav ul li {
+    margin-top: 0.5rem;
+    transition: 0.2s;
+}
+
+/* .sidenav ul li:hover {
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: 0.2s;
+} */
+
+.add-art {
+    background: #F04B72;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    padding: 0.4rem 1rem;
+    font-weight: 200;
+    margin-top: 3rem;
+}

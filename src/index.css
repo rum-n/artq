@@ -6,6 +6,9 @@ body {
   background: #131416;
 }
 
-p, a, button {
+p, 
+a, 
+button,
+li {
   font-family: "Roboto", sans-serif;
 }
