@@ -1,0 +1,46 @@
+.topnav {
+    margin-top: 2rem;
+    margin-left: 2.5rem;
+    margin-right: 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.dropdown-toggle {
+    background: transparent!important;
+    border: none;
+}
+
+.dropdown-toggle:after {
+    display: none;
+}
+
+.dropdown-item:hover a{
+    text-decoration: none;
+    color: #fff!important;
+}
+
+.dropdown-item:hover {
+    font-weight: 400!important;
+    text-decoration: none;
+}
+
+.dropdown-item a{
+    color: #fff!important;
+    text-decoration: none;
+}
+
+.dropdown-menu {
+    background: #282A2F!important;
+    transition: 0.2s ease-in-out;
+}
+
+.dropdown-item {
+    background: transparent!important;
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+
+
+

@@ -4,10 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import artqlogo from './../assets/artq-logo-big.png';
 import {AuthContext} from "../context/auth-context"
 import Modal from 'react-bootstrap/Modal';
-import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 import {useHttpClient} from "../components/hooks/http-hook"
 
 const IntroSignUp = () => {
@@ -88,10 +85,11 @@ const IntroSignUp = () => {
             <hr/>
                 <Form className='login-form'>
                     <Form.Group controlId="formBasicEmail">
-                        <Form.Control type="email" placeholder="E-MAIL" />
+                        <Form.Control type="email" name="email" placeholder="E-MAIL" onChange={handleChange} />
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Control type="password" placeholder="PASSWORD" />
+                        <Form.Control type="password" name="password" placeholder="PASSWORD" onChange={handleChange}/>
+                        {wrongLogin && <p className='wrong-credentials'>Wrong Email or Password!</p>}
                         <p>Forgot your password?</p>
                         <Link to='/signup'>Sign up</Link>
                     </Form.Group>
@@ -99,7 +97,7 @@ const IntroSignUp = () => {
                 <hr/>
             </Modal.Body>
             <Modal.Footer>
-                <button className='intro-signup-btn'>Login</button>
+                <button className='intro-signup-btn' onClick={save}>Login</button>
             </Modal.Footer>
             </Modal>
         </div>

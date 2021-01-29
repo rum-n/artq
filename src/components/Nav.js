@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Nav.css';
 import './styles.css'
 import logo from "../assets/logo.PNG";
-import sidebar from "../assets/sidebar.PNG";
 import {AuthContext} from "../context/auth-context"
 import { artistsearch, list,mediums, stylesearch } from './apiCore';
 import Modal from 'react-bootstrap/Modal';
@@ -166,7 +165,7 @@ return(
   <Navbar style = {{backgroundColor: "rgb(36,38,54)", fontFamily: "Roboto, sans-serif"}}  variant="light">
     <Dropdown>
     <Dropdown.Toggle style = {{borderColor: "rgb(36,38,54)", backgroundColor: "rgb(36,38,54)"}}  variant="success" >
-    <img style={{height:40, width:40}} src={sidebar} alt="Logo" />
+    {/* <img style={{height:40, width:40}} src={sidebar} alt="Logo" /> */}
     </Dropdown.Toggle>
 
     <Dropdown.Menu  style = {{borderColor: "rgb(36,38,54)", backgroundColor: "rgb(36,38,54)"}}>
@@ -229,7 +228,6 @@ return(
     <div className="row">
       <div style ={{color:"white"}}className="container">{searchForm()}
         <div className="container-fluid mb-3">
-          {console.log(results)}
         </div>
       </div>
     </div>

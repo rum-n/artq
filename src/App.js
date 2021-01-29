@@ -27,6 +27,7 @@ import CurrentBids from './pages/currentBids';
 import { ShortenUrlProvider } from 'react-shorten-url';
 import ManageBids from './pages/ManageBids'
 import SideNav from './components/SideNav';
+import TopNav from './components/TopNav';
 
 let logoutTimer;
 function App() { 
@@ -70,13 +71,14 @@ function App() {
     <AuthContext.Provider value={{token:token,isLoggedIn:!!token,userId:userId,login:login,logout:logout}}>
     <Router>
       {/* <Navigation/> */}
+      <TopNav/>
       <SideNav/>
       <Switch>
         <Route exact path='/' component={token ? Home : IntroSignUp }  />
         <Route path='/saved' component={Saved}  />
         {/* <Route path='/welcome' component={IntroSignUp}  /> */}
         <Route path='/signup' component={Signup}  />
-        <Route path='/login' component={Signin}  />
+        {/* <Route path='/login' component={Signin}  /> */}
         <Route path='/about' component={About} />
         <Route path='/profile' component={Profile} />
         <Route path='/settings' component={Settings} />
