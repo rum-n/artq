@@ -34,6 +34,91 @@
     font-size: 1rem!important;
 }
 
+.intro-signup-btn:hover,
+.intro-signup-btn:active,
+.intro-signup-btn.active {
+    opacity: 0.8;
+    background: #F04B72;
+}
+
+.modal-body hr {
+    border-bottom: 1px solid #7A7A7A;
+    width: 90%;
+} 
+
+.modal-header {
+    padding: 1rem 2rem;
+}
+
+.modal-body, 
+.modal-header, 
+.modal-footer {
+    background: #282A2F;
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal-header, 
+.modal-footer {
+    border-bottom: none;
+    border-top: none;
+}
+
+.modal-footer {
+    padding-bottom: 2rem;
+}
+
+.close {
+    color: #F04B72;
+    text-shadow: none;
+    border: none;
+    font-size: 2rem;
+    opacity: 1;
+}
+
+.close:hover {
+    color: #f04b72b2;
+}
+
+.modal-title {
+    color: #F04B72;
+}
+
+.login-form {
+    padding: 0rem 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-form a {
+    float: right;
+    color: white;
+    font-weight: 200;
+    font-size: 0.8rem;
+    margin-top: -2.2rem;
+}
+
+.login-form p {
+    color: white;
+    font-weight: 200;
+    font-size: 0.8rem;
+    margin-top: .5rem;
+}
+
+.login-form .form-control, .form-group {
+    background: transparent;
+}
+
+.form-control:focus {
+    border: 1px solid white;
+}
+
+.login-form input {
+    background: transparent;
+    color: white;
+    border-radius: 10px;
+    height: 50px;
+}
+
 @media only screen and (max-width: 768px) {
     .intro-wrapper img{
         width: 80%;

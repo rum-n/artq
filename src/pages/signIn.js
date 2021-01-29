@@ -1,8 +1,6 @@
 import React, { useState, useContext} from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import './styles.css';
-import artist from '../assets/artist_1.png';
-import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -75,7 +73,7 @@ const SignIn =  () => {
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <div className='img-div'>
-                        <img src={artist} alt='Painter'/>
+                        
                     </div>
                     <div className='label-wrapper'>
                         <p>Sign in as an artist</p>
@@ -84,7 +82,7 @@ const SignIn =  () => {
                 </div>
                 <div className='white-rectangle'>
                 <div className='img-div'>
-                    <img src={buyer} alt='Art Collector'/>
+                    
                 </div>
                     <div className='label-wrapper'>
                         <p>Sign in as a collector</p>

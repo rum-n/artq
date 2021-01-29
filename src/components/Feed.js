@@ -14,7 +14,6 @@ import Heart from "react-animated-heart";
 
 const Feed = (props, { showAddToCartButton = true }) => {
   const [isClick, setClick] = useState(false);
-  console.log(props)
   const showRemoveProductButton = false;
   const {error,sendRequest,clearError} = useHttpClient();
   const auth = useContext(AuthContext)
@@ -105,7 +104,6 @@ const showAddToCart = (showAddToCartButton) =>{
     return(
     <text>The item is up for auction!</text>)
   }
-  console.log(props)
 
   if(props.type === "Auction" && props.status === "sold"){
     return(
@@ -172,7 +170,7 @@ const incrementLikes = async (o) => {
               {shouldRedirect(redirect)}
               <div>
               <text> {props.likes} likes</text>
-              {console.log(props)}
+
               {props.peoplewholiked && !(props.peoplewholiked.indexOf(auth.userId) > -1) &&
               <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
              

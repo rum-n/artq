@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import './signUp.css';
-import artist from '../assets/artist_1.png';
-import buyer from '../assets/buyer_1.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -127,7 +125,7 @@ let handleChange = (e) => {
             <div className='left-wrapper'>
                 <div className='white-rectangle'>
                     <div className='img-div'>
-                        <img src={artist} alt='Painter'/>
+                        
                     </div>
                     <div className='label-wrapper'>
                         <p>Join as an artist</p>
@@ -136,7 +134,7 @@ let handleChange = (e) => {
                 </div>
                 <div className='white-rectangle'>
                 <div className='img-div'>
-                    <img src={buyer} alt='Art Collector'/>
+                    
                 </div>
                     <div className='label-wrapper'>
                         <p>Join as a collector</p>
