@@ -6,6 +6,11 @@
     margin-left: 2.5rem;
 }
 
+.sidenav a{
+    text-decoration: none;
+    color: inherit;
+}
+
 .sidenav ul {
     list-style: none;
     color: white;

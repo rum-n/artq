@@ -8,6 +8,7 @@ import {AuthContext} from "../context/auth-context";
 import './settings.css';
 import './NewArtForm.css';
 import { VALIDATOR_MINLENGTH } from './util/validators';
+import Toggle from 'react-toggle';
 
 const Settings = () => {
   
@@ -46,9 +47,7 @@ const Settings = () => {
       let updateditems = []
     
       if (followers === "No"){
-        console.log(responseData.followers)
         updatedfollowers = responseData.followers + (auth.userId)
-        console.log(updatedfollowers)
       }
       if (likes === "No"){
         updatedlikes = responseData.likes.push(auth.userId)
@@ -71,7 +70,7 @@ const Settings = () => {
         items:updateditems
       }),
       {
-        'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
+        'Content-Type':'application/json', Authorization: 'Bearer '+ auth.token
       })
     } catch(err) {
       console.log(err)
@@ -283,11 +282,11 @@ const Settings = () => {
       <div className='firstrow'>
         <div className='notifications-wrapper'>
         <h4>Notification Preferences</h4>
-        
+
         <Form className='notifications-form' onSubmit={placeSubmitHandler}>
           <Form.Group as={Row}>
             <Form.Label column sm="4">New Followers</Form.Label>
-            <Col sm="6">
+            <Col sm="4">
               <Form.Control 
                 as='select' 
                 defaultValue="Choose..." 
@@ -301,7 +300,7 @@ const Settings = () => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">New Likes</Form.Label>
-            <Col sm="6">
+            <Col sm="4">
               <Form.Control 
                 as='select' 
                 defaultValue="Choose..." 
@@ -315,7 +314,7 @@ const Settings = () => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">New bids</Form.Label>
-            <Col sm="6">
+            <Col sm="4">
               <Form.Control 
                 as='select' 
                 defaultValue="Choose..." 
@@ -329,7 +328,7 @@ const Settings = () => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">Auction Results</Form.Label>
-            <Col sm="6">
+            <Col sm="4">
               <Form.Control 
                 as='select' 
                 defaultValue="Choose..." 
@@ -343,7 +342,7 @@ const Settings = () => {
 
           <Form.Group as={Row}>
             <Form.Label column sm="4">Items Sold</Form.Label>
-            <Col sm="6">
+            <Col sm="4">
               <Form.Control 
                 as='select' 
                 defaultValue="Choose..." 

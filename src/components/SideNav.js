@@ -25,18 +25,18 @@ const SideNav = () => {
     return (
         <div className='sidenav'>
             <ul>
-                <li style={linkStyle} onMouseEnter={mouseOver} onMouseLeave={mouseLeave}>Followed</li>
-                <li onMouseEnter={mouseOver} onMouseLeave={mouseLeave}>Explore</li>
-                <li onMouseEnter={mouseOver} onMouseLeave={mouseLeave}>Current bids</li>
-                <li onMouseEnter={mouseOver} onMouseLeave={mouseLeave}>Saved</li>
-                <li onMouseEnter={mouseOver} onMouseLeave={mouseLeave}>Near me</li>
+                <li><Link to='/'>Followed</Link></li>
+                <li><Link to='explore'>Explore</Link></li>
+                <li><Link to='currentbids'>Current bids</Link></li>
+                <li><Link to='saved'>Saved</Link></li>
+                <li><Link to='nearme'>Near me</Link></li>
             </ul>
             <Link to={auth.isLoggedIn ? '/addart' : 'signup'}>
                 <button className='add-art'>Add Art <span>+</span></button>
             </Link>
             <Link to={auth.isLoggedIn ? '/cart' : 'signup'}>
                 <img className="cart" src={cartimg}/>
-                <sup><small className="cart-badge">{itemTotal()}</small></sup>
+                {/* <sup><small className="cart-badge">{itemTotal()}</small></sup> */}
             </Link>
         </div>
     )

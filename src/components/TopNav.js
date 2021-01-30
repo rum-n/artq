@@ -48,6 +48,11 @@ const TopNav = () => {
                 <Link className='nav-links' to='/signup'>Sign Up</Link>
             </Dropdown.Item>
             )}
+            {!auth.isLoggedIn &&
+            (<Dropdown.Item>
+                <Link className='nav-links' to='/'>Sign in</Link>
+            </Dropdown.Item>
+            )}
             
             {auth.isLoggedIn && (
             <Dropdown.Item>

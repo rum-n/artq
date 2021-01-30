@@ -1,5 +1,5 @@
 .cart-wrapper {
-    background: #F5F5F5;
+    /* background: #F5F5F5; */
     min-height: 90vh;
     font-family: 'Roboto', sans-serif;
     display: flex;
@@ -7,7 +7,7 @@
 }
 
 .payment-method-wrapper {
-    background: white;
+    /* background: white; */
     width: 40%;
     height: auto;
     margin-left: 20%;
@@ -18,7 +18,7 @@
 }
 
 .order-summary {
-    background: white;
+    /* background: white; */
     width: 20%;
     height: fit-content;
     margin-top: 3rem;
@@ -44,7 +44,7 @@
 }
 
 .paypal-btn {
-    background: #EBEBEB;
+    /* background: #EBEBEB; */
     border: none;
     box-shadow: 0px 4px 7px rgba(7, 96, 134, 0.07);
     border-radius: 13px;
