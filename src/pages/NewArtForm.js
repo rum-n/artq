@@ -173,9 +173,6 @@ const NewPlace = (props) => {
     const formData = new FormData();
 
 		formData.append('File', event.target.files[0]);
-    console.log(URL.createObjectURL(event.target.files[0]))
-  
-    console.log(event.target.files[0])
     setFile(event.target.files[0]);
 
     // Add code here to upload file to server
