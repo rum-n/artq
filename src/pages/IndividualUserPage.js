@@ -9,8 +9,18 @@ import {useLocation} from "react-router-dom";
 const Individual = () => {
   const auth = useContext(AuthContext)
 
+  
+   
     let data = useLocation();
+
+    console.log(data.state.theid)
     let theid = data.state.theid
+
+
+     
+    
+   
+    
     console.log(auth.userId)
 
   
@@ -22,6 +32,7 @@ const Individual = () => {
   
 
     useEffect(() => {
+      
       const sendRequest = async () => {
        
         try {

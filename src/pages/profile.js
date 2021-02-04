@@ -6,6 +6,7 @@ import MyArt from "./MyArt"
 import './profile.css';
 
 const Profile = () => {
+  
   const [loadedName, setLoadedName] = useState();
   const [loadedEmail, setLoadedEmail] = useState();
   const [loadedImage, setLoadedImage] = useState();
@@ -15,6 +16,11 @@ const Profile = () => {
   const [loadedLocation, setLoadedLocation] = useState();
   const auth = useContext(AuthContext);
   const userId = auth.userId
+  let myInput = null;
+  const copyToClipboard = () => {
+    myInput.select();
+    document.execCommand("copy");
+    alert("copied to clipboard!");}
 
   useEffect(() => {
     const sendRequest = async () => {
@@ -39,7 +45,7 @@ const Profile = () => {
     };
     sendRequest();
   });
-
+  var link = <a href={('http://165.227.117.138/')}>ArtQ.world</a>;
 return (
     <div className='main'>
     <div className='personal-info'>
@@ -65,7 +71,20 @@ return (
           <Link to='/addart'><Button variant='outline-secondary'>Add art</Button></Link>
         </div>
       </div>
+      <div>
+      <input
+      
+        readOnly
+        value={`Checkout my artwork on artq.world! Sign up, and search for ${loadedName}.`}
+       
+        ref={(ref) => (myInput = ref)}
+      />
+      <button onClick={copyToClipboard}>
+       click to copy and share with your friends!
+      </button>
+    </div>
       <hr/>
+
          {<MyArt/>}
       </div>  
    )

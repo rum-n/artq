@@ -124,6 +124,7 @@ const SeeMore = () => {
   }
 
   useEffect(() => {
+    console.log(data)
     const sendRequest = async () => {
       try {
         const response = await fetch(`http://165.227.117.138:5000/api/images/${params.imageId}`);

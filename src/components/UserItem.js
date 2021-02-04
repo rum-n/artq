@@ -12,7 +12,7 @@ const UserItem = props => {
     <li className="user-item">
       <Card className="user-item__content">
         <Link to={{
-    pathname: "/individual",
+    pathname: `/individual/${props.id}`,
     state: { theid: props.id }
   }}>
           <div className="user-item__image">
