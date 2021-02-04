@@ -90,6 +90,9 @@ const createOrder = async (req,res,next) => {
         // order.address
         // order.products.length
         // order.amount
+
+        //"to" will be to email that will be recieving the orders (artq.world email? Chui's email?)
+        //"from" can be from any email registered
         const emailData = {
             to: "seawavecrafts@gmail.com",
             from: 'Nandita1227@gmail.com',
@@ -126,6 +129,8 @@ const createOrder = async (req,res,next) => {
         // email to buyer
         const emailData2 = {
             //order.user.email
+            //"to" will be ${email}
+            //"from" will be whatever email was registered
             to: "seawavecrafts@gmail.com",
             from: 'Nandita1227@gmail.com',
             subject: `Your order is in process`,
