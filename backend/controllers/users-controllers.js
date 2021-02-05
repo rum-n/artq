@@ -107,7 +107,7 @@ const signup = async (req,res,next) =>{
     token = jwt.sign({userId:createdUser.id,email:createdUser.email},"super sectret",{expiresIn:'1h'})
     }catch(err){
         const error = new HttpError(
-            "Signingg up failed", 500
+            "Signing up failed", 500
         );
         return next(error);
     }

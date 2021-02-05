@@ -1,6 +1,7 @@
 import React, { useState, useContext, useReducer, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SideNav.css';
+import './AddArtForm.css';
 import { Link, Redirect, useHistory } from 'react-router-dom';
 import {AuthContext} from "../context/auth-context";
 import cartimg from "../assets/cart.png";
@@ -169,12 +170,10 @@ const AddArtForm = () => {
     });
     }, []);
 
-
-    
     return (
 
         <Form className='addart-form'>
-            <Form.Group controlId="description">
+            <Row>
             <Form.Label column sm="4">Description</Form.Label>
             <Col sm="6">
                 <Input
@@ -186,8 +185,8 @@ const AddArtForm = () => {
                 onInput={inputHandler}
                 />
             </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
+            </Row>
+            <Row>
             <Form.Label column sm="4">Artwork Category</Form.Label>
             <Col sm="6">
                 <Form.Control 
@@ -210,8 +209,8 @@ const AddArtForm = () => {
                 <option value="Others">Others</option>
                 </Form.Control>
             </Col>
-            </Form.Group>
-            <Form.Group as={Row} controlId="dimentions">
+            </Row>
+            <Row>
             <Form.Label column sm="4">Dimentions</Form.Label>
             <Col sm="6">
                 <Input
@@ -222,8 +221,8 @@ const AddArtForm = () => {
                 onInput={inputHandler}
                 />
             </Col>
-            </Form.Group>
-            <Form.Group as={Row}>
+            </Row>
+            <Row>
             <Form.Label column sm="4">Planning to Sell?</Form.Label>
             <Col sm="6">
                 <Form.Control 
@@ -237,9 +236,9 @@ const AddArtForm = () => {
                 <option value="Sale">Sale</option>   
                 </Form.Control>
             </Col>
-            </Form.Group>
+            </Row>
 
-            {(methodofbuying === "Auction" || methodofbuying === "Sale") &&
+            {(methodofbuying === "Auction") &&
             <>
             <Form.Group as={Row} controlId="duration">
             <Form.Label column sm="4">Auction ends in (days):</Form.Label>

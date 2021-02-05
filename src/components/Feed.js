@@ -139,11 +139,8 @@ const incrementLikes = async (o) => {
 }else{
   updatedlikes = o.likes+1
   updatedpeople = o.peoplewholiked
-  console.log(updatedpeople+((auth.userId)))
   updatedpeople = updatedpeople+((auth.userId))
 }
-  
-   console.log(o)
   await sendRequest(`http://165.227.117.138:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
       "id" : o.id,
       "likes":updatedlikes,
@@ -163,9 +160,8 @@ const incrementLikes = async (o) => {
   return (
 
     <div>
-      
           <Col key={props.id} xs={3} md={4} className='art-cards'>
-            <Card style={{ width: '22rem', marginBottom: '2rem'}} onClick={() => handleShow(props)}>
+            <Card style={{ width: '18rem', marginBottom: '2rem', border: 'none'}} onClick={() => handleShow(props)}>
               <Card.Img src={`http://165.227.117.138:5000/${props.url}`} /> 
               {shouldRedirect(redirect)}
               <div>

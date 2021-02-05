@@ -1,0 +1,34 @@
+.home-intro {
+    margin-left: 15rem;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+}
+
+.home-intro-title {
+    text-align: left;
+    font-size: 2rem;
+}
+
+.home-intro p {
+    font-size: 1.1rem;
+    font-weight: 200;
+    margin: 0;
+}
+
+.feed-search {
+    width: 70%;
+    margin: 2rem 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.form-control,
+.form-control:focus {
+    background: transparent!important;
+    border: 1px solid #F04B72!important;
+    box-sizing: border-box!important;
+    border-radius: 5px!important;
+}
+
+.form-control input {
+    color: white!important;
+}

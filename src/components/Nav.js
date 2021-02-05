@@ -12,6 +12,7 @@ import { artistsearch, list,mediums, stylesearch } from './apiCore';
 import Modal from 'react-bootstrap/Modal';
 import Feed from './Feed';
 import UsersList from './UsersList';
+
 const Navigation = () => { 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

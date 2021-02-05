@@ -45,7 +45,7 @@ const SideNav = () => {
                 {/* <sup><small className="cart-badge">{itemTotal()}</small></sup> */}
             </Link>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal size='lg' show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Add art</Modal.Title>
             </Modal.Header>

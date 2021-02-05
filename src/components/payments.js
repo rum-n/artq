@@ -11,23 +11,14 @@ export const getBrainTreeClientToken = (userId) =>{
     .catch(err => console.log(err))
 }
 export const processPayment = (userId,paymentData) =>{
-    console.log("entered process paymenttt")
-    console.log(JSON.stringify(paymentData))
-
-    console.log(paymentData.paymentMethodNonce,paymentData.amount)
    
      return fetch(`http://165.227.117.138:5000/api/braintree/payment/${userId}`,{
         method:"POST",
-      
         body:JSON.stringify({
             paymentData
         })
-        
-      
     })
     .then(response =>{
-        console.log("it worked")
-     
         return response.json();
     })
     .catch(err => console.log("payment.js issue"))
