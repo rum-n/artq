@@ -12,7 +12,7 @@ const TopNav = () => {
     
     return (
         <div className='topnav'>
-            <img src={toplogo} />
+            <Link to='/'><img src={toplogo} /></Link>
             <Dropdown>
             <Dropdown.Toggle>
                 <img src={topmenu} />
