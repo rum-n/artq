@@ -7,6 +7,7 @@ import cartimg from "../assets/cart.png";
 import {itemTotal} from "./cartHelpers"
 import Modal from 'react-bootstrap/Modal';
 import AddArtForm from './AddArtForm';
+import arrow from './../assets/arrow-left.png';
 
 const SideNav = () => {
     const [ hover, setHover ] = useState(false);
@@ -16,20 +17,17 @@ const SideNav = () => {
     const [methodofbuying, setmethodofbuying] = useState("")
     
     const history = useHistory();
+    const currentPathname = window.location.pathname;
+    const previousURL = history.back();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
-    const mouseOver = () => {
-        setHover(true);
-    };
-
-    const mouseLeave = () => {
-        setHover(false);
-    };
     
     return (
         <div className='sidenav'>
+            {currentPathname === '/profile' ? 
+            <Link to={previousURL}><img src={arrow} /></Link> :
+            <div>
             <ul>
                 <li><Link to='/'>Followed</Link></li>
                 <li><Link to='explore'>Explore</Link></li>
@@ -58,6 +56,7 @@ const SideNav = () => {
                 <button className='intro-signup-btn' >Publish</button>
             </Modal.Footer>
             </Modal>
+            </div>}
         </div>
     )
 }
