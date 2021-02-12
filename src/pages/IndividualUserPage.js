@@ -4,101 +4,111 @@ import Savedimageslist from "../components/UserSavedArt/savedimageslist";
 import { AuthContext } from "../context/auth-context";
 import './SeeMore.css';
 import {useLocation} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 // import { disableExpoCliLogging } from 'expo/build/logs/Logs';
 
 const Individual = () => {
+  const [loadedName, setLoadedName] = useState();
+  const [loadedEmail, setLoadedEmail] = useState();
+  const [loadedImage, setLoadedImage] = useState();
+  const [loadedAbout, setLoadedAbout] = useState();
+  const [loadedFollowing, setloadedFollowing] = useState();
+  const [loadedFollowers, setloadedFollowers] = useState();
+  const [loadedLocation, setLoadedLocation] = useState();
+
   const auth = useContext(AuthContext)
-
-  
-   
-    let data = useLocation();
-
-    console.log(data.state.theid)
-    let theid = data.state.theid
-
-
-     
-    
-   
-    
-    console.log(auth.userId)
-
-  
+  let data = useLocation();
+  let theid = data.state.theid
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-    const [loadedUsers, setLoadedUsers] = useState();
-    const [loadedperson, setLoadedPerson] = useState();
-    const [disableunfollow, setdisableunfollow] = useState(false);
-    
-  
+  const [loadedUsers, setLoadedUsers] = useState();
+  const [loadedperson, setLoadedPerson] = useState();
+  const [disableunfollow, setdisableunfollow] = useState(false);
 
-    useEffect(() => {
+  // useEffect(() => {
+  //   const sendRequest = async () => {
+
+  //     try {
+  //       const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
+  //       const responseData = await response.json();
+        
+  //       if (!response.ok) {
+  //         throw new Error(responseData.message);
+  //       }  
+  //       setLoadedName(responseData.userWithImages.name)
+  //       setLoadedEmail(responseData.userWithImages.email)
+  //       setLoadedImage(responseData.userWithImages.prof)
+  //       setLoadedAbout(responseData.userWithImages.about)
+  //       setLoadedLocation(responseData.userWithImages.location)
+  //       setloadedFollowing(responseData.userWithImages.followingnumber)
+  //       setloadedFollowers(responseData.userWithImages.followersnumber)
+  //     } catch (err) {
+  //       console.log(err)
+  //     }
+  //   };
+  //   sendRequest();
+  // });
+
+  useEffect(() => {
+    const sendRequest = async () => {
       
-      const sendRequest = async () => {
-       
-        try {
-          const response = await fetch(`http://165.227.117.138:5000/api/images/user/${theid}`);
-          
-          const responseData = await response.json();
-          
-  
-          if (!response.ok) {
-            throw new Error(responseData.message);
-          }
-          
-          setLoadedUsers(responseData.userWithImages);
-          console.log(responseData.userWithImages)
-         
-        } catch (err) {
-         
+      try {
+        const response = await fetch(`http://165.227.117.138:5000/api/images/user/${theid}`);
+        const responseData = await response.json();
+    
+        if (!response.ok) {
+          throw new Error(responseData.message);
         }
         
-        try {
-          const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
-          
-          const responseData = await response.json();
-          
+        setLoadedUsers(responseData.userWithImages);
+        setLoadedName(responseData.userWithImages.name)
+        setLoadedEmail(responseData.userWithImages.email)
+        setLoadedImage(responseData.userWithImages.prof)
+        setLoadedAbout(responseData.userWithImages.about)
+        setLoadedLocation(responseData.userWithImages.location)
+        setloadedFollowing(responseData.userWithImages.followingnumber)
+        setloadedFollowers(responseData.userWithImages.followersnumber)
+        
+      } catch (err) {
+        console.log(err) 
+      }
   
-          if (!response.ok) {
-            throw new Error(responseData.message);
-          }
-          console.log(responseData.userWithImages.following[0])
-          
-          if (responseData.userWithImages.following[0].includes(loadedUsers[0]._id)){
-            setdisablebutton(true)
-            setdisableunfollow(false)}else{
-              setdisableunfollow(true)
-              setdisablebutton(false)
-            }
-         
-        } catch (err) {
-         
+      try {
+        const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);      
+        const responseData = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(responseData.message);
         }
-      
-      };
-      sendRequest();
-    });
-    const [disablebutton,setdisablebutton] = useState(false)
-    const [remove,setremove] = useState(false)
+        
+        if (responseData.userWithImages.following[0].includes(loadedUsers[0]._id)){
+          setdisablebutton(true)
+          setdisableunfollow(false)}else{
+          setdisableunfollow(true)
+          setdisablebutton(false)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    };
+    sendRequest();
+  }, [auth.userId]);
 
+  const [disablebutton,setdisablebutton] = useState(false)
+  const [remove,setremove] = useState(false)
    
-  
-    
-   const disable = () =>{
-   
-     incrementFollowing()
-     incrementFollowers()
-     setdisablebutton(true)
-     setdisableunfollow(false)
-     
-    
-   }
-
-   const removefollower = () =>{
-    decrementFollowing()
-    setdisableunfollow(true)
-    setdisablebutton(false)
-    decrementFollowers()
+  const disable = () =>{
+    incrementFollowing()
+    incrementFollowers()
+    setdisablebutton(true)
+    setdisableunfollow(false)
   }
+
+  const removefollower = () =>{
+  decrementFollowing()
+  setdisableunfollow(true)
+  setdisablebutton(false)
+  decrementFollowers()
+}
 
    //add decrementfollowing
    const decrementFollowing = async () => {
@@ -115,24 +125,15 @@ const Individual = () => {
       }
       
       setLoadedPerson(responseData.userWithImages);
-     
 
-   
-   
     let followingnumber = 0
-    console.log(responseData.userWithImages)
     let following = responseData.userWithImages.following
- 
-      
-   
+
     followingnumber = responseData.userWithImages.followingnumber - 1
     following = responseData.userWithImages.following
     //find the existing user id and delete
     console.log(responseData.userWithImages.following)
     following = responseData.userWithImages.following[0].replace(loadedUsers[0]._id,'');
-   
-  
-    console.log(auth.userId)
   
     await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
@@ -163,10 +164,7 @@ const decrementFollowers = async () => {
    }
  
  let followersnumber = 0
- console.log(responseData.userWithImages)
  let followers = responseData.userWithImages.followers
-
-   
 
  followersnumber = responseData.userWithImages.followersnumber - 1
  followers = responseData.userWithImages.followers
@@ -196,103 +194,83 @@ const decrementFollowers = async () => {
    const incrementFollowing = async () => {
     try {
       const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
-    
       const responseData = await response.json();
-      console.log(responseData)
-      
-
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-      
       setLoadedPerson(responseData.userWithImages);
-     
-
-   
-    alert(`following user!`)
-    let followingnumber = 0
-    console.log(responseData.userWithImages)
-    let following = responseData.userWithImages.following
- 
+      let followingnumber = 0
+      let following = responseData.userWithImages.following
+      followingnumber = responseData.userWithImages.followingnumber+1
+      following = responseData.userWithImages.following
+      following = responseData.userWithImages.following[0]+(loadedUsers[0]._id)  
       
-   
-    followingnumber = responseData.userWithImages.followingnumber+1
-    following = responseData.userWithImages.following
-    console.log(responseData.userWithImages.following[0])
-    following = responseData.userWithImages.following[0]+(loadedUsers[0]._id)
-  
-    console.log(auth.userId)
-  
-    await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
+      await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
         "following":following,
         "followingnumber":followingnumber
-    }),{
+      }),{
         'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
       })
-  
-  } catch(err){
-  
-    console.log(err)
-  }
-  
-  
+    } catch(err){
+      console.log(err)
+    }
   };
 
   const incrementFollowers = async () => {
     try {
-      alert(loadedUsers[0].author)
-      
       const response = await fetch(`http://165.227.117.138:5000/api/users/${loadedUsers[0].author}`);
-    
       const responseData = await response.json();
-      console.log(responseData)
-      
-
       if (!response.ok) {
         throw new Error(responseData.message);
       }
-    let followersnumber = 0
-    console.log(responseData.userWithImages)
-    followersnumber = responseData.userWithImages.followersnumber
- 
-    
-   
-    followersnumber = responseData.userWithImages.followersnumber+1
-    let followers = responseData.userWithImages.followers
-    
-    followers = responseData.userWithImages.followers[0]+(auth.userId)
-  
-    alert(loadedUsers[0].author,followers,followersnumber)
-   
-  
-    await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+      let followersnumber = 0
+      followersnumber = responseData.userWithImages.followersnumber
+      followersnumber = responseData.userWithImages.followersnumber+1
+      let followers = responseData.userWithImages.followers
+      followers = responseData.userWithImages.followers[0]+(auth.userId)
+      await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
         "id" : loadedUsers[0].author,
         "followers":followers,
         "followersnumber":followersnumber
-    }),{
+      }),{
         'Content-Type':'application/json',Authorization: 'Bearer '+auth.token
       })
-  
-  } catch(err){
-    alert(err)
-  
-    console.log(err)
-  }
-  
-  
+    } catch(err){
+      console.log(err)
+    }
   };
-    return (
-      
-      <React.Fragment>
-        <button onClick={() => disable()} disabled={disablebutton}>Follow</button>  
-        {
-          disable &&
-        <button onClick={() => removefollower()} disabled={disableunfollow}> Unfollow</button>}
-        {console.log(loadedUsers)}
-       
-        {loadedUsers && <Savedimageslist items={loadedUsers} />}
-      </React.Fragment>
+  
+  return (
+    
+        <div className='main'>
+          <div className='personal-info'>
+            <div className='profile-pic' >
+              <img src={`http://165.227.117.138:5000/${loadedImage}`} alt="new"/>
+            </div>
+            <div className='personal-info-text'>
+              <div className='col-1'>
+                <h2>{loadedName}</h2>
+                {loadedEmail}
+                <div className='follow-stats'>
+                  <p>{loadedFollowers} Followers</p>
+                  <p>{loadedFollowing} Following</p>
+                </div>
+              </div>
+            </div>
+              {loadedAbout !== "undefined" ? loadedAbout : "No bio yet."} <br/>
+              {loadedLocation !== "undefined" ? loadedLocation : "No location added."}
+              <div className='profile-btn-wrapper'>
+                <Button variant='outline-dark' onClick={() => disable()} disabled={disablebutton}>Follow</Button>
+                {disable && <Button variant='outline-secondary'onClick={() => removefollower()} disabled={disableunfollow}>Unfollow</Button>}
+              </div>
+          </div>
+          
+          <div>
+          </div>
+          <hr/>
+            {loadedUsers && <Savedimageslist items={loadedUsers} />}
+        </div> 
     );
   };
   

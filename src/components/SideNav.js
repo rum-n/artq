@@ -4,21 +4,17 @@ import './SideNav.css';
 import { Link, useHistory } from 'react-router-dom';
 import {AuthContext} from "../context/auth-context";
 import cartimg from "../assets/cart.png";
-import {itemTotal} from "./cartHelpers"
 import Modal from 'react-bootstrap/Modal';
 import AddArtForm from './AddArtForm';
 import arrow from './../assets/arrow-left.png';
 
 const SideNav = () => {
-    const [ hover, setHover ] = useState(false);
     const [ show, setShow ] = useState(false);
     const auth = useContext(AuthContext);
-    const [artstyle, setartstyle] = useState("");
-    const [methodofbuying, setmethodofbuying] = useState("")
     
     const history = useHistory();
     const currentPathname = window.location.pathname;
-    const previousURL = history.back();
+    const previousURL = history.goBack();
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
