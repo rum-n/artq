@@ -31,7 +31,6 @@ const CurrentBids = () => {
       const bidHistory = history => {
         return (
             <div className='bids-wrapper'>
-                <h1 className="feed-title">Here's the artwork <br/>you're currently bidding on:</h1>
                 <ul className="list-group">
                   <li >
                     {history.map((h, i) => {
@@ -47,7 +46,7 @@ const CurrentBids = () => {
                             <p>Status: {h.status}</p>
                             <p>Art bid: ${h.bid}</p>
                             <p>Placed bid:{" "} {moment(h.createdAt).fromNow()}</p>
-                            {h.status === "you won the bid!" && history && 
+                            {h.status === "You won the bid!" && history && 
                             <Link 
                             className="text-danger"
                             to={{ 

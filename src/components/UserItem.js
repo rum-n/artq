@@ -6,7 +6,6 @@ import Card from './CardModel';
 import './UserItem.css';
 
 const UserItem = props => {
-  console.log(props)
   if (props.id!==undefined){
   return (
     <li className="user-item">

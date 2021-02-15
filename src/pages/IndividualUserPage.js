@@ -5,6 +5,7 @@ import { AuthContext } from "../context/auth-context";
 import './SeeMore.css';
 import {useLocation} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import CardModel from './../components/CardModel';
 // import { disableExpoCliLogging } from 'expo/build/logs/Logs';
 
 const Individual = () => {
@@ -18,10 +19,10 @@ const Individual = () => {
 
   const auth = useContext(AuthContext)
   let data = useLocation();
-  let theid = data.state.theid
+  let theid = data.state.theid;
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
-  const [loadedperson, setLoadedPerson] = useState();
+  const [loadedPerson, setLoadedPerson] = useState();
   const [disableunfollow, setdisableunfollow] = useState(false);
 
   // useEffect(() => {
@@ -54,19 +55,13 @@ const Individual = () => {
       try {
         const response = await fetch(`http://165.227.117.138:5000/api/images/user/${theid}`);
         const responseData = await response.json();
+        console.log(responseData);
+        setLoadedPerson(responseData.userWithImages);
+        console.log(loadedPerson);
     
         if (!response.ok) {
           throw new Error(responseData.message);
         }
-        
-        setLoadedUsers(responseData.userWithImages);
-        setLoadedName(responseData.userWithImages.name)
-        setLoadedEmail(responseData.userWithImages.email)
-        setLoadedImage(responseData.userWithImages.prof)
-        setLoadedAbout(responseData.userWithImages.about)
-        setLoadedLocation(responseData.userWithImages.location)
-        setloadedFollowing(responseData.userWithImages.followingnumber)
-        setloadedFollowers(responseData.userWithImages.followersnumber)
         
       } catch (err) {
         console.log(err) 
@@ -91,7 +86,7 @@ const Individual = () => {
       }
     };
     sendRequest();
-  }, [auth.userId]);
+  }, []);
 
   const [disablebutton,setdisablebutton] = useState(false)
   const [remove,setremove] = useState(false)
@@ -169,7 +164,7 @@ const decrementFollowers = async () => {
  followersnumber = responseData.userWithImages.followersnumber - 1
  followers = responseData.userWithImages.followers
  //find the existing user id and delete
- console.log(responseData.userWithImages.followers)
+
  followers = responseData.userWithImages.followers[0].replace(auth.userId,'');
 
 
@@ -269,7 +264,19 @@ const decrementFollowers = async () => {
           <div>
           </div>
           <hr/>
-            {loadedUsers && <Savedimageslist items={loadedUsers} />}
+            {/* {loadedUsers && <Savedimageslist items={loadedUsers} />} */}
+            {loadedPerson.map(details => {
+              <CardModel className="place-item__content">
+              <div className="place-item__image">
+                <img src={`http://165.227.117.138:5000/${details.url}`} alt={details.title} />
+              </div>
+              <div className="place-item__info">
+                <h4>{details.title}</h4>
+                <p><strong>{details.address}</strong></p>
+                <p>{details.description}</p>
+              </div>
+            </CardModel>
+            })}
         </div> 
     );
   };
