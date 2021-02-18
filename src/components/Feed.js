@@ -127,9 +127,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
     </Button>
   )
 }
-const incrementLikes = async (o) => {
-
-  console.log("entered placesubmit handler" )
+  const incrementLikes = async (o) => {
   let updatedlikes = 0
   let updatedpeople = o.peoplewholiked
   try{
@@ -150,11 +148,8 @@ const incrementLikes = async (o) => {
     })
 
 } catch(err){
-
   console.log(err)
 }
-
-
 };
 
   return (
@@ -164,8 +159,8 @@ const incrementLikes = async (o) => {
             <Card style={{ width: '18rem', marginBottom: '2rem', border: 'none'}} onClick={() => handleShow(props)}>
               <Card.Img src={`http://165.227.117.138:5000/${props.url}`} /> 
               {shouldRedirect(redirect)}
-              <div>
-              <text> {props.likes} likes</text>
+              <div class='middle-layer'>
+              <p> {props.likes} likes</p>
 
               {props.peoplewholiked && !(props.peoplewholiked.indexOf(auth.userId) > -1) &&
               <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}

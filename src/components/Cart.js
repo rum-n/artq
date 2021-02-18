@@ -94,7 +94,6 @@ const Cart =() => {
     },[])
 
     const showItems = props =>{
-        console.log(props)
         return(
             <ul className="users-list">
             {props.map(user => (
@@ -165,7 +164,6 @@ const Cart =() => {
                     {items[0] &&
                     <div>
                     <br/>
-                    {console.log(items)}
                         {items.length > 0 ? <p>{items.length} {items.length === 1 ? "item" : "items"}</p> : <p>0 items</p>}
                         {location === "USA" &&
                         <div>

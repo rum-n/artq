@@ -1,29 +1,32 @@
 .cart-wrapper {
-    /* background: #F5F5F5; */
     min-height: 90vh;
     font-family: 'Roboto', sans-serif;
     display: flex;
     overflow-y: hidden;
 }
 
+.cart-wrapper h3{
+    color: #EE2A7B;
+}
+
 .payment-method-wrapper {
-    /* background: white; */
+    background: #282A2F;
     width: 40%;
     height: auto;
     margin-left: 20%;
     margin-top: 3rem;
     margin-bottom: 8rem;
-    border: 1px solid #E3E3E3;
-    padding: 1rem;
+    border-radius: 4px;
+    padding: 1.5rem;
 }
 
 .order-summary {
-    /* background: white; */
+    background: #282A2F;
     width: 20%;
     height: fit-content;
     margin-top: 3rem;
     padding: 2rem 1rem 4rem 1rem;
-    border: 1px solid #E3E3E3;
+    border-radius: 4px;
     margin-left: 1.5rem;
 }
 
