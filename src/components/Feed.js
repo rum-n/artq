@@ -12,10 +12,10 @@ import { useHttpClient } from "../components/hooks/http-hook"
 import { Link } from "react-router-dom";
 import Heart from "react-animated-heart";
 
-const Feed = (props, { showAddToCartButton = true }) => {
+const Feed = (props) => {
   const [isClick, setClick] = useState(false);
-  const showRemoveProductButton = false;
-  const {error,sendRequest,clearError} = useHttpClient();
+  // const showRemoveProductButton = false;
+  const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext)
   const [redirect, setRedirect] = useState(false)
   const [show, setShow] = useState(false);
@@ -156,16 +156,15 @@ const showRemoveButton = (showRemoveProductButton) =>{
 
     <div>
           <Col key={props.id} xs={3} md={4} className='art-cards'>
-            <Card style={{ width: '18rem', marginBottom: '2rem', border: 'none'}} onClick={() => handleShow(props)}>
+            <Card style={{ width: '18rem', marginBottom: '2rem', border: 'none'}} >
               <Card.Img src={`http://165.227.117.138:5000/${props.url}`} /> 
               {shouldRedirect(redirect)}
-              <div class='middle-layer'>
-              <p> {props.likes} likes</p>
-
-              {props.peoplewholiked && !(props.peoplewholiked.indexOf(auth.userId) > -1) &&
-              <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
-             
-              </div>
+                <div class='middle-layer'>
+                  <p> {props.likes} likes</p>
+                  {props.peoplewholiked && !(props.peoplewholiked.indexOf(auth.userId) > -1) &&
+                  <Heart isClick={isClick} onClick={() => (setClick(!isClick))} />}
+                  <p className='details' onClick={() => handleShow(props)}>Details</p>
+                </div>
             </Card>
             
           </Col>
