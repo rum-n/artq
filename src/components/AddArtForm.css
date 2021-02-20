@@ -5,4 +5,21 @@
 .file-upload {
     background: #F04B72;
     border-radius: 5px;
+    width: 68px;
+    height: 68px;
+    text-align: center;
+    padding-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.file-upload img {
+    z-index: -1;
+}
+
+.file-upload p {
+    font-size: 0.7rem;
+    font-weight: 200;
+    text-align: center;
+    margin-top: 0.2rem;
+    z-index: -1;
 }

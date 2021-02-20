@@ -17,12 +17,13 @@ import {
 } from './../pages/util/validators';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import upload from './../assets/upload.png';
 
 const AddArtForm = () => {
     const auth = useContext(AuthContext);
     const [artstyle, setartstyle] = useState("");
     const [methodofbuying, setmethodofbuying] = useState("");
-    // const [file, setFile] = useState("");
+    const [file, setFile] = useState("");
 
     const formReducer = (state, action) => {
         switch (action.type) {
@@ -48,12 +49,12 @@ const AddArtForm = () => {
         }
     };
 
-    // const handleUpload  = async(event) =>{
-    //   const formData = new FormData();
+    const handleUpload  = async(event) =>{
+      const formData = new FormData();
   
-    //   formData.append('File', event.target.files[0]);
-    //   setFile(event.target.files[0]);
-    // }
+      formData.append('File', event.target.files[0]);
+      setFile(event.target.files[0]);
+    }
 
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: {
@@ -181,8 +182,15 @@ const AddArtForm = () => {
     return (
 
         <Form className='addart-form'>
+          
           <div className='file-upload'>
-
+            <img src={upload} alt='Upload' />
+            <Form.File 
+                    onChange={handleUpload}
+                    id="custom-file"
+                    custom
+            />
+            <p>Upload art</p>
           </div>
             <Row>
             <Form.Label column sm="4">Description</Form.Label>

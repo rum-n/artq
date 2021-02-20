@@ -106,7 +106,7 @@ const Signup =  () => {
                     <img className='plus' src={plus} alt="Plus" />
                 <Form.File 
                     onChange={handleUpload}
-                    id="custom-file"
+                    id="custom-art"
                     custom
                     />
                 </div>
