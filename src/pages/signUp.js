@@ -10,6 +10,7 @@ import { ShortenUrlProvider } from 'react-shorten-url';
 import { useShortenUrl } from 'react-shorten-url';
 import ImageUpload from "../components/imageUpload"
 import artqlogo from './../assets/artq-logo-big.png';
+import plus from './../assets/plus.png';
 
 
 const Signup =  () => {
@@ -101,7 +102,13 @@ const Signup =  () => {
             
             <Form className='signup-form-wrapper'>
                 <div id="upload-box">
-                    <input type="file" onChange={handleUpload} />
+                    {/* <input type="file" onChange={handleUpload} /> */}
+                    <img className='plus' src={plus} alt="Plus" />
+                <Form.File 
+                    onChange={handleUpload}
+                    id="custom-file"
+                    custom
+                    />
                 </div>
             <Form.Row>
                 <Col>

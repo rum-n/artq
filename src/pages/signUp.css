@@ -16,16 +16,35 @@
     margin-right: 15rem;
 }
 
-#upload-box{
-    margin-bottom: 1rem;
+.custom-file-input {
+    height: 120px;
 }
 
-.add-profile-pic {
-    border: 2px solid #F04B72;
-    padding: 0.5rem;
-    border-radius: 50%;
+#custom-file {
+    height: 120px;
     cursor: pointer;
-    margin-bottom: 2rem;
+}
+
+#upload-box{
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1rem;
+    margin-top: -5rem;
+    background: rgba(240, 75, 114, 0.3);
+    border-radius: 5px;
+    border: 1.5px solid #FF8AA6;
+    box-sizing: border-box;
+    box-shadow: 0px 10px 24px rgba(240, 75, 114, 0.2);
+    backdrop-filter: blur(4px);
+    display: flex;
+    justify-content: center;
+}
+
+.plus {
+    margin-top: 1rem;
+    width: 80px;
+    position: absolute;
+    z-index: -1;
 }
 
 .signup-form-wrapper {

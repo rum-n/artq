@@ -1,6 +1,5 @@
 import React,{useRef,useEffect,useState} from 'react';
 import './imageupload.css'
-// import plus from '../assets/plus.png';
 import Button from "./Button" 
 
 const ImageUpload = props =>{

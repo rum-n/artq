@@ -150,7 +150,6 @@ const searchSubmit = (e) =>{
   
   return (
     <React.Fragment>
-        {/* <h1 className='feed-title'>Welcome back! Here's the latest posts from <br/> the artists you currently follow.</h1> */}
         <div className='home-intro'>
           <h1 className='home-intro-title'>GET YOUR ARTWORK SEEN!</h1>
           <p>We help artists get more audience.</p>

@@ -22,6 +22,7 @@ const AddArtForm = () => {
     const auth = useContext(AuthContext);
     const [artstyle, setartstyle] = useState("");
     const [methodofbuying, setmethodofbuying] = useState("");
+    // const [file, setFile] = useState("");
 
     const formReducer = (state, action) => {
         switch (action.type) {
@@ -46,6 +47,13 @@ const AddArtForm = () => {
             return state;
         }
     };
+
+    // const handleUpload  = async(event) =>{
+    //   const formData = new FormData();
+  
+    //   formData.append('File', event.target.files[0]);
+    //   setFile(event.target.files[0]);
+    // }
 
     const [formState, dispatch] = useReducer(formReducer, {
         inputs: {
@@ -173,6 +181,9 @@ const AddArtForm = () => {
     return (
 
         <Form className='addart-form'>
+          <div className='file-upload'>
+
+          </div>
             <Row>
             <Form.Label column sm="4">Description</Form.Label>
             <Col sm="6">

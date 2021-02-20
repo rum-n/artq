@@ -1,3 +1,8 @@
 .addart-form {
     padding: 0 1rem;
 }
+
+.file-upload {
+    background: #F04B72;
+    border-radius: 5px;
+}
