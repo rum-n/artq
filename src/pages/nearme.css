@@ -2,6 +2,12 @@
   display: flex;
   justify-content: center;
   margin-bottom: 2rem;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  margin-right: 20rem;
+  margin-top: 3rem;
 }
 
 .search-wrapper form {
@@ -19,12 +25,22 @@
   border-radius: 6px;
 }
 
+.art-map {
+  width: 60%;
+  height: 100%;
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 .artist-location {
   width: 20%;
-  margin-left: 2rem;
-  margin-bottom: 1rem;
-  background: #FFF5F8;
+  height: 100%;
+  margin-left: 18rem;
+  background: #1F1F1F;
   position: absolute;
+  margin-top: -2rem;
   box-shadow: 4px 0px 6px rgba(0, 0, 0, 0.1);
   height: 520px;
   overflow-y: scroll;
@@ -42,7 +58,7 @@
 .artist-location-info {
   width: 90%;
   margin: 1rem auto;
-  background: white;
+  background: #282A2F;
   height: 7rem;
   display: flex;
   flex-direction: row;
@@ -52,7 +68,7 @@
 
 .artist-location-info p {
   margin: 0;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 

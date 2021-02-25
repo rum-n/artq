@@ -30,20 +30,10 @@ const GoogleMaps = (props) => {
       })
     };
   }
+
   useEffect(() =>{
     mapCoordinates()
-    
-
   },[userlocationlat])
-  
-  
-  
-   
-
- 
-  
-  
-
 
   const [ loadedTitle, setLoadedTitle ] = useState();
   const [ loadedDescription, setLoadedDescription ] = useState();
@@ -101,47 +91,27 @@ const GoogleMaps = (props) => {
     }
   };
 
-const getCoordsForAddress = async(address) => {
-  
-  //  return {
-  //    lat: 40.7484474,
-  //   lng: -73.9871516
-  //  };
+  const getCoordsForAddress = async(address) => {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+        address
+      )}&key=${API_KEY}`
+    );
 
- const response = await axios.get(
-     `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      address
-    )}&key=${API_KEY}`
-   );
+    const data = response.data;
 
-   const data = response.data;
-
-   if (!data || data.status === 'ZERO_RESULTS') {
-    alert("no results")
-   }
-   const coordinates = data.results[0].geometry.location;
-   setuserlocationlat(coordinates.lat)
-   setuserlocationlong(coordinates.lng)
-   console.log(coordinates)
-   findDistance(coordinates.lat,coordinates.lng)
-
-   
-  
-}
+    if (!data || data.status === 'ZERO_RESULTS') {
+      alert("no results")
+    }
+    const coordinates = data.results[0].geometry.location;
+    setuserlocationlat(coordinates.lat)
+    setuserlocationlong(coordinates.lng)
+    console.log(coordinates)
+    findDistance(coordinates.lat,coordinates.lng)
+  }
 const findDistance = (lat,lng) =>{
- 
- 
-  console.log(userlocationlat)
   setuserlocationlat(lat)
   setuserlocationlong(lng)
-  
- 
-  
-
-  //for loop through all images
-  //use userlocation
-  //put the images in order from least to greatest
-  //update on page (reload)
 
   order.map(artists => {
     const R = 6371e3; // metres
@@ -166,176 +136,113 @@ const findDistance = (lat,lng) =>{
     let theindex = 0
     const saveprevious = distances
     const sortedarray = ((hi.sort((a, b) => a - b)))
-    console.log(distances)
-    console.log(saveprevious)
-    console.log(hi)
-    console.log(props.items)
+
     for (let j = 0; j < distances.length; j++) { 
-      console.log(hi[j])
       theindex = (distances.indexOf(sortedarray[j]))
       uorder.push(props.items[theindex])    
     } 
-
-  //   for (let j = 0; j < distances.length; j++) { 
-  //     min = distances[0]
-  //     console.log(distances)
- 
-    
-  //   for (let i = 1; i < distances.length; ++i) {
-  //     if (distances[i] < min) {
-  //       min = distances[i];
-       
-  //     }
-  //     tosplice = i
-  //   }
-    
-  //   console.log(distances.indexOf(min))
-  //   tosplice = distances.indexOf(min)
-  //   distances = distances.filter(item => item !== min)
-  //   console.log(distances)
-    
-
-  //   finaldistanceorder.push(min)
-
-  // }
   }
+
   Array.min = function( array ){
     return Math.min.apply( Math, array );
-};
+  };
 
   const searchSubmit = (e) =>{
- 
-    
     getCoordsForAddress(data)
     e.preventDefault()
   }
 
   const handleChange = name => event =>{
-    
-    
     setData(event.target.value)
     event.preventDefault()
   }
 
   const mapStyle = [
+    { elementType: "geometry", stylers: [{ color: "#282A2F" }] },
+    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
     {
-        featureType: "poi",
-        elementType: "geometry",
-        stylers: [
-            {
-                color: "#eeeeee",
-            },
-        ],
+      featureType: "administrative.locality",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#aaaaaa" }],
     },
     {
-      featureType: "water",
-      elementType: "geometry.fill",
-      stylers: [
-        {
-          color: "#FFBECE",
-        },
-      ],
+      featureType: "poi",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#aaaaaa" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "geometry",
+      stylers: [{ color: "#263c3f" }],
+    },
+    {
+      featureType: "poi.park",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#6b9a76" }],
     },
     {
       featureType: "road",
       elementType: "geometry",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
+      stylers: [{ color: "#38414e" }],
     },
     {
-      featureType: "road.arterial",
-      elementType: "geometry",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
-      elementType: "geometry",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway",
+      featureType: "road",
       elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
+      stylers: [{ color: "#212a37" }],
     },
     {
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry",
-      stylers: [
-        {
-          color: "#000",
-        },
-      ],
-    },
-    {
-      featureType: "road.highway.controlled_access",
-      elementType: "geometry.stroke",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
-    },
-    {
-      featureType: "road.local",
+      featureType: "road",
       elementType: "labels.text.fill",
-      stylers: [
-        {
-          color: "#ffffff",
-        },
-      ],
+      stylers: [{ color: "#aaaaaa" }],
     },
     {
-      featureType: "poi.park",
-      elementType: "geometry.fill",
-      stylers: [
-        {
-          color: "#E5E5E5",
-        },
-      ],
+      featureType: "road.highway",
+      elementType: "geometry",
+      stylers: [{ color: "#746855" }],
     },
     {
-        featureType: "poi",
-        elementType: "labels.text",
-        stylers: [
-            {
-                visibility: "off",
-            },
-        ],
+      featureType: "road.highway",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#1f2835" }],
     },
     {
-        featureType: "water",
-        elementType: "labels.text.fill",
-        stylers: [
-            {
-                color: "#9e9e9e",
-            },
-        ],
+      featureType: "road.highway",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#aaaaaa" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ color: "#2f3948" }],
+    },
+    {
+      featureType: "transit.station",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#aaaaaa" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ color: "#F04B72" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.fill",
+      stylers: [{ color: "#515c6d" }],
+    },
+    {
+      featureType: "water",
+      elementType: "labels.text.stroke",
+      stylers: [{ color: "#17263c" }],
     },
   ];
 
   return (
     <div>
-      <h1 className='feed-title'>Find an artist near you!</h1>
       <div className='search-wrapper'>
       <form onSubmit={searchSubmit}>
           <input type="search" className='nearme-search' placeholder='Search by location' onChange={handleChange((e)=> e)}></input>
-          {/* Not sure if we wanna have that button. I like it better without but if you think we should leave it I'm fine too. */}
-          {/* <button style={{color:"blue"}}className="input-group-text">Search</button> */}
       </form>
       </div>
       {data && <div className='artist-location'>
@@ -352,9 +259,7 @@ const findDistance = (lat,lng) =>{
           </Link>)
           })}
       </div>}
-
-      <div style={{ float: 'right', height: "520px", width: "75%", marginRight: "2rem", marginBottom: "1rem" }}>
-   
+      <div className='art-map'>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyD-7dQ3eattg6KI7O7FQwyHQmkdQy0ML9A" }}
           center={{ lat: userlocationlat, lng: userlocationlong }}
@@ -363,7 +268,6 @@ const findDistance = (lat,lng) =>{
             styles: mapStyle,
           }}
           yesIWantToUseGoogleMapApiInternals
-          
           onGoogleApiLoaded={({ map, maps }) => ModelsMap(map, maps)}
         />
       </div>

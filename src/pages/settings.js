@@ -397,7 +397,7 @@ const Settings = () => {
                     onInput={inputHandler}/>
               </div>
             <p>Choose a new profile pic</p>
-                  <div id="upload-box">
+                  <div id="upload-box2">
                     <input type="file" onChange={handleUpload} />
                   </div>
               <Button onClick={clickSubmit} variant='outline-dark'>Update</Button>
