@@ -33,7 +33,7 @@ const SignIn =  () => {
     
         try {
         let responseData = await sendRequest(
-            'https://165.227.117.138:5000/api/users/login',
+            'https://artq-pi.vercel.app/api/users/login',
             'POST',  
             JSON.stringify({
                 "email": account.email,
