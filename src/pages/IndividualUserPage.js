@@ -29,7 +29,7 @@ const Individual = () => {
   //   const sendRequest = async () => {
 
   //     try {
-  //       const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
+  //       const response = await fetch(`https://artq-pi.vercel.app/api/users/${auth.userId}`);
   //       const responseData = await response.json();
         
   //       if (!response.ok) {
@@ -53,7 +53,7 @@ const Individual = () => {
     const sendRequest = async () => {
       
       try {
-        const response = await fetch(`http://165.227.117.138:5000/api/images/user/${theid}`);
+        const response = await fetch(`https://artq-pi.vercel.app/api/images/user/${theid}`);
         const responseData = await response.json();
         console.log(responseData);
         setLoadedPerson(responseData.userWithImages);
@@ -68,7 +68,7 @@ const Individual = () => {
       }
   
       try {
-        const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);      
+        const response = await fetch(`https://artq-pi.vercel.app/api/users/${auth.userId}`);      
         const responseData = await response.json();
   
         if (!response.ok) {
@@ -109,7 +109,7 @@ const Individual = () => {
    const decrementFollowing = async () => {
      alert("user removed")
     try {
-      const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
+      const response = await fetch(`https://artq-pi.vercel.app/api/users/${auth.userId}`);
     
       const responseData = await response.json();
       console.log(responseData)
@@ -130,7 +130,7 @@ const Individual = () => {
     console.log(responseData.userWithImages.following)
     following = responseData.userWithImages.following[0].replace(loadedUsers[0]._id,'');
   
-    await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
+    await sendRequest(`https://artq-pi.vercel.app/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
         "following":following,
         "followingnumber":followingnumber
@@ -148,7 +148,7 @@ const Individual = () => {
 const decrementFollowers = async () => {
   alert("user removed")
  try {
-   const response = await fetch(`http://165.227.117.138:5000/api/users/${loadedUsers[0].author}`);
+   const response = await fetch(`https://artq-pi.vercel.app/api/users/${loadedUsers[0].author}`);
  
    const responseData = await response.json();
    console.log(responseData)
@@ -170,7 +170,7 @@ const decrementFollowers = async () => {
 
  console.log(auth.userId)
 
- await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+ await sendRequest(`https://artq-pi.vercel.app/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
      "id" : loadedUsers[0].author,
      "followers":followers,
      "followersnumber":followersnumber
@@ -188,7 +188,7 @@ const decrementFollowers = async () => {
   
    const incrementFollowing = async () => {
     try {
-      const response = await fetch(`http://165.227.117.138:5000/api/users/${auth.userId}`);
+      const response = await fetch(`https://artq-pi.vercel.app/api/users/${auth.userId}`);
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
@@ -200,7 +200,7 @@ const decrementFollowers = async () => {
       following = responseData.userWithImages.following
       following = responseData.userWithImages.following[0]+(loadedUsers[0]._id)  
       
-      await sendRequest(`http://165.227.117.138:5000/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
+      await sendRequest(`https://artq-pi.vercel.app/api/users/following/${auth.userId}`,'PUT',JSON.stringify({
         "id" : auth.userId,
         "following":following,
         "followingnumber":followingnumber
@@ -214,7 +214,7 @@ const decrementFollowers = async () => {
 
   const incrementFollowers = async () => {
     try {
-      const response = await fetch(`http://165.227.117.138:5000/api/users/${loadedUsers[0].author}`);
+      const response = await fetch(`https://artq-pi.vercel.app/api/users/${loadedUsers[0].author}`);
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
@@ -224,7 +224,7 @@ const decrementFollowers = async () => {
       followersnumber = responseData.userWithImages.followersnumber+1
       let followers = responseData.userWithImages.followers
       followers = responseData.userWithImages.followers[0]+(auth.userId)
-      await sendRequest(`http://165.227.117.138:5000/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
+      await sendRequest(`https://artq-pi.vercel.app/api/users/followers/${loadedUsers[0].author}`,'PUT',JSON.stringify({
         "id" : loadedUsers[0].author,
         "followers":followers,
         "followersnumber":followersnumber
@@ -241,7 +241,7 @@ const decrementFollowers = async () => {
         <div className='main'>
           <div className='personal-info'>
             <div className='profile-pic' >
-              <img src={`http://165.227.117.138:5000/${loadedImage}`} alt="new"/>
+              <img src={`https://artq-pi.vercel.app/${loadedImage}`} alt="new"/>
             </div>
             <div className='personal-info-text'>
               <div className='col-1'>
@@ -268,7 +268,7 @@ const decrementFollowers = async () => {
             {loadedPerson.map(details => {
               <CardModel className="place-item__content">
               <div className="place-item__image">
-                <img src={`http://165.227.117.138:5000/${details.url}`} alt={details.title} />
+                <img src={`https://artq-pi.vercel.app/${details.url}`} alt={details.title} />
               </div>
               <div className="place-item__info">
                 <h4>{details.title}</h4>

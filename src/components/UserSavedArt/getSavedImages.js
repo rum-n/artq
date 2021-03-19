@@ -13,7 +13,7 @@ const GetSavedImages = () => {
       const sendRequest = async () => {
   
         try {
-          const response = await fetch(`http://165.227.117.138:5000/api/saved/user/${auth.userId}`);
+          const response = await fetch(`https://artq-pi.vercel.app/api/saved/user/${auth.userId}`);
           
           const responseData = await response.json();
           
@@ -26,7 +26,7 @@ const GetSavedImages = () => {
           console.log(err);
         }
         try {
-          const response1 = await fetch(`http://165.227.117.138:5000/api/images/${loadedUsers.id}`);
+          const response1 = await fetch(`https://artq-pi.vercel.app/api/images/${loadedUsers.id}`);
           const responseData1 = await response1.json();
           if (!response1.ok) {
             throw new Error(responseData1.message);

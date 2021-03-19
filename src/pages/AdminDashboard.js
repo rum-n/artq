@@ -87,7 +87,7 @@ layoutRef.current = loadedPhone;
     const sendRequest1 = async (o,oIndex) => {
         try {
           
-          const response =  await fetch(`http://165.227.117.138:5000/api/users/${o.user1}`);
+          const response =  await fetch(`https://artq-pi.vercel.app/api/users/${o.user1}`);
           const responseData = await response.json();
           
           if (!response.ok) {
@@ -107,7 +107,7 @@ layoutRef.current = loadedPhone;
     const getthebuyer = async (o,oIndex) => {
         try {
            
-          const response =  await fetch(`http://165.227.117.138:5000/api/users/${o.artistid}`);
+          const response =  await fetch(`https://artq-pi.vercel.app/api/users/${o.artistid}`);
           const responseData = await response.json();
           
           if (!response.ok) {
@@ -131,7 +131,7 @@ layoutRef.current = loadedPhone;
         console.log(e.target.value)
         
          
-        await sendRequest(`http://165.227.117.138:5000/api/order/${o._id}/status/${o.user1}`,'PUT',JSON.stringify({
+        await sendRequest(`https://artq-pi.vercel.app/api/order/${o._id}/status/${o.user1}`,'PUT',JSON.stringify({
             orderId : o._id,
             status:e.target.value
         }),{
@@ -148,7 +148,7 @@ layoutRef.current = loadedPhone;
 
     const handleStatusChange = (o,e, orderId) =>{
 
-        return fetch(`http://165.227.117.138:5000/api/order/5ff1373ec464c44f0d3b64d9/status/5fecede41fdac7456367d4b4`,{
+        return fetch(`https://artq-pi.vercel.app/api/order/5ff1373ec464c44f0d3b64d9/status/5fecede41fdac7456367d4b4`,{
         method:"PUT",
         body:{
             "orderId" : "5ff1373ec464c44f0d3b64d9",

@@ -1,6 +1,6 @@
 import { useHttpClient } from '../components/hooks/http-hook';
 export const getBrainTreeClientToken = (userId) =>{
-    return fetch(`http://165.227.117.138:5000/api/braintree/getToken/${userId}`,{
+    return fetch(`https://artq-pi.vercel.app/api/braintree/getToken/${userId}`,{
         method:"GET"
       
     })
@@ -12,7 +12,7 @@ export const getBrainTreeClientToken = (userId) =>{
 }
 export const processPayment = (userId,paymentData) =>{
    
-     return fetch(`http://165.227.117.138:5000/api/braintree/payment/${userId}`,{
+     return fetch(`https://artq-pi.vercel.app/api/braintree/payment/${userId}`,{
         method:"POST",
         body:JSON.stringify({
             paymentData
@@ -27,7 +27,7 @@ export const processPayment = (userId,paymentData) =>{
 
 export const createOrder = (userId,createOrderData) => {
     console.log(createOrderData)
-    return fetch(`http://165.227.117.138:5000/api/order/create/${userId}`,{
+    return fetch(`https://artq-pi.vercel.app/api/order/create/${userId}`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'
@@ -44,7 +44,7 @@ export const createOrder = (userId,createOrderData) => {
 
 export const createBid = (createBidData) => {
     console.log("entered create bid")
-    return fetch(`http://165.227.117.138:5000/api/bid/`,{
+    return fetch(`https://artq-pi.vercel.app/api/bid/`,{
         method:"POST",
         headers:{
             'Content-Type':'application/json'

@@ -71,7 +71,7 @@ const Signup =  () => {
             formData.append('image',account.image)
             formData.append('location',account.location)
             formData.append('about',account.about)
-            await sendRequest('http://165.227.117.138:5000/api/users/signup', 'POST', formData
+            await sendRequest('https://artq-pi.vercel.app', 'POST', formData
             );
             setRedirect(true)
         } catch(err){

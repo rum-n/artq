@@ -91,7 +91,7 @@ const Feed = (props) => {
         formData.append('peoplewholiked',activepeoplewholiked)
         
    
-  await sendRequest('http://165.227.117.138:5000/api/saved','POST', formData)
+  await sendRequest('https://artq-pi.vercel.app/api/saved','POST', formData)
 } catch(err){}
 };
 
@@ -139,7 +139,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
   updatedpeople = o.peoplewholiked
   updatedpeople = updatedpeople+((auth.userId))
 }
-  await sendRequest(`http://165.227.117.138:5000/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
+  await sendRequest(`https://artq-pi.vercel.app/api/images/likes/${o.id}/status/`,'PUT',JSON.stringify({
       "id" : o.id,
       "likes":updatedlikes,
       "peoplewholiked":updatedpeople
@@ -157,7 +157,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
     <div>
           <Col key={props.id} xs={3} md={4} className='art-cards'>
             <Card style={{ width: '18rem', marginBottom: '2rem', border: 'none'}} >
-              <Card.Img src={`http://165.227.117.138:5000/${props.url}`} /> 
+              <Card.Img src={`https://artq-pi.vercel.app/${props.url}`} /> 
               {shouldRedirect(redirect)}
                 <div class='middle-layer'>
                   <p> {props.likes} likes</p>
@@ -177,7 +177,7 @@ const showRemoveButton = (showRemoveProductButton) =>{
                     <Container>
                       <Row>
                         <Col xs={12} md={6}>
-                            <img className="modal-img" src={`http://165.227.117.138:5000/${props.url}`} alt={activeItem.name}/>
+                            <img className="modal-img" src={`https://artq-pi.vercel.app/${props.url}`} alt={activeItem.name}/>
                         </Col>
                         <Col xs={12} md={6}>
                           <h3>{props.title}</h3>
