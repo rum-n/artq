@@ -33,7 +33,7 @@ const SignIn =  () => {
     
         try {
         let responseData = await sendRequest(
-            'http://165.227.117.138:5000/api/users/login',
+            'https://165.227.117.138:5000/api/users/login',
             'POST',  
             JSON.stringify({
                 "email": account.email,
