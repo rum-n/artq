@@ -2,10 +2,10 @@ import React, { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './TopNav.css';
 import { Link } from 'react-router-dom';
-import { Nav, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import {AuthContext} from "../context/auth-context";
 import toplogo from "./../assets/toplogo.png";
-import topmenu from "./../assets/topmenu.png";
+import { Cross as Hamburger } from 'hamburger-react'
 
 const TopNav = () => {
     const auth = useContext(AuthContext)
@@ -15,7 +15,8 @@ const TopNav = () => {
             <Link to='/'><img src={toplogo} /></Link>
             <Dropdown>
             <Dropdown.Toggle>
-                <img src={topmenu} />
+                {/* <img src={topmenu} /> */}
+                <Hamburger />
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
