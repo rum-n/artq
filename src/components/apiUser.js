@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useContext}from 'react';
 import {AuthContext} from "../context/auth-context";
 export const read = (userId) =>{
-    return fetch(`https://artq-pi.vercel.app/api/users/${userId}`,{
+    return fetch(`https://artq-api-rum-n.vercel.app/api/users/${userId}`,{
         method:"GET"
       
     })
@@ -14,7 +14,7 @@ export const read = (userId) =>{
 export const update = (userId,user,auth) =>{
     
     console.log("entered")
-    return fetch(`https://artq-pi.vercel.app/api/users/${userId}`,{
+    return fetch(`https://artq-api-rum-n.vercel.app/api/users/${userId}`,{
         method:"PATCH",
         body:{
             "name" : "Nandita K",

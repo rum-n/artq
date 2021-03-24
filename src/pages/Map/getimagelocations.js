@@ -11,7 +11,7 @@ const Users = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch('https://artq-pi.vercel.app/api/images');
+        const response = await fetch('https://artq-api-rum-n.vercel.app/api/images');
         
         const responseData = await response.json();
         

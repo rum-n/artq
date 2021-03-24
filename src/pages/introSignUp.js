@@ -37,7 +37,7 @@ const IntroSignUp = () => {
     
         try {
         let responseData = await sendRequest(
-            'https://artq-pi.vercel.app/api/users/login',
+            'https://artq-api-rum-n.vercel.app/api/users/login',
             'POST',  
             JSON.stringify({
                 "email": account.email,

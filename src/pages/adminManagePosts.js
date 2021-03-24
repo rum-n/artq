@@ -16,7 +16,7 @@ const AdminManagePosts = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `https://artq-pi.vercel.app/api/images`
+          `https://artq-api-rum-n.vercel.app/api/images`
         );
         const responseData = await response.json();
         setLoadedPlaces(responseData.image);

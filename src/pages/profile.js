@@ -26,7 +26,7 @@ const Profile = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch(`https://artq-pi.vercel.app/api/users/${userId}`);
+        const response = await fetch(`https://artq-api-rum-n.vercel.app/api/users/${userId}`);
         const responseData = await response.json();
         
         if (!response.ok) {
@@ -50,7 +50,7 @@ return (
     <div className='main'>
       <div className='personal-info'>
         <div className='profile-pic' >
-          <img src={`https://artq-pi.vercel.app/${loadedImage}`} alt="new"/>
+          <img src={`https://artq-api-rum-n.vercel.app/${loadedImage}`} alt="new"/>
         </div>
         <div className='personal-info-text'>
           <div className='col-1'>

@@ -11,7 +11,7 @@ const Purchases = () => {
     const getPurchases = async () => {
 
         try {
-          const response = await fetch(`https://artq-pi.vercel.app/api/users/orders/by/user/${userId}`);
+          const response = await fetch(`https://artq-api-rum-n.vercel.app/api/users/orders/by/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {

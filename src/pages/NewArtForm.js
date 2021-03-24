@@ -218,7 +218,7 @@ const NewPlace = (props) => {
         formData.append('sotherasia',formState.inputs.sasia.value)
         formData.append('totherasia',formState.inputs.tasia.value)
      console.log(file)
-    await sendRequest('https://artq-pi.vercel.app/api/images','POST',formData)
+    await sendRequest('https://artq-api-rum-n.vercel.app/api/images','POST',formData)
     history.push('/');
   } catch(err){
     console.log(err)
@@ -258,7 +258,7 @@ const NewPlace = (props) => {
         formData.append('tindia',formState.inputs.tindia.value)
         formData.append('sotherasia',formState.inputs.sasia.value)
         formData.append('totherasia',formState.inputs.tasia.value)
-  await sendRequest('https://artq-pi.vercel.app/api/images','POST',formData)
+  await sendRequest('https://artq-api-rum-n.vercel.app/api/images','POST',formData)
   history.push('/');
 } catch(err){
   console.log(err)
