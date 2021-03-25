@@ -1,6 +1,5 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { useHttpClient } from '../components/hooks/http-hook';
-import Savedimageslist from "../components/UserSavedArt/savedimageslist";
 import { AuthContext } from "../context/auth-context";
 import './SeeMore.css';
 import {useLocation} from "react-router-dom";
@@ -20,7 +19,7 @@ const Individual = () => {
   const auth = useContext(AuthContext)
   let data = useLocation();
   let theid = data.state.theid;
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const [loadedUsers, setLoadedUsers] = useState();
   const [loadedPerson, setLoadedPerson] = useState();
   const [disableunfollow, setdisableunfollow] = useState(false);

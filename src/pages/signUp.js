@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import './signUp.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import ImageUploading from "react-images-uploading";
-import { useHttpClient } from "../components/hooks/http-hook"
 import { ShortenUrlProvider } from 'react-shorten-url';
-import { useShortenUrl } from 'react-shorten-url';
-import ImageUpload from "../components/imageUpload"
-import artqlogo from './../assets/artq-logo-big.png';
 import plus from './../assets/plus.png';
 
 
