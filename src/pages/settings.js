@@ -8,7 +8,6 @@ import {AuthContext} from "../context/auth-context";
 import './settings.css';
 import './NewArtForm.css';
 import { VALIDATOR_MINLENGTH } from './util/validators';
-import Toggle from 'react-toggle';
 
 const Settings = () => {
   

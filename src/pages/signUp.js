@@ -4,8 +4,9 @@ import './signUp.css';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { ShortenUrlProvider } from 'react-shorten-url';
 import plus from './../assets/plus.png';
+import { useHttpClient } from "../components/hooks/http-hook";
+import artqlogo from './../assets/artq-logo-big.png';
 
 
 const Signup =  () => {
@@ -18,10 +19,10 @@ const Signup =  () => {
     
     setImages(imageList);}
     const { sendRequest } = useHttpClient();
-    const [previewUrl,setPreviewUrl] = useState()
+    // const [previewUrl,setPreviewUrl] = useState()
     const pic = []
     const [ redirect, setRedirect ] = useState(false)
-    const [ click, setClick ] = useState(false)
+    // const [ click, setClick ] = useState(false)
     
     function handleUpload(event) {
         setFile(event.target.files[0]);
