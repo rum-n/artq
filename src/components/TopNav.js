@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './TopNav.css';
 import { Link } from 'react-router-dom';
 import { Dropdown } from "react-bootstrap";
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 import toplogo from "./../assets/toplogo.png";
 import { Cross as Hamburger } from 'hamburger-react'
 
