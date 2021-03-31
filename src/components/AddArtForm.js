@@ -2,13 +2,9 @@ import React, { useState, useContext, useReducer, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SideNav.css';
 import './AddArtForm.css';
-import { Link, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {AuthContext} from "../context/auth-context";
-import cartimg from "../assets/cart.png";
-import {itemTotal} from "./cartHelpers"
-import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import {useHttpClient} from "../components/hooks/http-hook"
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {
@@ -16,14 +12,13 @@ import {
   VALIDATOR_MINLENGTH
 } from './../pages/util/validators';
 import Input from '../components/Input';
-import Button from '../components/Button';
 import upload from './../assets/upload.png';
 
 const AddArtForm = () => {
-    const auth = useContext(AuthContext);
+    // const auth = useContext(AuthContext);
     const [artstyle, setartstyle] = useState("");
     const [methodofbuying, setmethodofbuying] = useState("");
-    const [file, setFile] = useState("");
+    // const [file, setFile] = useState("");
 
     const formReducer = (state, action) => {
         switch (action.type) {
@@ -53,7 +48,7 @@ const AddArtForm = () => {
       const formData = new FormData();
   
       formData.append('File', event.target.files[0]);
-      setFile(event.target.files[0]);
+      // setFile(event.target.files[0]);
     }
 
     const [formState, dispatch] = useReducer(formReducer, {
@@ -168,7 +163,7 @@ const AddArtForm = () => {
         isValid: false
       });
     
-    const history = useHistory();
+    // const history = useHistory();  
 
     const inputHandler = useCallback((id, value, isValid) => {
     dispatch({

@@ -16,7 +16,7 @@ const Saved = () => {
     const sendRequest = async () => {
 
       try {
-        const response = await fetch(`https://artq-api-rum-n.vercel.app/api/saved/user/${auth.userId}`);
+        const response = await fetch(`https://localhost:5000/api/saved/user/${auth.userId}`);
         const responseData = await response.json();
 
         if (!response.ok) {
@@ -27,7 +27,7 @@ const Saved = () => {
         console.log(err);
       }
       try {
-        const response1 = await fetch(`https://artq-api-rum-n.vercel.app/api/images/${loadedUsers.id}`);
+        const response1 = await fetch(`https://localhost:5000/api/images/${loadedUsers.id}`);
         const responseData1 = await response1.json();
         if (!response1.ok) {
           throw new Error(responseData1.message);

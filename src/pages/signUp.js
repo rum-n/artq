@@ -67,7 +67,7 @@ const Signup =  () => {
             formData.append('image',account.image)
             formData.append('location',account.location)
             formData.append('about',account.about)
-            await sendRequest('https://artq-pi.vercel.app', 'POST', formData
+            await sendRequest('https://localhost:5000', 'POST', formData
             );
             setRedirect(true)
         } catch(err){

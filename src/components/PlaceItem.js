@@ -24,7 +24,7 @@ const PlaceItem = props => {
   const confirmDeleteHandler = async() => {
     setShowConfirmModal(false);
     try {
-    await sendRequest(`https://artq-api-rum-n.vercel.app/api/images/${props.id}`,'DELETE',null,{Authorization: 'Bearer '+auth.token});
+    await sendRequest(`https://localhost:5000/api/images/${props.id}`,'DELETE',null,{Authorization: 'Bearer '+auth.token});
     props.onDelete(props.id);
     } catch (err) {     
     }
@@ -35,7 +35,7 @@ const PlaceItem = props => {
       <li className="place-item">
         <CardModel className="place-item__content">
           <div className="place-item__image">
-            <img src={`https://artq-api-rum-n.vercel.app/${props.image}`} alt={props.title} />
+            <img src={`https://localhost:5000/${props.image}`} alt={props.title} />
           </div>
           <div className="place-item__info">
             <h4>{props.title}</h4>

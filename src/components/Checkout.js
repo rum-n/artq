@@ -83,7 +83,7 @@ const Checkout =({ products })=>{
         if (clicked === true){
             try {
                   await sendRequest(
-                   `https://artq-api-rum-n.vercel.app/api/braintree/payment/${userId}`,
+                   `https://localhost:5000/api/braintree/payment/${userId}`,
                    'POST',
                    JSON.stringify({
                   "paymentMethodNonce":thenonce,
@@ -132,7 +132,7 @@ const Checkout =({ products })=>{
                 let thename = ""
                 let theemail = ""
                   await sendRequest(
-                   `https://artq-api-rum-n.vercel.app/api/braintree/payment/${userId}`,
+                   `https://localhost:5000/api/braintree/payment/${userId}`,
                    'POST',
                    JSON.stringify({
                   paymentMethodNonce:nonce,
@@ -146,7 +146,7 @@ const Checkout =({ products })=>{
                      let theloadedemail = ""
                     const getuserinfo = async(paymentresponse) =>{
                  
-                        const response = await fetch(`https://artq-api-rum-n.vercel.app/api/users/${auth.userId}`);
+                        const response = await fetch(`https://localhost:5000/api/users/${auth.userId}`);
                         const responseData = await response.json();
                         
                         if (!response.ok) {
@@ -196,7 +196,7 @@ const Checkout =({ products })=>{
     const sendorder = async (createOrderData) => { 
         console.log(createOrderData)
        try {
-       await sendRequest(`https://artq-api-rum-n.vercel.app/api/order/create/${userId}`,'POST',JSON.stringify({
+       await sendRequest(`https://localhost:5000/api/order/create/${userId}`,'POST',JSON.stringify({
         createOrderData
        }),{
          'Content-Type':'application/json'

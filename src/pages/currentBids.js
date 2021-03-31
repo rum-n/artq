@@ -12,7 +12,7 @@ const CurrentBids = () => {
     const getbids = async () => {
 
         try {
-          const response = await fetch(`https://artq-api-rum-n.vercel.app/api/bid/user/${userId}`);
+          const response = await fetch(`https://localhost:5000/api/bid/user/${userId}`);
           const responseData = await response.json();
           
           if (!response.ok) {

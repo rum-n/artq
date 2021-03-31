@@ -27,7 +27,7 @@ const Cart =() => {
     const userId = auth.userId;
     useEffect(() => {
         getToken(userId)
-      }, []);
+      }, [userId]);
 
     const getToken=(userId) =>{
     getBrainTreeClientToken(userId).then(data =>{ 

@@ -127,7 +127,7 @@ const SeeMore = () => {
     console.log(data)
     const sendRequest = async () => {
       try {
-        const response = await fetch(`https://artq-api-rum-n.vercel.app/api/images/${params.imageId}`);
+        const response = await fetch(`https://localhost:5000/api/images/${params.imageId}`);
         const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -142,7 +142,7 @@ const SeeMore = () => {
 
     const getnumberofbids = async () => {
       try {
-        const response = await fetch(`https://artq-api-rum-n.vercel.app/api/bid/${params.imageId}`);
+        const response = await fetch(`https://localhost:5000/api/bid/${params.imageId}`);
         const responseData = await response.json();
         if (!response.ok) {
           throw new Error(responseData.message);
@@ -161,7 +161,7 @@ const SeeMore = () => {
   const sendbid = async event => {
     event.preventDefault();
     try {
-    await sendRequest('https://artq-api-rum-n.vercel.app/api/bid/','POST',JSON.stringify({
+    await sendRequest('https://localhost:5000/api/bid/','POST',JSON.stringify({
       "title":state.title,
       "artId":state._id,
       "description": state.description,
@@ -186,7 +186,7 @@ const SeeMore = () => {
     console.log(err)
   }
   try{
-    await sendRequest(`https://artq-api-rum-n.vercel.app/api/images/${state._id}`,'PUT',JSON.stringify({
+    await sendRequest(`https://localhost:5000/api/images/${state._id}`,'PUT',JSON.stringify({
       "id":state._id,
         "price":bidauth     
     }),{
@@ -199,7 +199,7 @@ const SeeMore = () => {
 
   const getname = async (state) => {
     try {
-      const response = await fetch(`https://artq-api-rum-n.vercel.app/api/users/${state.author}`);
+      const response = await fetch(`https://localhost:5000/api/users/${state.author}`);
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error(responseData.message);
@@ -218,7 +218,7 @@ const SeeMore = () => {
     <div className='seemore-wrapper'>
       
         <div className='seemore-img'>
-          <img src={`https://artq-api-rum-n.vercel.app/${state.url}`} alt={state.title} />
+          <img src={`https://localhost:5000/${state.url}`} alt={state.title} />
           {shouldRedirect(redirect)}
         </div>
 

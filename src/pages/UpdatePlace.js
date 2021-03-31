@@ -42,7 +42,7 @@ const UpdateImage = () => {
       try {
         
         const responseData = await sendRequest(
-          `https://artq-api-rum-n.vercel.app/api/images/${imageId}`
+          `https://localhost:5000/api/images/${imageId}`
         );
         setLoadedImage(responseData.image);
         setFormData(
@@ -75,7 +75,7 @@ const UpdateImage = () => {
     try {
       console.log(loadedImage.address)
       await sendRequest(
-        `https://artq-api-rum-n.vercel.app/api/images/${imageId}`,
+        `https://localhost:5000/api/images/${imageId}`,
         'PATCH',
         JSON.stringify({
           title: loadedImage.title,

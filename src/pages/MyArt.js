@@ -14,7 +14,7 @@ const UserPlaces = () => {
     const fetchImages = async () => {
       try {
         const response = await fetch(
-          `https://artq-api-rum-n.vercel.app/api/images/user/${auth.userId}`
+          `https://localhost:5000/api/images/user/${auth.userId}`
         );
         const responseData = await response.json();
         setLoadedPlaces(responseData.userWithImages);

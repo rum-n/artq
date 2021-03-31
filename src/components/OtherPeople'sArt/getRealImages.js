@@ -11,7 +11,7 @@ const GetRealImages = () => {
       const sendRequest = async () => {
   
         try {
-          const response = await fetch('https://artq-api-rum-n.vercel.app/api/images');
+          const response = await fetch('https://localhost:5000/api/images');
           
           const responseData = await response.json();
           
@@ -34,7 +34,7 @@ const GetRealImages = () => {
       const sendRequest = async () => {
   
         try {
-          const response = await fetch('https://artq-api-rum-n.vercel.app/api/saved');
+          const response = await fetch('https://localhost:5000/api/saved');
           
           const responseData = await response.json();
           

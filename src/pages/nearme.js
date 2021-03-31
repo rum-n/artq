@@ -76,7 +76,7 @@ const GoogleMaps = (props) => {
             <Container>
             <Row>
             <Col xs={12} md={6}>
-              <img className='map-modal-img' src=${`https://artq-api-rum-n.vercel.app/${dataArrayimage[i]}`} alt={activeItem.name}/>
+              <img className='map-modal-img' src=${`https://localhost:5000/${dataArrayimage[i]}`} alt={activeItem.name}/>
             </Col>
             <Col xs={12} md={6}>
               <h3>${dataArrayTitle[i]}</h3>
@@ -250,7 +250,7 @@ const findDistance = (lat,lng) =>{
           return (
           <Link to={`/seemore/${artists.id}`}>
           <div key={artists.id} className='artist-location-info'>
-            <img className='near-artist-img' src={`https://artq-api-rum-n.vercel.app/${artists.url}`} alt={artists.title}/>
+            <img className='near-artist-img' src={`https://localhost:5000/${artists.url}`} alt={artists.title}/>
             <div>
               <p>{artists.title}</p>
               <p>{artists.description}</p>
