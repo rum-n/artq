@@ -56,6 +56,9 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "DISABLE_ESLINT_PLUGIN=true NPM_CONFIG_PRODUCTION=false npm install npm && run build"
   },
+  "engines": {
+    "node": "12.19.0"
+},
   "eslintConfig": {
     "extends": [
       "react-app",
