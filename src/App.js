@@ -13,7 +13,7 @@ import IntroSignUp from './pages/introSignUp';
 import Signup from './pages/signUp';
 import Explore from "./pages/Users";
 import NewArt from './pages/NewArtForm';
-import {AuthContext} from "./context/auth-context";
+import {AuthContext} from "./components/context/auth-context";
 import MyArt from "./pages/MyArt";
 import UpdatePlace from "./pages/UpdatePlace";
 import SeeMore from "./pages/SeeMore";
