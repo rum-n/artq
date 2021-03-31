@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import CardModel from './CardModel';
 import Button from 'react-bootstrap/Button';
-import { AuthContext } from '../context/auth-context';
+import { AuthContext } from './context/auth-context';
 import { Link } from 'react-router-dom';
 import './PlaceItem.css';
 import { useHttpClient } from '../components/hooks/http-hook';
