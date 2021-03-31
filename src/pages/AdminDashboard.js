@@ -1,6 +1,6 @@
 import React, {useState,useEffect,useContext,Layout,useForceUpdate,useRef} from 'react';
 import {listOrders,getartistinfo,getStatusValues,updateOrderStatus} from "../components/apiAdmin"
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import Moment from 'react-moment';
 import {useHttpClient} from "../components/hooks/http-hook"
 import 'reactjs-popup/dist/index.css';

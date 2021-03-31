@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHttpClient } from '../components/hooks/http-hook';
-import { AuthContext } from "../context/auth-context";
+import { AuthContext } from "../components/context/auth-context";
 import './styles.css';
 import './currentBids.css';
 import '../components/Feed';

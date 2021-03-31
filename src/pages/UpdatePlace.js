@@ -9,7 +9,7 @@ import {
 } from '../pages/util/validators';
 import { useForm } from '../components/hooks/form-hook';
 import { useHttpClient } from '../components/hooks/http-hook';
-import { AuthContext } from '../context/auth-context';
+import { AuthContext } from '../components/context/auth-context';
 import '../components/PlaceItem.css';
 
 const UpdateImage = () => {

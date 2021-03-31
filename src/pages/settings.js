@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import './settings.css';
 import './NewArtForm.css';
 import { VALIDATOR_MINLENGTH } from './util/validators';

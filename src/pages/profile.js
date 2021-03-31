@@ -1,5 +1,5 @@
 import React,{useContext,useState,useEffect } from "react";
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import { Link } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import MyArt from "./MyArt"

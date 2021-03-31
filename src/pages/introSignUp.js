@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import './introSignUp.css'; 
 import { Link, Redirect } from "react-router-dom";
 import artqlogo from './../assets/artq-logo-big.png';
-import {AuthContext} from "../context/auth-context"
+import {AuthContext} from "../components/context/auth-context"
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import {useHttpClient} from "../components/hooks/http-hook"

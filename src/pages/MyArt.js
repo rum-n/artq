@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext } from 'react';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import PlaceList from '../components/PlaceList';
 import { useHttpClient } from '../components/hooks/http-hook';
 import CardDeck from 'react-bootstrap/CardDeck';

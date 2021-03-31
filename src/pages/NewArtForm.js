@@ -6,7 +6,7 @@ import Button from '../components/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH

@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import Input from '../components/Input';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import { VALIDATOR_MIN } from './util/validators';
 
 const SeeMore = () => {

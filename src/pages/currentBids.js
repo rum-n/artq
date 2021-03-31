@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext }from 'react';
 import './currentBids.css';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "../components/context/auth-context";
 import moment from "moment"
 import { Link } from "react-router-dom";
 

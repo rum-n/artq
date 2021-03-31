@@ -1,6 +1,6 @@
 import React, { useState, useEffect,useContext } from 'react';
 import { useHttpClient } from '../components/hooks/http-hook';
-import { AuthContext } from "../context/auth-context";
+import { AuthContext } from "../components/context/auth-context";
 import './SeeMore.css';
 import {useLocation} from "react-router-dom";
 import Button from 'react-bootstrap/Button';

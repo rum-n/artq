@@ -4,7 +4,7 @@ import GetRealImages from "../components/OtherPeople'sArt/getRealImages";
 import './homepage.css';
 import Modal from 'react-bootstrap/Modal';
 
-import {AuthContext} from "../context/auth-context"
+import {AuthContext} from "../components/context/auth-context"
 import { artistsearch, list,mediums, stylesearch } from './../components/apiCore';
 
 import Feed from './../components/Feed';

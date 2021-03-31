@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {useHttpClient} from "../components/hooks/http-hook"
-import {AuthContext} from "../context/auth-context"
+import {AuthContext} from "../components/context/auth-context"
 
 const SignIn =  () => {
     const auth = useContext(AuthContext);
