@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './SideNav.css';
 import { Link, useHistory } from 'react-router-dom';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 import cartimg from "../assets/cart.png";
 import Modal from 'react-bootstrap/Modal';
 import AddArtForm from './AddArtForm';

@@ -1,5 +1,5 @@
 import React, {useState,useEffect,useContext}from 'react';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 export const read = (userId) =>{
     return fetch(`https://localhost:5000/api/users/${userId}`,{
         method:"GET"

@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { addItem, removeItem } from "./cartHelpers"
-import { AuthContext } from "../context/auth-context";
+import { AuthContext } from "./context/auth-context";
 import { useHttpClient } from "../components/hooks/http-hook"
 import { Link } from "react-router-dom";
 import Heart from "react-animated-heart";

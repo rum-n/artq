@@ -3,7 +3,7 @@ import DropIn from "braintree-web-drop-in-react"
 import { useHttpClient } from '../components/hooks/http-hook';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {getBrainTreeClientToken, createOrder} from "./payments"
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 import {emptyCart} from "./cartHelpers"
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';

@@ -10,7 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form';
 import './Cart.css';
 import {getBrainTreeClientToken,processPayment} from "./payments"
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 import DropIn from "braintree-web-drop-in-react"
 
 const Cart =() => {

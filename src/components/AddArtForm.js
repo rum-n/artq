@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './SideNav.css';
 import './AddArtForm.css';
 import { useHistory } from 'react-router-dom';
-import {AuthContext} from "../context/auth-context";
+import {AuthContext} from "./context/auth-context";
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';

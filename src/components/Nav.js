@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Nav.css';
 import './styles.css'
 import logo from "../assets/logo.PNG";
-import {AuthContext} from "../context/auth-context"
+import {AuthContext} from "./context/auth-context"
 import { artistsearch, list,mediums, stylesearch } from './apiCore';
 import Modal from 'react-bootstrap/Modal';
 import Feed from './Feed';
